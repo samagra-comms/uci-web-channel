@@ -38,6 +38,7 @@ export class App extends React.Component {
   }
 
   onSessionCreated(session: any) {
+    console.log({session});
     this.setState({session: session});
   }
 
@@ -84,11 +85,10 @@ export class App extends React.Component {
           <Grid minH="100vh" p={3}>
             <ColorModeSwitcher justifySelf="flex-end" />
             <VStack spacing={8}>
-            <div className='container'>
-              <div className='container-title'>Messages</div>
+            <Box w="100%">
               <MessageWindow messages={this.state.messages} username={this.state.username} />
               <TextBar onSend={sendMessage} />
-            </div>
+            </Box>
             </VStack>
           </Grid>
         </Box>

@@ -1,14 +1,25 @@
 import './MessageWindow.css'
 
+import { Box, Flex, Spacer } from '@chakra-ui/react';
+
 import React from 'react'
 
 const Message = ({ text, username, self }: {text: any, username: string, self: boolean}) => {
   return (
-  <div className={'message' + (self ? ' message-self' : '')}>
-    <div className='message-username'>{username}</div>
-    <div className='message-text' style={{ whiteSpace: 'pre-wrap' }} >{text}</div>
-  </div>
-);}
+    <Flex>
+    { self === true &&
+        <><Spacer /><Box bg="green.600" w="80%">
+          <div className='message-username'>{username}</div>
+          <div style={{ whiteSpace: 'pre-wrap' }}>{text}</div>
+        </Box></>}
+    {!self === true &&
+      <><Box bg="gray.600" w="80%">
+          <div className='message-username'>{username}</div>
+          <div style={{ whiteSpace: 'pre-wrap' }}>{text}</div>
+        </Box><Spacer /></>}
+    </Flex>
+    )
+}
 
 export default class MessageWindow extends React.Component {
   messageWindow: any;
@@ -27,13 +38,13 @@ export default class MessageWindow extends React.Component {
     const messages: any = this.props.messages || [];
     console.log({username, messages});
     return (
-      <div className='message-window' ref={this.messageWindow}>
+      <Box ref={this.messageWindow}>
         {messages.length > 0 &&
         messages.map((msg: any, i: number) => {
           return <Message key={i} text={msg.text} username={msg.username} self={username === msg.username} />
         })}
         <div>&nbsp;</div>
-      </div>
+      </Box>
     )
   }
 }

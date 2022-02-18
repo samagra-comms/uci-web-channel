@@ -1,4 +1,7 @@
+import { Box, Button, Input } from '@chakra-ui/react';
 import React, { Component } from 'react'
+
+import { MdSend } from 'react-icons/md';
 
 export default class TextBar extends Component {
   props: any;
@@ -22,12 +25,12 @@ export default class TextBar extends Component {
     const sendMessageIfEnter = this.sendMessageIfEnter.bind(this)
 
     return (
-      <div>
-        <input type='text' ref={this.input} onKeyDown={sendMessageIfEnter} />
-        <button onClick={sendMessage}>
+      <Box bg='transparent' w='100%' p={4} color='white'>
+        <Input w="80%" placeholder='Type your message' ref={this.input} onKeyDown={sendMessageIfEnter} />
+        <Button leftIcon={<MdSend />} colorScheme='pink' variant='solid' onClick={sendMessage}>
           Send
-        </button>
-      </div>
+        </Button>
+      </Box>
     )
   }
 }
