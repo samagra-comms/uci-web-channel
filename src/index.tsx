@@ -1,9 +1,11 @@
-import { ColorModeScript } from "@chakra-ui/react"
 import * as React from "react"
-import ReactDOM from "react-dom"
-import { App } from "./App"
-import reportWebVitals from "./reportWebVitals"
 import * as serviceWorker from "./serviceWorker"
+
+import { App } from "./App"
+import { ColorModeScript } from "@chakra-ui/react"
+import ReactDOM from "react-dom"
+import reportWebVitals from "./reportWebVitals"
+import { startWebsocketConnection } from "./websocket"
 
 ReactDOM.render(
   <React.StrictMode>
@@ -22,3 +24,4 @@ serviceWorker.unregister()
 // to log results (for example: reportWebVitals(console.log))
 // or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
 reportWebVitals()
+startWebsocketConnection()
