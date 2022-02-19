@@ -1,7 +1,7 @@
 import * as React from "react";
 import * as serviceWorker from "serviceWorker";
 
-import { App } from "App";
+import App from "App";
 import { ColorModeScript } from "@chakra-ui/react";
 import ReactDOM from "react-dom";
 import reportWebVitals from "reportWebVitals";
