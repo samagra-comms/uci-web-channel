@@ -1,12 +1,5 @@
-import * as React from "react";
-
-import {
-  Box,
-  ChakraProvider,
-  Grid,  
-  VStack,
-  theme,
-} from "@chakra-ui/react";
+import { useState, useEffect } from "react";
+import { Box, ChakraProvider, Grid, VStack, theme } from "@chakra-ui/react";
 import {
   registerOnMessageCallback,
   registerOnSessionCallback,
@@ -17,8 +10,8 @@ import ColorModeSwitcher from "components/ColorModeSwitcher";
 import MessageWindow from "components/MessageWindow";
 import TextBar from "components/TextBar";
 
-export class App extends React.Component {
-  state: {
+const App = (): any => {
+  const initialState: {
     messages: any[];
     username: string;
     session: any;
@@ -28,21 +21,22 @@ export class App extends React.Component {
     session: {},
   };
 
-  send = send;
+  const [state, setState] = useState(initialState);
 
-  constructor(props: any) {
-    super(props);
-    registerOnMessageCallback(this.onMessageReceived.bind(this));
-    registerOnSessionCallback(this.onSessionCreated.bind(this));
-    this.send.bind(send);
-  }
+  useEffect((): void => {
+    registerOnMessageCallback(onMessageReceived);
+    registerOnSessionCallback(onSessionCreated);
+  }, [state]);
 
-  onSessionCreated(session: any) {
+  const onSessionCreated = (session: any) => {
     console.log({ session });
-    this.setState({ session: session });
-  }
+    setState({
+      ...state,
+      session: session,
+    });
+  };
 
-  onMessageReceived(msg: any) {
+  const onMessageReceived = (msg: any) => {
     let message = msg.content.title;
     if (msg.content.choices && msg.content.choices.length > 0) {
       for (let i = 0; i < msg.content.choices.length; i++) {
@@ -55,56 +49,56 @@ export class App extends React.Component {
       }
       console.log(msg.content.choices);
     }
-    this.setState({
-      messages: this.state.messages.concat({ username: "UCI", text: message }),
+    setState({
+      ...state,
+      messages: state.messages.concat({ username: "UCI", text: message }),
     });
-  }
+  };
 
-  setUserName(name: string) {
-    this.setState({
+  const setUserName = (name: string) => {
+    setState({
+      ...state,
       username: name,
     });
-  }
+  };
 
-  sendMessage(text: any) {
-    send(text, this.state.session);
-    this.setState({
-      messages: this.state.messages.concat({
-        username: this.state.username,
+  const sendMessage = (text: any) => {
+    send(text, state.session);
+    setState({
+      ...state,
+      messages: state.messages.concat({
+        username: state.username,
         text: text,
       }),
     });
-  }
-
-  render() {
-    const setUserName = this.setUserName.bind(this);
-    const sendMessage = this.sendMessage.bind(this);
-
-    if (this.state.username === null) {
-      return (
-        <div className="container">
-          <div className="container-title">Enter username</div>
-          <TextBar onSend={setUserName} />
-        </div>
-      );
-    }
+  };
+  if (state.username === null) {
+    console.log("Please set a username first");
     return (
-      <ChakraProvider theme={theme}>
-        <Box textAlign="center" fontSize="xl">
-          <Grid minH="100vh" p={3}>
-            <ColorModeSwitcher justifySelf="flex-end" />
-            <VStack spacing={8}>
-              <Box w="100%">
-                <MessageWindow
-                  messages={this.state.messages}
-                  username={this.state.username}
-                />
-                <TextBar onSend={sendMessage} />
-              </Box>
-            </VStack>
-          </Grid>
-        </Box>
-      </ChakraProvider>
+      <div className="container">
+        <div className="container-title">Enter username</div>
+        <TextBar onSend={setUserName} />
+      </div>
     );
   }
-}
+  return (
+    <ChakraProvider theme={theme}>
+      <Box textAlign="center" fontSize="xl">
+        <Grid minH="100vh" p={3}>
+          <ColorModeSwitcher justifySelf="flex-end" />
+          <VStack spacing={8}>
+            <Box w="100%">
+              <MessageWindow
+                messages={state.messages}
+                username={state.username}
+              />
+              <TextBar onSend={sendMessage} />
+            </Box>
+          </VStack>
+        </Grid>
+      </Box>
+    </ChakraProvider>
+  );
+};
+
+export default App;
