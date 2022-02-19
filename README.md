@@ -5,21 +5,22 @@
 The Unified Communications Interface (UCI) aims to democratize the use of different communication channels such as WhatsApp, Telegram, SMS, email and more for governance use cases through a standard configurable manner that is reusable and scalable across all governance use cases.
 
 ## Features
+
 - Ability to connect to any communication channel through any service provider without doing custom changes in the core logic UCI.
 - The UCI ecosystem is independent of external variables like communication channel and service provider powered by XMessage standard.
 - Ability to have a configurable conversation logic for the bot
 - Ability to connect to any database (local or federated) via services
-- Ability to include value added services in the bot interaction flow through Microservices (Internal or External) 
+- Ability to include value added services in the bot interaction flow through Microservices (Internal or External)
 - Ability to create tools on top of UCI APIs to manage Bot configuration, conversations and visualization
 
 ## Requirements
 
 [NodeJS](https://nodejs.org/en/download/) and NPM or [yarn]([https://yarnpkg.com/getting-started/install])
 
-
 ## Installation
 
 In the project directory, you can run:
+
 #### `yarn`
 
 #### `yarn start`
