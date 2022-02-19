@@ -1,83 +1,92 @@
-import * as React from "react"
+import * as React from "react";
 
 import {
   Box,
   ChakraProvider,
-  Code,
-  Grid,
-  Link,
-  Text,
+  Grid,  
   VStack,
   theme,
-} from "@chakra-ui/react"
-import { registerOnMessageCallback, registerOnSessionCallback, send } from './websocket'
+} from "@chakra-ui/react";
+import {
+  registerOnMessageCallback,
+  registerOnSessionCallback,
+  send,
+} from "websocket";
 
-import { ColorModeSwitcher } from "./ColorModeSwitcher"
-import { Logo } from "./Logo"
-import MessageWindow from "./MessageWindow"
-import TextBar from "./TextBar"
+import ColorModeSwitcher from "components/ColorModeSwitcher";
+import MessageWindow from "components/MessageWindow";
+import TextBar from "components/TextBar";
 
 export class App extends React.Component {
   state: {
-    messages: any[],
-    username: string,
-    session: any,
+    messages: any[];
+    username: string;
+    session: any;
   } = {
     messages: [],
     username: "chaks",
     session: {},
-  }
+  };
 
   send = send;
 
-  constructor (props: any) {
-    super(props)
-    registerOnMessageCallback(this.onMessageReceived.bind(this))
-    registerOnSessionCallback(this.onSessionCreated.bind(this))
+  constructor(props: any) {
+    super(props);
+    registerOnMessageCallback(this.onMessageReceived.bind(this));
+    registerOnSessionCallback(this.onSessionCreated.bind(this));
     this.send.bind(send);
   }
 
   onSessionCreated(session: any) {
-    console.log({session});
-    this.setState({session: session});
+    console.log({ session });
+    this.setState({ session: session });
   }
 
-  onMessageReceived (msg: any) {
+  onMessageReceived(msg: any) {
     let message = msg.content.title;
-    if(msg.content.choices && msg.content.choices.length > 0) {
-      for(let i=0; i<msg.content.choices.length; i++){
-        message = message + "\n" + msg.content.choices[i].key + ". " + msg.content.choices[i].text;
+    if (msg.content.choices && msg.content.choices.length > 0) {
+      for (let i = 0; i < msg.content.choices.length; i++) {
+        message =
+          message +
+          "\n" +
+          msg.content.choices[i].key +
+          ". " +
+          msg.content.choices[i].text;
       }
+      console.log(msg.content.choices);
     }
     this.setState({
-      messages: this.state.messages.concat({username: "UCI", text: message})
-    })
+      messages: this.state.messages.concat({ username: "UCI", text: message }),
+    });
   }
 
-  setUserName (name: string) {
+  setUserName(name: string) {
     this.setState({
-      username: name
-    })
+      username: name,
+    });
   }
 
-  sendMessage (text: any) {
-    send(text, this.state.session)
+  sendMessage(text: any) {
+    send(text, this.state.session);
     this.setState({
-      messages: this.state.messages.concat({username: this.state.username, text: text})
-    })
+      messages: this.state.messages.concat({
+        username: this.state.username,
+        text: text,
+      }),
+    });
   }
-  
-  render () {
+
+  render() {
     const setUserName = this.setUserName.bind(this);
     const sendMessage = this.sendMessage.bind(this);
 
     if (this.state.username === null) {
       return (
-        <div className='container'>
-          <div className='container-title'>Enter username</div>
+        <div className="container">
+          <div className="container-title">Enter username</div>
           <TextBar onSend={setUserName} />
         </div>
-      )
+      );
     }
     return (
       <ChakraProvider theme={theme}>
@@ -85,13 +94,17 @@ export class App extends React.Component {
           <Grid minH="100vh" p={3}>
             <ColorModeSwitcher justifySelf="flex-end" />
             <VStack spacing={8}>
-            <Box w="100%">
-              <MessageWindow messages={this.state.messages} username={this.state.username} />
-              <TextBar onSend={sendMessage} />
-            </Box>
+              <Box w="100%">
+                <MessageWindow
+                  messages={this.state.messages}
+                  username={this.state.username}
+                />
+                <TextBar onSend={sendMessage} />
+              </Box>
             </VStack>
           </Grid>
         </Box>
-      </ChakraProvider>);
+      </ChakraProvider>
+    );
   }
 }
