@@ -7,6 +7,7 @@
 }
 
 .message {
+  font-family: Mulish-regular;
   align-self: flex-start;
   width: 80%;
   background-color: #0f0f0f;
