@@ -15,7 +15,7 @@ const TextBar = (props: any) => {
   };
 
   return (
-    <Box bg="transparent" w="100%" p={4} color="white">
+    <div className="chat-footer">
       <Input
         w="80%"
         placeholder="Type your message"
@@ -30,7 +30,7 @@ const TextBar = (props: any) => {
       >
         Send
       </Button>
-    </Box>
+    </div>
   );
 };
 

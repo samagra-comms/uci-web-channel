@@ -89,13 +89,13 @@ const App = (): any => {
         <Grid minH="100vh" p={3}>
           <ColorModeSwitcher justifySelf="flex-end" />
           <VStack spacing={8}>
-            <Box w="100%">
+            <div className="chat-body">
               <MessageWindow
                 messages={state.messages}
                 username={state.username}
               />
               <TextBar onSend={sendMessage} />
-            </Box>
+            </div>
           </VStack>
         </Grid>
       </Box>

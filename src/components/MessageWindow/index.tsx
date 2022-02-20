@@ -16,18 +16,18 @@ const Message = ({
       {self === true && (
         <>
           <Spacer />
-          <Box bg="green.600" w="80%">
+          <div className="chat-message chat-reciever">
             <div className="message-username">{username}</div>
             <div style={{ whiteSpace: "pre-wrap" }}>{text}</div>
-          </Box>
+          </div>
         </>
       )}
       {!self === true && (
         <>
-          <Box bg="gray.600" w="80%">
+          <div className="chat-message">
             <div className="message-username">{username}</div>
             <div style={{ whiteSpace: "pre-wrap" }}>{text}</div>
-          </Box>
+          </div>
           <Spacer />
         </>
       )}
