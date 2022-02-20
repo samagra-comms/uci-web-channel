@@ -9,6 +9,7 @@ import {
 import ColorModeSwitcher from "components/ColorModeSwitcher";
 import MessageWindow from "components/MessageWindow";
 import TextBar from "components/TextBar";
+import Notification from "components/Notifications";
 
 const App = (): any => {
   const initialState: {
@@ -83,6 +84,7 @@ const App = (): any => {
   }
   return (
     <ChakraProvider theme={theme}>
+      <Notification />
       <Box textAlign="center" fontSize="xl">
         <Grid minH="100vh" p={3}>
           <ColorModeSwitcher justifySelf="flex-end" />
