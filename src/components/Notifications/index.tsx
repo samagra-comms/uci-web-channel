@@ -3,15 +3,15 @@ import MagicBell, {
 } from "@magicbell/magicbell-react";
 
 const theme = {
-  icon: { borderColor: "#6113A3", width: "40px" },
+  icon: { borderColor: "#0c32f2", width: "40px" },
   unseenBadge: { backgroundColor: "#DF4759" },
   header: {
-    backgroundColor: "#6113A3",
+    backgroundColor: "#0c32f2",
     textColor: "#ffffff",
     borderRadius: "16px",
   },
   footer: {
-    backgroundColor: "#6113A3",
+    backgroundColor: "#0c32f2",
     textColor: "#ffffff",
     borderRadius: "16px",
   },
@@ -19,15 +19,15 @@ const theme = {
     default: {
       textColor: "#15091F",
       borderRadius: "8px",
-      backgroundColor: "#6113A3",
+      backgroundColor: "#0c32f2",
     },
     unseen: {
-      backgroundColor: "#6113A3",
+      backgroundColor: "#0c32f2",
       textColor: "#15091F",
       borderRadius: "8px",
     },
     unread: {
-      backgroundColor: "#6113A3",
+      backgroundColor: "#0c32f2",
       textColor: "#15091F",
       borderRadius: "8px",
     },
