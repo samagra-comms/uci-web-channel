@@ -56,7 +56,6 @@ a {
   position: relative;
   font-size: 0.9rem;
   padding: 10px;
-  border-radius: 10px;
   border: 1.5px #0c32f2 solid;
   border-radius: 12px 12px 12px 0px;
   font-family: Mulish-regular;
@@ -100,4 +99,33 @@ a {
   justify-content: center;
   align-items: center;
   padding: 0.5rem;
+}
+.chat-choices {
+  font-size: 0.9rem;
+  padding: 10px;
+  border: 1.5px #0c32f2 solid;
+  border-radius: 25px;
+  font-family: Mulish-regular;
+  margin-bottom: 1rem;
+  margin-left: 0.5rem;
+  margin-right: 0.5rem;
+}
+.chat-choices-container {
+  display: inline-flex;
+}
+.chat-error-message {
+  z-index: 0;
+  position: relative;
+  font-size: 0.9rem;
+  padding: 10px;
+  border: 1.5px red solid;
+  color: red;
+  border-radius: 12px 12px 12px 0px;
+  font-family: Mulish-medium;
+  word-wrap: break-word;
+  display: table;
+  width: auto !important;
+  font-weight: 500;
+  margin-left: 25px;
+  margin-bottom: 1rem;
 }

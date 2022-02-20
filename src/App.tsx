@@ -38,21 +38,25 @@ const App = (): any => {
   };
 
   const onMessageReceived = (msg: any) => {
-    let message = msg.content.title;
-    if (msg.content.choices && msg.content.choices.length > 0) {
-      for (let i = 0; i < msg.content.choices.length; i++) {
-        message =
-          message +
-          "\n" +
-          msg.content.choices[i].key +
-          ". " +
-          msg.content.choices[i].text;
-      }
-      console.log(msg.content.choices);
-    }
+    // let message = msg.content.title;
+    // if (msg.content.choices && msg.content.choices.length > 0) {
+    //   for (let i = 0; i < msg.content.choices.length; i++) {
+    //     message =
+    //       message +
+    //       "\n" +
+    //       msg.content.choices[i].key +
+    //       ". " +
+    //       msg.content.choices[i].text;
+    //   }
+    //   console.log(msg.content.choices);
+    // }
     setState({
       ...state,
-      messages: state.messages.concat({ username: "UCI", text: message }),
+      messages: state.messages.concat({
+        username: "UCI",
+        text: msg.content.title,
+        choices: msg.content.choices,
+      }),
     });
   };
 

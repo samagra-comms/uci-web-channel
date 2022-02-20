@@ -6,10 +6,12 @@ const Message = ({
   text,
   username,
   self,
+  choices,
 }: {
   text: any;
   username: string;
   self: boolean;
+  choices: any;
 }) => {
   return (
     <Flex>
@@ -24,9 +26,24 @@ const Message = ({
       )}
       {!self === true && (
         <>
-          <div className="chat-message">
-            <div className="message-username">{username}</div>
-            <div style={{ whiteSpace: "pre-wrap" }}>{text}</div>
+          <div>
+            <div
+              className={
+                text === "Invalid Input!!! Please try again."
+                  ? "chat-error-message"
+                  : "chat-message"
+              }
+            >
+              <div className="message-username">{username}</div>
+              <div style={{ whiteSpace: "pre-wrap" }}>{text}</div>
+            </div>
+            {choices && choices.length > 0 && (
+              <div className="chat-choices-container">
+                {choices.map((choice: any) => (
+                  <div className="chat-choices">{choice.text}</div>
+                ))}
+              </div>
+            )}
           </div>
           <Spacer />
         </>
@@ -58,6 +75,7 @@ const MessageWindow = (props: any) => {
               text={msg.text}
               username={msg.username}
               self={username === msg.username}
+              choices={msg.choices}
             />
           );
         })}
