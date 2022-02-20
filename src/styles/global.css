@@ -3,16 +3,6 @@
   padding: 0;
   box-sizing: border-box;
 }
-
-:not(input) {
-  -webkit-touch-callout: none !important;
-  -webkit-user-select: none !important;
-  -khtml-user-select: none !important;
-  -moz-user-select: none !important;
-  -ms-user-select: none !important;
-  user-select: none !important;
-  -webkit-tap-highlight-color: transparent !important;
-}
 @font-face {
   font-family: Mulish-bold;
   src: url("assets/fonts/Mulish-Bold.ttf");
@@ -37,6 +27,11 @@
 body {
   margin: 0;
   font-family: Mulish-regular !important;
+  background-color: #ffffff;
+  padding-bottom: 98px !important;
+  transition: opacity 200ms;
+  position: relative;
+  font-family: Mulish-medium;
 }
 
 h1,
@@ -54,4 +49,55 @@ p {
 a {
   text-decoration: none;
   color: inherit;
+}
+
+.chat-message {
+  z-index: 0;
+  position: relative;
+  font-size: 0.9rem;
+  padding: 10px;
+  border-radius: 10px;
+  border: 1.5px #0c32f2 solid;
+  border-radius: 12px 12px 12px 0px;
+  font-family: Mulish-regular;
+  word-wrap: break-word;
+  display: table;
+  width: auto !important;
+  font-weight: 500;
+  margin-left: 25px;
+  margin-bottom: 1rem;
+}
+.chat-message::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -40px;
+  width: 0;
+  height: 0;
+  content: url("assets/images/robot.png");
+}
+.chat-reciever {
+  margin-left: auto;
+  background-color: #0c32f2;
+  color: rgb(255, 255, 255);
+  border-radius: 12px 12px 0px 12px;
+  display: table;
+}
+.chat-reciever::before {
+  content: "";
+}
+.chat-body {
+  width: 55%;
+}
+@media screen and (max-width: 768px) {
+  .chat-body {
+    width: 90%;
+  }
+}
+.chat-footer {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0.5rem;
 }
