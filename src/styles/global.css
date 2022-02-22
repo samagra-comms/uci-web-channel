@@ -27,7 +27,7 @@
 body {
   margin: 0;
   font-family: Mulish-regular !important;
-  background-color: rgb(247, 245, 245);  
+  background-color: rgb(255, 255, 255);
   transition: opacity 200ms;
   position: relative;
   font-family: Mulish-medium;
@@ -88,7 +88,7 @@ a {
 }
 .chat-body {
   /* opacity: 0; */
-  width: 50%;  
+  width: 50%;
   background-color: #ffffff;
   padding: 0px 20px;
   padding-bottom: 98px !important;
@@ -154,7 +154,7 @@ a {
   overflow: scroll;
   background-color: #ffffff;
   z-index: 1;
-  display: flex;  
+  display: flex;
   justify-content: center;
   position: relative;
 }
@@ -203,31 +203,29 @@ a {
 }
 .chat__footer {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
   height: 62px;
   background-color: #fff;
-  z-index: 1;
-  padding: 0 10px;
-  height: 54px;
-  position: absolute;
-  width: calc(100% + 56px);
-  bottom :0;
+  position: fixed;
+  width: 100%;
+  bottom: 0;
   z-index: 5;
   transform: translateZ(456px);
-  margin-bottom: 30px;
+  padding: 30px 0px;
 }
 
 .chat__footer > form {
   width: 100%;
   display: flex;
+  justify-content: center;
 }
 
 .send__btn {
   width: 46px;
   height: 46px;
   border-radius: 50%;
-  background: #06D755;
+  background: #06d755;
   box-shadow: 0px 0px 2px 0px #0000005e;
   border: none;
   transition: transform 150ms;
@@ -238,7 +236,7 @@ a {
 }
 
 .send__btn:active {
-  transform: scale(0.75)
+  transform: scale(0.75);
 }
 
 .send__btn:focus {
@@ -281,7 +279,30 @@ a {
 .chat__footer > form > input:focus {
   outline: none;
 }
-::placeholder{
+::placeholder {
   color: #a9a9a9;
   font-family: Mulish-regular;
+}
+
+.app__body {
+  background-image: linear-gradient(to right, #f5f5f5, #fdfdfda1);
+  background-repeat: no-repeat;
+  background-size: cover;
+  display: flex;
+  height: 100%;
+  width: 100%;
+  box-shadow: -1px 4px 20px 6px rgb(0 0 0 / 20%);
+  overflow: hidden;
+  position: relative;
+}
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.3);
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb {
+  background: #0c32f2;
+  border-radius: 10px;
 }
