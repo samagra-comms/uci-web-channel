@@ -3,7 +3,7 @@ import MagicBell, {
 } from "@magicbell/magicbell-react";
 
 const theme = {
-  icon: { borderColor: "#0c32f2", width: "40px" },
+  icon: { borderColor: "#ffffff", width: "40px" },
   unseenBadge: { backgroundColor: "#DF4759" },
   header: {
     backgroundColor: "#0c32f2",
