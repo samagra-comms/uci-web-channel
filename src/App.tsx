@@ -98,9 +98,9 @@ const App = (): any => {
       </div>
       <div className="chat-body-container">
         <div className="chat-body">         
-          <MessageWindow messages={state.messages} username={state.username} />
-          <TextBar onSend={sendMessage} />
+          <MessageWindow messages={state.messages} username={state.username} />          
         </div>
+        <TextBar onSend={sendMessage} />
       </div>
     </>
   );
