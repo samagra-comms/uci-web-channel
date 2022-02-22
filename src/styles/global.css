@@ -31,6 +31,7 @@ body {
   transition: opacity 200ms;
   position: relative;
   font-family: Mulish-medium;
+  scroll-behavior: smooth;
 }
 
 h1,
