@@ -24,9 +24,14 @@ const App = (): any => {
 
   const [state, setState] = useState(initialState);
 
+  const scrollToBottom = () => {
+    window.scrollTo(0, document.body.scrollHeight);
+  };
+
   useEffect((): void => {
     registerOnMessageCallback(onMessageReceived);
     registerOnSessionCallback(onSessionCreated);
+    scrollToBottom();
   }, [state]);
 
   const onSessionCreated = (session: any) => {
