@@ -57,10 +57,10 @@ a {
   font-size: 0.87rem;
   padding: 10px;
   border-radius: 10px;
-  border: 1.5px #0c32f2 solid;
+  border: 1.5px #000080 solid;
   border-radius: 12px 12px 12px 0px;
   font-family: Mulish-regular;
-  color: #0c32f2;
+  color: #000080;
   word-wrap: break-word;
   display: table;
   width: auto !important;
@@ -78,7 +78,7 @@ a {
 }
 .chat-reciever {
   margin-left: auto;
-  background-color: #0c32f2;
+  background-color: #000080;
   color: rgb(255, 255, 255);
   border-radius: 12px 12px 0px 12px;
   display: table;
@@ -112,7 +112,7 @@ a {
 .chat-choices {
   font-size: 0.9rem;
   padding: 10px;
-  border: 1.5px #0c32f2 solid;
+  border: 1.5px #000080 solid;
   border-radius: 25px;
   font-family: Mulish-regular;
   margin-bottom: 1rem;
@@ -174,7 +174,7 @@ a {
   background-image: url("assets/images/sidebar.png");
   background-repeat: no-repeat;
   background-size: cover;
-  background-color: #0c32f2;
+  background-color: #000080;
   background-blend-mode: multiply;
   color: white;
 }
@@ -304,6 +304,6 @@ a {
   border-radius: 10px;
 }
 ::-webkit-scrollbar-thumb {
-  background: #0c32f2;
+  background: #000080;
   border-radius: 10px;
 }
