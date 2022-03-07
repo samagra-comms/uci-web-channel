@@ -24,9 +24,14 @@ const App = (): any => {
 
   const [state, setState] = useState(initialState);
 
+  const scrollToBottom = () => {
+    window.scrollTo(0, document.body.scrollHeight);
+  };
+
   useEffect((): void => {
     registerOnMessageCallback(onMessageReceived);
     registerOnSessionCallback(onSessionCreated);
+    scrollToBottom();
   }, [state]);
 
   const onSessionCreated = (session: any) => {
@@ -87,23 +92,22 @@ const App = (): any => {
     );
   }
   return (
-    <ChakraProvider theme={theme}>
-      <Notification />
-      <Box textAlign="center" fontSize="xl">
-        <Grid minH="100vh" p={3}>
-          <ColorModeSwitcher justifySelf="flex-end" />
-          <VStack spacing={8}>
-            <div className="chat-body">
-              <MessageWindow
-                messages={state.messages}
-                username={state.username}
-              />
-              <TextBar onSend={sendMessage} />
-            </div>
-          </VStack>
-        </Grid>
-      </Box>
-    </ChakraProvider>
+    <>
+      <div className="chat-header">
+        <div className="chat__header--info">
+          <h3>Chakshu Gautam</h3>
+        </div>
+        <div className="chat__header--right">
+          <Notification />
+        </div>
+      </div>
+      <div className="chat-body-container">
+        <div className="chat-body">         
+          <MessageWindow messages={state.messages} username={state.username} />          
+        </div>
+        <TextBar onSend={sendMessage} />
+      </div>
+    </>
   );
 };
 
