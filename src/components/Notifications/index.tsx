@@ -6,12 +6,12 @@ const theme = {
   icon: { borderColor: "#ffffff", width: "40px" },
   unseenBadge: { backgroundColor: "#DF4759" },
   header: {
-    backgroundColor: "#0c32f2",
+    backgroundColor: "#000080",
     textColor: "#ffffff",
     borderRadius: "16px",
   },
   footer: {
-    backgroundColor: "#0c32f2",
+    backgroundColor: "#000080",
     textColor: "#ffffff",
     borderRadius: "16px",
   },
@@ -19,15 +19,15 @@ const theme = {
     default: {
       textColor: "#15091F",
       borderRadius: "8px",
-      backgroundColor: "#0c32f2",
+      backgroundColor: "#000080",
     },
     unseen: {
-      backgroundColor: "#0c32f2",
+      backgroundColor: "#000080",
       textColor: "#15091F",
       borderRadius: "8px",
     },
     unread: {
-      backgroundColor: "#0c32f2",
+      backgroundColor: "#000080",
       textColor: "#15091F",
       borderRadius: "8px",
     },

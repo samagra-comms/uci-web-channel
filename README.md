@@ -52,9 +52,7 @@ origin  https://github.com/Your_Username/uci-pwa.git (push)
 ```
 ### 4. Run it :checkered_flag:
 
-Open two terminal windows (on root folder)
-- Run `yarn start` on first terminal window.
-- Run `sudo docker run --name uci-ts-redis -p 6379:6379 redis` on second terminal window.
+Run `yarn start`
 ## Contributing
 
 We really like contributions in several forms, see [CONTRIBUTING.md](CONTRIBUTING.md)
