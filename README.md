@@ -1,10 +1,10 @@
 # Unified Communication Interface
 
-## About UCI
+## About UCI :open_book:
 
 The Unified Communications Interface (UCI) aims to democratize the use of different communication channels such as WhatsApp, Telegram, SMS, email and more for governance use cases through a standard configurable manner that is reusable and scalable across all governance use cases.
 
-## Features
+## Features :dart:
 
 - Ability to connect to any communication channel through any service provider without doing custom changes in the core logic UCI.
 - The UCI ecosystem is independent of external variables like communication channel and service provider powered by XMessage standard.
@@ -13,39 +13,48 @@ The Unified Communications Interface (UCI) aims to democratize the use of differ
 - Ability to include value added services in the bot interaction flow through Microservices (Internal or External)
 - Ability to create tools on top of UCI APIs to manage Bot configuration, conversations and visualization
 
-## Requirements
+## Requirements :scroll:
 
 [NodeJS](https://nodejs.org/en/download/) and NPM or [yarn]([https://yarnpkg.com/getting-started/install])
 
-## Installation
+## Installation :walking:
+### 1. Fork it :fork_and_knife:
 
-In the project directory, you can run:
+You can get your own fork/copy of [UCI](https://github.com/Samagra-Development/uci-pwa) by using the <kbd><b>Fork</b></kbd> button.
 
-#### `yarn`
+### 2. Clone it :busts_in_silhouette:
 
-#### `yarn start`
+You need to clone (download) it to a local machine using
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+```sh
+git clone https://github.com/Your_Username/uci-pwa.git
+```
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+> This makes a local copy of the repository in your machine.
 
-#### `yarn test`
+Once you have cloned the `uci-pwa` repository in GitHub, move to that folder first using the change directory command.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+```sh
+# This will change directory to a folder FOSSologyUI
+cd uci-pwa
+```
 
-#### `yarn build`
+Move to this folder for all other commands.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### 3. Set it up :arrow_up:
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Run the following commands to see that _your local copy_ has a reference to _your forked remote repository_ in GitHub :octocat:
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+```sh
+git remote -v
+origin  https://github.com/Your_Username/uci-pwa.git (fetch)
+origin  https://github.com/Your_Username/uci-pwa.git (push)
+```
+### 4. Run it :checkered_flag:
 
+Open two terminal windows (on root folder)
+- Run `yarn start` on first terminal window.
+- Run `sudo docker run --name uci-ts-redis -p 6379:6379 redis` on second terminal window.
 ## Contributing
 
 We really like contributions in several forms, see [CONTRIBUTING.md](CONTRIBUTING.md)
