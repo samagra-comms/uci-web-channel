@@ -4,7 +4,7 @@ const host =
     : "localhost:3005";
 const { io } = require("socket.io-client");
 
-export const socket = io("ws://localhost:3005");
+export const socket = io("wss://comms-playground.samagra.io");
 export const send = (msg: any, session: any) =>
   socket.emit("botRequest", {
     content: {
