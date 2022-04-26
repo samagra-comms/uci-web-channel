@@ -1,17 +1,20 @@
-import { useRef, useEffect } from "react";
+import { useRef, useEffect,useState } from "react";
 import "./index.css";
-import { Box, Flex, Spacer } from "@chakra-ui/react";
+import { Box, Flex, Spacer, Button } from "@chakra-ui/react";
+
 
 const Message = ({
   text,
   username,
   self,
   choices,
+  data
 }: {
   text: any;
   username: string;
   self: boolean;
   choices: any;
+  data: any;
 }) => {
   return (
     <Flex>
@@ -30,18 +33,18 @@ const Message = ({
             <div
               className={
                 text === "Invalid Input!!! Please try again."
-                  ? "chat-error-message"
-                  : "chat-message"
+                ? "chat-error-message"
+                : "chat-message"
               }
-            >
+              >
               <div className="message-username">{username}</div>
               <div style={{ whiteSpace: "pre-wrap" }}>{text}</div>
             </div>
             {choices && choices.length > 0 && (
               <div className="chat-choices-container">
                 {choices.map((choice: any) => (
-                  <div className="chat-choices">{choice.text}</div>
-                ))}
+                  <Button className="chat-choices" onClick={() => data(choice)}>{choice.key}{" "}{choice.text}</Button>
+                  ))}
               </div>
             )}
           </div>
@@ -52,9 +55,9 @@ const Message = ({
   );
 };
 
+
 const MessageWindow = (props: any) => {
   let messageWindow: any = useRef(null);
-
   useEffect(() => {
     messageWindow = messageWindow.current;
     messageWindow.scrollTop =
@@ -63,22 +66,22 @@ const MessageWindow = (props: any) => {
 
   const username: string = props.username;
   const messages: any = props.messages || [];
-  console.log({ username, messages });
-
+  console.log({ username, messages});
   return (
     <Box ref={messageWindow}>
       {messages.length > 0 &&
         messages.map((msg: any, i: number) => {
           return (
             <Message
-              key={i}
-              text={msg.text}
-              username={msg.username}
-              self={username === msg.username}
-              choices={msg.choices}
+            key={i}
+            text={msg.text}
+            username={msg.username}
+            self={username === msg.username}
+            choices={msg.choices}
+            data={props.selected}
             />
-          );
-        })}
+            );
+          })}
       <div>&nbsp;</div>
     </Box>
   );

@@ -23,7 +23,8 @@ const App = (): any => {
   };
 
   const [state, setState] = useState(initialState);
-
+  const [data , setData] = useState('');
+  
   const scrollToBottom = () => {
     window.scrollTo(0, document.body.scrollHeight);
   };
@@ -91,6 +92,12 @@ const App = (): any => {
       </div>
     );
   }
+
+  const selected = (option: any) => {
+    const toSend = option.key+" "+option.text;
+    sendMessage(toSend);
+  }
+
   return (
     <>
       <div className="chat-header">
@@ -103,7 +110,7 @@ const App = (): any => {
       </div>
       <div className="chat-body-container">
         <div className="chat-body">         
-          <MessageWindow messages={state.messages} username={state.username} />          
+          <MessageWindow messages={state.messages} username={state.username} selected={selected}/>          
         </div>
         <TextBar onSend={sendMessage} />
       </div>
