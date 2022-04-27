@@ -23,7 +23,6 @@ const App = (): any => {
   };
 
   const [state, setState] = useState(initialState);
-  const [data , setData] = useState('');
   
   const scrollToBottom = () => {
     window.scrollTo(0, document.body.scrollHeight);

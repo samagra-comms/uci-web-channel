@@ -1,4 +1,4 @@
-import { useRef, useEffect,useState } from "react";
+import { useRef, useEffect } from "react";
 import "./index.css";
 import { Box, Flex, Spacer, Button } from "@chakra-ui/react";
 
