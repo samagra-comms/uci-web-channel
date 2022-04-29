@@ -122,6 +122,7 @@ a {
 }
 .chat-choices-container {
   display: inline-flex;
+  flex-wrap: wrap;
 }
 .chat-error-message {
   z-index: 0;
