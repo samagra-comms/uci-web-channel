@@ -4,8 +4,13 @@ const host =
     : "localhost:3005";
 const { io } = require("socket.io-client");
 
+<<<<<<< HEAD
 export const socket = io(`${process.env.REACT_APP_TRANSPORT_SOCKET_URL}`);
 export const send = (msg: any, session: any, media: any) =>
+=======
+export const socket = io("ws://ts-tanisha.ngrok.samagra.io");
+export const send = (msg: any, session: any) =>
+>>>>>>> media files
   socket.emit("botRequest", {
     content: {
       text: msg,
