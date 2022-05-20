@@ -54,14 +54,61 @@ const App = (): any => {
     //   }
     //   console.log(msg.content.choices);
     // }
-    setState({
-      ...state,
-      messages: state.messages.concat({
-        username: "UCI",
-        text: msg.content.title,
-        choices: msg.content.choices,
-      }),
-    });
+    if (msg.content.msg_type === "IMAGE"){
+      setState({
+        ...state,
+        messages: state.messages.concat({
+          username: "UCI",
+          text: msg.content.title,
+          image: msg.content.media_url,
+          choices: msg.content.choices,
+          caption: msg.content.caption,
+        }),
+      });
+    }
+    else if (msg.content.msg_type === "AUDIO"){
+      setState({
+        ...state,
+        messages: state.messages.concat({
+          username: "UCI",
+          text: msg.content.title,
+          audio: msg.content.media_url,
+          choices: msg.content.choices,
+        }),
+      });
+    }
+    else if (msg.content.msg_type === "VIDEO"){
+      setState({
+        ...state,
+        messages: state.messages.concat({
+          username: "UCI",
+          text: msg.content.title,
+          video: msg.content.media_url,
+          choices: msg.content.choices,
+        }),
+      });
+    }
+    else if (msg.content.msg_type === "DOCUMENT"){
+      setState({
+        ...state,
+        messages: state.messages.concat({
+          username: "UCI",
+          text: msg.content.title,
+          doc: msg.content.media_url,
+          choices: msg.content.choices,
+        }),
+      });
+    }
+    else{
+      setState({
+        ...state,
+        messages: state.messages.concat({
+          username: "UCI",
+          text: msg.content.title,
+          choices: msg.content.choices,
+        }),
+      });
+    }
   };
 
   const setUserName = (name: string) => {
