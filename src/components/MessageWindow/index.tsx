@@ -1,6 +1,8 @@
 import { useRef, useEffect } from "react";
 import "./index.css";
 import { Box, Flex, Spacer, Button } from "@chakra-ui/react";
+import { Link } from '@chakra-ui/react'
+import { ExternalLinkIcon } from '@chakra-ui/icons'
 
 
 const Message = ({
@@ -8,13 +10,23 @@ const Message = ({
   username,
   self,
   choices,
-  data
+  data,
+  image,
+  caption,
+  audio,
+  video,
+  doc
 }: {
   text: any;
   username: string;
   self: boolean;
   choices: any;
   data: any;
+  image: any;
+  caption: string;
+  audio: any;
+  video: any;
+  doc: any;
 }) => {
   return (
     <Flex>
@@ -24,6 +36,7 @@ const Message = ({
           <div className="chat-message chat-reciever">
             <div className="message-username">{username}</div>
             <div style={{ whiteSpace: "pre-wrap" }}>{text}</div>
+            <div style={{ whiteSpace: "pre-wrap" }}>{image}</div>
           </div>
         </>
       )}
@@ -39,6 +52,30 @@ const Message = ({
               >
               <div className="message-username">{username}</div>
               <div style={{ whiteSpace: "pre-wrap" }}>{text}</div>
+              {image &&
+                <div style={{ whiteSpace: "pre-wrap" }}><img src={image} style={{maxWidth: "300px"}}/></div>
+              } 
+              {audio &&
+                <audio controls>
+                  <source src={audio} type="audio/mpeg" />
+                  Your browser does not support the audio element.
+                </audio>
+              }
+              {video &&
+                <video width="320" height="240" controls>
+                  <source src={video} type="video/mp4" />
+                  Your browser does not support the video tag.
+              </video>
+              } 
+              {doc &&
+                // <a href={doc} target="_blank" style={{color: "red"}}>Click to open the document</a>
+                <Button colorScheme='blackAlpha' padding="10px" marginTop='10px'>
+                  <Link href={doc} isExternal>
+                    Click to open the document <ExternalLinkIcon mx='2px' />
+                  </Link>
+                </Button>
+              } 
+              <div style={{ whiteSpace: "pre-wrap" }}>{caption}</div>
             </div>
             {choices && choices.length > 0 && (
               <div className="chat-choices-container">
@@ -79,6 +116,11 @@ const MessageWindow = (props: any) => {
             self={username === msg.username}
             choices={msg.choices}
             data={props.selected}
+            image={msg.image}
+            caption={msg.caption}
+            audio={msg.audio}
+            video={msg.video}
+            doc={msg.doc}
             />
             );
           })}
