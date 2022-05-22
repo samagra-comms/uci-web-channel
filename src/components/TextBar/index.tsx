@@ -1,13 +1,15 @@
 import { useRef } from "react";
 import { Box, Button, Input } from "@chakra-ui/react";
 import { MdSend } from "react-icons/md";
-
 const TextBar = (props: any) => {
   const input: any = useRef(null);
     const sendMessage = (e: any) => {
       e.preventDefault();
       const message = input.current.value;
-      if (message.length > 0) {
+      if(input.current.value.trim().length === 0) {
+        alert("Please enter a valid message");
+      }
+      else if (message.length > 0 ){
         props?.onSend && props.onSend(input.current.value);
       }
       input.current.value = "";
