@@ -2,6 +2,7 @@ import { useRef } from "react";
 import { Box, Button, Input } from "@chakra-ui/react";
 import { MdSend } from "react-icons/md";
 
+
 const TextBar = (props: any) => {
   const input: any = useRef(null);
     const sendMessage = (e: any) => {
