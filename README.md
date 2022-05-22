@@ -18,6 +18,7 @@ The Unified Communications Interface (UCI) aims to democratize the use of differ
 [NodeJS](https://nodejs.org/en/download/) and NPM or [yarn]([https://yarnpkg.com/getting-started/install])
 
 ## Installation :walking:
+
 ### 1. Fork it :fork_and_knife:
 
 You can get your own fork/copy of [UCI](https://github.com/Samagra-Development/uci-web-channel) by using the <kbd><b>Fork</b></kbd> button.
@@ -50,9 +51,19 @@ git remote -v
 origin  https://github.com/Your_Username/uci-web-channel.git (fetch)
 origin  https://github.com/Your_Username/uci-web-channel.git (push)
 ```
-### 4. Run it :checkered_flag:
+
+### 4. Create a new .env file and copy contents from .env.example :open_file_folder:
+
+```sh
+cp .env.example .env
+```
+
+The websocket connection URL for the plaground can be used for testing - `wss://comms-playground.samagra.io` for the `REACT_APP_TRANSPORT_SOCKET_URL`.
+
+### 5. Run it :checkered_flag:
 
 Run `yarn start`
+
 ## Contributing
 
 We really like contributions in several forms, see [CONTRIBUTING.md](CONTRIBUTING.md)
