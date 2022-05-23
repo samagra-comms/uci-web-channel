@@ -51,7 +51,9 @@ const Message = ({
               }
               >
               <div className="message-username">{username}</div>
-              <div style={{ whiteSpace: "pre-wrap" }}>{text}</div>
+              {(!image && !audio && !video && !doc) && 
+                <div style={{ whiteSpace: "pre-wrap" }}>{text}</div>
+              }
               {image &&
                 <div style={{ whiteSpace: "pre-wrap" }}><img src={image} style={{maxWidth: "300px"}}/></div>
               } 
@@ -68,7 +70,6 @@ const Message = ({
               </video>
               } 
               {doc &&
-                // <a href={doc} target="_blank" style={{color: "red"}}>Click to open the document</a>
                 <Button colorScheme='blackAlpha' padding="10px" marginTop='10px'>
                   <Link href={doc} isExternal>
                     Click to open the document <ExternalLinkIcon mx='2px' />
