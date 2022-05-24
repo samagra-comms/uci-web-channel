@@ -1,6 +1,8 @@
 import { useRef } from "react";
 import { Box, Button, Input } from "@chakra-ui/react";
 import { MdSend } from "react-icons/md";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 
 const TextBar = (props: any) => {
@@ -9,7 +11,7 @@ const TextBar = (props: any) => {
       e.preventDefault();
       const message = input.current.value;
       if(input.current.value.trim().length === 0) {
-        alert("Please enter a valid message");
+        toast.error("Please enter a valid message");
       }
       else if (message.length > 0 ){
         props?.onSend && props.onSend(input.current.value);
@@ -20,6 +22,7 @@ const TextBar = (props: any) => {
     if (e.keyCode === 13 && input.current.value.length > 0) {
       sendMessage(e);
     }
+    
   };
 
   return (
@@ -65,6 +68,7 @@ const TextBar = (props: any) => {
 	        </form>
 	        
 	    </div> */}
+      <ToastContainer />
       <div className="chat__footer">
         <form>
           <input

@@ -10,7 +10,6 @@ import MessageWindow from "components/MessageWindow";
 import TextBar from "components/TextBar";
 import Notification from "components/Notifications";
 import "styles/global.css";
-
 const App = (): any => {
   const initialState: {
     messages: any[];
