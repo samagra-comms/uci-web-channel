@@ -7,6 +7,7 @@ import ReactDOM from "react-dom";
 import reportWebVitals from "reportWebVitals";
 import { startWebsocketConnection } from "websocket";
 
+
 ReactDOM.render(
   <React.StrictMode>
     <ColorModeScript />
