@@ -1,5 +1,7 @@
 # Unified Communication Interface 
-[![ci status][ci image]][ci url] [![badges status][badges image]][badges url] [![renovate-app badge][renovate-badge]][renovate-app] ![cypress version](https://img.shields.io/badge/cypress-9.7.0-brightgreen)
+[![ci](https://github.com/samagra-comms/uci-web-channel/actions/workflows/ci.yml/badge.svg)](https://github.com/samagra-comms/uci-web-channel/actions/workflows/ci.yml)
+[![badges](https://github.com/samagra-comms/uci-web-channel/actions/workflows/badges.yml/badge.svg)](https://github.com/samagra-comms/uci-web-channel/actions/workflows/badges.yml)
+![cypress version](https://img.shields.io/badge/cypress-9.7.0-brightgreen)
 
 ## About UCI :open_book:
 
