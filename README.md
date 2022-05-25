@@ -1,4 +1,4 @@
-# Unified Communication Interface
+# Unified Communication Interface ![cypress version](https://img.shields.io/badge/cypress-9.7.0-brightgreen)
 
 ## About UCI :open_book:
 
