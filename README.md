@@ -1,4 +1,7 @@
-# Unified Communication Interface
+# Unified Communication Interface 
+[![ci](https://github.com/samagra-comms/uci-web-channel/actions/workflows/ci.yml/badge.svg)](https://github.com/samagra-comms/uci-web-channel/actions/workflows/ci.yml)
+[![badges](https://github.com/samagra-comms/uci-web-channel/actions/workflows/badges.yml/badge.svg)](https://github.com/samagra-comms/uci-web-channel/actions/workflows/badges.yml)
+![cypress version](https://img.shields.io/badge/cypress-9.7.0-brightgreen)
 
 ## About UCI :open_book:
 
@@ -48,6 +51,7 @@ Run the following commands to see that _your local copy_ has a reference to _you
 
 ```sh
 git remote -v
+
 origin  https://github.com/Your_Username/uci-web-channel.git (fetch)
 origin  https://github.com/Your_Username/uci-web-channel.git (push)
 ```
@@ -55,7 +59,7 @@ origin  https://github.com/Your_Username/uci-web-channel.git (push)
 ### 4. Create a new .env file and copy contents from .env.example :open_file_folder:
 
 ```sh
-cp .env.example .env
+cp .env.sample .env
 ```
 
 The websocket connection URL for the plaground can be used for testing - `wss://comms-playground.samagra.io` for the `REACT_APP_TRANSPORT_SOCKET_URL`.
