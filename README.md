@@ -18,25 +18,26 @@ The Unified Communications Interface (UCI) aims to democratize the use of differ
 [NodeJS](https://nodejs.org/en/download/) and NPM or [yarn]([https://yarnpkg.com/getting-started/install])
 
 ## Installation :walking:
+
 ### 1. Fork it :fork_and_knife:
 
-You can get your own fork/copy of [UCI](https://github.com/Samagra-Development/uci-pwa) by using the <kbd><b>Fork</b></kbd> button.
+You can get your own fork/copy of [UCI](https://github.com/Samagra-Development/uci-web-channel) by using the <kbd><b>Fork</b></kbd> button.
 
 ### 2. Clone it :busts_in_silhouette:
 
 You need to clone (download) it to a local machine using
 
 ```sh
-git clone https://github.com/Your_Username/uci-pwa.git
+git clone https://github.com/Your_Username/uci-web-channel.git
 ```
 
 > This makes a local copy of the repository in your machine.
 
-Once you have cloned the `uci-pwa` repository in GitHub, move to that folder first using the change directory command.
+Once you have cloned the `uci-web-channel` repository in GitHub, move to that folder first using the change directory command.
 
 ```sh
 # This will change directory to a folder FOSSologyUI
-cd uci-pwa
+cd uci-web-channel
 ```
 
 Move to this folder for all other commands.
@@ -47,12 +48,23 @@ Run the following commands to see that _your local copy_ has a reference to _you
 
 ```sh
 git remote -v
-origin  https://github.com/Your_Username/uci-pwa.git (fetch)
-origin  https://github.com/Your_Username/uci-pwa.git (push)
+
+origin  https://github.com/Your_Username/uci-web-channel.git (fetch)
+origin  https://github.com/Your_Username/uci-web-channel.git (push)
 ```
-### 4. Run it :checkered_flag:
+
+### 4. Create a new .env file and copy contents from .env.example :open_file_folder:
+
+```sh
+cp .env.sample .env
+```
+
+The websocket connection URL for the plaground can be used for testing - `wss://comms-playground.samagra.io` for the `REACT_APP_TRANSPORT_SOCKET_URL`.
+
+### 5. Run it :checkered_flag:
 
 Run `yarn start`
+
 ## Contributing
 
 We really like contributions in several forms, see [CONTRIBUTING.md](CONTRIBUTING.md)
