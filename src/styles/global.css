@@ -98,6 +98,9 @@ a {
   position: relative;
   font-family: Mulish-medium;
 }
+.Toastify__toast-container{
+  top: 50px;
+}
 @media screen and (max-width: 768px) {
   .chat-body {
     width: 100%;
