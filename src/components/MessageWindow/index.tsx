@@ -35,8 +35,31 @@ const Message = ({
           <Spacer />
           <div className="chat-message chat-reciever">
             <div className="message-username">{username}</div>
-            <div style={{ whiteSpace: "pre-wrap" }}>{text}</div>
-            <div style={{ whiteSpace: "pre-wrap" }}>{image}</div>
+              {(!image && !audio && !video && !doc) && 
+                <div style={{ whiteSpace: "pre-wrap" }}>{text}</div>
+              }
+              {image &&
+                <div style={{ whiteSpace: "pre-wrap" }}><img src={image} style={{maxWidth: "300px"}}/></div>
+              } 
+              {audio &&
+                <audio controls>
+                  <source src={audio}/>
+                  Your browser does not support the audio element.
+                </audio>
+              }
+              {video &&
+                <video width="320" height="240" controls>
+                  <source src={video}/>
+                  Your browser does not support the video tag.
+              </video>
+              } 
+              {doc &&
+                <Button colorScheme='blackAlpha' padding="10px" marginTop='10px'>
+                  <Link href={doc} isExternal>
+                    Click to open this file <ExternalLinkIcon mx='2px' />
+                  </Link>
+                </Button>
+              } 
           </div>
         </>
       )}
@@ -59,20 +82,20 @@ const Message = ({
               } 
               {audio &&
                 <audio controls>
-                  <source src={audio} type="audio/mpeg" />
+                  <source src={audio}/>
                   Your browser does not support the audio element.
                 </audio>
               }
               {video &&
                 <video width="320" height="240" controls>
-                  <source src={video} type="video/mp4" />
+                  <source src={video} />
                   Your browser does not support the video tag.
               </video>
               } 
               {doc &&
                 <Button colorScheme='blackAlpha' padding="10px" marginTop='10px'>
                   <Link href={doc} isExternal>
-                    Click to open the document <ExternalLinkIcon mx='2px' />
+                    Click to open this file <ExternalLinkIcon mx='2px' />
                   </Link>
                 </Button>
               } 
