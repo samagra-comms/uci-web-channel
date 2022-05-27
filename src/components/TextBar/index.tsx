@@ -1,13 +1,17 @@
-import { useRef } from "react";
 import { Box, Button, Input } from "@chakra-ui/react";
 import { MdSend } from "react-icons/md";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
+import { useRef, useState } from "react";
+import 'bootstrap/dist/css/bootstrap.min.css';
+import { FileUploader } from "./file-uploader";
+
 
 const TextBar = (props: any) => {
   const input: any = useRef(null);
-    const sendMessage = (e: any) => {
+  const [selectedImage, setSelectedImage] = useState<any | null>(null);
+  const sendMessage = (e: any) => {
       e.preventDefault();
       const message = input.current.value;
       if(input.current.value.trim().length === 0) {
@@ -75,11 +79,19 @@ const TextBar = (props: any) => {
             placeholder="Type your message"
             ref={input}
             onKeyDown={sendMessageIfEnter}
-          />        
+          />  
+          <div className="file btn btn-primary" style={{position: "relative", overflow: "hidden", marginRight: '7px', paddingTop: '10px'}}>
+							Upload
+							<input type="file" name="file" style={{position: "absolute", fontSize: "50px", opacity: "0", right: "0", top: "0"}}
+                onChange={(event) => {
+                  setSelectedImage(event.target.files[0])
+                }}/>
+						</div>       
         <button className="send__btn" onClick={sendMessage} type="submit">
           Send
         </button>
         </form>
+        {selectedImage && <FileUploader file={selectedImage} session={props.session}/>}
       </div>
     </>
   );
