@@ -16,12 +16,10 @@ const App = (props:any): any => {
     messages: any[];
     username: string;
     session: any;
-    media: any;
   } = {
     messages: [],
     username: "chaks",
     session: {},
-    media: null
   };
   const [state, setState] = useState(initialState);
   
@@ -120,24 +118,64 @@ const App = (props:any): any => {
     });
   };
 
-  const sendMessage = (text: any) => {
-    // console.log('testing messages');
-    // console.log(state.messages)
-    // if(state.messages.at(-1).image){
-    //   console.log('this is Image')
-    // }
-    // else{
-    //   console.log('not image')
-    // }
-    // console.log('testing done')
-    send(text, state.session, state.media);
-    setState({
-      ...state,
-      messages: state.messages.concat({
-        username: state.username,
-        text: text,
-      }),
-    });
+  const sendMessage = (text: any, media: any) => {
+    send(text, state.session, media || null);
+    if(media){
+      if (media.mimeType.slice(0,5) === "image"){
+        setState({
+          ...state,
+          messages: state.messages.concat({
+            username: state.username,
+            image: media.url
+          }),
+        });
+      }
+      else if (media.mimeType.slice(0,5) === "audio"){
+        setState({
+          ...state,
+          messages: state.messages.concat({
+            username: state.username,
+            audio: media.url
+          }),
+        });
+      }
+      else if (media.mimeType.slice(0,5) === "video"){
+        setState({
+          ...state,
+          messages: state.messages.concat({
+            username: state.username,
+            video: media.url,
+          }),
+        });
+      }
+      else if (media.mimeType.slice(0,11) === "application"){
+        setState({
+          ...state,
+          messages: state.messages.concat({
+            username: state.username,
+            doc: media.url,
+          }),
+        });
+      }else{
+        setState({
+          ...state,
+          messages: state.messages.concat({
+            username: state.username,
+            text: text,
+            doc: media.url
+          }),
+        });
+      }
+    }
+    else{
+      setState({
+        ...state,
+        messages: state.messages.concat({
+          username: state.username,
+          text: text,
+        }),
+      });
+    }
   };
   if (state.username === null) {
     console.log("Please set a username first");
@@ -151,7 +189,7 @@ const App = (props:any): any => {
 
   const selected = (option: any) => {
     const toSend = option.key+" "+option.text;
-    sendMessage(toSend);
+    sendMessage(toSend, null);
   }
 
   return (
@@ -168,7 +206,7 @@ const App = (props:any): any => {
         <div className="chat-body">         
           <MessageWindow messages={state.messages} username={state.username} selected={selected}/>          
         </div>
-        <TextBar onSend={sendMessage} session={state.session}/>
+        <TextBar onSend={sendMessage} />
       </div>
     </>
   );
