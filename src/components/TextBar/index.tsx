@@ -91,7 +91,7 @@ const TextBar = (props: any) => {
           Send
         </button>
         </form>
-        {selectedImage && <FileUploader file={selectedImage} session={props.session}/>}
+        {selectedImage && <FileUploader file={selectedImage} sendMedia={props.onSend}/>}
       </div>
     </>
   );
