@@ -10,17 +10,19 @@ import MessageWindow from "components/MessageWindow";
 import TextBar from "components/TextBar";
 import Notification from "components/Notifications";
 import "styles/global.css";
-const App = (): any => {
+
+const App = (props:any): any => {
   const initialState: {
     messages: any[];
     username: string;
     session: any;
+    media: any;
   } = {
     messages: [],
     username: "chaks",
     session: {},
+    media: null
   };
-
   const [state, setState] = useState(initialState);
   
   const scrollToBottom = () => {
@@ -119,7 +121,16 @@ const App = (): any => {
   };
 
   const sendMessage = (text: any) => {
-    send(text, state.session);
+    // console.log('testing messages');
+    // console.log(state.messages)
+    // if(state.messages.at(-1).image){
+    //   console.log('this is Image')
+    // }
+    // else{
+    //   console.log('not image')
+    // }
+    // console.log('testing done')
+    send(text, state.session, state.media);
     setState({
       ...state,
       messages: state.messages.concat({
@@ -157,7 +168,7 @@ const App = (): any => {
         <div className="chat-body">         
           <MessageWindow messages={state.messages} username={state.username} selected={selected}/>          
         </div>
-        <TextBar onSend={sendMessage} />
+        <TextBar onSend={sendMessage} session={state.session}/>
       </div>
     </>
   );
