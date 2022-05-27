@@ -36,7 +36,6 @@ const Message = ({
           <div className="chat-message chat-reciever">
             <div className="message-username">{username}</div>
             <div style={{ whiteSpace: "pre-wrap" }}>{text}</div>
-            <div style={{ whiteSpace: "pre-wrap" }}>{image}</div>
           </div>
         </>
       )}
