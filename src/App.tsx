@@ -16,10 +16,12 @@ const App = (props:any): any => {
     messages: any[];
     username: string;
     session: any;
+    media: any;
   } = {
     messages: [],
     username: "chaks",
     session: {},
+    media: null
   };
   const [state, setState] = useState(initialState);
   
@@ -206,7 +208,7 @@ const App = (props:any): any => {
         <div className="chat-body">         
           <MessageWindow messages={state.messages} username={state.username} selected={selected}/>          
         </div>
-        <TextBar onSend={sendMessage} />
+        <TextBar onSend={sendMessage} session={state.session}/>
       </div>
     </>
   );
