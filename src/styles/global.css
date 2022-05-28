@@ -89,13 +89,17 @@ a {
 }
 .chat-body {
   /* opacity: 0; */
-  width: 50%;
+  width: 90%;
+  top: 20px;
   background-color: #ffffff;
   padding: 0px 20px;
   padding-bottom: 98px !important;
   transition: opacity 200ms;
   position: relative;
   font-family: Mulish-medium;
+}
+.Toastify__toast-container{
+  top: 50px;
 }
 @media screen and (max-width: 768px) {
   .chat-body {
@@ -121,6 +125,7 @@ a {
   margin-top: 1rem;
 }
 .chat-choices-container {
+  margin-left: 15px;
   display: inline-flex;
   flex-wrap: wrap;
 }
@@ -178,6 +183,9 @@ a {
   background-color: #000080;
   background-blend-mode: multiply;
   color: white;
+  z-index: 5;
+  position: fixed;
+  width: 100%;
 }
 .chat__header--info {
   flex: 1;
