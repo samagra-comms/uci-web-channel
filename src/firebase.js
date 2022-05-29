@@ -44,7 +44,7 @@ export const getFirebaseToken = (setTokenFound) => {
         // shows on the UI that permission is required 
       }
     }).catch((err) => {
-      console.error('An error occurred while retrieving token.', err);
+      console.error('An error occurred while retrieving token in getFirebaseToken Function:', err);
       // catch error while creating client token
     });
   }
