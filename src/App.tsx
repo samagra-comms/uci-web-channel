@@ -9,6 +9,9 @@ import ColorModeSwitcher from "components/ColorModeSwitcher";
 import MessageWindow from "components/MessageWindow";
 import TextBar from "components/TextBar";
 import Notification from "components/Notifications";
+import * as fire from "firebase.js"; 
+import {Button, Row, Col, Toast} from 'react-bootstrap';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import "styles/global.css";
 const App = (): any => {
   const initialState: {
@@ -22,7 +25,21 @@ const App = (): any => {
   };
 
   const [state, setState] = useState(initialState);
-  
+  // ------------- Firebase setup Tutorial ----------------
+  // const [show, setShow] = useState(false);
+  const [show, setShow] = useState(false);
+  const [notification, setNotification] = useState({title: '', body: ''});
+  const [isTokenFound, setTokenFound] = useState(false);
+  fire.getToken(setTokenFound);
+
+  fire.onMessageListener().then(payload => {
+    setShow(true);
+    setNotification({title: payload.notification.title, body: payload.notification.body})
+    console.log(payload);
+  }).catch(err => console.log('failed: ', err));
+  // ------------------------------------------
+
+
   const scrollToBottom = () => {
     window.scrollTo(0, document.body.scrollHeight);
   };
@@ -105,9 +122,33 @@ const App = (): any => {
         <div className="chat__header--right">
           <Notification />
         </div>
+        {/* <Button onClick={() => setShow(true)}>Show Toast</Button> */}
+        {isTokenFound && 
+          "Notification permission enabled 👍🏻 "
+        }
+        {!isTokenFound && 
+          "Need notification permission ❗️ "
+        }
       </div>
       <div className="chat-body-container">
-        <div className="chat-body">         
+        <div className="chat-body">    
+        <Toast onClose={() => setShow(false)} show={show} delay={3000} autohide animation style={{
+          position: 'absolute',
+          top: 20,
+          right: 20,
+          minWidth: 200
+        }}>
+          <Toast.Header>
+            <img
+              src="holder.js/20x20?text=%20"
+              className="rounded mr-2"
+              alt=""
+            />
+            <strong className="mr-auto">{notification.title}</strong>
+            <small>just now</small>
+          </Toast.Header>
+          <Toast.Body>{notification.body}</Toast.Body>
+        </Toast>
           <MessageWindow messages={state.messages} username={state.username} selected={selected}/>          
         </div>
         <TextBar onSend={sendMessage} />
