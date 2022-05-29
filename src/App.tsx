@@ -1,3 +1,4 @@
+import React from "react";
 import { useState, useEffect } from "react";
 import { Box, ChakraProvider, Grid, VStack, theme } from "@chakra-ui/react";
 import {
@@ -30,12 +31,12 @@ const App = (): any => {
   const [show, setShow] = useState(false);
   const [notification, setNotification] = useState({title: '', body: ''});
   const [isTokenFound, setTokenFound] = useState(false);
-  fire.getToken(setTokenFound);
+  fire.getFirebaseToken(setTokenFound);
 
   fire.onMessageListener().then(payload => {
     setShow(true);
     setNotification({title: payload.notification.title, body: payload.notification.body})
-    console.log(payload);
+    // console.log(payload);
   }).catch(err => console.log('failed: ', err));
   // ------------------------------------------
 
