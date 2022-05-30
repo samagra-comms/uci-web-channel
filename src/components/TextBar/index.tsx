@@ -8,6 +8,10 @@ import { useRef, useState } from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { FileUploader } from "./file-uploader";
 
+import { useRef, useState } from "react";
+import 'bootstrap/dist/css/bootstrap.min.css';
+import { FileUploader } from "./file-uploader";
+
 
 const TextBar = (props: any) => {
   const input: any = useRef(null);
