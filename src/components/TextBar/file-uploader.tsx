@@ -7,7 +7,7 @@ export const FileUploader = (props: any) => {
             data.append('file',props.file);
             try{
                 let res = await fetch(
-                'http://uci-inbound-server-svn29.ngrok.samagra.io/cdn/minioSignedUrl',
+                `${process.env.REACT_APP_INBOUND_BASE_URL}/cdn/minioSignedUrl`,
                 {
                     method: 'post',
                     body: data,
