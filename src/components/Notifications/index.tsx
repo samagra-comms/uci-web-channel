@@ -1,6 +1,8 @@
 import MagicBell, {
   FloatingNotificationInbox,
 } from "@magicbell/magicbell-react";
+import React from "react";
+
 
 const theme = {
   icon: { borderColor: "#ffffff", width: "40px" },

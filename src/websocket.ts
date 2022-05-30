@@ -2,7 +2,9 @@ const host =
   process.env.NODE_ENV === "production"
     ? window.location.host
     : "localhost:3005";
-const { io } = require("socket.io-client");
+
+import {io} from 'socket.io-client';
+// const { io } = require("socket.io-client");
 
 export const socket = io(`${process.env.REACT_APP_TRANSPORT_SOCKET_URL}`);
 export const send = (msg: any, session: any) =>

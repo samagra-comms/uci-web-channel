@@ -1,4 +1,5 @@
 import { useRef } from "react";
+import React from "react";
 import { Box, Button, Input } from "@chakra-ui/react";
 import { MdSend } from "react-icons/md";
 import { ToastContainer, toast } from "react-toastify";
