@@ -3,21 +3,13 @@ importScripts('https://www.gstatic.com/firebasejs/9.0.0/firebase-messaging-compa
 
 
 var firebaseConfig = {
-
-    apiKey: "AIzaSyBAW9eosfF-oo5xPXXeoBp810YLyFlYZJw",
-  
-    authDomain: "testing-uci-web-channel.firebaseapp.com",
-  
-    projectId: "testing-uci-web-channel",
-  
-    storageBucket: "testing-uci-web-channel.appspot.com",
-  
-    messagingSenderId: "584834206650",
-  
-    appId: "1:584834206650:web:b1a8a5a03dd231406e2b83",
-  
-    measurementId: "G-WSYRRR972G"
-  
+  apiKey: process.env.REACT_APP_PUBLIC_FIREBASE_API_KEY,
+  authDomain: process.env.REACT_APP_PUBLIC_FIREBASE_AUTH_DOMAIN,
+  projectId: process.env.REACT_APP_PUBLIC_FIREBASE_PROJECT_ID,
+  storageBucket: process.env.REACT_APP_PUBLIC_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: process.env.REACT_APP_PUBLIC_FIREBASE_MESSAGING_SENDER_ID,
+  appId: process.env.REACT_APP_PUBLIC_FIREBASE_APP_ID,
+  measurementId: process.env.REACT_APP_PUBLIC_FIREBASE_MEASUREMENT_ID
   };
 
   firebase.initializeApp(firebaseConfig);
