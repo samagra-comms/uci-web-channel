@@ -18,7 +18,7 @@ The Unified Communications Interface (UCI) aims to democratize the use of differ
 
 ## Requirements :scroll:
 
-[NodeJS](https://nodejs.org/en/download/) and NPM or [yarn]([https://yarnpkg.com/getting-started/install])
+[NodeJS](https://nodejs.org/en/download/) and NPM or [yarn](https://yarnpkg.com/getting-started/install)
 
 ## Installation :walking:
 
@@ -67,6 +67,10 @@ The websocket connection URL for the plaground can be used for testing - `wss://
 ### 5. Run it :checkered_flag:
 
 Run `yarn start`
+
+## Designs
+Below are the designs of how output screens will look like. For more detailed view you can checkout the [Figma](https://www.figma.com/file/d8JiwkYJqGYXQaflCyNVzl/UCI-web-channel?node-id=0%3A1) file.
+![Designs](https://user-images.githubusercontent.com/77741561/171156677-0ee016dd-a240-4edc-b2e8-50b08ac06a58.png)
 
 ## Contributing
 
