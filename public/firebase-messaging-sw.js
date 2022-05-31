@@ -2,17 +2,20 @@ importScripts('https://www.gstatic.com/firebasejs/9.0.0/firebase-app-compat.js')
 importScripts('https://www.gstatic.com/firebasejs/9.0.0/firebase-messaging-compat.js');
 
 
-var firebaseConfig = {
-  apiKey: process.env.REACT_APP_PUBLIC_FIREBASE_API_KEY,
-  authDomain: process.env.REACT_APP_PUBLIC_FIREBASE_AUTH_DOMAIN,
-  projectId: process.env.REACT_APP_PUBLIC_FIREBASE_PROJECT_ID,
-  storageBucket: process.env.REACT_APP_PUBLIC_FIREBASE_STORAGE_BUCKET,
-  messagingSenderId: process.env.REACT_APP_PUBLIC_FIREBASE_MESSAGING_SENDER_ID,
-  appId: process.env.REACT_APP_PUBLIC_FIREBASE_APP_ID,
-  measurementId: process.env.REACT_APP_PUBLIC_FIREBASE_MEASUREMENT_ID
-  };
+self.addEventListener('fetch', () => {
+  const urlParams = new URLSearchParams(location.search);
+  self.firebaseConfig = Object.fromEntries(urlParams);
+});
 
-  firebase.initializeApp(firebaseConfig);
+// "Default" Firebase configuration (prevents errors)
+const defaultConfig = {
+  apiKey: true,
+  projectId: true,
+  messagingSenderId: true,
+  appId: true,
+};
+
+  firebase.initializeApp(self.firebaseConfig || defaultConfig);
 
   const messaging = firebase.messaging();
 
