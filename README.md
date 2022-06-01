@@ -39,7 +39,7 @@ git clone https://github.com/Your_Username/uci-web-channel.git
 Once you have cloned the `uci-web-channel` repository in GitHub, move to that folder first using the change directory command.
 
 ```sh
-# This will change directory to a folder FOSSologyUI
+# This will change directory to a folder uci-web-channel
 cd uci-web-channel
 ```
 
