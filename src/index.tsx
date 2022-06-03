@@ -4,14 +4,23 @@ import * as serviceWorker from "serviceWorker";
 import App from "App";
 import { ColorModeScript } from "@chakra-ui/react";
 import ReactDOM from "react-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import reportWebVitals from "reportWebVitals";
 import { startWebsocketConnection } from "websocket";
-
+import Login from "./login";
+import OTP from "otp";
 
 ReactDOM.render(
   <React.StrictMode>
     <ColorModeScript />
-    <App />
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Login />} />
+        <Route path="login" element={<Login />} />
+        <Route path="bot" element={<App />} />
+        <Route path="otp" element={<OTP />} />
+      </Routes>
+    </BrowserRouter>
   </React.StrictMode>,
   document.getElementById("root")
 );
