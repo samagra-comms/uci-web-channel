@@ -1,6 +1,7 @@
 import MagicBell, {
   FloatingNotificationInbox,
 } from "@magicbell/magicbell-react";
+import useNetwork from "hooks/useNetwork.js"
 
 const theme = {
   icon: { borderColor: "#ffffff", width: "40px" },
@@ -39,6 +40,11 @@ const images = {
 };
 
 const Notification = () => {
+
+  if(!useNetwork().online){
+    alert("Connection lost");
+  }
+  
   return (
     <MagicBell
       apiKey={process.env.REACT_APP_MAGICBELL_API_KEY}

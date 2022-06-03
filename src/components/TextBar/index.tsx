@@ -4,9 +4,13 @@ import { MdSend } from "react-icons/md";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "styles/global.css";
-
+import useNetwork from "hooks/useNetwork.js"
 
 const TextBar = (props: any) => {
+ if(!useNetwork().online){
+    alert("Connection lost");
+  }
+  
   const input: any = useRef(null);
     const sendMessage = (e: any) => {
       e.preventDefault();

@@ -6,10 +6,16 @@ import {
   IconButtonProps,
 } from "@chakra-ui/react";
 import { FaMoon, FaSun } from "react-icons/fa";
+import useNetwork from "hooks/useNetwork.js"
 
 type ColorModeSwitcherProps = Omit<IconButtonProps, "aria-label">;
 
 const ColorModeSwitcher: React.FC<ColorModeSwitcherProps> = (props) => {
+
+   if(!useNetwork().online){
+    alert("Connection lost");
+  }
+  
   const { toggleColorMode } = useColorMode();
   const text = useColorModeValue("dark", "light");
   const SwitchIcon = useColorModeValue(FaMoon, FaSun);

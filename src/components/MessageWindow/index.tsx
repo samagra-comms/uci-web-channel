@@ -1,7 +1,7 @@
 import { useRef, useEffect } from "react";
 import "./index.css";
 import { Box, Flex, Spacer, Button } from "@chakra-ui/react";
-
+import useNetwork from "hooks/useNetwork.js"
 
 const Message = ({
   text,
@@ -57,6 +57,11 @@ const Message = ({
 
 
 const MessageWindow = (props: any) => {
+
+  if(!useNetwork().online){
+    alert("Connection lost");
+  }
+  
   let messageWindow: any = useRef(null);
   useEffect(() => {
     messageWindow = messageWindow.current;

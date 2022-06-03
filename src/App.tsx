@@ -3,7 +3,7 @@ import { Box, ChakraProvider, Grid, VStack, theme } from "@chakra-ui/react";
 import {
   registerOnMessageCallback,
   registerOnSessionCallback,
-  send,
+  send,Flag1,Flag2
 } from "websocket";
 import ColorModeSwitcher from "components/ColorModeSwitcher";
 import MessageWindow from "components/MessageWindow";
@@ -28,6 +28,9 @@ const App = (): any => {
   };
 
   useEffect((): void => {
+    if(Flag2===2 && Flag1===0){
+      alert("Your WebSocket is not connected to HTTP URL, Kindly add url on .env file");
+    }
     registerOnMessageCallback(onMessageReceived);
     registerOnSessionCallback(onSessionCreated);
     scrollToBottom();

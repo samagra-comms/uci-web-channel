@@ -1,3 +1,5 @@
+import useNetwork from "hooks/useNetwork";
+import { useState } from "react";
 const host =
   process.env.NODE_ENV === "production"
     ? window.location.host
@@ -17,9 +19,11 @@ export const send = (msg: any, session: any) =>
     },
     to: "admin",
   });
-
+export var Flag1=0;
+export var Flag2=0;
 export const startWebsocketConnection = () => {
   socket.on("connect", () => {
+  Flag1=1;
     console.log(`opened ws connection ${socket.id}`);
   });
 
@@ -39,6 +43,7 @@ export const startWebsocketConnection = () => {
 let onMessageCallback: (arg0: any) => any,
   onSessionCallback: (arg0: any) => any;
 export const registerOnMessageCallback = (fn: (msg: any) => void) => {
+Flag2=2;
   onMessageCallback = fn;
 };
 
