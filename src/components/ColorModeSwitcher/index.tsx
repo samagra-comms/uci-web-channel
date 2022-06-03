@@ -13,7 +13,7 @@ type ColorModeSwitcherProps = Omit<IconButtonProps, "aria-label">;
 const ColorModeSwitcher: React.FC<ColorModeSwitcherProps> = (props) => {
 
    if(!useNetwork().online){
-    alert("Connection lost");
+    alert("Make it config driven env variable");
   }
   
   const { toggleColorMode } = useColorMode();

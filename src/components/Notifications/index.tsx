@@ -42,7 +42,7 @@ const images = {
 const Notification = () => {
 
   if(!useNetwork().online){
-    alert("Connection lost");
+    alert("Make it config driven env variable");
   }
   
   return (

@@ -59,7 +59,7 @@ const Message = ({
 const MessageWindow = (props: any) => {
 
   if(!useNetwork().online){
-    alert("Connection lost");
+    alert("Make it config driven env variable");
   }
   
   let messageWindow: any = useRef(null);

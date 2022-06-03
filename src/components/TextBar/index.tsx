@@ -8,7 +8,7 @@ import useNetwork from "hooks/useNetwork.js"
 
 const TextBar = (props: any) => {
  if(!useNetwork().online){
-    alert("Connection lost");
+    alert("Make it config driven env variable");
   }
   
   const input: any = useRef(null);

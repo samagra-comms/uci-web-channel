@@ -29,7 +29,7 @@ const App = (): any => {
 
   useEffect((): void => {
     if(Flag2===2 && Flag1===0){
-      alert("Your WebSocket is not connected to HTTP URL, Kindly add url on .env file");
+      alert("Make it config driven env variable");
     }
     registerOnMessageCallback(onMessageReceived);
     registerOnSessionCallback(onSessionCreated);
