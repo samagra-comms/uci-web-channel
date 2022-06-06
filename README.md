@@ -56,7 +56,7 @@ origin  https://github.com/Your_Username/uci-web-channel.git (fetch)
 origin  https://github.com/Your_Username/uci-web-channel.git (push)
 ```
 
-### 4. Create a new .env file and copy contents from .env.example :open_file_folder:
+### 4. Create a new .env file and copy contents from .env.sample :open_file_folder:
 
 ```sh
 cp .env.sample .env
