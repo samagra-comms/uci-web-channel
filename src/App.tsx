@@ -10,7 +10,8 @@ import MessageWindow from "components/MessageWindow";
 import TextBar from "components/TextBar";
 import Notification from "components/Notifications";
 import "styles/global.css";
-const App = (): any => {
+
+const App = (props:any): any => {
   const initialState: {
     messages: any[];
     username: string;
@@ -20,7 +21,6 @@ const App = (): any => {
     username: "chaks",
     session: {},
   };
-
   const [state, setState] = useState(initialState);
   
   const scrollToBottom = () => {
@@ -54,14 +54,61 @@ const App = (): any => {
     //   }
     //   console.log(msg.content.choices);
     // }
-    setState({
-      ...state,
-      messages: state.messages.concat({
-        username: "UCI",
-        text: msg.content.title,
-        choices: msg.content.choices,
-      }),
-    });
+    if (msg.content.msg_type === "IMAGE"){
+      setState({
+        ...state,
+        messages: state.messages.concat({
+          username: "UCI",
+          text: msg.content.title,
+          image: msg.content.media_url,
+          choices: msg.content.choices,
+          caption: msg.content.caption,
+        }),
+      });
+    }
+    else if (msg.content.msg_type === "AUDIO"){
+      setState({
+        ...state,
+        messages: state.messages.concat({
+          username: "UCI",
+          text: msg.content.title,
+          audio: msg.content.media_url,
+          choices: msg.content.choices,
+        }),
+      });
+    }
+    else if (msg.content.msg_type === "VIDEO"){
+      setState({
+        ...state,
+        messages: state.messages.concat({
+          username: "UCI",
+          text: msg.content.title,
+          video: msg.content.media_url,
+          choices: msg.content.choices,
+        }),
+      });
+    }
+    else if (msg.content.msg_type === "DOCUMENT"){
+      setState({
+        ...state,
+        messages: state.messages.concat({
+          username: "UCI",
+          text: msg.content.title,
+          doc: msg.content.media_url,
+          choices: msg.content.choices,
+        }),
+      });
+    }
+    else{
+      setState({
+        ...state,
+        messages: state.messages.concat({
+          username: "UCI",
+          text: msg.content.title,
+          choices: msg.content.choices,
+        }),
+      });
+    }
   };
 
   const setUserName = (name: string) => {
@@ -71,15 +118,64 @@ const App = (): any => {
     });
   };
 
-  const sendMessage = (text: any) => {
-    send(text, state.session);
-    setState({
-      ...state,
-      messages: state.messages.concat({
-        username: state.username,
-        text: text,
-      }),
-    });
+  const sendMessage = (text: any, media: any) => {
+    send(text, state.session, media || null);
+    if(media){
+      if (media.mimeType.slice(0,5) === "image"){
+        setState({
+          ...state,
+          messages: state.messages.concat({
+            username: state.username,
+            image: media.url
+          }),
+        });
+      }
+      else if (media.mimeType.slice(0,5) === "audio"){
+        setState({
+          ...state,
+          messages: state.messages.concat({
+            username: state.username,
+            audio: media.url
+          }),
+        });
+      }
+      else if (media.mimeType.slice(0,5) === "video"){
+        setState({
+          ...state,
+          messages: state.messages.concat({
+            username: state.username,
+            video: media.url,
+          }),
+        });
+      }
+      else if (media.mimeType.slice(0,11) === "application"){
+        setState({
+          ...state,
+          messages: state.messages.concat({
+            username: state.username,
+            doc: media.url,
+          }),
+        });
+      }else{
+        setState({
+          ...state,
+          messages: state.messages.concat({
+            username: state.username,
+            text: text,
+            doc: media.url
+          }),
+        });
+      }
+    }
+    else{
+      setState({
+        ...state,
+        messages: state.messages.concat({
+          username: state.username,
+          text: text,
+        }),
+      });
+    }
   };
   if (state.username === null) {
     console.log("Please set a username first");
@@ -93,7 +189,7 @@ const App = (): any => {
 
   const selected = (option: any) => {
     const toSend = option.key+" "+option.text;
-    sendMessage(toSend);
+    sendMessage(toSend, null);
   }
 
   return (
