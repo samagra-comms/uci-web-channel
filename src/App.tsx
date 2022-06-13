@@ -1,3 +1,4 @@
+import React from "react";
 import { useState, useEffect } from "react";
 import { Box, ChakraProvider, Grid, VStack, theme } from "@chakra-ui/react";
 import {
@@ -9,6 +10,9 @@ import ColorModeSwitcher from "components/ColorModeSwitcher";
 import MessageWindow from "components/MessageWindow";
 import TextBar from "components/TextBar";
 import Notification from "components/Notifications";
+import * as fire from "firebase.js";
+import BellIcon from "components/Notifications/BellIcon";
+import 'bootstrap/dist/css/bootstrap.min.css';
 import "styles/global.css";
 const App = (): any => {
   const initialState: {
@@ -22,7 +26,12 @@ const App = (): any => {
   };
 
   const [state, setState] = useState(initialState);
-  
+
+  // To check the firebase token connection
+  const [isTokenFound, setTokenFound] = useState(false);
+  fire.getFirebaseToken(setTokenFound);
+
+
   const scrollToBottom = () => {
     window.scrollTo(0, document.body.scrollHeight);
   };
@@ -105,9 +114,17 @@ const App = (): any => {
         <div className="chat__header--right">
           <Notification />
         </div>
+        {/* <Button onClick={() => setShow(true)}>Show Toast</Button> */}
+        {isTokenFound && 
+            "Notification permission enabled 👍🏻 "
+          }
+          {!isTokenFound && 
+            "Need notification permission ❗️ "
+          }
       </div>
       <div className="chat-body-container">
-        <div className="chat-body">         
+        <div className="chat-body">    
+          <BellIcon />
           <MessageWindow messages={state.messages} username={state.username} selected={selected}/>          
         </div>
         <TextBar onSend={sendMessage} />

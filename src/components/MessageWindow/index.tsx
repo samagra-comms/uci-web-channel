@@ -1,4 +1,5 @@
 import { useRef, useEffect } from "react";
+import React from "react";
 import "./index.css";
 import { Box, Flex, Spacer, Button } from "@chakra-ui/react";
 
@@ -43,7 +44,7 @@ const Message = ({
             {choices && choices.length > 0 && (
               <div className="chat-choices-container">
                 {choices.map((choice: any) => (
-                  <Button className="chat-choices" onClick={() => data(choice)}>{choice.key}{" "}{choice.text}</Button>
+                  <Button className="chat-choices" key={choice.key} onClick={() => data(choice)}>{choice.key}{" "}{choice.text}</Button>
                   ))}
               </div>
             )}
