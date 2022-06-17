@@ -2,6 +2,7 @@ import "styles/global.css";
 import {Button, Link, PinInput, PinInputField, HStack } from '@chakra-ui/react';
 import {useLocation, useNavigate} from 'react-router-dom';
 import { useState } from "react";
+import {useCookies} from 'react-cookie'; 
 
 function OTP() {
   const location = useLocation();
@@ -10,6 +11,7 @@ function OTP() {
   const [input2,setInput2] = useState('');
   const [input3,setInput3] = useState('');
   const [input4,setInput4] = useState('');
+  const [cookies, setCookie] = useCookies(['access_token']);
 
   const handleOTP1 = (e: any) => {
     setInput1(e.target.value)
@@ -31,15 +33,18 @@ function OTP() {
     const otp = input1+input2+input3+input4;
     if(otp.length===4){
       let res = await fetch(
-        `http://localhost:3000/uci/loginOrRegister?phone=${location.state}&otp=${otp}`,
+        `${process.env.REACT_APP_OTP_BASE_URL}/uci/loginOrRegister?phone=${location.state}&otp=${otp}`,
         {
             method: 'get',
         }
         );
         let responseJson = await res.json();
         console.log(responseJson)
-        if (responseJson.resp.params.status === 'Success') {
-            navigate('/bot')
+        if (responseJson.resp.params.status === 'Success') { 
+            navigate('/bot',{state: true})
+            let expires = new Date()
+            expires.setTime(expires.getTime() + (responseJson.resp.result.data.user.tokenExpirationInstant * 1000))
+            setCookie('access_token', responseJson.resp.result.data.user.token, { path: '/',  expires})
         }else{      
             alert('incorrect otp')
             console.error('OTP incorrect')
@@ -49,6 +54,18 @@ function OTP() {
       alert('Invalid OTP')
       window.location.reload();
     }
+  }
+
+  const handleSendAgain = async () => {
+    let res = await fetch(
+      `${process.env.REACT_APP_OTP_BASE_URL}/uci/sendOTP?phone=${location.state}`,
+      {
+          method: 'get',
+      }
+      );
+      if (res.status !== 200) {   
+          console.error('OTP not sent')
+      }
   }
 
   return (
@@ -69,7 +86,7 @@ function OTP() {
             </HStack>
             <div style={{  textAlign: "center", margin: "50px 0px 20px 0px"}}>
                 Do not send OTP? {" "}
-                <Link style={{color: "#E9890A"}}>Send OTP</Link>
+                <Link style={{color: "#E9890A", cursor: "pointer"}} onClick={handleSendAgain}>Send OTP</Link>
             </div>
             <Button className="loginButton" style={{width: "100%"}} onClick={handleSubmit}>Submit</Button>
         </div>

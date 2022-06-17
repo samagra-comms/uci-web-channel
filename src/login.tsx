@@ -18,7 +18,7 @@ function Login() {
         }
         else{
             let res = await fetch(
-                `http://localhost:3000/uci/sendOTP?phone=${input}`,
+                `${process.env.REACT_APP_OTP_BASE_URL}/uci/sendOTP?phone=${input}`,
                 {
                     method: 'get',
                 }

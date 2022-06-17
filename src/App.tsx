@@ -10,6 +10,8 @@ import MessageWindow from "components/MessageWindow";
 import TextBar from "components/TextBar";
 import Notification from "components/Notifications";
 import "styles/global.css";
+import {useLocation, useNavigate} from 'react-router-dom';
+import { withCookies } from 'react-cookie';
 
 const App = (props:any): any => {
   const initialState: {
@@ -21,13 +23,21 @@ const App = (props:any): any => {
     username: "chaks",
     session: {},
   };
+
   const [state, setState] = useState(initialState);
-  
+  const location = useLocation();
+  const navigate = useNavigate();
+  const [accessToken, setAccessToken] = useState();
+
   const scrollToBottom = () => {
     window.scrollTo(0, document.body.scrollHeight);
   };
 
   useEffect((): void => {
+    if(!location.state){
+      navigate('/login')
+    }
+    setAccessToken(props.cookies.get('access_token'));
     registerOnMessageCallback(onMessageReceived);
     registerOnSessionCallback(onSessionCreated);
     scrollToBottom();
@@ -119,62 +129,67 @@ const App = (props:any): any => {
   };
 
   const sendMessage = (text: any, media: any) => {
-    send(text, state.session, media || null);
-    if(media){
-      if (media.mimeType.slice(0,5) === "image"){
-        setState({
-          ...state,
-          messages: state.messages.concat({
-            username: state.username,
-            image: media.url
-          }),
-        });
+    if(!accessToken){
+      navigate('/login')
+    }
+    else{
+      send(text, state.session, media || null, accessToken);
+      if(media){
+        if (media.mimeType.slice(0,5) === "image"){
+          setState({
+            ...state,
+            messages: state.messages.concat({
+              username: state.username,
+              image: media.url
+            }),
+          });
+        }
+        else if (media.mimeType.slice(0,5) === "audio"){
+          setState({
+            ...state,
+            messages: state.messages.concat({
+              username: state.username,
+              audio: media.url
+            }),
+          });
+        }
+        else if (media.mimeType.slice(0,5) === "video"){
+          setState({
+            ...state,
+            messages: state.messages.concat({
+              username: state.username,
+              video: media.url,
+            }),
+          });
+        }
+        else if (media.mimeType.slice(0,11) === "application"){
+          setState({
+            ...state,
+            messages: state.messages.concat({
+              username: state.username,
+              doc: media.url,
+            }),
+          });
+        }else{
+          setState({
+            ...state,
+            messages: state.messages.concat({
+              username: state.username,
+              text: text,
+              doc: media.url
+            }),
+          });
+        }
       }
-      else if (media.mimeType.slice(0,5) === "audio"){
-        setState({
-          ...state,
-          messages: state.messages.concat({
-            username: state.username,
-            audio: media.url
-          }),
-        });
-      }
-      else if (media.mimeType.slice(0,5) === "video"){
-        setState({
-          ...state,
-          messages: state.messages.concat({
-            username: state.username,
-            video: media.url,
-          }),
-        });
-      }
-      else if (media.mimeType.slice(0,11) === "application"){
-        setState({
-          ...state,
-          messages: state.messages.concat({
-            username: state.username,
-            doc: media.url,
-          }),
-        });
-      }else{
+      else{
         setState({
           ...state,
           messages: state.messages.concat({
             username: state.username,
             text: text,
-            doc: media.url
           }),
         });
       }
-    }
-    else{
-      setState({
-        ...state,
-        messages: state.messages.concat({
-          username: state.username,
-          text: text,
-        }),
-      });
     }
   };
   if (state.username === null) {
@@ -212,4 +227,4 @@ const App = (props:any): any => {
   );
 };
 
-export default App;
+export default withCookies(App);
