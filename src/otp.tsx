@@ -27,10 +27,23 @@ function OTP() {
 
   }
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     const otp = input1+input2+input3+input4;
     if(otp.length===4){
-      navigate('/bot')
+      let res = await fetch(
+        `http://localhost:3000/uci/loginOrRegister?phone=${location.state}&otp=${otp}`,
+        {
+            method: 'get',
+        }
+        );
+        let responseJson = await res.json();
+        console.log(responseJson)
+        if (responseJson.resp.params.status === 'Success') {
+            navigate('/bot')
+        }else{      
+            alert('incorrect otp')
+            console.error('OTP incorrect')
+        }
     }
     else{
       alert('Invalid OTP')

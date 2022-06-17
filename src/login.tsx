@@ -12,12 +12,22 @@ function Login() {
         setInput(e.target.value);
     }
 
-    const handleOTPPage = () => {
+    const handleOTPPage = async () => {
         if(input.length!==10){
             alert('enter 10 digit number')
         }
         else{
-            navigate('/otp',{state: input})
+            let res = await fetch(
+                `http://localhost:3000/uci/sendOTP?phone=${input}`,
+                {
+                    method: 'get',
+                }
+                );
+                if (res.status === 200) {
+                    navigate('/otp',{state: input})
+                }else{      
+                    console.error('OTP not sent')
+                }
         }
     }
 
