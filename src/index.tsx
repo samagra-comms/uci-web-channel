@@ -7,8 +7,8 @@ import ReactDOM from "react-dom";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import reportWebVitals from "reportWebVitals";
 import { startWebsocketConnection } from "websocket";
-import Login from "./login";
-import OTP from "otp";
+import Login from "./routes/login/login";
+import OTP from "./routes/otp/otp";
 
 ReactDOM.render(
   <React.StrictMode>

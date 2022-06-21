@@ -1,7 +1,10 @@
 import "styles/global.css";
+import "./login.css";
 import {NumberInput, NumberInputField, Button, Link} from '@chakra-ui/react';
 import { useState } from "react";
 import {useNavigate} from "react-router-dom";
+import {ReactComponent as AccountIcon} from './../../assets/images/userAccount.svg';
+import {ReactComponent as Line} from './../../assets/images/line.svg';
 
 
 function Login() {
@@ -32,20 +35,20 @@ function Login() {
     }
 
   return (
-    <div  className='container' style={{maxWidth: "400px"}}>
-        <div style={{padding: "50px", textAlign: "center"}}>
-            <h2 style={{marginBottom: "5px"}}>Login Account</h2>
-            <p>Hello , welcome back to our account !</p>
-            <NumberInput style={{margin: "50px 0px 20px 0px"}}>
+    <div  className='container' style={{maxWidth: "390px"}}>
+        <div style={{padding: "55px 18px"}}>
+            <div className="loginAccount">Login Account<AccountIcon style={{margin: "0px 0px 5px 5px"}}/></div>
+            <div className="helloAccount">Hello , welcome back to our account !</div>
+            <NumberInput style={{margin: "146px 0px 30px 0px"}}>
                 <NumberInputField className="numberInputField" placeholder="Enter your phone number" value={input}
                 onChange={handleNumber}/>
             </NumberInput>
-            <Button className="loginButton" style={{width: "100%"}} onClick={handleOTPPage}>Send OTP</Button>
-            <div style={{  textAlign: "center"}}>
-                or signup with
-                <div style={{marginTop: "50px"}}>
-                    Not register yet? <b><Link>Create Account</Link></b>
-                </div>
+            <Button className="loginButton" onClick={handleOTPPage}>Send OTP</Button>
+            <div className="signup">
+                <Line />{" "}Or sign up with{" "}<Line />
+            </div>
+            <div className="createAccount" style={{marginTop: "50px"}}>
+                Not register yet? <b><Link style={{textDecoration: "none", color: "black"}}>Create Account</Link></b>
             </div>
         </div>
     </div>

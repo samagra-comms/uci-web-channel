@@ -1,0 +1,48 @@
+.loginAccount {
+    font-weight: 700;
+    font-size: 20px;
+    margin-bottom: 7px;
+}
+
+.helloAccount {
+    font-weight: 400;
+    font-size: 13px;
+    color: #636363;
+}
+
+.numberInputField{
+    height: 55px;
+    padding: 18px 16px;
+    border: 1px solid #818181;
+    filter: drop-shadow(0px 2px 2px rgba(0, 0, 0, 0.12));
+    border-radius: 12px;
+    font-weight: 400;
+    font-size: 14px;
+    color: #6F6F6F;
+}
+  
+.loginButton{
+    width: 100% !important;
+    background: #080664;
+    border-radius: 12px;
+    height: 55px;
+    margin-bottom: 27px;
+    font-weight: 600;
+    font-size: 18px;
+    color: #FFFFFF;
+}
+
+.signup {
+    text-align: center;
+    font-weight: 400;
+    font-size: 12px;
+    color: #757171;
+    margin-bottom: 79px;
+}
+
+.createAccount {
+    text-align: center;
+    font-weight: 400;
+    font-size: 13px;
+    color: #636363;
+}
