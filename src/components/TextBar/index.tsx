@@ -1,14 +1,14 @@
-import { useRef } from "react";
 import { Box, Button, Input } from "@chakra-ui/react";
 import { MdSend } from "react-icons/md";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "styles/global.css";
-
+import { useRef } from "react";
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const TextBar = (props: any) => {
   const input: any = useRef(null);
-    const sendMessage = (e: any) => {
+  const sendMessage = (e: any) => {
       e.preventDefault();
       const message = input.current.value;
       if(input.current.value.trim().length === 0) {
@@ -24,6 +24,29 @@ const TextBar = (props: any) => {
       sendMessage(e);
     }
     
+  };
+
+  const uploadMedia = async (fileObj: any) => {
+    const data = new FormData();
+    data.append('file',fileObj);
+    try{
+        let res = await fetch(
+        `${process.env.REACT_APP_INBOUND_BASE_URL}/cdn/minioSignedUrl`,
+        {
+            method: 'post',
+            body: data,
+        }
+        );
+        let responseJson = await res.json();
+        if (res.status === 200) {
+            props.onSend(null, responseJson)
+        }else{      
+            console.log('image not uploaded')
+        }
+    }
+    catch{
+        console.error('no response received');
+    }    
   };
 
   return (
@@ -76,7 +99,14 @@ const TextBar = (props: any) => {
             placeholder="Type your message"
             ref={input}
             onKeyDown={sendMessageIfEnter}
-          />        
+          />  
+          <div className="file btn btn-primary" style={{position: "relative", overflow: "hidden", marginRight: '7px', paddingTop: '10px'}}>
+							Upload
+							<input type="file" name="file" style={{position: "absolute", fontSize: "50px", opacity: "0", right: "0", top: "0"}}
+                onChange={(event) => {
+                  uploadMedia(event.target.files[0])
+                }}/>
+						</div>       
         <button className="send__btn" onClick={sendMessage} type="submit">
           Send
         </button>
