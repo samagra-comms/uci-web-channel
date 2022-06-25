@@ -1,0 +1,1 @@
+self.__REACT_LOADABLE_MANIFEST={"../utils/reportWebVitals.ts -> web-vitals":{"id":"../utils/reportWebVitals.ts -> web-vitals","files":["static/chunks/node_modules_web-vitals_dist_web-vitals_js.js"]}}

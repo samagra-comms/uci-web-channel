@@ -41,8 +41,8 @@ const images = {
 const Notification = () => {
   return (
     <MagicBell
-      apiKey={process.env.REACT_APP_MAGICBELL_API_KEY}
-      userEmail={process.env.REACT_APP_MAGICBELL_USER_EMAIL}
+      apiKey={process.env.NEXT_APP_MAGICBELL_API_KEY}
+      userEmail={process.env.NEXT_APP_MAGICBELL_USER_EMAIL}
       theme={theme}
       locale="en"
       images={images}
