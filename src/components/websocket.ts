@@ -1,8 +1,8 @@
 import {io} from 'socket.io-client';
-const host =
-  process.env.NODE_ENV === "production"
-    ? window.location.host
-    : "localhost:3005";
+// const host =
+//   process.env.NODE_ENV === "production"
+//     ? window.location.host
+//     : "localhost:3005";
 
 
 export const socket = io(`${process.env.NEXT_PUBLIC_TRANSPORT_SOCKET_URL}`);

@@ -4,7 +4,6 @@ import Head from "next/head";
 import Image from "next/image";
 import App from "../components/App";
 import React from "react";
-import * as serviceWorker from "../utils/serviceWorker";
 import reportWebVitals from "../utils/reportWebVitals";
 import { ColorModeScript } from "@chakra-ui/react";
 import { startWebsocketConnection } from "../components/websocket";
