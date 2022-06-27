@@ -4,9 +4,10 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "set CI='' && next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "wait-on": "http://localhost:3000"
   },
   "dependencies": {
     "@chakra-ui/icons": "^1.1.5",
