@@ -4,7 +4,7 @@ import Head from "next/head";
 import Image from "next/image";
 import App from "../components/App";
 import React from "react";
-import reportWebVitals from "../utils/reportWebVitals";
+// import reportWebVitals from "../utils/reportWebVitals";
 import { ColorModeScript } from "@chakra-ui/react";
 import { startWebsocketConnection } from "../components/websocket";
 
@@ -38,4 +38,4 @@ export default Home;
 // to log results (for example: reportWebVitals(console.log))
 // or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
 startWebsocketConnection();
-reportWebVitals();
+// reportWebVitals();
