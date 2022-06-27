@@ -1,0 +1,29 @@
+.message_window {
+  overflow-y: scroll;
+  border: 1px solid #27213c;
+  display: flex;
+  flex-direction: column;
+  padding: 5px 10px;
+}
+
+.message {
+  font-family: Mulish-regular;
+  align-self: flex-start;
+  width: 80%;
+  background-color: #0f0f0f;
+  border: 1px solid #f8f8f8;
+  padding: 4px;
+  border-radius: 4px;
+  margin: 5px 0;
+}
+
+.message_self {
+  align-self: flex-end;
+  background-color: #d1beb0;
+  border: 1px solid #c49f94;
+}
+
+.message_username {
+  font-size: 12px;
+  font-weight: bold;
+}
