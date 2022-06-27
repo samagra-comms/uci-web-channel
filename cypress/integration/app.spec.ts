@@ -7,7 +7,7 @@ context("E2E", () => {
   });
 
   it("render response from starting message", () => {
-    cy.visit("http://localhost:3000");
+    cy.visit("http://localhost:3000/");
     cy.get("input").type("Hi UCI", { force: true });
     cy.get("button").click({ force: true });
     cy.wait(1000);
