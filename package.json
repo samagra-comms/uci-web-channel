@@ -58,5 +58,10 @@
     "webpack-dev-server": "^4.9.0",
     "eslint": "8.18.0",
     "eslint-config-next": "12.1.6"
-  }
+  },
+  "resolutions": {
+    "@emotion/utils": "^1.1.0",
+    "@emotion/sheet": "^1.1.0"
+}
+  
 }
