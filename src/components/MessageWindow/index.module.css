@@ -1,4 +1,4 @@
-.message-window {
+.message_window {
   overflow-y: scroll;
   border: 1px solid #27213c;
   display: flex;
@@ -17,13 +17,13 @@
   margin: 5px 0;
 }
 
-.message-self {
+.message_self {
   align-self: flex-end;
   background-color: #d1beb0;
   border: 1px solid #c49f94;
 }
 
-.message-username {
+.message_username {
   font-size: 12px;
   font-weight: bold;
 }
