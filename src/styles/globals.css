@@ -5,22 +5,22 @@
 }
 @font-face {
   font-family: Mulish-bold;
-  src: url("assets/fonts/Mulish-Bold.ttf");
+  src: url("../assets/fonts/Mulish-Bold.ttf");
   font-display: swap;
 }
 @font-face {
   font-family: Mulish-demi;
-  src: url("assets/fonts/Mulish-Demi.ttf");
+  src: url("../assets/fonts/Mulish-Demi.ttf");
   font-display: swap;
 }
 @font-face {
   font-family: Mulish-medium;
-  src: url("assets/fonts/Mulish-Medium.ttf");
+  src: url("../assets/fonts/Mulish-Medium.ttf");
   font-display: swap;
 }
 @font-face {
   font-family: Mulish-regular;
-  src: url("assets/fonts/Mulish-Regular.ttf");
+  src: url("../assets/fonts/Mulish-Regular.ttf");
   font-display: swap;
 }
 
@@ -74,7 +74,7 @@ a {
   left: -40px;
   width: 0;
   height: 0;
-  content: url("assets/images/robot.png");
+  content: url("../assets/images/robot.png");
 }
 .chat-reciever {
   margin-left: auto;
@@ -152,7 +152,7 @@ a {
   left: -40px;
   width: 0;
   height: 0;
-  content: url("assets/images/robot.png");
+  content: url("../assets/images/robot.png");
 }
 .chat-body-container {
   flex: 1;
@@ -177,7 +177,7 @@ a {
   display: flex;
   align-items: center;
   border-bottom: 1px solid #fff;
-  background-image: url("assets/images/sidebar.png");
+  background-image: url("../assets/images/sidebar.png");
   background-repeat: no-repeat;
   background-size: cover;
   background-color: #000080;
