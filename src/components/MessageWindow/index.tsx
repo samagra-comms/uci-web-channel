@@ -1,6 +1,6 @@
 import { useRef, useEffect } from "react";
 import styles from "./index.module.css";
-import { Box, Flex, Spacer, Button, useColorModeValue } from "@chakra-ui/react";
+import { Text, Box, Flex, Spacer, Button, useColorModeValue } from "@chakra-ui/react";
 
 
 const Message = ({
@@ -26,7 +26,7 @@ const Message = ({
         <>
           <Spacer />
           <Box borderColor="white" color={text_color} bgColor={box_color} className="chat-message chat-reciever">
-            <Box fontWeight="bold" className={styles.message_username}>{username}</Box>
+            <Box  className={styles.message_username}><Text fontSize='md' fontWeight='bold'>{username}</Text></Box>
             <Box style={{ whiteSpace: "pre-wrap" }}>{text}</Box>
           </Box>
         </>
@@ -44,7 +44,7 @@ const Message = ({
                 : "chat-message"
               }
               >
-              <Box className={styles.message_username}>{username}</Box>
+              <Box className={styles.message_username}><Text fontSize='md' fontWeight='bold'>{username}</Text></Box>
               <Box style={{ whiteSpace: "pre-wrap" }}>{text}</Box>
             </Box>
             {choices && choices.length > 0 && (
