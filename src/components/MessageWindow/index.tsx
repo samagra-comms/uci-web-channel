@@ -1,6 +1,6 @@
 import { useRef, useEffect } from "react";
 import styles from "./index.module.css";
-import { Box, Flex, Spacer, Button } from "@chakra-ui/react";
+import { Box, Flex, Spacer, Button, useColorModeValue } from "@chakra-ui/react";
 
 
 const Message = ({
@@ -16,36 +16,43 @@ const Message = ({
   choices: any;
   data: any;
 }) => {
+  // Theme toggle Settings
+  const box_color = useColorModeValue("#06d755","#202C33");
+  const text_color = useColorModeValue("#000","#fff");
+  // ------------
   return (
     <Flex>
       {self === true && (
         <>
           <Spacer />
-          <div className="chat-message chat-reciever">
-            <div className={styles.message_username}>{username}</div>
-            <div style={{ whiteSpace: "pre-wrap" }}>{text}</div>
-          </div>
+          <Box borderColor="white" color={text_color} bgColor={box_color} className="chat-message chat-reciever">
+            <Box fontWeight="bold" className={styles.message_username}>{username}</Box>
+            <Box style={{ whiteSpace: "pre-wrap" }}>{text}</Box>
+          </Box>
         </>
       )}
       {!self === true && (
         <>
           <div>
-            <div
+          <Box
+              bgColor={box_color}
+              color={text_color}
+              borderColor="white"
               className={
                 text === "Invalid Input!!! Please try again."
                 ? "chat-error-message"
                 : "chat-message"
               }
               >
-              <div className={styles.message_username}>{username}</div>
-              <div style={{ whiteSpace: "pre-wrap" }}>{text}</div>
-            </div>
+              <Box className={styles.message_username}>{username}</Box>
+              <Box style={{ whiteSpace: "pre-wrap" }}>{text}</Box>
+            </Box>
             {choices && choices.length > 0 && (
-              <div className="chat-choices-container">
+              <Box className="chat-choices-container">
                 {choices.map((choice: any) => (
-                  <Button className="chat-choices" key={choice.key} onClick={() => data(choice)}>{choice.key}{" "}{choice.text}</Button>
+                  <Button borderColor="white" className="chat-choices" key={choice.key} onClick={() => data(choice)}>{choice.key}{" "}{choice.text}</Button>
                   ))}
-              </div>
+              </Box>
             )}
           </div>
           <Spacer />
@@ -70,7 +77,7 @@ const MessageWindow = (props: any) => {
   const messages: any = props.messages || [];
   console.log({ username, messages});
   return (
-    <Box ref={messageWindow}>
+    <Box mt={20} ref={messageWindow}>
       {messages.length > 0 &&
         messages.map((msg: any, i: number) => {
           return (
