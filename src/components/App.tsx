@@ -6,10 +6,19 @@ import {
   } from "./websocket";
 import MessageWindow from "./MessageWindow";
 import TextBar from "./TextBar";
+import { useColorModeValue, Box } from "@chakra-ui/react";
+
 import Notification from "./Notifications";
 
+import ColorModeSwitcher from "./ColorModeSwitcher";
 
 const App = (): any => {
+
+  // Chakra Theme Toggle Information
+  const bg = useColorModeValue("#06d755","#202C33");
+  const textColor = useColorModeValue("#202C33","#fff");
+  // ----------------------
+
     const initialState: {
       messages: any[];
       username: string;
@@ -97,20 +106,25 @@ const App = (): any => {
   
     return (
       <>
-        <div className="chat-header">
-          <div className="chat__header--info">
-            <h3>Chakshu Gautam</h3>
-          </div>
-          <div className="chat__header--right">
-            {/* <Notification /> */}
-          </div>
+        <Box bgColor={bg} className="chat-header">
+        <Box color={textColor} className="chat__header--info">
+          <h1>Chakshu Gautam</h1>
+        </Box>
+        <div className="chat__header--right">
+          <ColorModeSwitcher />
+          {/* <Notification /> */}
         </div>
-        <div className="chat-body-container">
-          <div className="chat-body">         
-            <MessageWindow messages={state.messages} username={state.username} selected={selected}/>          
-          </div>
-          <TextBar onSend={sendMessage} />
-        </div>
+      </Box>
+      <Box className="chat-body-container">
+        <Box className="chat-body">
+          <MessageWindow
+            messages={state.messages}
+            username={state.username}
+            selected={selected} 
+          />
+        </Box>
+        <TextBar onSend={sendMessage} />
+      </Box>
       </>
     );
   };
