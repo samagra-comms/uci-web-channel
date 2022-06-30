@@ -5,6 +5,7 @@ import {
     send,
   } from "./websocket";
 import MessageWindow from "./MessageWindow";
+import Profile from "./Profile";
 import TextBar from "./TextBar";
 import { useColorModeValue, Box } from "@chakra-ui/react";
 
@@ -13,6 +14,8 @@ import Notification from "./Notifications";
 import ColorModeSwitcher from "./ColorModeSwitcher";
 
 const App = (): any => {
+
+  const [profileOpen,setProfileOpen] = useState(false);
 
   // Chakra Theme Toggle Information
   const bg = useColorModeValue("#06d755","#202C33");
@@ -103,14 +106,19 @@ const App = (): any => {
       const toSend = option.key+" "+option.text;
       sendMessage(toSend);
     }
+
+    const showProfile = () => {
+      setProfileOpen(true);
+    }
   
     return (
       <>
-        <Box bgColor={bg} className="chat-header">
+        {profileOpen && <Profile removeProfile={setProfileOpen} title="Chakshu" message="Chakshu Gautam" />}
+        <Box cursor='pointer' bgColor={bg} onClick={showProfile} className="chat-header">
         <Box color={textColor} className="chat__header--info">
           <h1>Chakshu Gautam</h1>
         </Box>
-        <div className="chat__header--right">
+        <div onClick={(event) => {if(event.stopPropagation) event.stopPropagation();return false;}} className="chat__header--right">
           <ColorModeSwitcher />
           {/* <Notification /> */}
         </div>
