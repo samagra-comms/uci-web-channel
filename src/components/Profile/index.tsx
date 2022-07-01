@@ -27,12 +27,12 @@ const Profile = (props: any) => {
             width="160px"
             alt="This is a avatar"
           />
-          <Text fontSize="lg" fontWeight="bold">Chakshu Gautam</Text>
-          <Text fontSize="sm">+91 1234567890</Text>
+          <Text className={styles.profile__title} fontSize="lg" fontWeight="bold">{props.name}</Text>
+          <Text fontSize="sm">{props.number}</Text>
         </Box>
         <Box bgColor={box_color} className={styles.about__section}>
           <Text color={headingColor} fontWeight="bold" fontSize="lg">About</Text>
-          <Text color={paraColor} fontSize="sm">Hi! I am using UCI :)</Text>
+          <Text color={paraColor} fontSize="sm">{props.bio}</Text>
         </Box>
       </Box>
     </div>
