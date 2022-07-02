@@ -14,7 +14,7 @@ import { withCookies } from 'react-cookie';
 import { useRouter } from "next/router";
 import ColorModeSwitcher from "./ColorModeSwitcher";
 
-const App = (): any => {
+const App = (props: any): any => {
   const router = useRouter();
 
   
@@ -64,12 +64,16 @@ const App = (): any => {
   useEffect((): void => {
     if (!router.query.state) {
       router.push("/login");
+    } else {
+      setVerified(true);
     }
 
-    // setAccessToken(props.cookies.get('access_token'));
+    setAccessToken(props.cookies.get('access_token'));
+    setLoading(false);
     registerOnMessageCallback(onMessageReceived);
     registerOnSessionCallback(onSessionCreated);
     scrollToBottom();
+
   }, [state]);
 
   const onSessionCreated = (session: any) => {
@@ -111,6 +115,14 @@ const App = (): any => {
   };
 
   const sendMessage = (text: any) => {
+    
+    if (!accessToken) {
+      setVerified(false);
+      router.push("/login");
+    } else {
+      setVerified(true);
+    }
+
     send(text, state.session);
     setState({
       ...state,
