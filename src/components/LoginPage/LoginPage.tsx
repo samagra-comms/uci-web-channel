@@ -9,6 +9,8 @@ import {
 } from "@chakra-ui/react";
 import { useState } from "react";
 import { useRouter } from "next/router";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faUser } from "@fortawesome/free-solid-svg-icons";
 
 const LoginPage = () => {
   const router = useRouter();
@@ -38,33 +40,24 @@ const LoginPage = () => {
     if (input.length !== 10) {
       alert("Enter a 10 digit number");
     } else {
-        fetch(`${process.env.REACT_APP_OTP_BASE_URL}/uci/sendOTP?phone=${input}`,
-        { method: "GET"})
-        .then(response => {
-          if (response.status === 200) {
-            router.push({pathname:"/otp",query:{state: input}})
-          } else {
-            alert("OTP not sent")
-          }
-        })
-      }
-      // console.log(`Phone number is ${input}`);
-      // console.log("Sending OTP...");
-      // let temp_otp = "";
-      // for (let i = 0; i < 4; i++) {
-      //   temp_otp = temp_otp + Math.floor(Math.random()*10).toString();
-      // }
-      // localStorage.setItem("otp", temp_otp);
-      // localStorage.setItem("number",input);
-      // console.log(`otp is ${temp_otp}`);
-      // router.push("/otp");
+      fetch(
+        `${process.env.NEXT_PUBLIC_OTP_BASE_URL}uci/sendOTP?phone=${input}`,
+        { method: "GET" }
+      ).then((response) => {
+        if (response.status === 200) {
+          router.push({ pathname: "/otp", query: { state: input } });
+        } else {
+          alert("OTP not sent");
+        }
+      });
     }
+  };
 
   return (
     <Container className={styles.container} style={{ maxWidth: "390px" }}>
       <div style={{ padding: "55px 18px" }}>
         <Box fontWeight="700" fontSize="20px" marginBottom="7px">
-          Login Account
+          Login Account <FontAwesomeIcon icon={faUser} />
         </Box>
         <Box fontWeight="400" fontSize="13px" color="#636363">
           Hello , welcome back to our account !
@@ -97,7 +90,11 @@ const LoginPage = () => {
         >
           Send OTP
         </Button>
-        <div className={styles.signup}>Or sign up with</div>
+        <div className={styles.signup}>
+          <div>-------------&nbsp;&nbsp;</div>
+          <div>Or sign up with</div>
+          <div>&nbsp;&nbsp;-------------</div>
+        </div>
         <div className={styles.createAccount} style={{ marginTop: "50px" }}>
           Not register yet?{" "}
           <b>

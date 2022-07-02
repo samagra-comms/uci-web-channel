@@ -1,16 +1,15 @@
-.container {
-    margin: auto;
-    box-shadow: 0 2.8px 2.2px rgba(0, 0, 0, 0.034),
-      0 6.7px 5.3px rgba(0, 0, 0, 0.048), 0 12.5px 10px rgba(0, 0, 0, 0.06),
-      0 22.3px 17.9px rgba(0, 0, 0, 0.072), 0 41.8px 33.4px rgba(0, 0, 0, 0.086),
-      0 100px 80px rgba(0, 0, 0, 0.12);
-  }
+/* 
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+} */
 
 .otpVerify {
     font-weight: 600;
     font-size: 22px;
     color: #474646;
-    margin-top: 431px;
 }
 
 .otpSent {
@@ -22,7 +21,7 @@
 .pinInputField{
     text-align: center;
     border-radius: 50%;
-    background: #F6F6F6;
+    /* background: #F6F6F6; */
     border: 1px solid #080664;
     width: 42px;
     height: 42px;
@@ -43,7 +42,6 @@
 .submitButton{
     width: 259px !important;
     height: 39px;
-    background: #080664;
     border-radius: 12px;
     font-weight: 700;
     font-size: 15px;
