@@ -10,33 +10,14 @@ import TextBar from "./TextBar";
 import { useColorModeValue, Box } from "@chakra-ui/react";
 
 import Notification from "./Notifications";
-import { withCookies } from 'react-cookie';
+import { withCookies } from "react-cookie";
 import { useRouter } from "next/router";
 import ColorModeSwitcher from "./ColorModeSwitcher";
 
 const App = (props: any): any => {
   const router = useRouter();
 
-  
-  const [loading, setLoading] = useState(true);
-  const [isVerified, setVerified] = useState(false);
   const [accessToken, setAccessToken] = useState();
-
-
-
-  // useEffect(() => {
-  //     let token = ""
-  //     if (typeof window !== 'undefined') {
-  //       token = localStorage.getItem("jwtToken") || "";
-  //     }
-  //     if (token !== "") {
-  //       setVerified(true);
-  //     } else {
-  //       console.log("You are not logged In... Sending you to /login")
-  //       router.push("/login")
-  //     }
-  //   setLoading(false);
-  // });
 
   const [profileOpen, setProfileOpen] = useState(false);
 
@@ -64,16 +45,11 @@ const App = (props: any): any => {
   useEffect((): void => {
     if (!router.query.state) {
       router.push("/login");
-    } else {
-      setVerified(true);
     }
-
-    setAccessToken(props.cookies.get('access_token'));
-    setLoading(false);
+    setAccessToken(props.cookies.get("access_token"));
     registerOnMessageCallback(onMessageReceived);
     registerOnSessionCallback(onSessionCreated);
     scrollToBottom();
-
   }, [state]);
 
   const onSessionCreated = (session: any) => {
@@ -85,18 +61,6 @@ const App = (props: any): any => {
   };
 
   const onMessageReceived = (msg: any) => {
-    // let message = msg.content.title;
-    // if (msg.content.choices && msg.content.choices.length > 0) {
-    //   for (let i = 0; i < msg.content.choices.length; i++) {
-    //     message =
-    //       message +
-    //       "\n" +
-    //       msg.content.choices[i].key +
-    //       ". " +
-    //       msg.content.choices[i].text;
-    //   }
-    //   console.log(msg.content.choices);
-    // }
     setState({
       ...state,
       messages: state.messages.concat({
@@ -115,22 +79,19 @@ const App = (props: any): any => {
   };
 
   const sendMessage = (text: any) => {
-    
     if (!accessToken) {
-      setVerified(false);
       router.push("/login");
     } else {
-      setVerified(true);
+      // setVerified(true);
+      send(text, state.session, accessToken);
+      setState({
+        ...state,
+        messages: state.messages.concat({
+          username: state.username,
+          text: text,
+        }),
+      });
     }
-
-    send(text, state.session);
-    setState({
-      ...state,
-      messages: state.messages.concat({
-        username: state.username,
-        text: text,
-      }),
-    });
   };
   if (state.username === null) {
     console.log("Please set a username first");
@@ -153,51 +114,49 @@ const App = (props: any): any => {
 
   return (
     <>
-    {loading? 
+      {/* {loading? 
     (<h1>"Page is Loading"</h1>): 
-    (isVerified && 
+    (isVerified &&  */}
       <>
-      {profileOpen && (
-        <Profile
-          removeProfile={setProfileOpen}
-          name="Chakshu Gautam"
-          number="+91 1234567890"
-          bio="Hi! I am using UCI :)"
-        />
-      )}
-      <Box
-        cursor="pointer"
-        bgColor={bg}
-        onClick={showProfile}
-        className="chat-header"
-      >
-        <Box color={textColor} className="chat__header--info">
-          <h1>Chakshu Gautam</h1>
-        </Box>
-        <div
-          onClick={(event) => {
-            if (event.stopPropagation) event.stopPropagation();
-            return false;
-          }}
-          className="chat__header--right"
-        >
-          <ColorModeSwitcher />
-          {/* <Notification /> */}
-        </div>
-      </Box>
-      <Box className="chat-body-container">
-        <Box className="chat-body">
-          <MessageWindow
-            messages={state.messages}
-            username={state.username}
-            selected={selected}
+        {profileOpen && (
+          <Profile
+            removeProfile={setProfileOpen}
+            name="Chakshu Gautam"
+            number="+91 1234567890"
+            bio="Hi! I am using UCI :)"
           />
+        )}
+        <Box
+          cursor="pointer"
+          bgColor={bg}
+          onClick={showProfile}
+          className="chat-header"
+        >
+          <Box color={textColor} className="chat__header--info">
+            <h1>Chakshu Gautam</h1>
+          </Box>
+          <div
+            onClick={(event) => {
+              if (event.stopPropagation) event.stopPropagation();
+              return false;
+            }}
+            className="chat__header--right"
+          >
+            <ColorModeSwitcher />
+            {/* <Notification /> */}
+          </div>
         </Box>
-        <TextBar onSend={sendMessage} />
-      </Box>
+        <Box className="chat-body-container">
+          <Box className="chat-body">
+            <MessageWindow
+              messages={state.messages}
+              username={state.username}
+              selected={selected}
+            />
+          </Box>
+          <TextBar onSend={sendMessage} />
+        </Box>
       </>
-    )
-    }  
     </>
   );
 };

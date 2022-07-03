@@ -66,24 +66,24 @@ const OTPpage: React.FC = () => {
           method: "get",
         }
       )
-        .then(response => response.json())
-        .then(data => {
-          console.log(data)
+        .then((response) => response.json())
+        .then((data) => {
           if (data.resp.params.status === "Success") {
             let expires = new Date();
-            expires.setTime(
-              expires.getTime() +
-                data.resp.result.data.user.tokenExpirationInstant * 1000
-            );
-            setCookie("access_token", data.resp.result.data.user.token, {
-              path: "/",
-              expires,
-            });
-            router.push({ pathname: "/", query: { state: true } });
+              expires.setTime(
+                expires.getTime() +
+                  data.resp.result.data.user.tokenExpirationInstant * 1000
+              );
+              setCookie("access_token", data.resp.result.data.user.token, {
+                path: "/",
+                expires,
+              });
+              router.push({ pathname: "/", query: { state: true } });
           } else {
             alert("Incorrect OTP");
           }
-        });
+        })
+        .catch((err) => console.log(err));
     }
   };
 
