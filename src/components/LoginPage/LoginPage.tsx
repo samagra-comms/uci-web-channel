@@ -20,22 +20,7 @@ const LoginPage = () => {
   const handleNumber = (e: any) => {
     setInput(e.target.value);
   };
-
-  /* 
-   const realHandleOTPPage = () => {
-    else {
-      fetch(`${process.env.REACT_APP_OTP_BASE_URL}/uci/sendOTP?phone=${input}`.
-      { method: "GET"})
-      .then(response => {
-        if (response.status === 200) {
-          router.push("/otp",{state: input})
-        } else {
-          alert("OTP not sent")
-        }
-      })
-    }
-   }
-   */
+  
   const handleOTPPage = () => {
     if (input.length !== 10) {
       alert("Enter a 10 digit number");
