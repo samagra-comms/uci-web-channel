@@ -21,6 +21,7 @@ const App: React.FC = () => {
 
   // For Authentication
   const [accessToken, setAccessToken] = useState("");
+  const [isVerified, setIsVerified] = useState(false);
   const [cookies, setCookies] = useCookies();
 
   // For showing the Profile
@@ -48,6 +49,15 @@ const App: React.FC = () => {
   };
 
   useEffect(() => {
+    fetch(
+      `http://localhost:3000/api/auth?token=${cookies["access_token"]}`,
+      {
+        method: "GET"
+      }
+    ).then((response) => response.json())
+    .then(data => {
+      console.log(data)
+    });
     setAccessToken(cookies["access_token"]);
   }, []);
 
@@ -61,7 +71,7 @@ const App: React.FC = () => {
     }
   }, [state]);
 
-  const onSessionCreated = (session: {session: any}): void => {
+  const onSessionCreated = (session: { session: any }): void => {
     // console.log({ session });
     setState({
       ...state,
