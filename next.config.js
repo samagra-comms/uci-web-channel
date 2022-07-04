@@ -4,8 +4,5 @@ const nextConfig = {
 }
 
 module.exports = {
-  serverRuntimeConfig: {
-    secret: "secret"
-  },
   nextConfig
 }
