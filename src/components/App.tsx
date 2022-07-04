@@ -7,6 +7,7 @@ import {
 import MessageWindow from "./MessageWindow";
 import TextBar from "./TextBar";
 import Notification from "./Notifications";
+import SecNavbar from './SecNavbar';
 
 
 const App = (): any => {
@@ -101,6 +102,7 @@ const App = (): any => {
           <div className="chat__header--info">
             <h3>Chakshu Gautam</h3>
           </div>
+          <SecNavbar />
           <div className="chat__header--right">
             {/* <Notification /> */}
           </div>

@@ -1,0 +1,41 @@
+.navbar{
+    background-color: brown;
+    border: 0px;
+    height: 20px;
+    width: 100px;
+    color: black;
+
+}
+
+.menuBox{
+    border: 0px;
+    margin-right: 100px;
+    background-color: #000080;
+    color: aliceblue;
+}
+
+.item{
+    padding: 5px;
+    border: 0px;
+}
+
+.wallbtn1, .wallbtn2, .wallbtn3{
+    border: none;
+    width: 100%;
+    padding: 5px;
+}
+
+.wallbtn1{
+    background: url( "https://cdn.wallpapersafari.com/98/39/9My6KE.jpg");
+    color: white;
+}
+
+.wallbtn3{
+    background: url("https://cdn.pixabay.com/photo/2021/03/12/11/17/light-bulb-6089387_960_720.jpg");
+    color: white;
+}
+
+.subitem{
+    padding: 0px;
+    border: 0px;
+}

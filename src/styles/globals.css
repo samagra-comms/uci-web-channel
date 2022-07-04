@@ -66,6 +66,7 @@ a {
   width: auto !important;
   font-weight: 500;
   margin-left: 25px;
+  background-color: white;
 }
 .chat-message::before {
   content: "";
@@ -89,7 +90,8 @@ a {
 }
 .chat-body {
   /* opacity: 0; */
-  width: 90%;
+  width: 100%;
+  min-height: 90vh;
   top: 20px;
   background-color: #ffffff;
   padding: 0px 20px;
@@ -144,6 +146,7 @@ a {
   font-weight: 500;
   margin-left: 25px;
   margin-bottom: 1rem;
+  background-color: #f5f5f5;
 }
 .chat-error-message::before {
   content: "";
