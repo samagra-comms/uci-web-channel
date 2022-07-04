@@ -25,12 +25,9 @@
 }
 
 body {
-  margin: 0;
-  font-family: Mulish-regular !important;
-  background-color: rgb(255, 255, 255);
+  font-family: Mulish-regular;
   transition: opacity 200ms;
   position: relative;
-  font-family: Mulish-medium;
   scroll-behavior: smooth;
 }
 
@@ -90,12 +87,9 @@ a {
 .chat-body {
   /* opacity: 0; */
   width: 90%;
-  top: 20px;
-  background-color: #ffffff;
   padding: 0px 20px;
   padding-bottom: 98px !important;
   transition: opacity 200ms;
-  position: relative;
   font-family: Mulish-medium;
 }
 .Toastify__toast-container{
@@ -156,11 +150,8 @@ a {
 }
 .chat-body-container {
   flex: 1;
-  background-repeat: repeat;
-  background-position: center;
   overflow: scroll;
-  background-color: #ffffff;
-  z-index: 1;
+  /* z-index: 1; */
   display: flex;
   justify-content: center;
   position: relative;
@@ -171,18 +162,16 @@ a {
   scrollbar-width: none;
 }
 .chat-header {
-  padding: 10px;
-  padding-right: 0px;
-  padding-left: 12px;
+  padding: 1em;
+  padding-left: 0.75em;
   display: flex;
   align-items: center;
   border-bottom: 1px solid #fff;
   background-image: url("../assets/images/sidebar.png");
   background-repeat: no-repeat;
   background-size: cover;
-  background-color: #000080;
   background-blend-mode: multiply;
-  color: white;
+  font-weight: bold;
   z-index: 5;
   position: fixed;
   width: 100%;
@@ -235,7 +224,6 @@ a {
   width: 46px;
   height: 46px;
   border-radius: 50%;
-  background: #06d755;
   box-shadow: 0px 0px 2px 0px #0000005e;
   border: none;
   transition: transform 150ms;
@@ -253,7 +241,7 @@ a {
   outline: none;
 }
 
-.send__btn svg {
+/* .send__btn svg {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -263,7 +251,7 @@ a {
 .send__btn svg:nth-child(1) {
   opacity: 0;
   transform: translateX(-48%) translateY(-50%);
-}
+} */
 
 .chat__footer > .MuiSvgIcon-root {
   color: gray;
@@ -278,7 +266,8 @@ a {
   font-size: 15px;
   margin-right: 10px;
   padding-right: 20px;
-  box-shadow: 0px 0px 2px 0px #0000003b;
+  box-shadow: 0px 0px 10px 0px #0000003b;
+  box-shadow: 0px 0px 15px 0px #0000003b;
   font-family: Roboto, sans-serif;
   transition: all 300ms;
   width: calc(100% - 150px);

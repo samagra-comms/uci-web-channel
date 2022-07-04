@@ -22,8 +22,9 @@ const Home: NextPage = () => {
         <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
         <title>UCI PWA</title>
       </Head>
-      <ColorModeScript />
       <App />
+      <ColorModeScript />
+      
     </React.StrictMode>
   );
 };

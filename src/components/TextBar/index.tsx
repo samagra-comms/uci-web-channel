@@ -1,11 +1,22 @@
 import { useRef } from "react";
-import { Box, Button, Input } from "@chakra-ui/react";
+import { Box, Button } from "@chakra-ui/react";
 import { MdSend } from "react-icons/md";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faPaperPlane
+} from "@fortawesome/free-solid-svg-icons";
+import { Input, useColorModeValue } from "@chakra-ui/react";
 
 const TextBar = (props: any) => {
+ 
+   // Toggle Settings
+   const bg = useColorModeValue("#06d755","#202C33");
+   const textColor = useColorModeValue("#000","#fff");
+   const faIcon = useColorModeValue("#202C33","#fff");
+   // ---------------
+
   const input: any = useRef(null);
     const sendMessage = (e: any) => {
       e.preventDefault();
@@ -69,18 +80,20 @@ const TextBar = (props: any) => {
 	        
 	    </div> */}
       <ToastContainer />
-      <div className="chat__footer">
+      <Box className="chat__footer">
         <form>
-          <input
+          <Input
+            color={"black"}
             placeholder="Type your message"
+            _placeholder={{color: "black"}}
             ref={input}
             onKeyDown={sendMessageIfEnter}
-          />        
-        <button className="send__btn" onClick={sendMessage} type="submit">
-          Send
-        </button>
+          />
+          <Button bgColor={bg} color={faIcon} w="46px" h="46px" borderRadius="50%" boxShadow="0px 0px 2px 0px #0000005e" border="none"  className="send__btn" onClick={sendMessage} type="submit">
+           <FontAwesomeIcon icon={faPaperPlane}  />
+          </Button>
         </form>
-      </div>
+      </Box>
     </>
   );
 };
