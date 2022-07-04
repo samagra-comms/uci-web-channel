@@ -11,8 +11,8 @@ import {
   Button,
   Link,
 } from "@chakra-ui/react";
-import { useState, useEffect } from "react";
-import { useRouter } from "next/router";
+import React, { useState, useEffect } from "react";
+import { NextRouter, useRouter } from "next/router";
 import { useCookies } from "react-cookie";
 import styles from "./OTP.module.css";
 import Image from "next/image";
@@ -21,44 +21,18 @@ import image2 from "../../../public/otp_done.png";
 import image3 from "../../../public/wrong_otp.png";
 
 const OTPpage: React.FC = () => {
-  const router = useRouter();
-  const [correctOTP, setCorrectOTP] = useState("");
-  // const [inputOTP, setInputOTP] = useState("");
+  const router: NextRouter = useRouter();
   const [input1, setInput1] = useState("");
   const [input2, setInput2] = useState("");
   const [input3, setInput3] = useState("");
   const [input4, setInput4] = useState("");
   const [image, setImage] = useState(image1);
-  const [phoneNumber, setPhoneNumber] = useState("");
   const [cookies, setCookie] = useCookies(["access_token"]);
 
-  let correct_otp = "";
-  let phone_number = "";
-  useEffect(() => {
-    correct_otp = localStorage.getItem("otp") || "";
-    phone_number = localStorage.getItem("number") || "";
 
-    if (phone_number === "") {
-      console.log("phone number is wrong");
-    } else {
-      setPhoneNumber(phone_number);
-    }
-    if (correct_otp === "") {
-      console.log("OTP isn't recieved");
-    } else {
-      setCorrectOTP(correct_otp);
-    }
-  }, []);
-
-  /* 
-  const actualOTPSubmit = (event) => {
-    
-  }  
-*/
-
-  const handleOTPSubmit = (event: any) => {
+  const handleOTPSubmit: React.FormEventHandler = (event: React.FormEvent) => {
     event.preventDefault();
-    const inputOTP = input1 + input2 + input3 + input4;
+    const inputOTP: string = input1 + input2 + input3 + input4;
     if (inputOTP.length === 4) {
       fetch(
         `${process.env.NEXT_PUBLIC_OTP_BASE_URL}uci/loginOrRegister?phone=${router.query.state}&otp=${inputOTP}`,
@@ -87,25 +61,22 @@ const OTPpage: React.FC = () => {
     }
   };
 
-  const handleOTP1 = (e: any) => {
+  const handleOTP1: React.ChangeEventHandler = (e:React.ChangeEvent<HTMLInputElement>) => {
     setInput1(e.target.value);
     setImage(image1);
   };
-  const handleOTP2 = (e: any) => {
+  const handleOTP2: React.ChangeEventHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInput2(e.target.value);
     setImage(image1);
   };
-  const handleOTP3 = (e: any) => {
+  const handleOTP3: React.ChangeEventHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInput3(e.target.value);
     setImage(image1);
   };
-  const handleOTP4 = (e: any) => {
+  const handleOTP4: React.ChangeEventHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInput4(e.target.value);
     setImage(image2);
   };
-  // const changeOTP = (event: any) => {
-  //   setInputOTP(event.target.value);
-  // };
 
   return (
     <Box

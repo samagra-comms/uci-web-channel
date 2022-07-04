@@ -1,9 +1,16 @@
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, MutableRefObject } from "react";
 import styles from "./index.module.css";
 import { Text, Box, Flex, Spacer, Button, useColorModeValue } from "@chakra-ui/react";
 
+interface messageProps {
+  text: any,
+  username: string,
+  self: boolean,
+  choices: any,
+  data: any
+}
 
-const Message = ({
+const Message: React.FC<messageProps> = ({
   text,
   username,
   self,
@@ -62,9 +69,14 @@ const Message = ({
   );
 };
 
+interface messageWindowProps {
+  selected: (option: any) => void ,
+  messages: messageProps[],
+  username: string
+}
 
-const MessageWindow = (props: any) => {
-  let messageWindow: any = useRef(null);
+const MessageWindow: React.FC<messageWindowProps> = (props) => {
+  let messageWindow: MutableRefObject<any> = useRef(null);
 
   // { current: null }
   useEffect(() => {

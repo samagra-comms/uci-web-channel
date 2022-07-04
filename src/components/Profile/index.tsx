@@ -4,13 +4,20 @@ import { Box,Text } from "@chakra-ui/react";
 import Image from "next/image";
 import { useColorModeValue } from "@chakra-ui/react";
 
-const Profile = (props: any) => {
+interface profileProps {
+  removeProfile: (a:boolean) => void,
+  name: string,
+  number: string,
+  bio: string
+}
+
+const Profile: React.FC<profileProps> = (props) => {
     const box_color = useColorModeValue("#38FF81","#111B21");
     const back_color = useColorModeValue("#07A340","#0B1216");
     const headingColor = useColorModeValue("#000000","#979DA1");
     const paraColor = useColorModeValue("#000000","#FFFFFF");
 
-  const clickHandler = () => {
+  const clickHandler: React.MouseEventHandler = (event: React.MouseEvent) => {
     props.removeProfile(false);
   };
 
