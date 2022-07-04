@@ -1,5 +1,5 @@
 import { useRef, useEffect } from "react";
-import "./index.css";
+import styles from "./index.module.css";
 import { Box, Flex, Spacer, Button } from "@chakra-ui/react";
 
 
@@ -22,7 +22,7 @@ const Message = ({
         <>
           <Spacer />
           <div className="chat-message chat-reciever">
-            <div className="message-username">{username}</div>
+            <div className={styles.message_username}>{username}</div>
             <div style={{ whiteSpace: "pre-wrap" }}>{text}</div>
           </div>
         </>
@@ -37,13 +37,13 @@ const Message = ({
                 : "chat-message"
               }
               >
-              <div className="message-username">{username}</div>
+              <div className={styles.message_username}>{username}</div>
               <div style={{ whiteSpace: "pre-wrap" }}>{text}</div>
             </div>
             {choices && choices.length > 0 && (
               <div className="chat-choices-container">
                 {choices.map((choice: any) => (
-                  <Button className="chat-choices" onClick={() => data(choice)}>{choice.key}{" "}{choice.text}</Button>
+                  <Button className="chat-choices" key={choice.key} onClick={() => data(choice)}>{choice.key}{" "}{choice.text}</Button>
                   ))}
               </div>
             )}
@@ -58,10 +58,12 @@ const Message = ({
 
 const MessageWindow = (props: any) => {
   let messageWindow: any = useRef(null);
+
+  // { current: null }
   useEffect(() => {
-    messageWindow = messageWindow.current;
-    messageWindow.scrollTop =
-      messageWindow.scrollHeight - messageWindow.clientHeight;
+    // messageWindow = messageWindow.current;
+    messageWindow.current.scrollTop = 
+      messageWindow.current.scrollHeight - messageWindow.current.clientHeight;
   }, [messageWindow]);
 
   const username: string = props.username;
