@@ -7,21 +7,21 @@ import {
   Container,
   Box,
 } from "@chakra-ui/react";
-import { useState } from "react";
-import { useRouter } from "next/router";
+import React, { useState } from "react";
+import { Router, useRouter } from "next/router";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
 
-const LoginPage = () => {
+const LoginPage: React.FC = () => {
   const router = useRouter();
   const [input, setInput] = useState("");
 
   // Setting the input value
-  const handleNumber = (e: any) => {
+  const handleNumber: React.ChangeEventHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInput(e.target.value);
   };
   
-  const handleOTPPage = () => {
+  const handleOTPPage: React.MouseEventHandler = (e: React.MouseEvent<HTMLButtonElement>) => {
     if (input.length !== 10) {
       alert("Enter a 10 digit number");
     } else {

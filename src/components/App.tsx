@@ -10,15 +10,20 @@ import TextBar from "./TextBar";
 import { useColorModeValue, Box } from "@chakra-ui/react";
 
 import Notification from "./Notifications";
-import { withCookies } from "react-cookie";
+import { useCookies, withCookies } from "react-cookie";
 import { useRouter } from "next/router";
 import ColorModeSwitcher from "./ColorModeSwitcher";
+import { SessionState } from "http2";
 
-const App = (props: any): any => {
+const App: React.FC = () => {
+  // Router for Navigation
   const router = useRouter();
 
-  const [accessToken, setAccessToken] = useState();
+  // For Authentication
+  const [accessToken, setAccessToken] = useState("");
+  const [cookies, setCookies] = useCookies();
 
+  // For showing the Profile
   const [profileOpen, setProfileOpen] = useState(false);
 
   // Chakra Theme Toggle Information
@@ -38,29 +43,33 @@ const App = (props: any): any => {
 
   const [state, setState] = useState(initialState);
 
-  const scrollToBottom = () => {
+  const scrollToBottom: () => void = () => {
     window.scrollTo(0, document.body.scrollHeight);
   };
 
+  useEffect(() => {
+    setAccessToken(cookies["access_token"]);
+  }, []);
+
   useEffect((): void => {
-    if (!router.query.state) {
+    if (router.query.state || cookies["access_token"] !== "") {
+      registerOnMessageCallback(onMessageReceived);
+      registerOnSessionCallback(onSessionCreated);
+      scrollToBottom();
+    } else {
       router.push("/login");
     }
-    setAccessToken(props.cookies.get("access_token"));
-    registerOnMessageCallback(onMessageReceived);
-    registerOnSessionCallback(onSessionCreated);
-    scrollToBottom();
   }, [state]);
 
-  const onSessionCreated = (session: any) => {
-    console.log({ session });
+  const onSessionCreated = (session: {session: any}): void => {
+    // console.log({ session });
     setState({
       ...state,
       session: session,
     });
   };
 
-  const onMessageReceived = (msg: any) => {
+  const onMessageReceived = (msg: any): void => {
     setState({
       ...state,
       messages: state.messages.concat({
@@ -71,18 +80,17 @@ const App = (props: any): any => {
     });
   };
 
-  const setUserName = (name: string) => {
+  const setUserName = (name: string): void => {
     setState({
       ...state,
       username: name,
     });
   };
 
-  const sendMessage = (text: any) => {
+  const sendMessage = (text: string): void => {
     if (!accessToken) {
       router.push("/login");
     } else {
-      // setVerified(true);
       send(text, state.session, accessToken);
       setState({
         ...state,
@@ -93,6 +101,7 @@ const App = (props: any): any => {
       });
     }
   };
+
   if (state.username === null) {
     console.log("Please set a username first");
     return (
@@ -103,12 +112,12 @@ const App = (props: any): any => {
     );
   }
 
-  const selected = (option: any) => {
+  const selected = (option: any): void => {
     const toSend = option.key + " " + option.text;
     sendMessage(toSend);
   };
 
-  const showProfile = () => {
+  const showProfile: () => void = (): void => {
     setProfileOpen(true);
   };
 
@@ -161,4 +170,4 @@ const App = (props: any): any => {
   );
 };
 
-export default withCookies(App);
+export default App;
