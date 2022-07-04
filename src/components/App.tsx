@@ -49,16 +49,24 @@ const App: React.FC = () => {
   };
 
   useEffect(() => {
-    fetch(
-      `http://localhost:3000/api/auth?token=${cookies["access_token"]}`,
-      {
-        method: "GET"
-      }
-    ).then((response) => response.json())
-    .then(data => {
-      console.log(data)
-    });
-    setAccessToken(cookies["access_token"]);
+    if (cookies["access_token"] !== undefined) {
+      fetch(`http://localhost:3000/api/auth?token=${cookies["access_token"]}`, {
+        method: "GET",
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          if (data === {}) {
+            throw "Invalid Access Token";
+            router.push("/login");
+          } 
+        })
+        .catch((err) => {
+          throw err;
+        });
+      setAccessToken(cookies["access_token"]);
+    } else {
+      router.push("/login");
+    }
   }, []);
 
   useEffect((): void => {

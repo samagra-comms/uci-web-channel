@@ -14,7 +14,7 @@ interface textBarProps {
 }
 
 const TextBar: React.FC<textBarProps> = (props) => {
- 
+
    // Toggle Settings
    const bg = useColorModeValue("#06d755","#202C33");
    const textColor = useColorModeValue("#000","#fff");
@@ -22,6 +22,7 @@ const TextBar: React.FC<textBarProps> = (props) => {
    // ---------------
 
   const input: MutableRefObject<HTMLInputElement | null > = useRef<HTMLInputElement | null>(null);
+
     const sendMessage = (e: any) => {
       e.preventDefault();
       const message: string | undefined = input.current?.value;
@@ -33,12 +34,12 @@ const TextBar: React.FC<textBarProps> = (props) => {
       }
       input.current!.value = "";
     };
-  
+
   const sendMessageIfEnter: React.KeyboardEventHandler = (e: React.KeyboardEvent) => {
     if (+e.key === 13 && input.current!.value.length > 0) {
       sendMessage(e);
     }
-    
+
   };
 
   return (

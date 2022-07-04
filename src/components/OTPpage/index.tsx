@@ -27,7 +27,7 @@ const OTPpage: React.FC = () => {
   const [input3, setInput3] = useState("");
   const [input4, setInput4] = useState("");
   const [image, setImage] = useState(image1);
-  const [cookies, setCookie] = useCookies(["access_token"]);
+  const [cookies, setCookie, removeCookie] = useCookies(["access_token"]);
 
 
   const handleOTPSubmit: React.FormEventHandler = (event: React.FormEvent) => {
@@ -48,6 +48,7 @@ const OTPpage: React.FC = () => {
                 expires.getTime() +
                   data.resp.result.data.user.tokenExpirationInstant * 1000
               );
+              removeCookie("access_token")
               setCookie("access_token", data.resp.result.data.user.token, {
                 path: "/",
                 expires,
@@ -55,6 +56,7 @@ const OTPpage: React.FC = () => {
               router.push({ pathname: "/", query: { state: true } });
           } else {
             alert("Incorrect OTP");
+            setImage(image3)
           }
         })
         .catch((err) => console.log(err));
