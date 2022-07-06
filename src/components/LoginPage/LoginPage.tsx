@@ -11,11 +11,13 @@ import React, { useState } from "react";
 import { Router, useRouter } from "next/router";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
+import { useColorModeValue } from "@chakra-ui/react";
 
 const LoginPage: React.FC = () => {
   const router = useRouter();
   const [input, setInput] = useState("");
 
+  const textColor = useColorModeValue("#636363", "#fff");
   // Setting the input value
   const handleNumber: React.ChangeEventHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInput(e.target.value);
@@ -44,7 +46,7 @@ const LoginPage: React.FC = () => {
         <Box fontWeight="700" fontSize="20px" marginBottom="7px">
           Login Account <FontAwesomeIcon icon={faUser} />
         </Box>
-        <Box fontWeight="400" fontSize="13px" color="#636363">
+        <Box fontWeight="400" fontSize="13px" color={textColor}>
           Hello , welcome back to our account !
         </Box>
         <NumberInput style={{ margin: "146px 0px 30px 0px" }}>
