@@ -45,7 +45,7 @@ const TextBar: React.FC<textBarProps> = (props) => {
   return (
     <>
       <ToastContainer />
-      <Box className="chat__footer">
+      <Box className="chat__footer" width="75%">
         <form>
           <Input
             color={"black"}

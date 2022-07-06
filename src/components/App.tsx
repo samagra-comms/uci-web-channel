@@ -7,7 +7,7 @@ import {
 import MessageWindow from "./MessageWindow";
 import Profile from "./Profile";
 import TextBar from "./TextBar";
-import { useColorModeValue, Box } from "@chakra-ui/react";
+import { useColorModeValue, Box, Flex, Text, Spacer } from "@chakra-ui/react";
 
 import Notification from "./Notifications";
 import { useCookies, withCookies } from "react-cookie";
@@ -30,7 +30,10 @@ const App: React.FC = () => {
   const [profileOpen, setProfileOpen] = useState(false);
 
   // Chakra Theme Toggle Information
-  const bgImg = useColorModeValue("url('/light_back_2.jpg')","url('/dark_back.png')");
+  const bgImg = useColorModeValue(
+    "url('/light_back_2.jpg')",
+    "url('/dark_back.png')"
+  );
   const bg = useColorModeValue("#06d755", "#202C33");
   const textColor = useColorModeValue("#202C33", "#fff");
   // ----------------------
@@ -61,7 +64,7 @@ const App: React.FC = () => {
           if (data === {}) {
             throw "Invalid Access Token";
             router.push("/login");
-          } 
+          }
         })
         .catch((err) => {
           throw err;
@@ -143,51 +146,72 @@ const App: React.FC = () => {
   };
 
   return (
-    <>
-      {/* {loading? 
-    (<h1>"Page is Loading"</h1>): 
-    (isVerified &&  */} 
-      <>
-        {profileOpen && (
-          <Profile
-            removeProfile={setProfileOpen}
-            name="Chakshu Gautam"
-            number="+91 1234567890"
-            bio="Hi! I am using UCI :)"
-          />
-        )}
-        <Box
-          cursor="pointer"
-          bgColor={bg}
-          onClick={showProfile}
-          className="chat-header"
+    <Flex
+      flex="3"
+      flexDirection="column"
+      // position="absolute"
+    >
+      {/* Heading */}
+      <Flex
+        backgroundImage={"url('/sidebar.png')"}
+        backgroundRepeat="no-repeat"
+        backgroundSize="cover"
+        backgroundBlendMode="multiply"
+        bgColor={bg}
+        flex="1"
+        justifyContent="space-between"
+        alignItems="center"
+        position="fixed"
+        width="75%"
+        flexWrap="wrap"
+        zIndex="1"
+      >
+        <Box p="1rem" color={textColor}>
+          <Text fontSize="2xl" fontWeight="extrabold">
+            Chakshu Gautam
+          </Text>
+        </Box>
+        <Spacer />
+        <Flex
+          p="1rem"
+          justifyContent="center"
+          alignItems="center"
+          onClick={(event) => {
+            if (event.stopPropagation) event.stopPropagation();
+            return false;
+          }}
         >
-          <Box color={textColor} className="chat__header--info">
-            <h1>Chakshu Gautam</h1>
-          </Box>
-          <div
-            onClick={(event) => {
-              if (event.stopPropagation) event.stopPropagation();
-              return false;
-            }}
-            className="chat__header--right"
-          >
-            <ColorModeSwitcher />
-            {/* <Notification /> */}
-          </div>
+          <ColorModeSwitcher />
+        </Flex>
+      </Flex>
+        
+      
+      {/* Chat Body Container */}
+      <Box
+        className="chat-body-container"
+        flex="10"
+        z-index="2"
+        overflow="scroll"
+        display="flex"
+        justifyContent="center"
+      >
+        {/* Chat Body */}
+        <Box
+          bgImage={bgImg}
+          p="0 1rem 2rem 1rem"
+          transition="opacity 200ms"
+          width="100%"
+        >
+          <MessageWindow
+            messages={state.messages}
+            username={state.username}
+            selected={selected}
+          />
         </Box>
-        <Box className="chat-body-container" >
-          <Box className="chat-body" bgImage={bgImg} >
-            <MessageWindow
-              messages={state.messages}
-              username={state.username}
-              selected={selected}
-            />
-          </Box>
-          <TextBar onSend={sendMessage} />
-        </Box>
-      </>
-    </>
+
+        <TextBar onSend={sendMessage} />
+      </Box>
+    </Flex>
   );
 };
 

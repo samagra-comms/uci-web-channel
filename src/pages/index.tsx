@@ -3,10 +3,11 @@ import { useEffect } from "react";
 import Head from "next/head";
 import Image from "next/image";
 import App from "../components/App";
+import RecentChats from "../components/RecentChats";
 import React from "react";
 // import * as serviceWorker from "../utils/serviceWorker";
 import { CookiesProvider } from "react-cookie";
-import { ColorModeScript } from "@chakra-ui/react";
+import { ColorModeScript, Flex, Box } from "@chakra-ui/react";
 import { startWebsocketConnection } from "../components/websocket";
 
 const Home: NextPage = () => {
@@ -23,7 +24,12 @@ const Home: NextPage = () => {
         <title>UCI PWA</title>
       </Head>
       <CookiesProvider>
-        <App />
+        <Flex>
+          <RecentChats />
+          
+          <App />
+        </Flex>
+
         <ColorModeScript />
       </CookiesProvider>
     </React.StrictMode>
