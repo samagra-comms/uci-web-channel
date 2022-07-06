@@ -146,13 +146,24 @@ const App: React.FC = () => {
   };
 
   return (
+    
     <Flex
       flex="3"
       flexDirection="column"
       // position="absolute"
     >
+      {profileOpen && (
+      <Profile
+        removeProfile={setProfileOpen}
+        name="Chakshu Gautam"
+        number="+91 1234567890"
+        bio="Hi! I am using UCI :)"
+      />
+    )}
       {/* Heading */}
       <Flex
+        cursor="pointer"
+        onClick={showProfile}
         backgroundImage={"url('/sidebar.png')"}
         backgroundRepeat="no-repeat"
         backgroundSize="cover"
@@ -184,8 +195,7 @@ const App: React.FC = () => {
           <ColorModeSwitcher />
         </Flex>
       </Flex>
-        
-      
+
       {/* Chat Body Container */}
       <Box
         className="chat-body-container"

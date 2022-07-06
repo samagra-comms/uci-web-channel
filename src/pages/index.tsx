@@ -1,9 +1,10 @@
 import type { NextPage } from "next";
-import { useEffect } from "react";
+import { useState,useEffect } from "react";
 import Head from "next/head";
 import Image from "next/image";
 import App from "../components/App";
-import RecentChats from "../components/RecentChats";
+import Settings from "../components/Settings";
+import ChatSection from "../components/ChatSection";
 import React from "react";
 // import * as serviceWorker from "../utils/serviceWorker";
 import { CookiesProvider } from "react-cookie";
@@ -11,6 +12,16 @@ import { ColorModeScript, Flex, Box } from "@chakra-ui/react";
 import { startWebsocketConnection } from "../components/websocket";
 
 const Home: NextPage = () => {
+
+  const [toggleSettings, setToggleSettings] = useState(0);
+
+  const showSettings: React.MouseEventHandler  = (event: React.MouseEvent) => {
+    setToggleSettings(1);
+  }
+  const showChatSection: React.MouseEventHandler = (event: React.MouseEvent) => {
+    setToggleSettings(0);
+  }
+
   return (
     <React.StrictMode>
       <Head>
@@ -25,11 +36,9 @@ const Home: NextPage = () => {
       </Head>
       <CookiesProvider>
         <Flex>
-          <RecentChats />
-          
+          {toggleSettings===0 ? <ChatSection toShowSettings={showSettings} />: <Settings toShowChatSection={showChatSection} />}
           <App />
         </Flex>
-
         <ColorModeScript />
       </CookiesProvider>
     </React.StrictMode>
