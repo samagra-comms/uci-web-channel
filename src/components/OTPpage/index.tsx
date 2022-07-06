@@ -53,7 +53,7 @@ const OTPpage: React.FC = () => {
                 path: "/",
                 expires,
               });
-              router.push({ pathname: "/", query: { state: true } });
+              router.push("/");
           } else {
             alert("Incorrect OTP");
             setImage(image3)

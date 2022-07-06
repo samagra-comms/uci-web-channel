@@ -14,6 +14,8 @@ import { useCookies, withCookies } from "react-cookie";
 import { useRouter } from "next/router";
 import ColorModeSwitcher from "./ColorModeSwitcher";
 import { SessionState } from "http2";
+// import darkImage from "../../public/dark_back.png";
+// import lightImage from "../../public/dark_back.jpg";
 
 const App: React.FC = () => {
   // Router for Navigation
@@ -28,6 +30,7 @@ const App: React.FC = () => {
   const [profileOpen, setProfileOpen] = useState(false);
 
   // Chakra Theme Toggle Information
+  const bgImg = useColorModeValue("url('/light_back_2.jpg')","url('/dark_back.png')");
   const bg = useColorModeValue("#06d755", "#202C33");
   const textColor = useColorModeValue("#202C33", "#fff");
   // ----------------------
@@ -143,7 +146,7 @@ const App: React.FC = () => {
     <>
       {/* {loading? 
     (<h1>"Page is Loading"</h1>): 
-    (isVerified &&  */}
+    (isVerified &&  */} 
       <>
         {profileOpen && (
           <Profile
@@ -173,8 +176,8 @@ const App: React.FC = () => {
             {/* <Notification /> */}
           </div>
         </Box>
-        <Box className="chat-body-container">
-          <Box className="chat-body">
+        <Box className="chat-body-container" >
+          <Box className="chat-body" bgImage={bgImg} >
             <MessageWindow
               messages={state.messages}
               username={state.username}

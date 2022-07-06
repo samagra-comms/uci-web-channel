@@ -52,7 +52,7 @@ const Message: React.FC<messageProps> = ({
               }
               >
               <Box className={styles.message_username}><Text fontSize='md' fontWeight='bold'>{username}</Text></Box>
-              <Box style={{ whiteSpace: "pre-wrap" }}>{text}</Box>
+              <Box fontWeight="thin" style={{ whiteSpace: "pre-wrap" }}>{text}</Box>
             </Box>
             {choices && choices.length > 0 && (
               <Box className="chat-choices-container">
