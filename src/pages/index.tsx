@@ -17,7 +17,7 @@ const Home: NextPage = () => {
   const [phoneNumber, setPhoneNumber] = useState("");
   const [userBio, setUserBio] = useState("");
 
-  const [users, setUsers] = useState<{ name: string; number: string }[]>([]);
+  const [users, setUsers] = useState<{ name: string; number: string | null; active:boolean }[]>([{name: "UCI",number: null,active: true}]);
   const [currentUser, setCurrentUser] = useState<{
     name: string;
     number: string | null;
@@ -29,7 +29,9 @@ const Home: NextPage = () => {
     setProfileName(localStorage.getItem("profileName") || "");
     setPhoneNumber(localStorage.getItem("phoneNumber") || "");
     setUserBio(localStorage.getItem("userBio") || "");
-    // setUsers(JSON.parse(localStorage.getItem("AllUsers") || []))
+    if (localStorage.getItem("AllUsers") || "" !== "") {
+      setUsers(JSON.parse(localStorage.getItem("AllUsers") || ""));
+    }
   }, []);
 
   const showSettings: React.MouseEventHandler = (event: React.MouseEvent) => {
@@ -60,16 +62,23 @@ const Home: NextPage = () => {
     const myUser = users.find((user) => {
       return user.name === name;
     }) || { name: "UCI", number: null };
+    users.forEach((user,index) => {
+      if (user.name === name) {
+        user.active = true;
+      } else if ( user.active === true) {
+        user.active = false;
+      }
+    })
     setCurrentUser(myUser);
   };
 
   const onAddUser = (newName: string, newNumber: string) => {
-    setUsers((prevUsers: { name: string; number: string }[]) => {
+    setUsers((prevUsers: { name: string; number: string | null, active: boolean }[]) => {
       localStorage.setItem(
         "AllUsers",
-        JSON.stringify([...prevUsers, { name: newName, number: newNumber }])
+        JSON.stringify([...prevUsers, { name: newName, number: newNumber, active: false }])
       );
-      return [...prevUsers, { name: newName, number: newNumber }];
+      return [...prevUsers, { name: newName, number: newNumber, active: false }];
     });
   };
   return (

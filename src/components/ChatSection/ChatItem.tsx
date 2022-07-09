@@ -2,14 +2,16 @@ import React from "react";
 import { useState } from "react";
 import Profile from "../Profile";
 import { Flex, Box, Text, useColorModeValue } from "@chakra-ui/react";
+import styles from "./ChatItem.module.css";
 
 interface chatItemProps {
   image: string;
   name: string;
   toChangeUser: (name: string) => void;
+  active: boolean
 }
 
-const ChatItem: React.FC<chatItemProps> = ({ image, name, toChangeUser }) => {
+const ChatItem: React.FC<chatItemProps> = ({ image, name, toChangeUser,active }) => {
   const [showProfile, setShowProfile] = useState(false);
 
   const borderColor = useColorModeValue("#000", "#fff");
@@ -42,7 +44,10 @@ const ChatItem: React.FC<chatItemProps> = ({ image, name, toChangeUser }) => {
           />
         </Flex>
         <Flex
-          onClick={() => {toChangeUser(name)}}
+          onClick={() => {
+            toChangeUser(name);
+          }}
+          className={active?styles.active:styles.chat__text} 
           ml="0.5rem"
           pl="0.5rem"
           flex="4"

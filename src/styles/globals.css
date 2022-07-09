@@ -71,7 +71,7 @@ a {
   left: -40px;
   width: 0;
   height: 0;
-  content: url("../assets/images/robot.png");
+  /* content: url("../assets/images/robot.png"); */
 }
 .chat-reciever {
   margin-left: auto;
