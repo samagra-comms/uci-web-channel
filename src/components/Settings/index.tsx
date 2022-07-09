@@ -33,7 +33,6 @@ const Settings: React.FC<recentChatProps> = ({
   toChangePhoneNumber,
   toChangeProfileName,
   toShowChatSection,
-  
   toAddUser,
 }) => {
   const bg = useColorModeValue("#06d755", "#202C33");

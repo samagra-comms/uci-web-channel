@@ -4,11 +4,12 @@ import styles from "./ChatSection.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEllipsisVertical } from "@fortawesome/free-solid-svg-icons";
 import ChatItem from "./ChatItem";
+import { useState } from 'react';
 
 interface chatSectionProps {
   toShowSettings: (event: React.MouseEvent) => void;
   toChangeCurrentUser: (name: string) => void;
-  allUsers: { name: string; number: string | null }[];
+  allUsers: { name: string; number: string | null, active: boolean }[];
 }
 
 const ChatSection: React.FC<chatSectionProps> = ({
@@ -60,12 +61,12 @@ const ChatSection: React.FC<chatSectionProps> = ({
 
       {/* Profile Section */}
       <Box flex="8">
-        <ChatItem
+        {/* <ChatItem
           image="/neelesh.png"
           name="Neelesh"
           toChangeUser={changingUser}
-        />
-        <ChatItem
+        /> */}
+        {/* <ChatItem
           image="/chakshu.jpg"
           name="Chakshu"
           toChangeUser={changingUser}
@@ -74,10 +75,10 @@ const ChatSection: React.FC<chatSectionProps> = ({
           image="/shruti.png"
           name="Shruti"
           toChangeUser={changingUser}
-        />
+        /> */}
         {allUsers.map((user) => {
           return (
-            <ChatItem image="" name={user.name} toChangeUser={changingUser} />
+            <ChatItem image="" active={user.active} name={user.name} toChangeUser={changingUser} />
           );
         })}
       </Box>
