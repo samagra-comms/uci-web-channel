@@ -4,17 +4,19 @@ import ReactDom from "react-dom";
 import { Box, Input, Button, Flex } from "@chakra-ui/react";
 
 interface modalProps {
+  undo: (event: React.MouseEvent) => void;
   open: boolean;
   toClose: (event: React.FormEvent) => void;
   inputList: string[]
 }
 
-const Modal: React.FC<modalProps> = ({ open, toClose, inputList }) => {
+const Modal: React.FC<modalProps> = ({ undo,open, toClose, inputList }) => {
   if (!open) return null;
 
   return ReactDom.createPortal(
     <>
       <Box
+        onClick={undo}
         style={{
           position: "fixed",
           top: "0",
