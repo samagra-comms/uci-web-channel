@@ -8,6 +8,7 @@ export default function Document() {
       <Head />
       <body>
         <ColorModeScript initialColorMode={theme.config.initialColorMode} />
+        <div id="modal_portal" />
         <Main />
         <NextScript />
       </body>
