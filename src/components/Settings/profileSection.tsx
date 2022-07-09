@@ -1,20 +1,22 @@
 import React from "react";
-import { Flex, Text } from '@chakra-ui/react';
+import { Flex, Text } from "@chakra-ui/react";
 
-const ProfileSection: React.FC = () => {
+interface profileSectionProps {
+  name: string;
+  bio: string;
+}
+
+const ProfileSection: React.FC<profileSectionProps> = ({ name, bio }) => {
   return (
     <Flex flex="6" flexDirection="column">
       <Flex flex="2" alignItems="end" pl="0.5rem" fontWeight="extrabold">
-        <Text fontSize="2xl">Arshpreet Singh</Text>
+        <h1 style={{ fontSize: '32px' }}>{name}</h1>
       </Flex>
-      <Flex flex="3" pl="0.5rem">
-        <Text fontSize="xs">
-          It's the journey that matters, not the destination
-        </Text>
+      <Flex flex="3" px="0.5rem">
+        <p>{bio}</p>
       </Flex>
     </Flex>
   );
 };
-
 
 export default ProfileSection;

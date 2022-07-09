@@ -29,7 +29,6 @@ const OTPpage: React.FC = () => {
   const [image, setImage] = useState(image1);
   const [cookies, setCookie, removeCookie] = useCookies(["access_token"]);
 
-
   const handleOTPSubmit: React.FormEventHandler = (event: React.FormEvent) => {
     event.preventDefault();
     const inputOTP: string = input1 + input2 + input3 + input4;
@@ -44,52 +43,55 @@ const OTPpage: React.FC = () => {
         .then((data) => {
           if (data.resp.params.status === "Success") {
             let expires = new Date();
-              expires.setTime(
-                expires.getTime() +
-                  data.resp.result.data.user.tokenExpirationInstant * 1000
-              );
-              removeCookie("access_token")
-              setCookie("access_token", data.resp.result.data.user.token, {
-                path: "/",
-                expires,
-              });
-              router.push("/");
+            expires.setTime(
+              expires.getTime() +
+                data.resp.result.data.user.tokenExpirationInstant * 1000
+            );
+            removeCookie("access_token");
+            setCookie("access_token", data.resp.result.data.user.token, {
+              path: "/",
+              expires,
+            });
+            router.push("/");
           } else {
             alert("Incorrect OTP");
-            setImage(image3)
+            setImage(image3);
           }
         })
         .catch((err) => console.log(err));
     }
   };
 
-  const handleOTP1: React.ChangeEventHandler = (e:React.ChangeEvent<HTMLInputElement>) => {
+  const handleOTP1: React.ChangeEventHandler = (
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
     setInput1(e.target.value);
     setImage(image1);
   };
-  const handleOTP2: React.ChangeEventHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleOTP2: React.ChangeEventHandler = (
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
     setInput2(e.target.value);
     setImage(image1);
   };
-  const handleOTP3: React.ChangeEventHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleOTP3: React.ChangeEventHandler = (
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
     setInput3(e.target.value);
     setImage(image1);
   };
-  const handleOTP4: React.ChangeEventHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleOTP4: React.ChangeEventHandler = (
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
     setInput4(e.target.value);
     setImage(image2);
   };
 
   return (
-    <Box
-      display="flex"
-      flexWrap="wrap"
-      alignContent="center"
-      justifyContent="center"
-    >
+    <div className="box-center">
       <Box
-        width="30%"
-        height="100vh"
+        width="390px"
+        height="72vh"
         display="flex"
         flexDirection="column"
         justifyContent="space-between"
@@ -97,6 +99,8 @@ const OTPpage: React.FC = () => {
       0 6.7px 5.3px rgba(0, 0, 0, 0.048), 0 12.5px 10px rgba(0, 0, 0, 0.06),
       0 22.3px 17.9px rgba(0, 0, 0, 0.072), 0 41.8px 33.4px rgba(0, 0, 0, 0.086),
       0 100px 80px rgba(0, 0, 0, 0.12);"
+        background={"white"}
+        borderRadius={"5"}
       >
         <Box
           className="hi"
@@ -179,7 +183,7 @@ const OTPpage: React.FC = () => {
           </div>
         </Box>
       </Box>
-    </Box>
+    </div>
   );
 };
 

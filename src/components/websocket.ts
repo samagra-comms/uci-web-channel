@@ -5,22 +5,39 @@ import {io} from 'socket.io-client';
 //     : "localhost:3005";
 
 
-export const socket = io(`${process.env.NEXT_PUBLIC_TRANSPORT_SOCKET_URL}`);
-export const send = (msg: any, session: any, accessToken: any) =>
-  socket.emit("botRequest", {
-    content: {
-      text: msg,
-      userId: session.userID,
-      appId: "appId",
-      channel: "diksha",
-      from: session.socketID,
-      context: null,
-      accessToken: accessToken,
-    },
-    to: "admin",
-  });
+// export const socket = io(`${process.env.NEXT_PUBLIC_TRANSPORT_SOCKET_URL}`,{query: {deviceID:`phone:${localStorage.getItem("phoneNumber")}`}});
+export const send = (msg: any, session: any, accessToken: any,toUser: {name: string, number: string | null},socket:any) => {
 
-export const startWebsocketConnection = () => {
+  if (toUser.number === null) {
+    socket.emit("botRequest", {
+      content: {
+        text: msg,
+        userId: session.userID,
+        appId: "appId",
+        channel: "diksha",
+        from: session.socketID,
+        context: null,
+        accessToken: accessToken,
+      },
+      to: "admin",
+    });
+  } else {
+    socket.emit("botRequest", {
+      content: {
+        text: msg,
+        userId: session.userID,
+        appId: "appId",
+        channel: "diksha",
+        from: session.socketID,
+        context: null,
+        accessToken: accessToken,
+      },
+      to: `phone:${toUser.number}`,
+    });
+  }
+}
+
+export const startWebsocketConnection = (socket: any) => {
   socket.on("connect", () => {
     console.log(`opened ws connection ${socket.id}`);
   });

@@ -25,7 +25,7 @@
 }
 
 body {
-  font-family: Mulish-regular;
+  font-family: Mulish-regular !important;
   transition: opacity 200ms;
   position: relative;
   scroll-behavior: smooth;
@@ -196,7 +196,7 @@ a {
   box-sizing: content-box;
 }
 
-.chat__footer > form > input {
+/* .chat__footer > form > input {
   height: 44px;
   border-radius: 31px;
   padding-left: 20px;
@@ -209,9 +209,8 @@ a {
   font-family: Roboto, sans-serif;
   transition: all 300ms;
   width: calc(100% - 150px);
-  /*112px 56px*/
-  position: relative;
-}
+  position: relative; 
+} */
 
 .chat__footer > form > input:focus {
   outline: none;
@@ -237,3 +236,10 @@ a {
   border-radius: 10px;
 }
 
+.box-center{
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(45deg, #122564, transparent);
+}
