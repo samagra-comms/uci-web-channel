@@ -118,7 +118,7 @@ const Home: NextPage = () => {
             </Flex>
           </Box>
 
-          <App currentUser={currentUser} />
+          <App currentUser={currentUser} userName={profileName} allUsers={users}/>
         </Flex>
 
         <ColorModeScript />
