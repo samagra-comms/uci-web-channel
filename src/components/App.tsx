@@ -27,21 +27,20 @@ import { SessionState } from "http2";
 
 interface appProps {
   currentUser: { name: string; number: string | null };
+  allUsers: { name: string; number: string | null; active: boolean }[];
+  userName: string;
 }
 
-const App: React.FC<appProps> = ({ currentUser }) => {
+const App: React.FC<appProps> = ({ currentUser, allUsers, userName }) => {
   // Router for Navigation
   const router = useRouter();
 
   // For Authentication
   const [accessToken, setAccessToken] = useState("");
-  const [isVerified, setIsVerified] = useState(false);
   const [cookies, setCookies] = useCookies();
   const [socket, setSocket] = useState<any>(null);
-
-  const [profileName, setProfileName] = useState("");
+  const [profileName,setProfileName] = useState(userName);
   // For showing the Profile
-  const [profileOpen, setProfileOpen] = useState(false);
 
   // Chakra Theme Toggle Information
   const bgImg = useColorModeValue(
@@ -62,7 +61,11 @@ const App: React.FC<appProps> = ({ currentUser }) => {
     session: {},
   };
 
-  const [state, setState] = useState(initialState);
+  const [state, setState] = useState<{
+    messages: any[];
+    username: string;
+    session: any;
+  }>(initialState);
 
   const scrollToBottom: () => void = () => {
     window.scrollTo(0, document.body.scrollHeight);
@@ -97,8 +100,9 @@ const App: React.FC<appProps> = ({ currentUser }) => {
         query: { deviceId: `phone:${localStorage.getItem("phoneNumber")}` },
       })
     );
-    setProfileName(localStorage.getItem("profileName") || "");
   }, []);
+
+  // useEffect(() => {setState({...state,username: userName})},[userName])
 
   useEffect(() => {
     if (socket !== null) {
@@ -114,10 +118,10 @@ const App: React.FC<appProps> = ({ currentUser }) => {
     } else {
       router.push("/login");
     }
+    console.log(state);
   }, [state]);
 
   const onSessionCreated = (session: { session: any }): void => {
-    // console.log({ session });
     setState({
       ...state,
       session: session,
@@ -125,15 +129,30 @@ const App: React.FC<appProps> = ({ currentUser }) => {
   };
 
   const onMessageReceived = (msg: any): void => {
-    setState({
-      ...state,
-      messages: state.messages.concat({
-        // username: msg.from.split(":")[1],
-        username: currentUser.name,
-        text: msg.content.title,
-        choices: msg.content.choices,
-      }),
-    });
+    // console.log("The message is");
+    // console.log(msg);
+    console.log(msg)
+    console.log(currentUser)
+    if (msg.from.split(":")[1] === currentUser.number) {
+      setState({
+        ...state,
+        messages: state.messages.concat({
+          username: currentUser.name,
+          text: msg.content.title,
+          choices: msg.content.choices,
+        }),
+      });
+    } else if (currentUser.number === null) {
+      setState({
+        ...state,
+        messages: state.messages.concat({
+          username: currentUser.name,
+          text: msg.content.title,
+          choices: msg.content.choices,
+        }),
+      });
+    }
+
   };
 
   const setUserName = (name: string): void => {
@@ -144,18 +163,21 @@ const App: React.FC<appProps> = ({ currentUser }) => {
   };
 
   const sendMessage = (text: string): void => {
+    // console.log("The Current user is");
+    // console.log(currentUser);
     if (!accessToken) {
       router.push("/login");
     } else {
       send(text, state.session, accessToken, currentUser, socket);
-      setState({
-        ...state,
-        messages: state.messages.concat({
-          username: state.username,
-          text: text,
-        }),
-      });
-    }
+
+      setState(
+        {...state,
+          messages: state.messages.concat({
+            username: state.username,
+            text: text,
+          }),
+        });
+      };
   };
 
   if (state.username === null) {
@@ -171,10 +193,6 @@ const App: React.FC<appProps> = ({ currentUser }) => {
   const selected = (option: any): void => {
     const toSend = option.key + " " + option.text;
     sendMessage(toSend);
-  };
-
-  const showProfile: () => void = (): void => {
-    setProfileOpen(true);
   };
 
   return (
@@ -217,11 +235,10 @@ const App: React.FC<appProps> = ({ currentUser }) => {
 
       {/* Chat Body Container */}
       <Box
-      bgImage={bgImg}
+        bgImage={bgImg}
         backgroundPosition="cover"
         flex="10"
         z-index="2"
-        
         display="flex"
         justifyContent="center"
       >
