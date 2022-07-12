@@ -6,7 +6,7 @@ import {io} from 'socket.io-client';
 
 
 export const socket = io(`${process.env.NEXT_PUBLIC_TRANSPORT_SOCKET_URL}`);
-export const send = (msg: any, session: any) =>
+export const send = (msg: any, session: any, accessToken: any) =>
   socket.emit("botRequest", {
     content: {
       text: msg,
@@ -15,6 +15,7 @@ export const send = (msg: any, session: any) =>
       channel: "diksha",
       from: session.socketID,
       context: null,
+      accessToken: accessToken,
     },
     to: "admin",
   });

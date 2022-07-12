@@ -33,12 +33,14 @@ const theme = {
     },
   },
 };
-const images = {
+const images: {
+  emptyInboxUrl: string;
+} = {
   emptyInboxUrl:
     "https://cdn.dribbble.com/users/1590794/screenshots/5822231/blank_inbox_email.png",
 };
 
-const Notification = () => {
+const Notification: React.FC = () => {
   return (
     <MagicBell
       apiKey={process.env.NEXT_APP_MAGICBELL_API_KEY}
