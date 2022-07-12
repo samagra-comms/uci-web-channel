@@ -18,7 +18,8 @@ const ChatSection: React.FC<chatSectionProps> = ({
   toRemoveUser,
   allUsers,
 }) => {
-  const bg = useColorModeValue("#06d755", "#202C33");
+  // const bg = useColorModeValue("#06d755", "#202C33");
+  const bg = useColorModeValue("#B05B3A", "#202C33");
 
   const changingUser = (name: string) => {
     toChangeCurrentUser(name);

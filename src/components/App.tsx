@@ -22,9 +22,6 @@ import { useCookies, withCookies } from "react-cookie";
 import { useRouter } from "next/router";
 import ColorModeSwitcher from "./ColorModeSwitcher";
 import { SessionState } from "http2";
-import { AnyMxRecord } from "dns";
-// import darkImage from "../../public/dark_back.png";
-// import lightImage from "../../public/dark_back.jpg";
 
 interface appProps {
   currentUser: { name: string; number: string | null };
@@ -68,10 +65,13 @@ const App: React.FC<appProps> = ({ currentUser, allUsers, userName }) => {
 
   // Chakra Theme Toggle Information
   const bgImg = useColorModeValue(
-    "url('/light_back_2.jpg')",
-    "url('/dark_back.png')"
+    // "url('/light_back_2.jpg')",
+    "url('/background.jpg')",
+    // "url('/dark_back.png')"
+    "url('/background2.jpg')"
   );
-  const bg = useColorModeValue("#06d755", "#202C33");
+  // const bg = useColorModeValue("#06d755", "#202C33");
+  const bg = useColorModeValue("#E78C3D", "#202C33");
   const textColor = useColorModeValue("#202C33", "#fff");
   // ----------------------
 
@@ -251,7 +251,9 @@ const App: React.FC<appProps> = ({ currentUser, allUsers, userName }) => {
       {/* Chat Body Container */}
       <Box
         bgImage={bgImg}
-        backgroundPosition="cover"
+        backgroundPosition="center"
+        backgroundRepeat="no-repeat"
+        backgroundSize="100%"
         flex="10"
         z-index="2"
         display="flex"
@@ -262,7 +264,7 @@ const App: React.FC<appProps> = ({ currentUser, allUsers, userName }) => {
           p="0 1rem 2rem 1rem"
           transition="opacity 200ms"
           width="100%"
-          height="95vh"
+          height="100vh"
           paddingBottom="3rem"
           overflow="scroll"
         >
