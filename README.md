@@ -35,7 +35,6 @@ git clone https://github.com/Your_Username/uci-web-channel.git
 ```
 
 > This makes a local copy of the repository in your machine.
-
 Once you have cloned the `uci-web-channel` repository in GitHub, move to that folder first using the change directory command.
 
 ```sh
@@ -51,7 +50,6 @@ Run the following commands to see that _your local copy_ has a reference to _you
 
 ```sh
 git remote -v
-
 origin  https://github.com/Your_Username/uci-web-channel.git (fetch)
 origin  https://github.com/Your_Username/uci-web-channel.git (push)
 ```

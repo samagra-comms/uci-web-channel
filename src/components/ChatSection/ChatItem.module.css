@@ -1,0 +1,22 @@
+.chat__text:hover {
+  animation-name: hover_button;
+  animation-duration: 0.5s;
+  animation-fill-mode: forwards;
+}
+
+.active {
+    background-color: white;
+    color: black;
+}
+
+@keyframes hover_button {
+  from {
+    background-color: transparent;
+    padding-left: 0.5rem;
+    opacity: 100;
+  }
+  to {
+    padding: 1rem;
+    opacity: 50%;
+  }
+}
