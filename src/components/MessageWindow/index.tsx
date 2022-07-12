@@ -6,7 +6,7 @@ interface messageProps {
   text: any,
   username: string,
   self: boolean,
-  choices: any,
+  choices: {key: string, text: string, backmenu: boolean}[],
   data: any
 }
 
@@ -20,8 +20,8 @@ const Message: React.FC<messageProps> = ({
   text: any;
   username: string;
   self: boolean;
-  choices: any;
-  data: any;
+  choices: {key: string, text: string, backmenu: boolean}[];
+  data: (option: {key: string, text: string, backmenu: boolean}) => void;
 }) => {
   // Theme toggle Settings
   const box_color = useColorModeValue("#06d755","#202C33");
@@ -56,7 +56,7 @@ const Message: React.FC<messageProps> = ({
             </Box>
             {choices && choices.length > 0 && (
               <Box className="chat-choices-container">
-                {choices.map((choice: any) => (
+                {choices.map((choice: {key: string, text: string, backmenu: boolean}) => (
                   <Button borderColor="white" className="chat-choices" key={choice.key} onClick={() => data(choice)}>{choice.key}{" "}{choice.text}</Button>
                   ))}
               </Box>
@@ -70,19 +70,20 @@ const Message: React.FC<messageProps> = ({
 };
 
 interface messageWindowProps {
-  selected: (option: any) => void ,
+  selected: (option: {key: string, text: string, backmenu: boolean}) => void ,
   messages: messageProps[],
   username: string
 }
 
 const MessageWindow: React.FC<messageWindowProps> = (props) => {
-  let messageWindow: MutableRefObject<any> = useRef(null);
 
-  // { current: null }
+  let messageWindow = useRef<HTMLDivElement>(null);
+
   useEffect(() => {
-    // messageWindow = messageWindow.current;
-    messageWindow.current.scrollTop = 
+    if (messageWindow.current !== null) {
+      messageWindow.current.scrollTop = 
       messageWindow.current.scrollHeight - messageWindow.current.clientHeight;
+    }
   }, [messageWindow]);
 
   const username: string = props.username;

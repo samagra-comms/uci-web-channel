@@ -15,13 +15,14 @@ import {
   Spacer,
   interactivity,
 } from "@chakra-ui/react";
-import { io } from "socket.io-client";
+import { io, Socket } from "socket.io-client";
 import { startWebsocketConnection } from "./websocket";
 import Notification from "./Notifications";
 import { useCookies, withCookies } from "react-cookie";
 import { useRouter } from "next/router";
 import ColorModeSwitcher from "./ColorModeSwitcher";
 import { SessionState } from "http2";
+import { AnyMxRecord } from "dns";
 // import darkImage from "../../public/dark_back.png";
 // import lightImage from "../../public/dark_back.jpg";
 
@@ -31,6 +32,29 @@ interface appProps {
   userName: string;
 }
 
+type recievedMessage = botMessage | humanMessage;
+
+type botMessage = {
+  content: {
+    caption: any,
+    choices: {key: string, text: string, backmenu: boolean}[],
+    media_url: any,
+    title: string
+  },
+  from: string
+}
+
+
+type humanMessage = {
+  content: {
+    title: string,
+    from: string,
+    choices: null
+  },
+  from: string
+}
+
+
 const App: React.FC<appProps> = ({ currentUser, allUsers, userName }) => {
   // Router for Navigation
   const router = useRouter();
@@ -38,7 +62,7 @@ const App: React.FC<appProps> = ({ currentUser, allUsers, userName }) => {
   // For Authentication
   const [accessToken, setAccessToken] = useState("");
   const [cookies, setCookies] = useCookies();
-  const [socket, setSocket] = useState<any>(null);
+  const [socket, setSocket] = useState<Socket>();
   const [profileName,setProfileName] = useState(userName);
   // For showing the Profile
 
@@ -102,10 +126,8 @@ const App: React.FC<appProps> = ({ currentUser, allUsers, userName }) => {
     );
   }, []);
 
-  // useEffect(() => {setState({...state,username: userName})},[userName])
-
   useEffect(() => {
-    if (socket !== null) {
+    if (socket !== undefined) {
       startWebsocketConnection(socket);
     }
   }, [socket]);
@@ -118,7 +140,6 @@ const App: React.FC<appProps> = ({ currentUser, allUsers, userName }) => {
     } else {
       router.push("/login");
     }
-    console.log(state);
   }, [state]);
 
   const onSessionCreated = (session: { session: any }): void => {
@@ -128,11 +149,9 @@ const App: React.FC<appProps> = ({ currentUser, allUsers, userName }) => {
     });
   };
 
-  const onMessageReceived = (msg: any): void => {
-    // console.log("The message is");
-    // console.log(msg);
-    console.log(msg)
-    console.log(currentUser)
+  const onMessageReceived = (msg: recievedMessage): void => {
+    console.log("The message is");
+    console.log(msg);
     if (msg.from.split(":")[1] === currentUser.number) {
       setState({
         ...state,
@@ -152,7 +171,6 @@ const App: React.FC<appProps> = ({ currentUser, allUsers, userName }) => {
         }),
       });
     }
-
   };
 
   const setUserName = (name: string): void => {
@@ -163,13 +181,10 @@ const App: React.FC<appProps> = ({ currentUser, allUsers, userName }) => {
   };
 
   const sendMessage = (text: string): void => {
-    // console.log("The Current user is");
-    // console.log(currentUser);
     if (!accessToken) {
       router.push("/login");
     } else {
       send(text, state.session, accessToken, currentUser, socket);
-
       setState(
         {...state,
           messages: state.messages.concat({
@@ -190,7 +205,7 @@ const App: React.FC<appProps> = ({ currentUser, allUsers, userName }) => {
     );
   }
 
-  const selected = (option: any): void => {
+  const selected = (option: {key: string, text: string, backmenu: boolean}): void => {
     const toSend = option.key + " " + option.text;
     sendMessage(toSend);
   };
@@ -216,7 +231,7 @@ const App: React.FC<appProps> = ({ currentUser, allUsers, userName }) => {
         flexWrap="wrap"
         zIndex="1"
       >
-        <Box p="1rem" color={textColor}>
+        <Box fontSize="2xl" pl="2rem" color={textColor}>
           <h1>{currentUser.name}</h1>
         </Box>
         <Spacer />

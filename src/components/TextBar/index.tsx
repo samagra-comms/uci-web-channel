@@ -1,5 +1,11 @@
 import React, { MutableRefObject, RefObject, useRef } from "react";
-import { Box, Button, calc, InputRightAddon } from "@chakra-ui/react";
+import {
+  Box,
+  Button,
+  calc,
+  ChakraComponent,
+  InputRightAddon,
+} from "@chakra-ui/react";
 import { MdSend } from "react-icons/md";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -33,8 +39,8 @@ const TextBar: React.FC<textBarProps> = (props) => {
   const input: MutableRefObject<HTMLInputElement | null> =
     useRef<HTMLInputElement | null>(null);
 
-  const sendMessage = (e: any) => {
-    e.preventDefault();
+  const sendMessage: React.MouseEventHandler = (event: React.MouseEvent): void => {
+    event.preventDefault();
     const message: string | undefined = input.current?.value;
     if (input.current?.value.trim().length === 0) {
       toast.error("Please enter a valid message");
@@ -44,11 +50,9 @@ const TextBar: React.FC<textBarProps> = (props) => {
     input.current!.value = "";
   };
 
-  const sendMessageIfEnter: React.KeyboardEventHandler = (
-    e: React.KeyboardEvent
-  ) => {
-    if (+e.key === 13 && input.current!.value.length > 0) {
-      sendMessage(e);
+  const sendMessageIfEnter: React.KeyboardEventHandler = (event: React.KeyboardEvent) => {
+    if (+event.key === 13 && input.current!.value.length > 0) {
+      document.getElementById("send__message")?.click();
     }
   };
 
@@ -59,11 +63,9 @@ const TextBar: React.FC<textBarProps> = (props) => {
         <form>
           <InputGroup
             position="relative"
-            // transition="all 300ms"
             boxShadow="2xl"
             padding="0 20px"
             border="none"
-            // height="35px"
             mx="10px"
             p="0 1rem"
             fontSize="15px"
@@ -76,16 +78,15 @@ const TextBar: React.FC<textBarProps> = (props) => {
               onKeyDown={sendMessageIfEnter}
               size="sm"
               borderRadius="20px"
-              // width="calc('100% - 200px')"
             />
             <InputRightElement
               mr="2rem"
               children={
                 <Stack direction="row" spacing="2" mb="10px">
-                  <Button size="xs">
+                  <Button variant="ghost" size="xs">
                     <FontAwesomeIcon color="#202C33" icon={faPaperclip} />
                   </Button>
-                  <Button size="xs">
+                  <Button variant="ghost" size="xs">
                     <FontAwesomeIcon color="#202C33" icon={faLocationDot} />
                   </Button>
                 </Stack>
@@ -104,6 +105,7 @@ const TextBar: React.FC<textBarProps> = (props) => {
             onClick={sendMessage}
             type="submit"
             mr="1rem"
+            id="send__message"
           >
             <FontAwesomeIcon icon={faPaperPlane} />
           </Button>
