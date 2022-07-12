@@ -21,9 +21,10 @@ const TextBar: React.FC<textBarProps> = (props) => {
    const faIcon = useColorModeValue("#202C33","#fff");
    // ---------------
 
-  const input: MutableRefObject<HTMLInputElement | null > = useRef<HTMLInputElement | null>(null);
+  const input = useRef<HTMLInputElement>(null);
+  const send_btn = useRef<HTMLButtonElement>(null);
 
-    const sendMessage = (e: any) => {
+    const sendMessage: React.MouseEventHandler = (e: React.MouseEvent) => {
       e.preventDefault();
       const message: string | undefined = input.current?.value;
       if(input.current?.value.trim().length === 0) {
@@ -37,9 +38,8 @@ const TextBar: React.FC<textBarProps> = (props) => {
 
   const sendMessageIfEnter: React.KeyboardEventHandler = (e: React.KeyboardEvent) => {
     if (+e.key === 13 && input.current!.value.length > 0) {
-      sendMessage(e);
+      send_btn.current?.click();
     }
-
   };
 
   return (
@@ -54,7 +54,7 @@ const TextBar: React.FC<textBarProps> = (props) => {
             ref={input}
             onKeyDown={sendMessageIfEnter}
           />
-          <Button bgColor={bg} color={faIcon} w="46px" h="46px" borderRadius="50%" boxShadow="0px 0px 2px 0px #0000005e" border="none"  className="send__btn" onClick={sendMessage} type="submit">
+          <Button ref={send_btn} bgColor={bg} color={faIcon} w="46px" h="46px" borderRadius="50%" boxShadow="0px 0px 2px 0px #0000005e" border="none"  className="send__btn" onClick={sendMessage} type="submit">
            <FontAwesomeIcon icon={faPaperPlane}  />
           </Button>
         </form>

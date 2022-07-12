@@ -17,6 +17,28 @@ import { SessionState } from "http2";
 // import darkImage from "../../public/dark_back.png";
 // import lightImage from "../../public/dark_back.jpg";
 
+type recievedMessage = botMessage | humanMessage;
+
+type botMessage = {
+  content: {
+    caption: any,
+    choices: {key: string, text: string, backmenu: boolean}[],
+    media_url: any,
+    title: string
+  },
+  from: string
+}
+
+
+type humanMessage = {
+  content: {
+    title: string,
+    from: string,
+    choices: null
+  },
+  from: string
+}
+
 const App: React.FC = () => {
   // Router for Navigation
   const router = useRouter();
@@ -90,7 +112,7 @@ const App: React.FC = () => {
     });
   };
 
-  const onMessageReceived = (msg: any): void => {
+  const onMessageReceived = (msg: recievedMessage): void => {
     setState({
       ...state,
       messages: state.messages.concat({
