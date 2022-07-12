@@ -35,7 +35,9 @@ const Settings: React.FC<recentChatProps> = ({
   toShowChatSection,
   toAddUser,
 }) => {
-  const bg = useColorModeValue("#06d755", "#202C33");
+  // const bg = useColorModeValue("#06d755", "#202C33");
+
+  const bg = useColorModeValue("#B05B3A", "#202C33");
 
   const [showPhoneModal, setShowPhoneModal] = useState(false);
   const [showNameModal, setShowNameModal] = useState(false);
