@@ -11,17 +11,22 @@ import { CookiesProvider } from "react-cookie";
 import { ColorModeScript, Flex, Box } from "@chakra-ui/react";
 
 const Home: NextPage = () => {
+  
+  
   // User Settings
-
   const [profileName, setProfileName] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [userBio, setUserBio] = useState("");
 
-  const [users, setUsers] = useState<{ name: string; number: string | null; active:boolean }[]>([{name: "UCI",number: null,active: true}]);
+  // All Users
+  const [users, setUsers] = useState<
+    { name: string; number: string | null; active: boolean }[]
+  >([{ name: "UCI", number: null, active: true }]);
   const [currentUser, setCurrentUser] = useState<{
     name: string;
     number: string | null;
   }>({ name: "UCI", number: null });
+
 
   const [toggleSettings, setToggleSettings] = useState(0);
 
@@ -37,6 +42,7 @@ const Home: NextPage = () => {
   const showSettings: React.MouseEventHandler = (event: React.MouseEvent) => {
     setToggleSettings(1);
   };
+
   const showChatSection: React.MouseEventHandler = (
     event: React.MouseEvent
   ) => {
@@ -58,28 +64,46 @@ const Home: NextPage = () => {
     localStorage.setItem("userBio", newBio);
   };
 
+  const onRemoveUser = (name: string) => {
+    const newUsers = users.filter(user => {
+      return user.name !== name;
+    })
+    setUsers(newUsers)
+    localStorage.setItem("AllUsers",JSON.stringify(newUsers));
+  };
+
   const onChangeCurrentUser = (name: string) => {
     const myUser = users.find((user) => {
       return user.name === name;
     }) || { name: "UCI", number: null };
-    users.forEach((user,index) => {
+    users.forEach((user, index) => {
       if (user.name === name) {
         user.active = true;
-      } else if ( user.active === true) {
+      } else if (user.active === true) {
         user.active = false;
       }
-    })
+    });
     setCurrentUser(myUser);
   };
 
   const onAddUser = (newName: string, newNumber: string) => {
-    setUsers((prevUsers: { name: string; number: string | null, active: boolean }[]) => {
-      localStorage.setItem(
-        "AllUsers",
-        JSON.stringify([...prevUsers, { name: newName, number: newNumber, active: false }])
-      );
-      return [...prevUsers, { name: newName, number: newNumber, active: false }];
-    });
+    setUsers(
+      (
+        prevUsers: { name: string; number: string | null; active: boolean }[]
+      ) => {
+        localStorage.setItem(
+          "AllUsers",
+          JSON.stringify([
+            ...prevUsers,
+            { name: newName, number: newNumber, active: false },
+          ])
+        );
+        return [
+          ...prevUsers,
+          { name: newName, number: newNumber, active: false },
+        ];
+      }
+    );
   };
   return (
     <React.StrictMode>
@@ -88,21 +112,27 @@ const Home: NextPage = () => {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="theme-color" content="#000000" />
         <meta
-          name="description"
-          content="Web site created using create-react-app"
+          name="UCI Web Channel"
+          content="A project under C4GT"
         />
         <title>UCI PWA</title>
       </Head>
       <CookiesProvider>
         <Flex>
           <Box flex="1" max-width="25%" position="relative">
-            <Flex width="25%" max-height="100vh" overflow-y="auto" position="fixed">
+            <Flex
+              width="25%"
+              max-height="100vh"
+              overflow-y="auto"
+              position="fixed"
+            >
               {" "}
               {toggleSettings === 0 ? (
                 <ChatSection
                   toShowSettings={showSettings}
                   allUsers={users}
                   toChangeCurrentUser={onChangeCurrentUser}
+                  toRemoveUser={onRemoveUser}
                 />
               ) : (
                 <Settings
@@ -118,7 +148,11 @@ const Home: NextPage = () => {
             </Flex>
           </Box>
 
-          <App currentUser={currentUser} userName={profileName} allUsers={users}/>
+          <App
+            currentUser={currentUser}
+            userName={profileName}
+            allUsers={users}
+          />  
         </Flex>
 
         <ColorModeScript />

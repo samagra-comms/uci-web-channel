@@ -4,17 +4,18 @@ import styles from "./ChatSection.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEllipsisVertical } from "@fortawesome/free-solid-svg-icons";
 import ChatItem from "./ChatItem";
-import { useState } from 'react';
 
 interface chatSectionProps {
   toShowSettings: (event: React.MouseEvent) => void;
   toChangeCurrentUser: (name: string) => void;
-  allUsers: { name: string; number: string | null, active: boolean }[];
+  toRemoveUser: (name: string) => void;
+  allUsers: { name: string; number: string | null, active: boolean }[]; 
 }
 
 const ChatSection: React.FC<chatSectionProps> = ({
   toShowSettings,
   toChangeCurrentUser,
+  toRemoveUser,
   allUsers,
 }) => {
   const bg = useColorModeValue("#06d755", "#202C33");
@@ -61,24 +62,9 @@ const ChatSection: React.FC<chatSectionProps> = ({
 
       {/* Profile Section */}
       <Box flex="8">
-        {/* <ChatItem
-          image="/neelesh.png"
-          name="Neelesh"
-          toChangeUser={changingUser}
-        /> */}
-        {/* <ChatItem
-          image="/chakshu.jpg"
-          name="Chakshu"
-          toChangeUser={changingUser}
-        />
-        <ChatItem
-          image="/shruti.png"
-          name="Shruti"
-          toChangeUser={changingUser}
-        /> */}
         {allUsers.map((user) => {
           return (
-            <ChatItem key={user.name} image="" active={user.active} name={user.name} toChangeUser={changingUser} />
+            <ChatItem key={user.name} toRemoveUser={toRemoveUser} image="url('/avatar.jpg')" active={user.active} name={user.name} toChangeUser={changingUser} />
           );
         })}
       </Box>

@@ -8,10 +8,11 @@ interface chatItemProps {
   image: string;
   name: string;
   toChangeUser: (name: string) => void;
-  active: boolean
+  toRemoveUser: (name: string) => void;
+  active: boolean;
 }
 
-const ChatItem: React.FC<chatItemProps> = ({ image, name, toChangeUser,active }) => {
+const ChatItem: React.FC<chatItemProps> = ({ image, name, toChangeUser,toRemoveUser,active }) => {
   const [showProfile, setShowProfile] = useState(false);
 
   const borderColor = useColorModeValue("#000", "#fff");
@@ -63,6 +64,7 @@ const ChatItem: React.FC<chatItemProps> = ({ image, name, toChangeUser,active })
         name={name}
         userImg={image}
         removeProfile={closingProfile}
+        toRemoveUser={toRemoveUser}
       />
     </>
   );
