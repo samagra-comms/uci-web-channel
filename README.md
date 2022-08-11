@@ -69,8 +69,9 @@ The websocket connection URL for the plaground can be used for testing - `wss://
 Run `yarn start`
 
 ## Designs
-Below are the designs of how output screens will look like. For more detailed view you can checkout the [Figma](https://www.figma.com/file/d8JiwkYJqGYXQaflCyNVzl/UCI-web-channel?node-id=0%3A1) file.
+Below are the designs of how output screens will look like. For more detailed view you can checkout the [Figma](https://www.figma.com/file/8tSsuauhVgzNfnvmMTQFa1/UCI-Web-Feature%3A-Theme-Change?node-id=0%3A1) file.
 ![Designs](https://user-images.githubusercontent.com/77741561/171156677-0ee016dd-a240-4edc-b2e8-50b08ac06a58.png)
+![New UI](https://user-images.githubusercontent.com/76895787/184145357-9ad49869-65c0-42af-9a38-03fd661bb81e.png)
 
 ## Contributing
 
