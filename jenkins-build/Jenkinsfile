@@ -29,10 +29,18 @@ node() {
             echo "${env.commit_id}"
     }
 
+    stage('Vault') {
+      withVault([configuration: configuration, vaultSecrets: secrets]) {
+        sh "echo \"${env.REACT_APP_MAGICBELL_API_KEY}\" > .env"
+        sh "echo \"${env.REACT_APP_MAGICBELL_USER_EMAIL}\" >> .env"
+        sh "echo \"${env.REACT_APP_TRANSPORT_SOCKET_URL}\" >> .env"
+      }
+    }
+
     stage('docker-build') {
             sh '''
                 # docker build -f <location-of-docker-file> -t <tag-of-docker-image> <context-for-docker-image>
-                ls -l
+                ls -la
                 docker build -f jenkins-build/Dockerfile -t $docker_server/$docker_repo:$commit_id .
                 '''
     }
