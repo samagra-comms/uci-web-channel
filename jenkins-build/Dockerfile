@@ -8,9 +8,7 @@ COPY package.json ./
 COPY yarn.lock ./
 
 # pull Nginx conf files from UCI repo
-RUN git clone https://github.com/samagra-comms/docker-deploy.git
-COPY docker-deploy/uci-web-channel.conf ./
-COPY docker-deploy/nginx.conf ./
+RUN git clone https://github.com/samagra-comms/docker-deploy.git ./docker-deploy
 
 # copy environment file
 COPY .env ./
@@ -24,5 +22,5 @@ COPY . .
 FROM nginx
 
 COPY --from=builder /app/build /usr/site
-COPY --from=builder /app/nginx.conf /etc/nginx/nginx.conf
-COPY --from=builder /app/uci-web-channel.conf /etc/nginx/sites-enabled/default
+COPY --from=builder /app/docker-deploy/nginx.conf /etc/nginx/nginx.conf
+COPY --from=builder /app/docker-deploy/uci-web-channel.conf /etc/nginx/sites-enabled/default
