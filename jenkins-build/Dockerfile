@@ -7,10 +7,6 @@ WORKDIR /app
 COPY package.json ./
 COPY yarn.lock ./
 
-# Install git
-RUN apt-get update \
-     apt-get install -y git
-
 # pull Nginx conf files from UCI repo
 RUN git clone https://github.com/samagra-comms/docker-deploy.git ./docker-deploy
 
