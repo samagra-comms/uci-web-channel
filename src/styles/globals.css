@@ -87,6 +87,12 @@ a {
 }
 .chat-body {
   /* opacity: 0; */
+  /* background-image: url("../../public/dark_back.png"); */
+  background-repeat: no-repeat;
+  background-size: cover; 
+  width: 100%;
+  min-height: 100vh;
+  padding: 0 1rem;
   width: 100%;
   min-height: 90vh;
   top: 20px;
@@ -157,6 +163,8 @@ a {
 .chat-body-container {
   flex: 1;
   overflow: scroll;
+  
+  /* background-blend-mode: multiply; */
   /* z-index: 1; */
   display: flex;
   justify-content: center;
@@ -291,6 +299,7 @@ a {
 
 .app__body {
   background-image: linear-gradient(to right, #f5f5f5, #fdfdfda1);
+  /* background-image: url("../../public/light_back_2.jpg"); */
   background-repeat: no-repeat;
   background-size: cover;
   display: flex;
@@ -300,14 +309,20 @@ a {
   overflow: hidden;
   position: relative;
 }
-::-webkit-scrollbar {
+/* ::-webkit-scrollbar {
   width: 10px;
+  scrollbar-color: #180e644d;
 }
 ::-webkit-scrollbar-track {
-  box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.3);
+  box-shadow: inset 0 0 5px #180e644d;
   border-radius: 10px;
 }
 ::-webkit-scrollbar-thumb {
-  background: #000080;
+  background: #030311;
   border-radius: 10px;
+} */
+
+
+.my-scrollbar {
+  scrollbar-color: red blue;
 }

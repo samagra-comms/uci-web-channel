@@ -4,13 +4,20 @@ import { Box,Text } from "@chakra-ui/react";
 import Image from "next/image";
 import { useColorModeValue } from "@chakra-ui/react";
 
-const Profile = (props: any) => {
+interface profileProps {
+  removeProfile: (a:boolean) => void,
+  name: string,
+  number: string,
+  bio: string
+}
+
+const Profile: React.FC<profileProps> = (props) => {
     const box_color = useColorModeValue("#38FF81","#111B21");
     const back_color = useColorModeValue("#07A340","#0B1216");
     const headingColor = useColorModeValue("#000000","#979DA1");
     const paraColor = useColorModeValue("#000000","#FFFFFF");
 
-  const clickHandler = () => {
+  const clickHandler: React.MouseEventHandler = (event: React.MouseEvent) => {
     props.removeProfile(false);
   };
 
@@ -27,12 +34,12 @@ const Profile = (props: any) => {
             width="160px"
             alt="This is a avatar"
           />
-          <Text fontSize="lg" fontWeight="bold">Chakshu Gautam</Text>
-          <Text fontSize="sm">+91 1234567890</Text>
+          <Text className={styles.profile__title} fontSize="lg" fontWeight="bold">{props.name}</Text>
+          <Text fontSize="sm">{props.number}</Text>
         </Box>
         <Box bgColor={box_color} className={styles.about__section}>
           <Text color={headingColor} fontWeight="bold" fontSize="lg">About</Text>
-          <Text color={paraColor} fontSize="sm">Hi! I am using UCI :)</Text>
+          <Text color={paraColor} fontSize="sm">{props.bio}</Text>
         </Box>
       </Box>
     </div>
