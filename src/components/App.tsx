@@ -10,6 +10,7 @@ import TextBar from "./TextBar";
 import { useColorModeValue, Box } from "@chakra-ui/react";
 
 import Notification from "./Notifications";
+import SecNavbar from './SecNavbar';
 
 import ColorModeSwitcher from "./ColorModeSwitcher";
 
@@ -113,6 +114,20 @@ const App = (): any => {
   
     return (
       <>
+        <div className="chat-header">
+          <div className="chat__header--info">
+            <h3>Chakshu Gautam</h3>
+          </div>
+          <SecNavbar />
+          <div className="chat__header--right">
+            {/* <Notification /> */}
+          </div>
+        </div>
+        <div className="chat-body-container">
+          <div className="chat-body">         
+            <MessageWindow messages={state.messages} username={state.username} selected={selected}/>          
+          </div>
+          <TextBar onSend={sendMessage} />
         {profileOpen && <Profile removeProfile={setProfileOpen} title="Chakshu" message="Chakshu Gautam" />}
         <Box cursor='pointer' bgColor={bg} onClick={showProfile} className="chat-header">
         <Box color={textColor} className="chat__header--info">
