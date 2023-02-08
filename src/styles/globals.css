@@ -63,6 +63,7 @@ a {
   width: auto !important;
   font-weight: 500;
   margin-left: 25px;
+  background-color: white;
 }
 .chat-message::before {
   content: "";
@@ -92,6 +93,12 @@ a {
   width: 100%;
   min-height: 100vh;
   padding: 0 1rem;
+  width: 100%;
+  min-height: 90vh;
+  top: 20px;
+  background-color: #ffffff;
+  width: 90%;
+  padding: 0px 20px;
   padding-bottom: 98px !important;
   transition: opacity 200ms;
   font-family: Mulish-medium;
@@ -142,6 +149,7 @@ a {
   font-weight: 500;
   margin-left: 25px;
   margin-bottom: 1rem;
+  background-color: #f5f5f5;
 }
 .chat-error-message::before {
   content: "";

@@ -12,6 +12,8 @@ import { useColorModeValue, Box } from "@chakra-ui/react";
 import Notification from "./Notifications";
 import { useCookies, withCookies } from "react-cookie";
 import { useRouter } from "next/router";
+import SecNavbar from './SecNavbar';
+
 import ColorModeSwitcher from "./ColorModeSwitcher";
 import { SessionState } from "http2";
 // import darkImage from "../../public/dark_back.png";
@@ -176,6 +178,36 @@ const App: React.FC = () => {
             name="Chakshu Gautam"
             number="+91 1234567890"
             bio="Hi! I am using UCI :)"
+        <div className="chat-header">
+          <div className="chat__header--info">
+            <h3>Chakshu Gautam</h3>
+          </div>
+          <SecNavbar />
+          <div className="chat__header--right">
+            {/* <Notification /> */}
+          </div>
+        </div>
+        <div className="chat-body-container">
+          <div className="chat-body">         
+            <MessageWindow messages={state.messages} username={state.username} selected={selected}/>          
+          </div>
+          <TextBar onSend={sendMessage} />
+        {profileOpen && <Profile removeProfile={setProfileOpen} title="Chakshu" message="Chakshu Gautam" />}
+        <Box cursor='pointer' bgColor={bg} onClick={showProfile} className="chat-header">
+        <Box color={textColor} className="chat__header--info">
+          <h1>Chakshu Gautam</h1>
+        </Box>
+        <div onClick={(event) => {if(event.stopPropagation) event.stopPropagation();return false;}} className="chat__header--right">
+          <ColorModeSwitcher />
+          {/* <Notification /> */}
+        </div>
+      </Box>
+      <Box className="chat-body-container">
+        <Box className="chat-body">
+          <MessageWindow
+            messages={state.messages}
+            username={state.username}
+            selected={selected} 
           />
         )}
         <Box
