@@ -7,73 +7,117 @@ import {
 import MessageWindow from "./MessageWindow";
 import Profile from "./Profile";
 import TextBar from "./TextBar";
-import { useColorModeValue, Box } from "@chakra-ui/react";
-
+import {
+  useColorModeValue,
+  Box,
+  Flex,
+  Text,
+  Spacer,
+  Image,
+  interactivity,
+} from "@chakra-ui/react";
+import { io, Socket } from "socket.io-client";
+import { startWebsocketConnection } from "./websocket";
 import Notification from "./Notifications";
 import { useCookies, withCookies } from "react-cookie";
 import { useRouter } from "next/router";
-import SecNavbar from './SecNavbar';
-
 import ColorModeSwitcher from "./ColorModeSwitcher";
 import { SessionState } from "http2";
-// import darkImage from "../../public/dark_back.png";
-// import lightImage from "../../public/dark_back.jpg";
+import { useCol } from "react-bootstrap/esm/Col";
+import PhoneView from "./PhoneView/index";
+import WebView from "./WebView";
+import RecentChats from "./PhoneView/RecentChats";
+
+
+
+interface appProps {
+  currentUser: { name: string; number: string | null };
+  allUsers: { name: string; number: string | null; active: boolean }[];
+  userName: string;
+  toChangeCurrentUser: (name: string, number: string | null) => void;
+  toAddUser: (newName: string, newNumber: string | null) => void;
+  toRemoveUser: (name: string, number: string | null) => void;
+  // toShowChats: (name: string, number: string | null) => void;
+}
 
 type recievedMessage = botMessage | humanMessage;
 
 type botMessage = {
   content: {
-    caption: any,
-    choices: {key: string, text: string, backmenu: boolean}[],
-    media_url: any,
-    title: string
-  },
-  from: string
-}
-
+    caption: any;
+    choices: { key: string; text: string; backmenu: boolean }[];
+    media_url: any;
+    title: string;
+  };
+  from: string;
+};
 
 type humanMessage = {
   content: {
-    title: string,
-    from: string,
-    choices: null
-  },
-  from: string
-}
+    title: string;
+    from: string;
+    choices: null;
+  };
+  from: string;
+};
 
-const App: React.FC = () => {
+const App: React.FC<appProps> = ({
+  toRemoveUser,
+  currentUser,
+  allUsers,
+  userName,
+  toChangeCurrentUser,
+  toAddUser,
+}) => {
   // Router for Navigation
   const router = useRouter();
 
   // For Authentication
   const [accessToken, setAccessToken] = useState("");
-  const [isVerified, setIsVerified] = useState(false);
   const [cookies, setCookies] = useCookies();
+  const [socket, setSocket] = useState<Socket>();
+  const [profileName, setProfileName] = useState(userName);
 
-  // For showing the Profile
-  const [profileOpen, setProfileOpen] = useState(false);
-
-  // Chakra Theme Toggle Information
-  const bgImg = useColorModeValue("url('/light_back_2.jpg')","url('/dark_back.png')");
-  const bg = useColorModeValue("#06d755", "#202C33");
-  const textColor = useColorModeValue("#202C33", "#fff");
-  // ----------------------
+  const [currentUserMessageObject, setCurrentUserMessageObject] = useState<{
+    user: string;
+    phoneNumber: string | null;
+    messages: any[];
+  }>({ user: "UCI", phoneNumber: null, messages: [] });
 
   const initialState: {
+    allMessages: {
+      user: string;
+      phoneNumber: string | null;
+      messages: any[];
+    }[];
     messages: any[];
     username: string;
     session: any;
   } = {
+    allMessages: [{ user: "UCI", phoneNumber: null, messages: [] }],
     messages: [],
-    username: "chaks",
+    username: "",
     session: {},
   };
 
-  const [state, setState] = useState(initialState);
+  const [state, setState] = useState<{
+    allMessages: {
+      user: string;
+      phoneNumber: string | null;
+      messages: any[];
+    }[];
+    messages: any[];
+    username: string;
+    session: any;
+  }>(initialState);
 
   const scrollToBottom: () => void = () => {
     window.scrollTo(0, document.body.scrollHeight);
   };
+
+  // useEffect(() => {
+  //   setState(initialState);
+  // }, [currentUser]);
 
   useEffect(() => {
     if (cookies["access_token"] !== undefined) {
@@ -82,10 +126,10 @@ const App: React.FC = () => {
       })
         .then((response) => response.json())
         .then((data) => {
-          if (data === {}) {
+          if (data === null) {
             throw "Invalid Access Token";
-            router.push("/login");
-          } 
+            // router.push("/login");
+          }
         })
         .catch((err) => {
           throw err;
@@ -94,7 +138,46 @@ const App: React.FC = () => {
     } else {
       router.push("/login");
     }
+
+
+// const usersList = JSON.parse(localStorage.getItem("AllUsers") || "");
+    // const newAllMessages = usersList.map(
+    //   (obj: { name: string; number: string | null; active: boolean }) => {
+    //     return { user: obj.name, phoneNumber: obj.number, messages: [] };
+    //   }
+    // );
+    // setState({
+    //   ...state,
+    //   allMessages: newAllMessages,
+    // });
+    try {
+      const retrievedMessages: {
+        user: string;
+        phoneNumber: string | null;
+        messages: any[];
+      }[] = JSON.parse(localStorage.getItem("allMessages") || "") || [];
+      if (retrievedMessages.length !== 0) {
+        setState({
+          ...state,
+          allMessages: retrievedMessages,
+        });
+      }
+    } catch (err) {
+      console.log(err);
+    }
+
+    setSocket(
+      io(`ws://143.110.183.73:3013`, {
+        query: { deviceId: `phone:${localStorage.getItem("phoneNumber")}` },
+      })
+    );
   }, []);
+
+  useEffect(() => {
+    if (socket !== undefined) {
+      startWebsocketConnection(socket);
+    }
+  }, [socket]);
 
   useEffect((): void => {
     if (router.query.state || cookies["access_token"] !== "") {
@@ -107,23 +190,200 @@ const App: React.FC = () => {
   }, [state]);
 
   const onSessionCreated = (session: { session: any }): void => {
-    // console.log({ session });
     setState({
       ...state,
       session: session,
     });
   };
 
-  const onMessageReceived = (msg: recievedMessage): void => {
-    setState({
-      ...state,
-      messages: state.messages.concat({
-        username: "UCI",
+  const onMessageReceived = (msg: any): void => {
+    if (msg.content.msg_type === "IMAGE"){
+      setState({
+        ...state,
+        messages: state.messages.concat({
+          username: currentUser.name,
+          text: msg.content.title,
+          image: msg.content.media_url,
+          choices: msg.content.choices,
+          caption: msg.content.caption,
+        }),
+      });
+    }
+    else if (msg.content.msg_type === "AUDIO"){
+      setState({
+        ...state,
+        messages: state.messages.concat({
+          username: currentUser.name,
+          text: msg.content.title,
+          audio: msg.content.media_url,
+          choices: msg.content.choices,
+        }),
+      });
+    }
+    else if (msg.content.msg_type === "VIDEO"){
+      setState({
+        ...state,
+        messages: state.messages.concat({
+          username: currentUser.name,
+          text: msg.content.title,
+          video: msg.content.media_url,
+          choices: msg.content.choices,
+        }),
+      });
+    }
+    else if (msg.content.msg_type === "DOCUMENT"){
+      setState({
+        ...state,
+        messages: state.messages.concat({
+          username: currentUser.name,
+          text: msg.content.title,
+          doc: msg.content.media_url,
+          choices: msg.content.choices,
+        }),
+      });
+    }
+    else{
+      setState({
+        ...state,
+        messages: state.messages.concat({
+          username: currentUser.name,
+          text: msg.content.title,
+          choices: msg.content.choices,
+        }),
+      });
+    }
+
+    const newMessageList = [
+      ...currentUserMessageObject.messages,
+      {
+        username: currentUser.name,
         text: msg.content.title,
         choices: msg.content.choices,
-      }),
+      },
+    ];
+    const newCurrentMessageObj = {
+      user: currentUserMessageObject.user,
+      phoneNumber: currentUserMessageObject.phoneNumber,
+      messages: newMessageList,
+    };
+    const oldAllMessages = [...state.allMessages];
+
+    const newAllMessages = oldAllMessages.filter((object) => {
+      return (
+        object.user !== currentUserMessageObject.user &&
+        object.phoneNumber !== currentUserMessageObject.phoneNumber
+      );
     });
+
+    newAllMessages.push(newCurrentMessageObj);
+    localStorage.setItem("allMessages", JSON.stringify(newAllMessages));
+
+    setCurrentUserMessageObject(newCurrentMessageObj);
+    setState({
+      ...state,
+      allMessages: newAllMessages
+    })
+
+    // if (msg.from.split(":")[1] === currentUser.number) {
+    //   setState({
+    //     ...state,
+    //     messages: state.messages.concat({
+    //       username: currentUser.name,
+    //       text: msg.content.title,
+    //       choices: msg.content.choices,
+    //     }),
+    //   });
+    // } else if (currentUser.number === null) {
+    //   setState({
+    //     ...state,
+    //     messages: state.messages.concat({
+    //       username: currentUser.name,
+    //       text: msg.content.title,
+    //       choices: msg.content.choices,
+    //     }),
+    //   });
+    // }
   };
+
+  const onAddingUser = (name: string, phoneNumber: string | null) => {
+    const newMessageObject = {
+      user: name,
+      phoneNumber: phoneNumber,
+      messages: [],
+    };
+    setState({
+      ...state,
+      allMessages: state.allMessages.concat(newMessageObject),
+    });
+    toAddUser(name, phoneNumber);
+  };
+
+  const onChangingCurrentUser = (name: string, phoneNumber: string | null) => {
+
+    if (name === currentUser.name && phoneNumber === currentUser.number) {
+      return;
+    }
+    // To Save the currentMessageObject in allMessages
+
+    // const oldAllMessages = [...state.allMessages];
+
+    // const newAllMessages = oldAllMessages.filter((object) => {
+    //   return (
+    //     object.user !== currentUserMessageObject.user &&
+    //     object.phoneNumber !== currentUserMessageObject.phoneNumber
+    //   );
+    // });
+
+    // newAllMessages.push(currentUserMessageObject);
+    // setState({
+    //   ...state,
+    //   allMessages: newAllMessages,
+    // });
+
+    // To Change the currentMessageObject
+    const newCurrentMessageObject = state.allMessages.find((obj, index) => {
+      return obj.user === name && obj.phoneNumber === phoneNumber;
+    });
+    if (newCurrentMessageObject !== undefined) {
+      setCurrentUserMessageObject(newCurrentMessageObject);
+    } else {
+      throw "userMessageObject Not Found!";
+      // setCurrentUserMessageObject({
+      //   user: "test",
+      //   phoneNumber: null,
+      //   messages: [],
+      // });
+    }
+
+    toChangeCurrentUser(name, phoneNumber);
+  };
+
+  const onClearingChat = () => {
+
+    const newCurrentMessageObj = {
+      user: currentUserMessageObject.user,
+      phoneNumber: currentUserMessageObject.phoneNumber,
+      messages: [],
+    };
+
+    const oldAllMessages = [...state.allMessages];
+
+      const newAllMessages = oldAllMessages.filter((object) => {
+        return (
+          object.user !== currentUserMessageObject.user &&
+          object.phoneNumber !== currentUserMessageObject.phoneNumber
+        );
+      });
+
+
+      newAllMessages.push(newCurrentMessageObj);
+      localStorage.setItem("allMessages", JSON.stringify(newAllMessages));
+      setCurrentUserMessageObject(newCurrentMessageObj);
+      setState({
+        ...state,
+        allMessages: newAllMessages
+      })
+  }
 
   const setUserName = (name: string): void => {
     setState({
@@ -132,117 +392,224 @@ const App: React.FC = () => {
     });
   };
 
-  const sendMessage = (text: string): void => {
+ const sendMessage = (text: string, media: any): void => {
     if (!accessToken) {
       router.push("/login");
     } else {
-      send(text, state.session, accessToken);
+      send(text, state.session, accessToken, currentUser, socket,null);
+      if(media){  
+        if (media.mimeType.slice(0,5) === "image"){
+          setState({
+            ...state,
+            messages: state.messages.concat({
+              username: state.username,
+              image: media.url
+            }),
+          });
+        }
+        else if (media.mimeType.slice(0,5) === "audio"){
+          setState({
+            ...state,
+            messages: state.messages.concat({
+              username: state.username,
+              audio: media.url
+            }),
+          });
+        }
+        else if (media.mimeType.slice(0,5) === "video"){
+          setState({
+            ...state,
+            messages: state.messages.concat({
+              username: state.username,
+              video: media.url,
+            }),
+          });
+        }
+        else if (media.mimeType.slice(0,11) === "application"){
+          setState({
+            ...state,
+            messages: state.messages.concat({
+              username: state.username,
+              doc: media.url,
+            }),
+          });
+        }else{
+          setState({
+            ...state,
+            messages: state.messages.concat({
+              username: state.username,
+              text: text,
+              doc: media.url
+            }),
+          });
+        }
+      }
+      else{
+        const newMessage = [
+          ...currentUserMessageObject.messages,
+          {
+            username: state.username,
+            text: text,
+          },
+        ];
+  
+        const newCurrentMessageObj = {
+          user: currentUserMessageObject.user,
+          phoneNumber: currentUserMessageObject.phoneNumber,
+          messages: newMessage,
+        };
+  
+        const oldAllMessages = [...state.allMessages];
+  
+        const newAllMessages = oldAllMessages.filter((object) => {
+          return (
+            object.user !== currentUserMessageObject.user &&
+            object.phoneNumber !== currentUserMessageObject.phoneNumber
+          );
+        });
+
+        newAllMessages.push(newCurrentMessageObj);
+        localStorage.setItem("allMessages", JSON.stringify(newAllMessages));
+  
+  
+        send(text, state.session, accessToken, currentUser, socket , null);
+  
+        console.log("this is")
+        console.log(newCurrentMessageObj)
+        setCurrentUserMessageObject(newCurrentMessageObj);
+        setState({
+          ...state,
+          allMessages: newAllMessages
+        })
+        // setState({
+        //   ...state,
+        //   messages: state.messages.concat({
+        //     username: state.username,
+        //     text: text,
+        //   }),
+        // });
+
+      }
+    }
+  };
+
+  const sendLocation = (location: any): void => {
+    send(location,state.session, accessToken, currentUser, socket,null);
+    navigator.geolocation.getCurrentPosition((position: any) => {
       setState({
         ...state,
         messages: state.messages.concat({
           username: state.username,
-          text: text,
+          location: {
+            latitude: position.coords.latitude,
+            longitude: position.coords.longitude,
+          }
         }),
       });
-    }
-  };
+    })
+   
+  }
 
   if (state.username === null) {
     console.log("Please set a username first");
     return (
       <div className="container">
         <div className="container-title">Enter username</div>
-        <TextBar onSend={setUserName} />
+        <TextBar onSend={setUserName} onSendLocation={sendLocation} />
       </div>
     );
   }
 
-  const selected = (option: any): void => {
+  const selected = (option: {
+    key: string;
+    text: string;
+    backmenu: boolean;
+  }): void => {
     const toSend = option.key + " " + option.text;
-    sendMessage(toSend);
+    sendMessage(toSend,null);
   };
 
-  const showProfile: () => void = (): void => {
-    setProfileOpen(true);
-  };
-
-  return (
-    <>
-      {/* {loading? 
-    (<h1>"Page is Loading"</h1>): 
-    (isVerified &&  */} 
-      <>
-        {profileOpen && (
-          <Profile
-            removeProfile={setProfileOpen}
-            name="Chakshu Gautam"
-            number="+91 1234567890"
-            bio="Hi! I am using UCI :)"
-        <div className="chat-header">
-          <div className="chat__header--info">
-            <h3>Chakshu Gautam</h3>
-          </div>
-          <SecNavbar />
-          <div className="chat__header--right">
-            {/* <Notification /> */}
-          </div>
-        </div>
-        <div className="chat-body-container">
-          <div className="chat-body">         
-            <MessageWindow messages={state.messages} username={state.username} selected={selected}/>          
-          </div>
-          <TextBar onSend={sendMessage} />
-        {profileOpen && <Profile removeProfile={setProfileOpen} title="Chakshu" message="Chakshu Gautam" />}
-        <Box cursor='pointer' bgColor={bg} onClick={showProfile} className="chat-header">
-        <Box color={textColor} className="chat__header--info">
-          <h1>Chakshu Gautam</h1>
-        </Box>
-        <div onClick={(event) => {if(event.stopPropagation) event.stopPropagation();return false;}} className="chat__header--right">
-          <ColorModeSwitcher />
-          {/* <Notification /> */}
-        </div>
-      </Box>
-      <Box className="chat-body-container">
-        <Box className="chat-body">
-          <MessageWindow
-            messages={state.messages}
-            username={state.username}
-            selected={selected} 
-          />
-        )}
-        <Box
-          cursor="pointer"
-          bgColor={bg}
-          onClick={showProfile}
-          className="chat-header"
-        >
-          <Box color={textColor} className="chat__header--info">
-            <h1>Chakshu Gautam</h1>
-          </Box>
-          <div
-            onClick={(event) => {
-              if (event.stopPropagation) event.stopPropagation();
-              return false;
-            }}
-            className="chat__header--right"
-          >
-            <ColorModeSwitcher />
-            {/* <Notification /> */}
-          </div>
-        </Box>
-        <Box className="chat-body-container" >
-          <Box className="chat-body" bgImage={bgImg} >
-            <MessageWindow
-              messages={state.messages}
-              username={state.username}
-              selected={selected}
-            />
-          </Box>
-          <TextBar onSend={sendMessage} />
-        </Box>
-      </>
-    </>
-  );
+  const sizeVar = useWindowSize();
+  if (sizeVar.width < 768) {
+    return (
+      <PhoneView
+      currentMessageObj={currentUserMessageObject}
+      toClearChat={onClearingChat}
+        messages={state.messages}
+        username={state.username}
+        selected={selected}
+        sendMessageFunc={sendMessage}
+        allUsers={allUsers}
+        toChangeCurrentUser={onChangingCurrentUser}
+        currentUser={currentUser}
+        addingNewUser={onAddingUser}
+        toRemoveUser={toRemoveUser}
+        onSendLocation={sendLocation} 
+        toShowChats={{
+          name: "",
+          number: null
+        }}        />
+    );
+  } else {
+    return (
+      <WebView
+      currentMessageObj={currentUserMessageObject}
+      toClearChat={onClearingChat}
+        messages={state.messages}
+        username={state.username}
+        selected={selected}
+        sendMessageFunc={sendMessage}
+        allUsers={allUsers}
+        toChangeCurrentUser={onChangingCurrentUser}
+        currentUser={currentUser}
+        addingNewUser={onAddingUser}
+        toRemoveUser={toRemoveUser}
+        onSendLocation={sendLocation}
+      />
+    );
+  }
 };
 
 export default App;
+
+function useWindowSize() {
+  // Initialize state with undefined width/height so server and client renders match
+  // Learn more here: https://joshwcomeau.com/react/the-perils-of-rehydration/
+  const [windowSize, setWindowSize] = useState({
+    width: 0,
+    height: 0,
+  });
+
+  useEffect(() => {
+    // only execute all the code below in client side
+    if (typeof window !== "undefined") {
+      // Handler to call on window resize
+
+      // Set window width/height to state
+
+      // Add event listener
+      window.addEventListener("resize", () => {
+        setWindowSize({
+          width: window.innerWidth,
+          height: window.innerHeight,
+        });
+      });
+
+      // Call handler right away so state gets updated with initial window size
+      setWindowSize({
+        width: window.innerWidth,
+        height: window.innerHeight,
+      });
+
+      // Remove event listener on cleanup
+      return () =>
+        window.removeEventListener("resize", () => {
+          setWindowSize({
+            width: window.innerWidth,
+            height: window.innerHeight,
+          });
+        });
+    }
+  }, []); // Empty array ensures that effect is only run on mount
+  return windowSize;
+}

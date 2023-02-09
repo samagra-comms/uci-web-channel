@@ -24,9 +24,14 @@
   "include": [
     "next-env.d.ts",
     "**/*.ts",
-    "**/*.tsx"
-, "src/pages/camera.js"  ],
+    "**/*.tsx",
+    "**/*.d.ts",
+ "src/pages/camera.js"  ],
   "exclude": [
     "node_modules"
+  ],
+  "typeRoots": [
+    "../node_modules/@types",
+    "../@types"
   ]
 }

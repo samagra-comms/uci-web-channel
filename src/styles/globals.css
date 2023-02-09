@@ -23,9 +23,20 @@
   src: url("../assets/fonts/Mulish-Regular.ttf");
   font-display: swap;
 }
-
-body {
-  font-family: Mulish-regular;
+::-webkit-scrollbar {
+  width: 5px;
+  scrollbar-color: #180e644d;
+}
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px #180e644d;
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb {
+  background: #030311;
+  border-radius: 10px;
+}
+/* body {
+  font-family: Mulish-regular !important;
   transition: opacity 200ms;
   position: relative;
   scroll-behavior: smooth;
@@ -51,19 +62,21 @@ a {
 .chat-message {
   z-index: 0;
   position: relative;
-  font-size: 0.87rem;
+  font-size: 1.2rem;
   padding: 10px;
   border-radius: 10px;
-  border: 1.5px #000080 solid;
-  border-radius: 12px 12px 12px 0px;
   font-family: Mulish-regular;
-  color: #000080;
   word-wrap: break-word;
   display: table;
   width: auto !important;
   font-weight: 500;
   margin-left: 25px;
-  background-color: white;
+  background: rgba(82, 251, 82, 0);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-radius: 12px 12px 12px 0px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
 }
 .chat-message::before {
   content: "";
@@ -76,8 +89,6 @@ a {
 }
 .chat-reciever {
   margin-left: auto;
-  background-color: #000080;
-  color: rgb(255, 255, 255);
   border-radius: 12px 12px 0px 12px;
   display: table;
   margin: 25px 0;
@@ -85,59 +96,47 @@ a {
 .chat-reciever::before {
   content: "";
 }
-.chat-body {
-  /* opacity: 0; */
-  /* background-image: url("../../public/dark_back.png"); */
-  background-repeat: no-repeat;
-  background-size: cover; 
-  width: 100%;
-  min-height: 100vh;
-  padding: 0 1rem;
-  width: 100%;
-  min-height: 90vh;
-  top: 20px;
-  background-color: #ffffff;
-  width: 90%;
-  padding: 0px 20px;
-  padding-bottom: 98px !important;
-  transition: opacity 200ms;
-  font-family: Mulish-medium;
-}
-.Toastify__toast-container{
+
+.Toastify__toast-container {
   top: 50px;
 }
 @media screen and (max-width: 768px) {
   .chat-body {
     width: 100%;
   }
-}
-.chat-footer {
+} */
+/* .chat-footer {
   width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
   padding: 0.5rem;
-}
-.chat-choices {
+} */
+/* .chat-choices {
   font-size: 0.9rem;
   padding: 10px;
-  border: 1.5px #000080 solid;
   border-radius: 25px;
   font-family: Mulish-regular;
   margin-bottom: 1rem;
   margin-left: 0.5rem;
   margin-right: 0.5rem;
   margin-top: 1rem;
+  background: rgba(255, 255, 255, 0.25);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+  backdrop-filter: blur(15.5px);
+  -webkit-backdrop-filter: blur(15.5px);
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
 }
 .chat-choices-container {
   margin-left: 15px;
-  display: inline-flex;
+  display: flex;
   flex-wrap: wrap;
 }
 .chat-error-message {
   z-index: 0;
   position: relative;
-  font-size: 0.9rem;
+  font-size: 1.2rem;
   padding: 10px;
   border: 1.5px red solid;
   color: red;
@@ -149,7 +148,6 @@ a {
   font-weight: 500;
   margin-left: 25px;
   margin-bottom: 1rem;
-  background-color: #f5f5f5;
 }
 .chat-error-message::before {
   content: "";
@@ -158,62 +156,14 @@ a {
   left: -40px;
   width: 0;
   height: 0;
-  content: url("../assets/images/robot.png");
 }
-.chat-body-container {
-  flex: 1;
-  overflow: scroll;
-  
-  /* background-blend-mode: multiply; */
-  /* z-index: 1; */
-  display: flex;
-  justify-content: center;
-  position: relative;
-}
+
 .chat-body-container::-webkit-scrollbar {
   display: none;
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
-.chat-header {
-  padding: 1em;
-  padding-left: 0.75em;
-  display: flex;
-  align-items: center;
-  border-bottom: 1px solid #fff;
-  background-image: url("../assets/images/sidebar.png");
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-blend-mode: multiply;
-  font-weight: bold;
-  z-index: 5;
-  position: fixed;
-  width: 100%;
-}
-.chat__header--info {
-  flex: 1;
-  margin-left: 8px;
-}
 
-.chat__header--info > h3 {
-  font-size: 15px;
-  font-weight: 500;
-  margin-bottom: 3px;
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  width: 200px;
-}
-
-.chat__header--right {
-  display: flex;
-  justify-content: space-between;
-  min-width: 50px;
-}
-
-.chat__header--right > .MuiButtonBase-root {
-  padding: 12px;
-}
 .chat__footer {
   display: flex;
   justify-content: center;
@@ -255,24 +205,12 @@ a {
   outline: none;
 }
 
-/* .send__btn svg {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translateX(-50%) translateY(-50%);
-}
-
-.send__btn svg:nth-child(1) {
-  opacity: 0;
-  transform: translateX(-48%) translateY(-50%);
-} */
-
 .chat__footer > .MuiSvgIcon-root {
   color: gray;
   box-sizing: content-box;
-}
+} */
 
-.chat__footer > form > input {
+/* .chat__footer > form > input {
   height: 44px;
   border-radius: 31px;
   padding-left: 20px;
@@ -285,11 +223,10 @@ a {
   font-family: Roboto, sans-serif;
   transition: all 300ms;
   width: calc(100% - 150px);
-  /*112px 56px*/
-  position: relative;
-}
+  position: relative; 
+} */
 
-.chat__footer > form > input:focus {
+/* .chat__footer > form > input:focus {
   outline: none;
 }
 ::placeholder {
@@ -297,18 +234,8 @@ a {
   font-family: Mulish-regular;
 }
 
-.app__body {
-  background-image: linear-gradient(to right, #f5f5f5, #fdfdfda1);
-  /* background-image: url("../../public/light_back_2.jpg"); */
-  background-repeat: no-repeat;
-  background-size: cover;
-  display: flex;
-  height: 100%;
-  width: 100%;
-  box-shadow: -1px 4px 20px 6px rgb(0 0 0 / 20%);
-  overflow: hidden;
-  position: relative;
-}
+/*  */
+
 /* ::-webkit-scrollbar {
   width: 10px;
   scrollbar-color: #180e644d;
@@ -320,9 +247,26 @@ a {
 ::-webkit-scrollbar-thumb {
   background: #030311;
   border-radius: 10px;
-} */
-
-
-.my-scrollbar {
-  scrollbar-color: red blue;
 }
+
+.box-center {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(45deg, #122564, transparent);
+}
+
+@media (max-width: 768px) {
+  .SideBar {
+    display: none;
+  }
+
+  #topBar {
+    width: 100%;
+  }
+
+  #textBar {
+    width: 100%;
+  }
+} */

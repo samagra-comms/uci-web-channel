@@ -1,4 +1,4 @@
-.message_window {
+/* .message_window {
   overflow-y: scroll;
   border: 1px solid #27213c;
   display: flex;
@@ -26,4 +26,99 @@
 .message_username {
   font-size: 12px;
   font-weight: bold;
+} */
+
+.message {
+  font-family: Mulish-regular;
+  font-size: 0.7rem;
+  padding: 0.6rem;
+  margin: 0.5rem 0;
+}
+
+.smallMessage {
+  padding: 0.5rem 0.8rem;
+}
+
+.bigMessage {
+  padding: 0.7rem 1rem;
+}
+
+.myMessage {
+  border-radius: 20px 20px 0 20px;
+  background-color: #1d90f5;
+  color: white;
+  box-shadow: 0px 8px 24px rgb(0 0 0 / 30%);
+  color: white;
+  margin-right: 15px;
+}
+
+
+
+.recievedMessage {
+  border-radius: 20px 20px 20px 0;
+  background-color: #424656;
+  box-shadow: 0px 8px 24px rgb(0 0 0 / 24%);
+  margin-left: 1.5rem;
+  max-width: 50vw;
+}
+
+.errorMessage {
+  border-radius: 20px 20px 20px 0;
+  background-color: #BE0F39;
+  color: white;
+  margin-left: 1.5rem;
+  max-width: 50vw;
+  position: relative;
+}
+
+.errorMessage::before {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: -30px;
+  width: 0;
+  height: 0;
+  content: url("../../assets/images/robot.png");
+}
+
+.recievedMessage::before {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: -35px;
+  width: 0px;
+  height: 0px;
+  content: url("../../assets/images/robot.png");
+}
+
+.lightMessage {
+  background-color: #fff;
+}
+
+.darkMessage {
+  background-color: #424656;
+
+}
+
+.chatChoices_container {
+  max-width: 70vw;
+  margin-top: 1.2rem;
+  margin-left: 1rem;
+}
+
+.chatChoices {
+  background: rgba(36, 38, 49, 0.3);
+  box-shadow: 0 8px 5px 0 rgba(0, 0, 0, 0.37);
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+
+  margin: 0.2rem 0 0.3rem 0.5rem;
+  font-size: 0.9rem;
+  padding: 0.3rem;
+  font-family: Mulish-regular;
+}
+
+.messagesContainer {
+  max-height: 65vh;
+  overflow: auto;
 }

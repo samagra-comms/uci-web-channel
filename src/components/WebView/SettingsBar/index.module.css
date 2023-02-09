@@ -1,0 +1,89 @@
+.container {
+    position: fixed;
+    height: 100vh;
+    width: 6vw;
+
+    
+    /* background-color: aqua; */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 1;
+}
+
+.lightContainer {
+    background-image: linear-gradient(to right,rgba(0,0,0,0.3), rgba(255,255,255, 0.3));
+}
+
+.darkContainer {
+    background-image: linear-gradient(to right,rgba(40,42,55,1),rgb(87, 91, 116));
+}
+
+.c4gtLogo {
+    background-image: url(../../../assets/images/c4gt_logo.png);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+
+
+    position: fixed;
+    top: 1vh;
+    width: 3vw;
+    height: 10vh;
+}
+
+.settingsContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    height: 40vh;
+    width: auto;
+    position: relative;
+    z-index: 1;
+}
+
+.wallpaperPopover{
+    height: 45vh;
+    width: 150px;
+    position: absolute;
+    top: 10vh;
+    left: 50vh;
+}
+
+.wallpaperButton{
+    background-color: #fff;
+    color: black;
+    height: 50%;
+    border-radius: 20px;
+    width: 29%;
+    margin: 0 10px 10px 10px;
+}
+
+#tab{
+    background-color: #fff;
+    width: 100%;
+}
+
+.fontSize{
+    width: 50px;
+}
+
+.button_container {
+    /* display: flex;
+    justify-content: center;
+    align-items: center;
+     */
+    /* background-color: #fff; */
+    background-color: #1D90F5;
+    color: rgb(255, 255, 255);
+    font-size: 20px;
+    border-radius: 8px;
+    box-shadow: 0px 4px 4px 0 rgba(0, 0, 0, 0.25);
+    height: 30px;
+}
+
+.button_container:active {
+    background-color: #292e33;
+    color: #fff;
+}

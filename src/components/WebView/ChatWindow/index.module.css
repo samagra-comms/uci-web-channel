@@ -1,0 +1,134 @@
+.container {
+    position: fixed;
+    flex-direction: column;
+    height: 100vh;
+    width: 66vw;
+    right: 0;
+    box-shadow: 3px 4px 10px 3px #000;
+    
+
+}
+
+.lightContainer {
+    background-color: #fff;
+}
+
+.darkContainer {
+    background-color: #282A37;
+}
+
+.top_section {
+    width: 66vw;
+    height: 10vh;
+    font-family: Mulish-bold;
+    font-size: 1.4rem;
+    position: fixed;
+    display: flex;
+    flex-wrap: wrap;
+    
+    align-items: center;
+    justify-content: space-between;
+    z-index: 1;
+    color: black;
+    padding: 0 3vw;
+}
+
+.headingContainer {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.avatarContainer {
+    display: flex;
+    align-items: center;
+    height: 10vh;
+}
+
+.innerRing {
+    background-image: url('../../../assets/images/killua.jpg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    min-width: 5vh;
+    min-height: 5vh;
+    border-radius: 50%;
+    border: 3px solid green;
+}
+
+.toggleButtonContainer {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    margin-right: 1rem;
+}
+
+.UserName {
+    display: flex;
+    align-items: center;
+    padding-left: 0.5rem;
+    height: 10vh;
+}
+
+.lightUsername {
+   color: #000;
+}
+
+.darkUsername {
+    color: #fff;
+}
+
+.chatWindow {
+    height: 90vh;
+    width: 66vw;
+    position: fixed;
+    top: 10vh;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.BackBox {
+    width: 60vw;
+    height: 85vh;
+    position: fixed;
+    border-radius: 14px;
+    box-shadow: 0px 3px 5px 6px rgba(0,0,0,.25) inset;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+.wallpaper1{
+    width: 60vw;
+    height: 85vh;
+    position: fixed;
+    border-radius: 14px;
+    box-shadow: 0px 3px 3px 4px rgba(0,0,0,.25) inset;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    background-image: url("https://wallpaperaccess.com/full/51364.jpg");
+    /* background-color: crimson; */
+}
+
+.wallpaper2{
+    width: 60vw;
+    height: 85vh;
+    position: fixed;
+    border-radius: 14px;
+    box-shadow: 0px 3px 3px 4px rgba(0,0,0,.25) inset;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    background-image: url("https://cdn.pixabay.com/photo/2017/08/30/01/05/milky-way-2695569__480.jpg");
+}
+
+
+.lightBackBox {
+    background-color: #EEEEEE;
+}
+
+.darkBackBox {
+    background-color: #242631;
+}

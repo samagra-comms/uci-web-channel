@@ -1,0 +1,96 @@
+.backdrop {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 100;
+}
+
+.modalContainer {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: 35%;
+  transform: translate(-50%, -50%);
+  border-radius: 20px;
+  padding: 2rem;
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+}
+
+.modalContainer h1 {
+  font-family: Mulish-bold;
+}
+
+.darkModalContainer {
+  background-color: #282a37;
+}
+
+.lightModalContainer {
+  background-color: #d9d9d9;
+}
+
+.modalContainer h1 {
+  text-align: center;
+  font-family: Mulish-bold;
+  font-size: large;
+}
+
+.modalContainer form {
+  padding: 1rem;
+}
+
+.modalContainer form label {
+  display: block;
+}
+
+.modalContainer form input {
+  padding: 5px 1rem;
+  margin: 0.5rem 0rem;
+  width: 100%;
+  border-radius: 16px;
+  border: 2px solid #2387e1;
+}
+
+.lightInputBox {
+    background-color: #FFFFFF;
+    color: black;
+}
+
+.darkInputBox {
+background-color: #424656;
+color: white;
+
+}
+
+.modalContainer form button {
+  border-radius: 10px;
+  padding: 0.3rem 2vw;
+}
+
+.modalActionContainer {
+  margin-top: 1rem;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.lightCancelButton {
+  background-color: #BE0F39;
+  color: white;
+  /* border: 1px solid #2387E1; */
+}
+
+.darkCancelButton {
+  background-color: #BE0F39;
+  color: white;
+  /* border: 1px solid #2387E1; */
+}
+
+.submitButton {
+  background-color: #1d90f5;
+  color: white;
+}

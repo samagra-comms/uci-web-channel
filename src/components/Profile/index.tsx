@@ -1,50 +1,114 @@
 import styles from "./profile.module.css";
 import avatar from "../../../public/avatar.jpg";
-import { Box,Text } from "@chakra-ui/react";
-import Image from "next/image";
+import { Box, Text, Flex, Button } from "@chakra-ui/react";
 import { useColorModeValue } from "@chakra-ui/react";
+import React, { useState, useEffect } from "react";
+import ReactDom from "react-dom";
 
 interface profileProps {
-  removeProfile: (a:boolean) => void,
-  name: string,
-  number: string,
-  bio: string
+  removeProfile: () => void;
+  toRemoveUser: (name: string) => void;
+  name: string;
+  userImg: string;
+  show: boolean;
+  // number: string;
+  // bio: string;
 }
 
-const Profile: React.FC<profileProps> = (props) => {
-    const box_color = useColorModeValue("#38FF81","#111B21");
-    const back_color = useColorModeValue("#07A340","#0B1216");
-    const headingColor = useColorModeValue("#000000","#979DA1");
-    const paraColor = useColorModeValue("#000000","#FFFFFF");
+const Profile: React.FC<profileProps> = ({
+  show,
+  userImg,
+  name,
+  removeProfile,
+  toRemoveUser
+}) => {
+  const fontColor = useColorModeValue("#fff", "#fff");
 
-  const clickHandler: React.MouseEventHandler = (event: React.MouseEvent) => {
-    props.removeProfile(false);
-  };
+  const onRemoveUser: React.MouseEventHandler = (event: React.MouseEvent) => {
+    toRemoveUser(name);
+  }
 
-  return (
-    <>
-    <div onClick={clickHandler} className={styles.backdrop} />
-    <div className={styles.body}>
-      <Box bgColor={back_color} className={styles.profile}>
-        <Box bgColor={box_color} className={styles.img__box}>
-          <Image
-            src={avatar}
-            className={styles.avatar}
-            height="160px"
-            width="160px"
-            alt="This is a avatar"
+  return show
+    ? ReactDom.createPortal(
+        <>
+          <Box
+            cursor="pointer"
+            onClick={removeProfile}
+            position="fixed"
+            top="0"
+            left="0"
+            right="0"
+            bottom="0"
+            backgroundColor="rgba(0,0,0,0.8)"
+            zIndex="1000"
           />
-          <Text className={styles.profile__title} fontSize="lg" fontWeight="bold">{props.name}</Text>
-          <Text fontSize="sm">{props.number}</Text>
-        </Box>
-        <Box bgColor={box_color} className={styles.about__section}>
-          <Text color={headingColor} fontWeight="bold" fontSize="lg">About</Text>
-          <Text color={paraColor} fontSize="sm">{props.bio}</Text>
-        </Box>
-      </Box>
-    </div>
-    </>
-  );
+          <Box
+            position="fixed"
+            top="50%"
+            left="50%"
+            zIndex="1000"
+            transform="translate(-50%,-50%)"
+          >
+            <figure
+              className={styles.container}
+              style={{
+                position: "relative",
+                backgroundColor: "#141414",
+                width: "315px",
+              }}
+            >
+              <img
+                src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/331810/sample87.jpg"
+                alt="coverPic"
+                style={{
+                  maxWidth: "100%",
+                  opacity: "0.75",
+                  verticalAlign: "top",
+                }}
+              />
+              <figcaption
+                style={{
+                  width: "100%",
+                  backgroundColor: "#141414",
+                  padding: "25px",
+                  position: "relative",
+                  color: `${fontColor}`,
+                }}
+              >
+                <img
+                  src="/avatar.jpg"
+                  alt="profilePic"
+                  style={{
+                    borderRadius: "50%",
+                    maxWidth: "90px",
+                    zIndex: "1",
+                    bottom: "100%",
+                    left: "25px",
+                    position: "absolute",
+                    boxShadow: "0 0 15px rgba(0, 0, 0, 0.3)",
+                  }}
+                />
+                <h2
+                  style={{
+                    margin: "0 0 5px",
+                  }}
+                >
+                  {name}
+                  <span>User</span>
+                </h2>
+                <p>{}</p>
+                <Flex justifyContent="end">
+                  <Button onClick={onRemoveUser} size="xs" variant="solid" colorScheme="red">
+                    Remove Profile
+                  </Button>
+                </Flex>
+              </figcaption>
+            </figure>
+          </Box>
+        </>,
+        document.getElementById("modal_portal") as HTMLDivElement
+      )
+    : null;
 };
 
 export default Profile;

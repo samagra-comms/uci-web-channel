@@ -1,0 +1,44 @@
+.button_container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    
+    
+    width: 12vw;
+    height: 7vh;
+    border-radius: 10px;
+}
+
+.lightButton {
+    background-color: #fff;
+    color: black;
+}
+
+.darkButton {
+    background-color: #575A6C;
+    color: #D4C17B;
+}
+
+
+.activebutton_container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+   
+    
+    width: 12vw;
+    height: 7vh;
+    border-radius: 10px;
+}
+
+.lightActiveButton {
+    background-color: #1A1C23;
+    color: white;
+}
+
+.darkActiveButton {
+    background-color: #1D90F5;
+    color: white;
+}

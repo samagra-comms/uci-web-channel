@@ -1,0 +1,8 @@
+.main__container {
+    flex: 1;
+    flex-wrap: wrap;
+    width: 5%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
