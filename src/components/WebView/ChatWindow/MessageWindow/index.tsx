@@ -239,11 +239,19 @@ const MessageWindow: React.FC<messageWindowProps> = (props) => {
   const username: string = props.username;
   // const messages: any = props.messages || [];
   const messages: any = props.currentMessageObj.messages || [];
+  let originalMessages = [];
+  for(let i =0; i<messages.length; i++){
+    if(i==0) originalMessages.push(messages[i]);
+    else if(i!=0 && messages[i].text !== messages[i-1].text){
+      originalMessages.push(messages[i]);
+    }else continue;
+  }
   console.log({ username, messages });
   return (
     <Box mt={4} ref={messageWindow} className={styles.messagesContainer}>
-      {messages.length > 0 &&
-        messages.map((msg: any, i: number) => {
+      {/* {console.log(originalMessages)} */}
+      {originalMessages.length > 0 &&
+        originalMessages.map((msg: any, i: number) => {          
           return (
             <Message
               key={i}

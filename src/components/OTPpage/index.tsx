@@ -88,7 +88,7 @@ const OTPpage: React.FC = () => {
   };
 
   return (
-    <div className="box-center">
+    <div className={styles.main}>
       <Box
         width="390px"
         height="72vh"

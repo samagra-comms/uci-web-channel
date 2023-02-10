@@ -6,6 +6,10 @@
     align-content: center;
 } */
 
+.main{
+    height: 100vh;
+    display: grid;
+}
 
 .otpVerify {
     font-weight: 600;

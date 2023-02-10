@@ -46,7 +46,7 @@ const LoginPage: React.FC = () => {
   };
 
   return (
-    <div className="box-center">
+    <div className={styles.main}>
       <Container
         className={styles.container}
         style={{ maxWidth: "390px", background: "white" }}

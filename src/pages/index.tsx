@@ -126,7 +126,8 @@ const Home: NextPage = () => {
   // New Code
 
   return (
-    <React.StrictMode>
+    <>
+    {/*  <React.StrictMode> */}
       <Head>
         <link rel="icon" href="/favicon.ico" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -183,7 +184,8 @@ const Home: NextPage = () => {
 
         <ColorModeScript />
       </CookiesProvider>
-    </React.StrictMode>
+    {/* </React.StrictMode> */}
+    </>
   );
 };
 export default Home;

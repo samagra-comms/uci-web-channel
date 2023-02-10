@@ -101,6 +101,7 @@ const TextBar: React.FC<textBarProps> = (props) => {
     e.preventDefault();
     // props?.onSendLocation && props.onSendLocation(location);
     props.onSendLocation(location);
+    // props.onSend(location, null);
   };
 
   const uploadMedia = async (fileObj: any) => {

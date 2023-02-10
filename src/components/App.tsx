@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import {
   registerOnMessageCallback,
   registerOnSessionCallback,
@@ -164,30 +164,39 @@ const App: React.FC<appProps> = ({
       }
     } catch (err) {
       console.log(err);
-    }
-
-    setSocket(
-      io(`ws://143.110.183.73:3013`, {
-        query: { deviceId: `phone:${localStorage.getItem("phoneNumber")}` },
-      })
-    );
+    }    
   }, []);
 
   useEffect(() => {
-    if (socket !== undefined) {
-      startWebsocketConnection(socket);
+    setSocket(
+      io(`${process.env.NEXT_PUBLIC_TRANSPORT_SOCKET_URL}`, {
+        query: { deviceId: `phone:${localStorage.getItem("phoneNumber")}` },
+      })
+    );
+    return () => {
+console.log("unmount")
     }
-  }, [socket]);
+  },[])
+  
+  useEffect(() => {    
+    if (socket !== undefined) {    
+        startWebsocketConnection(socket);     
+    }
+  }, [socket]);  
 
-  useEffect((): void => {
+  useEffect(() => {
     if (router.query.state || cookies["access_token"] !== "") {
       registerOnMessageCallback(onMessageReceived);
       registerOnSessionCallback(onSessionCreated);
       scrollToBottom();
     } else {
       router.push("/login");
+    }    
+    return () => {
+      console.log('unmounted')
     }
-  }, [state]);
+  }, [state])
+
 
   const onSessionCreated = (session: { session: any }): void => {
     setState({
@@ -197,6 +206,7 @@ const App: React.FC<appProps> = ({
   };
 
   const onMessageReceived = (msg: any): void => {
+    console.log('message: ', msg.content.msg_type);
     if (msg.content.msg_type === "IMAGE"){
       setState({
         ...state,
@@ -242,7 +252,12 @@ const App: React.FC<appProps> = ({
         }),
       });
     }
-    else{
+    else if (msg.content.msg_type === "TEXT"){
+      // console.log("Message1", msg.content.title)
+      // console.log("Message2", state.allMessages[state.allMessages.length-1].messages[1])
+      // if(msg.content.title === state.allMessages[state.allMessages.length-1]){
+      //   return;
+      // }
       setState({
         ...state,
         messages: state.messages.concat({

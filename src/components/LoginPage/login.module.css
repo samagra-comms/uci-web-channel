@@ -1,4 +1,9 @@
 /* Login CSS */
+.main{
+  height: 100vh;
+  display: grid;
+
+}
 
 .container {
   margin: auto;
