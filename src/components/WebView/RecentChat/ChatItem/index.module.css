@@ -1,6 +1,6 @@
 .container {
     margin: 1vh 0;
-    height: 3rem;
+    height: 3.9rem;
     width: 80%;
     display: flex;
     align-items: center;
@@ -19,13 +19,13 @@
 
 .activeContainer {
     margin: 1vh 0;
-    height: 3rem;
+    height: 3.9rem;
     width: 80%;
     display: flex;
     align-items: center;
 
     border-radius: 10px;
-    background-color: #525252;
+    background-color: #363636;
     box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.3);
 
 }
@@ -35,15 +35,15 @@
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
-    min-height: 2rem;
-    min-width: 2rem;
+    min-height: 3.1rem;
+    min-width: 3.1rem;
     margin-left: 1rem;
     border-radius: 50%;
 }
 
 .chatItem_text {
     flex: 1;
-    height: 100%;
+    height: 42px;
     margin-left: 2vw;
     display: flex;
     flex-direction: column;
@@ -51,10 +51,14 @@
 
 .lightFontColor {
     color: white;
+    font-size: 20px;
+    font-weight: 600;
 }
 
 .darkFontColor {
-    color: black;
+    color: white;
+    font-size: 20px;
+    font-weight: 600;
 }
 
 .activeFont {
@@ -87,11 +91,13 @@
 }
 
 .lightPhoneColor {
-    color: rgba(255, 255, 255, 0.7);
+    color: white;
+    font-size: 13px;
 }
 
 .darkPhoneColor {
-    color: rgba(0, 0, 0, 0.7);
+    color: white;
+    font-size: 13px;
 }
 
 .activephoneFont {

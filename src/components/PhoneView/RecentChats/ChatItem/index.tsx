@@ -59,16 +59,20 @@ const ChatItem: React.FC<chatItemProps> = ({
         <Box onClick={showProfileModal} className={styles.avatar}></Box>
         <Box className={`${styles.chatItem_text}`}>
           <Box
-            className={`${phoneNumber===null?styles.chatItem_botName:styles.chatItem_userName} ${
-              active ? styles.activeFont : fontColorToggle
-            }`}
+            className={`${
+              phoneNumber === null
+                ? styles.chatItem_botName
+                : styles.chatItem_userName
+            } ${active ? styles.activeFont : fontColorToggle}`}
           >
             {name}
           </Box>
           <Box
-            className={`${phoneNumber===null?styles.chatItem_botNumber:styles.chatItem_phoneNumber} ${
-              active ? styles.activephoneFont : phoneColorToggle
-            }`}
+            className={`${
+              phoneNumber === null
+                ? styles.chatItem_botNumber
+                : styles.chatItem_phoneNumber
+            } ${active ? styles.activephoneFont : phoneColorToggle}`}
           >
             {phoneNumber}
           </Box>

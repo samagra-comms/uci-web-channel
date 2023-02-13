@@ -39,7 +39,7 @@
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
-    height: 40vh;
+    height: 20vh;
     width: auto;
     position: relative;
     z-index: 1;
@@ -73,7 +73,7 @@
 
 .button_container {   
     color: rgb(255, 255, 255);
-    font-size: 25px;
+    font-size: 17px;
     border-radius: 5px;
     box-shadow: 0px 4px 4px 0 rgba(0, 0, 0, 0.25);
     height: 50px;

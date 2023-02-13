@@ -1,8 +1,7 @@
 /* Login CSS */
-.main{
+.main {
   height: 100vh;
   display: grid;
-
 }
 
 .container {
@@ -29,3 +28,21 @@
   font-size: 13px;
   color: #636363;
 }
+
+.lightContainer {
+  background-image: url("../../assets/images/homeScreen2.png");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  min-height: 100vh;
+}
+
+.submitButton {
+  height: 42px;
+  font-weight: 700;
+  font-size: 15px;
+  color: #ffffff;
+  margin-bottom: 25px;
+  font-family: Mulish-regular;
+}
+

@@ -15,6 +15,7 @@ import React, { useState, useEffect } from "react";
 import { NextRouter, useRouter } from "next/router";
 import { useCookies } from "react-cookie";
 import styles from "./OTP.module.css";
+import { useColorModeValue } from "@chakra-ui/react";
 import image1 from "../../assets/images/emptyOtp.png";
 // import image1 from "../../../public/empty_otp.png";
 import image2 from "../../../public/otp_done.png";
@@ -86,16 +87,17 @@ const OTPpage: React.FC = () => {
     setInput4(e.target.value);
     // setImage(image2);
   };
-
+  const backgroundColorToggle = useColorModeValue(styles.lightContainer,styles.darkContainer)
+  const buttonToggle = useColorModeValue("darkGreen", "#080664");
   return (
-    <div className={styles.main}>
+    <div className={`${styles.main} ${backgroundColorToggle}`}>
       <Box
         width="390px"
         height="80vh"
         display="flex"
-        flexDirection="column"
-        justifyContent="space-between"
         background={"white"}
+        flexDirection="column"
+        justifyContent="space-between"        
         borderRadius={"5"}
         margin={"auto"}
       >
@@ -170,14 +172,10 @@ const OTPpage: React.FC = () => {
             </PinInput>
           </HStack>
           <Box width="100%">
-            {" "}
-            {/* <Button
-              className={styles.submitButton}
-              background="#080664"
-              style={{ marginTop: "43px" }} */}
+            {" "}            
             <Button
               className={styles.submitButton}
-              background="darkGreen"
+              background={buttonToggle}
               style={{
                 marginTop: "43px",
                 width: "100%",

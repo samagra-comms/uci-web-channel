@@ -23,7 +23,6 @@ const LightWallpapers = () => {
     }
 
     useEffect(() => {
-
       if(localStorage.getItem("wallpaper") === "notwallpaper") {
         setWallpaper(localStorage.getItem("wallpaper") || '');
         var a = document.getElementById("wall") as HTMLImageElement;

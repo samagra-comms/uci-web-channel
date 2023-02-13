@@ -45,10 +45,6 @@
   font-family: Mulish-regular;
 }
 
-.submitButton:hover{
-    background: darkgreen;
-}
-
 .login {
   background-color: #3e3c3c;
   color: white;
@@ -59,4 +55,12 @@
 
 .container {
   background-repeat: no-repeat !important;
+}
+
+.lightContainer {
+  background-image: url("../../assets/images/homeScreen2.png");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  min-height: 100vh;
 }

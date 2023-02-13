@@ -46,15 +46,19 @@ const LoginPage: React.FC = () => {
       });
     }
   };
-
+  const backgroundColorToggle = useColorModeValue(
+    styles.lightContainer,
+    styles.darkContainer
+  );
+  const buttonToggle = useColorModeValue("darkGreen", "#080664");
   return (
-    <div className={styles.main}>
+    <div className={`${styles.main} ${backgroundColorToggle}`}>
       <Container
         className={styles.container}
         style={{ maxWidth: "370px", background: "white" }}
       >
-        <div style={{ padding: "55px 18px" }}>
-          {/* <Image className={styles.loginImage} src={Login} alt="" /> */}
+        <div style={{ padding: "40px 18px" }}>
+          <Image className={styles.loginImage} src={Login} alt="" />
           <Box
             fontWeight="700"
             fontSize="24px"
@@ -72,34 +76,30 @@ const LoginPage: React.FC = () => {
           >
             Hello , welcome back to our account !
           </Box>
-          <NumberInput style={{ margin: "80px 0px 30px 0px" }}>
+          <NumberInput style={{ margin: "40px 0px 0px 0px" }}>
             <NumberInputField
-              height="55px"
-              padding="18px 16px"
-              border="3px solid #818181"
+              height="45px"
+              padding="18px 16px"              
               filter="drop-shadow(0px 2px 2px rgba(0, 0, 0, 0.12))"
-              borderRadius="12px"
+              borderRadius="0px"
               fontWeight="400"
               fontSize="14px"
               color="#6f6f6f"
               placeholder="Enter your phone number"
               value={input}
               onChange={handleNumber}
-              boxShadow="0 2.8px 2.2px rgba(0, 0, 0, 0.034),
-              0 6.7px 5.3px rgba(0, 0, 0, 0.048), 0 12.5px 10px rgba(0, 0, 0, 0.06),
-              0 22.3px 17.9px rgba(0, 0, 0, 0.072), 0 41.8px 33.4px rgba(0, 0, 0, 0.086),
-              0 100px 80px rgba(0, 0, 0, 0.12);"
             />
           </NumberInput>
           <Button
-            width="100%"
-            background="#080664"
-            borderRadius="12px"
-            height="55px"
-            marginBottom="27px"
-            color="#fff"
-            fontWeight="600"
-            fontSize="18px"
+            className={styles.submitButton}
+            background={buttonToggle}
+            style={{
+              marginTop: "43px",
+              width: "100%",
+              padding: "10px",
+              border: "none",
+              borderRadius: "0px",
+            }}
             onClick={handleOTPPage}
           >
             Send OTP

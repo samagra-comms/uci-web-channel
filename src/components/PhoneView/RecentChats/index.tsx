@@ -64,16 +64,7 @@ const RecentChats: React.FC<recentChatsProps> = ({
 
 
   const [allButtons,setAllButtons] = useState<{key: string,icon: IconDefinition, active: boolean}[]>([
-    {
-        key: '1',
-        icon: faCampground,
-        active: false
-    },
-    {
-        key: '2',
-        icon: faCog,
-        active: true
-    },
+   
     {
         key: '3',
         icon: faDesktop,

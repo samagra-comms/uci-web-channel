@@ -14,8 +14,7 @@
 .activebutton_container {
     display: flex;
     justify-content: center;
-    align-items: center;
-    
+    align-items: center;    
     background-color: #016F02;
     color: #fff;
     font-size: 20px;
