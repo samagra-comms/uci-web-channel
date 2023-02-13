@@ -62,6 +62,7 @@ const RecentChats: React.FC<recentChatsProps> = ({
     styles.darkSettingsBar
   );
 
+
   const [allButtons,setAllButtons] = useState<{key: string,icon: IconDefinition, active: boolean}[]>([
     {
         key: '1',
@@ -172,7 +173,7 @@ const onChangeCurrentButton = (icon: IconDefinition) => {
             />
             <ChatItem name="Shruti" phoneNumber="1234567890" active={true} />
             <ChatItem name="Neelesh" phoneNumber="1234567890" active={false} /> */}
-            <button onClick={toShowModal} className={styles.addUser_button}>
+            <button onClick={toShowModal} className={`${styles.addUser_button} ${settingsBarToggle}`}>
               <FontAwesomeIcon icon={faPlus} />
             </button>
             {showModal ? (

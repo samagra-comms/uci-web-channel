@@ -54,6 +54,7 @@ const Message: React.FC<messageProps> = ({
   // const box_color = useColorModeValue("#06d755", "#202C33");
   const recievedMessageColor = useColorModeValue("#fff","#424656")
   const text_color = useColorModeValue("#000", "#fff");
+  const messageBodyToggle = useColorModeValue(styles.lightModeMessage, styles.darkModeMessage);
   // ------------
 
 
@@ -67,8 +68,7 @@ var [today, setToday] = useState(new Date());
           <Box
             borderColor="white"
             color="#fff"
-            bgColor="#1D90F5"
-            className={`${styles.myMessage} ${styles.message}`}
+            className={`${styles.myMessage} ${styles.message} ${messageBodyToggle}`}
           >
             <Box className={styles.message_username}>
               <Text fontSize="md" fontWeight="bold">

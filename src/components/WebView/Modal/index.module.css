@@ -57,7 +57,7 @@
 
 .lightInputBox {
     background-color: #FFFFFF;
-    color: black;
+    color: #017000;
 }
 
 .darkInputBox {
@@ -81,16 +81,22 @@ color: white;
 .lightCancelButton {
   background-color: #BE0F39;
   color: white;
+  padding: 7px 25px !important;
+  border-radius: 5px !important;
   /* border: 1px solid #2387E1; */
 }
 
 .darkCancelButton {
   background-color: #BE0F39;
   color: white;
+  padding: 7px 25px !important;
+  border-radius: 5px !important;
   /* border: 1px solid #2387E1; */
 }
 
 .submitButton {
   background-color: #1d90f5;
   color: white;
+  padding: 7px 25px !important;
+  border-radius: 5px !important;
 }

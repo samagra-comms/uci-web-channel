@@ -47,6 +47,7 @@ const TextBar: React.FC<textBarProps> = (props) => {
   const inputColorToggle = useColorModeValue(styles.lightInput,styles.darkInput)
   const attachmentColorToggle = useColorModeValue(styles.lightAttach,styles.darkAttach)
   const backgroundColorToggle = useColorModeValue("#EEEEEE","#242631")
+  const SubmitColorToggle = useColorModeValue(styles.lightModeSubmitButton,styles.darkModeSubmitButton)
   // ---------------
 
   const [location, setLocation] = useState("");
@@ -181,7 +182,7 @@ const TextBar: React.FC<textBarProps> = (props) => {
             onKeyDown={sendMessageIfEnter}
           />
           <button
-            className={styles.submit_button}
+            className={`${styles.submit_button} ${SubmitColorToggle}`}
             onClick={sendMessage}
             ref={send_btn}
             type="submit"

@@ -1,4 +1,10 @@
-import React, { MutableRefObject, RefObject, useEffect, useRef, useState } from "react";
+import React, {
+  MutableRefObject,
+  RefObject,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import {
   Box,
   Button,
@@ -44,34 +50,38 @@ interface textBarProps {
 
 const TextBar: React.FC<textBarProps> = (props) => {
   // Toggle Settings
-  const inputColorToggle = useColorModeValue(styles.lightInput,styles.darkInput)
-  const attachmentColorToggle = useColorModeValue(styles.lightAttach,styles.darkAttach)
-  const backgroundColorToggle = useColorModeValue("#EEEEEE","#242631")
-  // ---------------
+  const inputColorToggle = useColorModeValue(
+    styles.lightInput,
+    styles.darkInput
+  );
+  const attachmentColorToggle = useColorModeValue(
+    styles.lightAttach,
+    styles.darkAttach
+  );
+  const backgroundColorToggle = useColorModeValue("#EEEEEE", "#242631");
+  const SubmitColorToggle = useColorModeValue(styles.lightModeSubmitButton,styles.darkModeSubmitButton)
+
 
   const [location, setLocation] = useState("");
   useEffect(() => {
     if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(
-        (position: any) => {
-          const lat = position.coords.latitude;
-          const long = position.coords.longitude;
-          setLocation(`https://www.google.com/maps?q=${lat},${long}+&output=embed`);
-          //props?.onSend && props.onSend(url());
-        }
-      );
-    }
-    else{
+      navigator.geolocation.getCurrentPosition((position: any) => {
+        const lat = position.coords.latitude;
+        const long = position.coords.longitude;
+        setLocation(
+          `https://www.google.com/maps?q=${lat},${long}+&output=embed`
+        );
+        //props?.onSend && props.onSend(url());
+      });
+    } else {
       toast.error("Geolocation is not supported by this browser.");
     }
-  },[])
-
+  }, []);
 
   const input: MutableRefObject<HTMLInputElement | null> =
     useRef<HTMLInputElement | null>(null);
 
   const send_btn = useRef<HTMLButtonElement | null>(null);
-
 
   const sendMessage: React.MouseEventHandler = (
     event: React.MouseEvent
@@ -81,7 +91,7 @@ const TextBar: React.FC<textBarProps> = (props) => {
     if (input.current?.value.trim().length === 0) {
       toast.error("Please enter a valid message");
     } else if (message!.length > 0) {
-      props?.onSend && props.onSend(input.current!.value,null);
+      props?.onSend && props.onSend(input.current!.value, null);
     }
     input.current!.value = "";
   };
@@ -106,25 +116,21 @@ const TextBar: React.FC<textBarProps> = (props) => {
 
   const uploadMedia = async (fileObj: any) => {
     const data = new FormData();
-    data.append('file',fileObj);
-    try{
-        let res = await fetch(
-        `http://143.110.255.220:8080/cdn/minioSignedUrl`,
-        {
-            method: 'post',
-            body: data,
-        }
-        );
-        let responseJson = await res.json();
-        if (res.status === 200) {
-            props.onSend(" ", responseJson);
-        }else{      
-            console.log('image not uploaded')
-        }
+    data.append("file", fileObj);
+    try {
+      let res = await fetch(`http://143.110.255.220:8080/cdn/minioSignedUrl`, {
+        method: "post",
+        body: data,
+      });
+      let responseJson = await res.json();
+      if (res.status === 200) {
+        props.onSend(" ", responseJson);
+      } else {
+        console.log("image not uploaded");
+      }
+    } catch {
+      console.error("no response received");
     }
-    catch{
-        console.error('no response received');
-    }    
   };
 
   return (
@@ -132,52 +138,79 @@ const TextBar: React.FC<textBarProps> = (props) => {
       <ToastContainer />
       <Box className={styles.container}>
         <form className={styles.sendMessage_form}>
-        <Popover>
-          <PopoverTrigger>
-            <button type="button" className={`${styles.add_button} ${attachmentColorToggle}`}>
-              <FontAwesomeIcon icon={faPlus} />
-            </button>
-          </PopoverTrigger>
-          <PopoverContent className={styles.popover} width="50px" border="none" backgroundColor={backgroundColorToggle}>
-            <Button size="md" type="button" style={{margin: "15px 5px 0 0", backgroundColor:"#ff0079", borderRadius:"50%"}} onClick={sendLocation}>
-              <FontAwesomeIcon color="#FFFFFF" icon={faLocationDot} />
-            </Button>
-            <div className="file btn btn-primary" 
-                      style={
-                        { position: "relative", 
-                          overflow: "hidden", 
-                          marginRight: '7px', 
-                          paddingTop: '5px',
-                          margin: "19px 5px 5px 0",
-                          backgroundColor:"#2656e9",
-                          width: "45px",
-                          height: "45px",
-                          borderRadius: "50%",
-                        }}>
-                          <div style={{
-                            margin: "5px 0 0 17px",
-                          }}>
-                            <FontAwesomeIcon color="#FFFFFF" icon={faFile} />
-                          </div>
-                          <input type="file" name="file" 
-                          style={
-                            {position: "absolute", 
-                            fontSize: "50px", 
-                            opacity: "0", 
-                            right: "0", 
-                            top: "0"}
-                            }
-                            onChange={(event) => {
-                              if (!event.target.files || event.target.files.length === 0) {
-                                // you can display the error to the user
-                                console.error("Select a file");
-                                return;
-                              }
-                              uploadMedia(event.target.files[0])
-                            }}/>
-                  </div>
-          </PopoverContent>
-        </Popover>
+          <Popover>
+            <PopoverTrigger>
+              <button
+                type="button"
+                className={`${styles.add_button} ${attachmentColorToggle}`}
+              >
+                <FontAwesomeIcon icon={faPlus} />
+              </button>
+            </PopoverTrigger>
+            <PopoverContent
+              className={styles.popover}
+              width="50px"
+              border="none"
+              backgroundColor={backgroundColorToggle}
+            >
+              <Button
+                size="md"
+                type="button"
+                style={{
+                  margin: "15px 5px 0 0",
+                  backgroundColor: "#ff0079",
+                  borderRadius: "50%",
+                }}
+                onClick={sendLocation}
+              >
+                <FontAwesomeIcon color="#FFFFFF" icon={faLocationDot} />
+              </Button>
+              <div
+                className="file btn btn-primary"
+                style={{
+                  position: "relative",
+                  overflow: "hidden",
+                  marginRight: "7px",
+                  paddingTop: "5px",
+                  margin: "19px 5px 5px 0",
+                  backgroundColor: "#2656e9",
+                  width: "45px",
+                  height: "45px",
+                  borderRadius: "50%",
+                }}
+              >
+                <div
+                  style={{
+                    margin: "5px 0 0 17px",
+                  }}
+                >
+                  <FontAwesomeIcon color="#FFFFFF" icon={faFile} />
+                </div>
+                <input
+                  type="file"
+                  name="file"
+                  style={{
+                    position: "absolute",
+                    fontSize: "50px",
+                    opacity: "0",
+                    right: "0",
+                    top: "0",
+                  }}
+                  onChange={(event) => {
+                    if (
+                      !event.target.files ||
+                      event.target.files.length === 0
+                    ) {
+                      // you can display the error to the user
+                      console.error("Select a file");
+                      return;
+                    }
+                    uploadMedia(event.target.files[0]);
+                  }}
+                />
+              </div>
+            </PopoverContent>
+          </Popover>
 
           <input
             type="text"
@@ -187,7 +220,7 @@ const TextBar: React.FC<textBarProps> = (props) => {
             onKeyDown={sendMessageIfEnter}
           />
           <button
-            className={styles.submit_button}
+            className={`${styles.submit_button} ${SubmitColorToggle}`}
             onClick={sendMessage}
             ref={send_btn}
             type="submit"
@@ -261,8 +294,6 @@ export default TextBar;
 //     }
 //   },[])
 
-
-
 //   // Toggle Settings
 //   const bg = useColorModeValue("#1D90F5", "#202C33");
 //   // const childrenIcon = useColorModeValue("#202C33","#AEBAC1")
@@ -312,16 +343,14 @@ export default TextBar;
 //         let responseJson = await res.json();
 //         if (res.status === 200) {
 //             props.onSend(" ",responseJson);
-//         }else{      
+//         }else{
 //             console.log('image not uploaded')
 //         }
 //     }
 //     catch{
 //         console.error('no response received');
-//     }    
+//     }
 //   };
- 
-
 
 //   return (
 //     <>
@@ -354,21 +383,21 @@ export default TextBar;
 //               mr="2rem"
 //               children={
 //                 <Stack direction="row" spacing="2" mb="10px">
-//                   <div className="file btn btn-primary" 
+//                   <div className="file btn btn-primary"
 //                       style={
-//                         { position: "relative", 
-//                           overflow: "hidden", 
-//                           marginRight: '7px', 
+//                         { position: "relative",
+//                           overflow: "hidden",
+//                           marginRight: '7px',
 //                           paddingTop: '5px',
 //                           margin: "19px 5px 0 0"
 //                         }}>
 //                           <FontAwesomeIcon color="#202C33"  icon={faPaperclip} />
-//                           <input type="file" name="file" 
+//                           <input type="file" name="file"
 //                           style={
-//                             {position: "absolute", 
-//                             fontSize: "50px", 
-//                             opacity: "0", 
-//                             right: "0", 
+//                             {position: "absolute",
+//                             fontSize: "50px",
+//                             opacity: "0",
+//                             right: "0",
 //                             top: "0"}
 //                             }
 //                             onChange={(event) => {
@@ -381,12 +410,12 @@ export default TextBar;
 //                             }}/>
 //                   </div>
 //                   {/* <Button size="xs">
-//                   <input type="file" name="file" 
+//                   <input type="file" name="file"
 //                 style={
-//                   {position: "absolute", 
-//                    fontSize: "50px", 
-//                    opacity: "0", 
-//                    right: "0", 
+//                   {position: "absolute",
+//                    fontSize: "50px",
+//                    opacity: "0",
+//                    right: "0",
 //                    top: "0"}
 //                   }
 //                   onChange={(event) => {

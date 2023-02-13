@@ -34,8 +34,16 @@
   align-items: center;
   border-radius: 10px;
   box-shadow: 4px 6px 4px 0px rgba(0, 0, 0, 0.25);
-  background-color: #1d90f5;
+  /* background-color: #1d90f5; */
   color: white;
+}
+
+.lightModeSubmitButton{
+  background-color: #016F02;
+}
+
+.darkModeSubmitButton{
+  background-color: #1D90F5;
 }
 
 .add_button {

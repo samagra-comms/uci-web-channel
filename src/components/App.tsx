@@ -411,7 +411,7 @@ console.log("unmount")
     if (!accessToken) {
       router.push("/login");
     } else {
-      send(text, state.session, accessToken, currentUser, socket,null);
+      // send(text, state.session, accessToken, currentUser, socket,null);
       if(media){  
         if (media.mimeType.slice(0,5) === "image"){
           setState({

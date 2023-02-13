@@ -15,8 +15,8 @@ import React, { useState, useEffect } from "react";
 import { NextRouter, useRouter } from "next/router";
 import { useCookies } from "react-cookie";
 import styles from "./OTP.module.css";
-import Image from "next/image";
-import image1 from "../../../public/empty_otp.png";
+import image1 from "../../assets/images/emptyOtp.png";
+// import image1 from "../../../public/empty_otp.png";
 import image2 from "../../../public/otp_done.png";
 import image3 from "../../../public/wrong_otp.png";
 
@@ -55,7 +55,7 @@ const OTPpage: React.FC = () => {
             router.push("/");
           } else {
             alert("Incorrect OTP");
-            setImage(image3);
+            // setImage(image3);
           }
         })
         .catch((err) => console.log(err));
@@ -66,42 +66,38 @@ const OTPpage: React.FC = () => {
     e: React.ChangeEvent<HTMLInputElement>
   ) => {
     setInput1(e.target.value);
-    setImage(image1);
+    // setImage(image1);
   };
   const handleOTP2: React.ChangeEventHandler = (
     e: React.ChangeEvent<HTMLInputElement>
   ) => {
     setInput2(e.target.value);
-    setImage(image1);
+    // setImage(image1);
   };
   const handleOTP3: React.ChangeEventHandler = (
     e: React.ChangeEvent<HTMLInputElement>
   ) => {
     setInput3(e.target.value);
-    setImage(image1);
+    // setImage(image1);
   };
   const handleOTP4: React.ChangeEventHandler = (
     e: React.ChangeEvent<HTMLInputElement>
   ) => {
     setInput4(e.target.value);
-    setImage(image2);
+    // setImage(image2);
   };
 
   return (
     <div className={styles.main}>
       <Box
         width="390px"
-        height="72vh"
+        height="80vh"
         display="flex"
         flexDirection="column"
         justifyContent="space-between"
-        boxShadow="0 2.8px 2.2px rgba(0, 0, 0, 0.034),
-      0 6.7px 5.3px rgba(0, 0, 0, 0.048), 0 12.5px 10px rgba(0, 0, 0, 0.06),
-      0 22.3px 17.9px rgba(0, 0, 0, 0.072), 0 41.8px 33.4px rgba(0, 0, 0, 0.086),
-      0 100px 80px rgba(0, 0, 0, 0.12);"
         background={"white"}
         borderRadius={"5"}
-        margin={'auto'}
+        margin={"auto"}
       >
         <Box
           className="hi"
@@ -175,10 +171,20 @@ const OTPpage: React.FC = () => {
           </HStack>
           <Box width="100%">
             {" "}
-            <Button
+            {/* <Button
               className={styles.submitButton}
               background="#080664"
-              style={{ marginTop: "43px" }}
+              style={{ marginTop: "43px" }} */}
+            <Button
+              className={styles.submitButton}
+              background="darkGreen"
+              style={{
+                marginTop: "43px",
+                width: "100%",
+                padding: "10px",
+                border: "none",
+                borderRadius: "0px",
+              }}
               onClick={handleOTPSubmit}
             >
               Submit

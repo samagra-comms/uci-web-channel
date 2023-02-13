@@ -35,6 +35,24 @@
   background: #030311;
   border-radius: 10px;
 }
+
+body {
+  margin: 0;
+  font-family: Mulish-regular !important;
+  transition: opacity 200ms;
+  position: relative;
+  font-family: Mulish-medium;
+  scroll-behavior: smooth;
+}
+
+body {
+  background-image: url("../assets/images/homeScreen2.png");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  min-height: 100vh;
+}
+
 /* body {
   font-family: Mulish-regular !important;
   transition: opacity 200ms;

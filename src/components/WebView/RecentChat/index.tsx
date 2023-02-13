@@ -40,6 +40,10 @@ const RecentChat: React.FC<RecentChats> = ({
     styles.lightColor,
     styles.darkColor
   );
+  const buttonToggle = useColorModeValue(
+    styles.lightModeButton,
+    styles.darkModeButton
+  );
 
   const [showModal, setShowModal] = useState(false);
 
@@ -97,7 +101,7 @@ const RecentChat: React.FC<RecentChats> = ({
             />
           );
         })}
-        <button onClick={toShowModal} className={styles.addUser_button}>
+        <button onClick={toShowModal} className={`${styles.addUser_button} ${buttonToggle}`}>
           <FontAwesomeIcon icon={faPlus} />
         </button>
         {showModal ? (

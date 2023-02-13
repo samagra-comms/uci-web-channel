@@ -4,7 +4,7 @@
     width: 28vw;
     left: 6vw;
 
-    background-color: #DDDDDD;
+    background-color: #B7E89F;
 }
 
 .darkContainer {
@@ -16,8 +16,17 @@
     background-color: #272A37;
 }
 
+.lightModeButton{
+    background-color: #016F02;
+}
+
+.darkModeButton{
+    background-color: #1D90F5;
+}
+
+
 .top_section {
-    color: black;
+    color: #017000;
     font-family: Mulish-bold;
     font-size: 2rem;
     height: 10vh;
@@ -27,7 +36,7 @@
 }
 
 .lightColor {
-    color: black;
+    color: #017000;
 }
 
 .darkColor {
@@ -46,7 +55,6 @@
 
 .addUser_button {
     margin: 0.4rem ;
-    background-color: #1D90F5;
     color: white;
     min-width: 50px;
     min-height: 50px;

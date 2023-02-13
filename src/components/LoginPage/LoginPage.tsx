@@ -12,6 +12,8 @@ import { Router, useRouter } from "next/router";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
 import { useColorModeValue } from "@chakra-ui/react";
+import Login from "../../assets/images/login.png";
+import Image from "next/image";
 
 const LoginPage: React.FC = () => {
   const router = useRouter();
@@ -49,9 +51,10 @@ const LoginPage: React.FC = () => {
     <div className={styles.main}>
       <Container
         className={styles.container}
-        style={{ maxWidth: "390px", background: "white" }}
+        style={{ maxWidth: "370px", background: "white" }}
       >
         <div style={{ padding: "55px 18px" }}>
+          {/* <Image className={styles.loginImage} src={Login} alt="" /> */}
           <Box
             fontWeight="700"
             fontSize="24px"

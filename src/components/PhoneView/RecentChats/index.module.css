@@ -1,7 +1,7 @@
 .lightContainer {
   position: fixed;
   height: 100vh;
-  background-color: #dddddd;
+  background-color: #b7e89f;
 }
 
 .darkContainer {
@@ -27,7 +27,7 @@
 }
 
 .logo_box {
-  background-image: url("../../../assets/images/c4gt_logo.png");
+  /* background-image: url("../../../assets/images/c4gt_logo.png"); */
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -72,7 +72,6 @@
 }
 
 .settingsBar {
-  
   position: fixed;
   bottom: 2vh;
   width: 65vw;
@@ -88,16 +87,20 @@
 }
 
 .lightSettingsBar {
-    background-color: #1D90F5;
+  background-color: #016f02;
+}
+
+.darkSettingsBar {
+  background-color: #1d90f5;
 }
 
 .darkBackBox {
-    background-color: #1a1c23;
+  background-color: #1a1c23;
 }
 
 .addUser_button {
   margin: 0.4rem;
-  background-color: #1d90f5;
+  background-color: #016f02;
   min-width: 50px;
   min-height: 50px;
   border-radius: 50%;
@@ -108,9 +111,9 @@
 }
 
 .lightBackBox {
-    background-color: #EEEEEE;
+  background-color: #eeeeee;
 }
 
 .darkBackBox {
-    background-color: #242631;
+  background-color: #242631;
 }

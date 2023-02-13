@@ -1,7 +1,7 @@
 .container {
     height: 100vh;
     width: 100%;
-    background-image: linear-gradient(to left, rgba(40,42,55,0.57),rgba(40,42,55,1));
+    background-color: #002C01;
     display: flex;
     position: fixed;
 }
