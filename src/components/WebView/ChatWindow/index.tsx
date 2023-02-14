@@ -6,17 +6,20 @@ import TextBar from "./TextBar";
 import ColorModeSwitcher from "../../ColorModeSwitcher";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft, faShower } from "@fortawesome/free-solid-svg-icons";
-import { useColorModeValue,IconButton } from "@chakra-ui/react";
-
+import { useColorModeValue, IconButton } from "@chakra-ui/react";
 
 interface chatWindowProps {
-  currentMessageObj: {user: string,phoneNumber: string|null, messages: any[]};
+  currentMessageObj: {
+    user: string;
+    phoneNumber: string | null;
+    messages: any[];
+  };
   toClearChat: () => void;
   messages: any[];
   username: string;
   selected: (option: { key: string; text: string; backmenu: boolean }) => void;
   toSendMessage: (text: string, media: any) => void;
-  currentUser: {name: string; number: string | null};
+  currentUser: { name: string; number: string | null };
   onSendLocation: (location: string) => void;
 }
 
@@ -29,30 +32,37 @@ const ChatWindow: React.FC<chatWindowProps> = ({
   toSendMessage,
   currentUser,
   onSendLocation,
-
 }) => {
   const textColor = useColorModeValue("#202C33", "#fff");
-  const backgroundColorToggle = useColorModeValue(styles.lightContainer,styles.darkContainer)
-  const backBoxToggle = useColorModeValue(styles.lightBackBox,styles.darkBackBox)
-  const headingColorToggle = useColorModeValue(styles.lightUsername,styles.darkUsername)
+  const backgroundColorToggle = useColorModeValue(
+    styles.lightContainer,
+    styles.darkContainer
+  );
+  const backBoxToggle = useColorModeValue(
+    styles.lightBackBox,
+    styles.darkBackBox
+  );
+  const headingColorToggle = useColorModeValue(
+    styles.lightUsername,
+    styles.darkUsername
+  );
 
   let classname = localStorage.getItem("wallpaper");
 
-
-
-
   return (
-    <Flex
-      className={`${styles.container}`}
-    >
+    <Flex className={`${styles.container}`}>
       {/* Top Section */}
       <Box className={`${styles.top_section} ${backgroundColorToggle}`}>
         {/* Name and Icon */}
-        
+
         <Flex>
-            <Box className={`${styles.avatarContainer} ${headingColorToggle} `}>
+          <Box className={`${styles.avatarContainer} ${headingColorToggle} `}>
             {/* {currentUser.name === ""?<Box>UCI</Box>:<Box className={styles.innerRing} />} */}
-            {<><Box className={styles.innerRing} /> <Box>UCI</Box></>}
+            {
+              <>
+                <Box className={styles.innerRing} /> <Box>UCI</Box>
+              </>
+            }
           </Box>
           <Box className={`${styles.UserName} ${headingColorToggle}`}>
             {currentUser.name}
@@ -60,33 +70,42 @@ const ChatWindow: React.FC<chatWindowProps> = ({
         </Flex>
 
         <Box className={styles.toggleButtonContainer}>
-        <IconButton
-              size="md"
-              fontSize="lg"
-              variant="ghost"
-              color={textColor}
-              onClick={()=>{toClearChat();}}
-              marginLeft="2"
-              icon={<FontAwesomeIcon icon={faShower} />}
-              aria-label={`Clear Chat`}
-            />
+          <IconButton
+            size="md"
+            fontSize="lg"
+            variant="ghost"
+            color={textColor}
+            onClick={() => {
+              toClearChat();
+            }}
+            marginLeft="2"
+            icon={<FontAwesomeIcon icon={faShower} />}
+            aria-label={`Clear Chat`}
+          />
           <ColorModeSwitcher />
         </Box>
       </Box>
 
       {/* Chat Window */}
-      <Box  className={`${styles.chatWindow} ${backgroundColorToggle}`}>
+      <Box className={`${styles.chatWindow} ${backgroundColorToggle}`}>
         {/* NeoMorphism Box */}
-        
-          <Box className={`${styles.BackBox} ${backBoxToggle}`}>
-          <Box id="wall" className={  classname === "wallpaper1" ? styles.wallpaper1 
-                          : classname === "wallpaper2" ? styles.wallpaper2
-                          : styles.BackBox  }>
-          {/* <Box className={classname}> */}
+
+        <Box className={`${styles.BackBox} ${backBoxToggle}`}>
+          <Box
+            id="wall"
+            className={
+              classname === "wallpaper1"
+                ? styles.wallpaper1
+                : classname === "wallpaper2"
+                ? styles.wallpaper2
+                : styles.BackBox
+            }
+          >
+            {/* <Box className={classname}> */}
             {/* Chat Area */}
-            <Box style={{minHeight:"90px"}}>
+            <Box style={{ minHeight: "90px" }}>
               <MessageWindow
-              currentMessageObj={currentMessageObj}
+                currentMessageObj={currentMessageObj}
                 messages={messages}
                 username={username}
                 selected={selected}

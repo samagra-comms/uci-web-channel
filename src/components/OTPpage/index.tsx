@@ -87,7 +87,10 @@ const OTPpage: React.FC = () => {
     setInput4(e.target.value);
     // setImage(image2);
   };
-  const backgroundColorToggle = useColorModeValue(styles.lightContainer,styles.darkContainer)
+  const backgroundColorToggle = useColorModeValue(
+    styles.lightContainer,
+    styles.darkContainer
+  );
   const buttonToggle = useColorModeValue("darkGreen", "#080664");
   return (
     <div className={`${styles.main} ${backgroundColorToggle}`}>
@@ -97,7 +100,7 @@ const OTPpage: React.FC = () => {
         display="flex"
         background={"white"}
         flexDirection="column"
-        justifyContent="space-between"        
+        justifyContent="space-between"
         borderRadius={"5"}
         margin={"auto"}
       >
@@ -172,7 +175,7 @@ const OTPpage: React.FC = () => {
             </PinInput>
           </HStack>
           <Box width="100%">
-            {" "}            
+            {" "}
             <Button
               className={styles.submitButton}
               background={buttonToggle}

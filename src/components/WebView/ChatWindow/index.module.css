@@ -2,7 +2,7 @@
   position: fixed;
   flex-direction: column;
   height: 100vh;
-  width: 94vw;
+  width: 92vw;
   right: 0;
   box-shadow: 1px 8px 11px -2px #000;
 }
@@ -19,8 +19,7 @@
   justify-content: space-between;
   z-index: 1;
   color: white;
-  padding: 10px 6vw;
-
+  padding: 10px 4.5vw;
 }
 
 .headingContainer {
@@ -83,7 +82,7 @@
 }
 
 .BackBox {
-  width: 77vw;
+  width: 82vw;
   height: 85vh;
   margin: auto;
   border-radius: 14px;
@@ -94,7 +93,7 @@
 }
 
 .wallpaper1 {
-  width: 77vw;
+  width: 82vw;
   height: 85vh;
   margin: auto;
   border-radius: 14px;
@@ -107,7 +106,7 @@
 }
 
 .wallpaper2 {
-  width: 77vw;
+  width: 82vw;
   height: 85vh;
   margin: auto;
   border-radius: 14px;
