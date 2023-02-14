@@ -13,8 +13,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
 import { useColorModeValue } from "@chakra-ui/react";
 import Login from "../../assets/images/krushak_odisha.png";
-import GovtOfOdisha from "../../assets/images/logo.jpg";
-import KrishiMela from "../../assets/images/KrishiMela.jpg";
+import GovtOfOdisha from "../../assets/images/logo.png";
+import KrishiMela from "../../assets/images/KrishiMela.png";
 import Image from "next/image";
 
 const LoginPage: React.FC = () => {

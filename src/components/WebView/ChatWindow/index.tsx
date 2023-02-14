@@ -8,6 +8,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft, faShower } from "@fortawesome/free-solid-svg-icons";
 import { useColorModeValue, IconButton } from "@chakra-ui/react";
 import KrushakOdisha from "../../../assets/images/krushak_odisha.png";
+import GovtOfOdisha from "../../../assets/images/logo.png";
+import KrishiMela from "../../../assets/images/KrishiMela.png";
 import Image from "next/image";
 
 interface chatWindowProps {
@@ -60,7 +62,9 @@ const ChatWindow: React.FC<chatWindowProps> = ({
         {/* Name and Icon */}
 
         <Flex>
-          {/* <Image src={KrushakOdisha} width={50} height={40}/> */}
+          <div  style={{margin: 'auto', marginRight: '5px'}}><Image src={GovtOfOdisha} width={80} height={70}/></div>
+          <div  style={{margin: 'auto', marginRight: '5px'}}><Image src={KrushakOdisha} width={65} height={70}/></div>
+          <div  style={{margin: 'auto', marginRight: '5px'}}><Image src={KrishiMela} width={80} height={70}/></div>
           <Box className={`${styles.avatarContainer} ${headingColorToggle} `}>
             {/* {currentUser.name === ""?<Box>UCI</Box>:<Box className={styles.innerRing} />} */}
             {
