@@ -69,7 +69,7 @@ const ChatWindow: React.FC<chatWindowProps> = ({
             {/* {currentUser.name === ""?<Box>UCI</Box>:<Box className={styles.innerRing} />} */}
             {
               <>
-                <Box className={styles.innerRing} />
+                {/* <Box className={styles.innerRing} /> */}
                 <Box>KONNECT Odisha Agri GPT</Box>
               </>
             }
