@@ -77,7 +77,7 @@ const ChatWindow: React.FC<chatWindowProps> = ({
           </Button>
         </Box> */}
         {/* Name and Icon */}
-        <Flex flex="9" justifyContent='space-between'>
+        <Flex flex="9" justifyContent='space-between' alignItems='center'>
           <Flex justifyContent='center' alignItems='center'>
             <Box className={`${styles.avatarContainer} ${headingColorToggle} `}>
               {/* {currentUser.name === ""?<Box>UCI</Box>:<Box className={styles.innerRing} />} */}
@@ -89,7 +89,7 @@ const ChatWindow: React.FC<chatWindowProps> = ({
           </Flex>
 
 
-          <FontSizeChanger
+          {/* <FontSizeChanger
             targets={['.messages', '.recievedMessage']}
             options={{
               stepSize: 5,
@@ -106,7 +106,7 @@ const ChatWindow: React.FC<chatWindowProps> = ({
               },
               buttonsMargin: 10
             }}
-          />
+          /> */}
 
           <Box mr="1rem">
             <IconButton

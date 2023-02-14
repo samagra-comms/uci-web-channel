@@ -52,6 +52,7 @@
     align-items: flex-start;
     margin-right: 1rem;
   }
+
   
   
   .UserName {
@@ -119,6 +120,8 @@
   
   .lightBackBox {
     background-color: #eeeeee;
+    background-image: url("../../../assets/images/homeScreen.png");
+
   }
   
   .darkBackBox {

@@ -95,7 +95,7 @@ const OTPpage: React.FC = () => {
   return (
     <div className={`${styles.main} ${backgroundColorToggle}`}>
       <Box
-        width="390px"
+        width="340px"
         height="80vh"
         display="flex"
         background={"white"}

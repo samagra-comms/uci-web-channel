@@ -55,7 +55,7 @@ const LoginPage: React.FC = () => {
     <div className={`${styles.main} ${backgroundColorToggle}`}>
       <Container
         className={styles.container}
-        style={{ maxWidth: "370px", background: "white" }}
+        style={{ maxWidth: "340px", background: "white" }}
       >
         <div style={{ padding: "40px 18px" }}>
           <Image className={styles.loginImage} src={Login} alt="" />

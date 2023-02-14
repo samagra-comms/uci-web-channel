@@ -101,7 +101,7 @@
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  background-image: url("https://wallpaperaccess.com/full/51364.jpg");
+  background-image: url("../../../assets/images/homeScreen.png");
   /* background-color: crimson; */
 }
 
@@ -115,10 +115,12 @@
   flex-direction: column;
   justify-content: flex-start;
   background-image: url("https://cdn.pixabay.com/photo/2017/08/30/01/05/milky-way-2695569__480.jpg");
+
 }
 
 .lightBackBox {
   background-color: #eeeeee;
+  background-image: url("../../../assets/images/homeScreen.png");
 }
 
 .darkBackBox {
