@@ -7,6 +7,7 @@ interface phoneViewProps {
   currentMessageObj: { user: string; phoneNumber: string | null; messages: any[] };
   toClearChat: () => void;
   messages: any[];
+  // recieved: boolean;
   username: string;
   selected: (option: { key: string; text: string; backmenu: boolean }) => void;
   sendMessageFunc: (text: string, media: any) => void;

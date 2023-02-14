@@ -52,7 +52,7 @@ const Message: React.FC<messageProps> = ({
 }) => {
   // Theme toggle Settings
   // const box_color = useColorModeValue("#06d755", "#202C33");
-  const recievedMessageColor = useColorModeValue("#fff","#424656")
+  const recievedMessageColor = useColorModeValue("pink","#424656")
   const text_color = useColorModeValue("#000", "#fff");
   const messageBodyToggle = useColorModeValue(styles.lightModeMessage, styles.darkModeMessage);
   // ------------
@@ -124,7 +124,7 @@ var [today, setToday] = useState(new Date());
             <Box
               bgColor={text === "Invalid Input!!! Please try again."
               ? "#FF5C5C"
-              : recievedMessageColor}
+              : "#424656"}
               color={text_color}
               borderColor="white"
               className={
@@ -223,6 +223,7 @@ interface messageWindowProps {
   currentMessageObj: {user: string,phoneNumber: string|null,messages: any[]}
   selected: (option: { key: string; text: string; backmenu: boolean }) => void;
   messages: messageProps[];
+  // recieved: boolean;
   username: string;
 }
 
@@ -237,21 +238,23 @@ const MessageWindow: React.FC<messageWindowProps> = (props) => {
   }, [messageWindow]);
 
   const username: string = props.username;
+  // const recieved: boolean = props.recieved;
   // const messages: any = props.messages || [];
   const messages: any = props.currentMessageObj.messages || [];
-  let originalMessages = [];
-  for(let i =0; i<messages.length; i++){
-    if(i==0) originalMessages.push(messages[i]);
-    else if(i!=0 && messages[i].text !== messages[i-1].text){
-      originalMessages.push(messages[i]);
-    }else continue;
-  }
-  console.log({ username, messages });
+  // let originalMessages = [];
+  // for(let i =0; i<messages.length; i++){
+  //   if(i==0) originalMessages.push(messages[i]);
+  //   else if(i!=0 && messages[i].text !== messages[i-1].text){
+  //     originalMessages.push(messages[i]);
+  //   }else continue;
+  // }
+  // console.log({ username, messages });
+  // console.log('recieved:', recieved);
   return (
     <Box mt={4} ref={messageWindow} className={styles.messagesContainer}>
       {/* {console.log(originalMessages)} */}
-      {originalMessages.length > 0 &&
-        originalMessages.map((msg: any, i: number) => {          
+      {messages.length > 0 &&
+        messages.map((msg: any, i: number) => {          
           return (
             <Message
               key={i}

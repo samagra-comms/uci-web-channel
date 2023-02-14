@@ -120,7 +120,7 @@ const Message: React.FC<messageProps> = ({
             <Box
               bgColor={text === "Invalid Input!!! Please try again."
               ? "#FF5C5C"
-              : recievedMessageColor}
+              : '#424656'}
               borderColor="white"
               className={
                 text === "Invalid Input!!! Please try again."
@@ -189,7 +189,8 @@ const Message: React.FC<messageProps> = ({
                 {choices.map((choice: any) => (
                   <Button
                     borderColor="white"
-                    backgroundColor={recievedMessageColor}
+                    // backgroundColor={recievedMessageColor}
+                    backgroundColor='#424656'
                     className={styles.chatChoices}
                     key={choice.key}
                     onClick={() => data(choice.key)}

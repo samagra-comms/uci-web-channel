@@ -12,6 +12,7 @@ interface webViewProps {
   };
   toClearChat: () => void;
   messages: any[];
+  // recieved: boolean;
   username: string;
   selected: (option: { key: string; text: string; backmenu: boolean }) => void;
   sendMessageFunc: (text: string, media: any) => void;
@@ -29,6 +30,7 @@ const WebView: React.FC<webViewProps> = ({
   addingNewUser,
   currentUser,
   messages,
+  // recieved,
   username,
   selected,
   sendMessageFunc,
@@ -51,6 +53,7 @@ const WebView: React.FC<webViewProps> = ({
        toClearChat={toClearChat}
         currentUser={currentUser}
         messages={messages}
+        // recieved={recieved}
         username={username}
         selected={selected}
         toSendMessage={sendMessageFunc} 

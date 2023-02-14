@@ -35,7 +35,7 @@ const LoginPage: React.FC = () => {
     } else {
       fetch(
         // `${process.env.NEXT_PUBLIC_OTP_BASE_URL}uci/sendOTP?phone=${input}`,
-        `http://143.110.183.73:3089/uci/sendOTP?phone=${input}`,
+        `https://user-service.chakshu-rd.samagra.io/uci/sendOTP?phone=${input}`,
         { method: "GET" }
       ).then((response) => {
         if (response.status === 200) {

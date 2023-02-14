@@ -90,6 +90,7 @@
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
+  
 }
 
 .wallpaper1 {
@@ -115,7 +116,9 @@
   flex-direction: column;
   justify-content: flex-start;
   background-image: url("https://cdn.pixabay.com/photo/2017/08/30/01/05/milky-way-2695569__480.jpg");
-
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
 }
 
 .lightBackBox {

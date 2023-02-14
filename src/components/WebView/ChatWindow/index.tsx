@@ -16,6 +16,7 @@ interface chatWindowProps {
   };
   toClearChat: () => void;
   messages: any[];
+  // recieved: boolean;
   username: string;
   selected: (option: { key: string; text: string; backmenu: boolean }) => void;
   toSendMessage: (text: string, media: any) => void;
@@ -27,6 +28,7 @@ const ChatWindow: React.FC<chatWindowProps> = ({
   currentMessageObj,
   toClearChat,
   messages,
+  // recieved,
   username,
   selected,
   toSendMessage,
@@ -107,6 +109,7 @@ const ChatWindow: React.FC<chatWindowProps> = ({
               <MessageWindow
                 currentMessageObj={currentMessageObj}
                 messages={messages}
+                // recieved={recieved}
                 username={username}
                 selected={selected}
               />

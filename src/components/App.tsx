@@ -74,6 +74,7 @@ const App: React.FC<appProps> = ({
 
   // For Authentication
   const [accessToken, setAccessToken] = useState("");
+  // const [recieved, setrecieved] = useState(false);
   const [cookies, setCookies] = useCookies();
   const [socket, setSocket] = useState<Socket>();
   const [profileName, setProfileName] = useState(userName);
@@ -206,7 +207,7 @@ console.log("unmount")
   };
 
   const onMessageReceived = (msg: any): void => {
-    console.log('message: ', msg.content.msg_type);
+    // console.log('message: ', msg.content.msg_type);
     if (msg.content.msg_type === "IMAGE"){
       setState({
         ...state,
@@ -253,11 +254,6 @@ console.log("unmount")
       });
     }
     else if (msg.content.msg_type === "TEXT"){
-      // console.log("Message1", msg.content.title)
-      // console.log("Message2", state.allMessages[state.allMessages.length-1].messages[1])
-      // if(msg.content.title === state.allMessages[state.allMessages.length-1]){
-      //   return;
-      // }
       setState({
         ...state,
         messages: state.messages.concat({
@@ -289,7 +285,7 @@ console.log("unmount")
         object.phoneNumber !== currentUserMessageObject.phoneNumber
       );
     });
-
+    // setrecieved(true);
     newAllMessages.push(newCurrentMessageObj);
     localStorage.setItem("allMessages", JSON.stringify(newAllMessages));
 
@@ -486,7 +482,7 @@ console.log("unmount")
         newAllMessages.push(newCurrentMessageObj);
         localStorage.setItem("allMessages", JSON.stringify(newAllMessages));
   
-  
+        // setrecieved(false);
         send(text, state.session, accessToken, currentUser, socket , null);
   
         console.log("this is")
@@ -551,6 +547,7 @@ console.log("unmount")
       currentMessageObj={currentUserMessageObject}
       toClearChat={onClearingChat}
         messages={state.messages}
+        // recieved={recieved}
         username={state.username}
         selected={selected}
         sendMessageFunc={sendMessage}
@@ -564,13 +561,14 @@ console.log("unmount")
           name: "",
           number: null
         }}        />
-    );
-  } else {
-    return (
-      <WebView
-      currentMessageObj={currentUserMessageObject}
-      toClearChat={onClearingChat}
-        messages={state.messages}
+        );
+      } else {
+        return (
+          <WebView
+          currentMessageObj={currentUserMessageObject}
+          toClearChat={onClearingChat}
+          messages={state.messages}
+          // recieved={recieved}
         username={state.username}
         selected={selected}
         sendMessageFunc={sendMessage}

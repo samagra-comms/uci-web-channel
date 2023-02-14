@@ -35,7 +35,7 @@ const OTPpage: React.FC = () => {
     const inputOTP: string = input1 + input2 + input3 + input4;
     if (inputOTP.length === 4) {
       fetch(
-        `http://143.110.183.73:3089/uci/loginOrRegister?phone=${router.query.state}&otp=${inputOTP}`,
+        `https://user-service.chakshu-rd.samagra.io/uci/loginOrRegister?phone=${router.query.state}&otp=${inputOTP}`,
         {
           method: "get",
         }
