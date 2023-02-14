@@ -57,7 +57,7 @@ const ChatWindow: React.FC<chatWindowProps> = ({
     styles.lightUsername,
     styles.darkUsername
   );
-  
+
 
   return (
     <Flex bgColor="#282A37" flexDirection="column" height="100vh" width="100%">
@@ -78,8 +78,9 @@ const ChatWindow: React.FC<chatWindowProps> = ({
         {/* Name and Icon */}
         <Flex flex="9" justifyContent='space-between'>
           <Flex justifyContent='center' alignItems='center'>
-          <Box className={`${styles.avatarContainer} ${headingColorToggle} `}>
-            {currentUser.name === ""?<Box>Select A User</Box>:<Box className={styles.innerRing} />}
+            <Box className={`${styles.avatarContainer} ${headingColorToggle} `}>
+              {/* {currentUser.name === ""?<Box>UCI</Box>:<Box className={styles.innerRing} />} */}
+              {<><Box className={styles.innerRing} /> <Box>UCI</Box></>}
             </Box>
             <Box className={`${styles.UserName} ${headingColorToggle}`}>
               {currentUser.name}
@@ -88,31 +89,31 @@ const ChatWindow: React.FC<chatWindowProps> = ({
 
 
           <FontSizeChanger
-                targets={['.messages','.recievedMessage']}
-                options={{
-                  stepSize: 5,
-                  range: 3
-                }}
-                customButtons={{
-                  up: <span style={{'fontSize': '15px', 'cursor' : 'pointer'}}>A+</span>,
-                  down: <span style={{'fontSize': '15px', 'cursor' : 'pointer'}}>A-</span>,
-                  style: {
-                    color: '#1d90f5',
-                    WebkitBoxSizing: 'border-box',
-                    WebkitBorderRadius: '5px',
-                    width: '30px'
-                  },
-                  buttonsMargin: 10
-                }}          
-              />
+            targets={['.messages', '.recievedMessage']}
+            options={{
+              stepSize: 5,
+              range: 3
+            }}
+            customButtons={{
+              up: <span style={{ 'fontSize': '15px', 'cursor': 'pointer' }}>A+</span>,
+              down: <span style={{ 'fontSize': '15px', 'cursor': 'pointer' }}>A-</span>,
+              style: {
+                color: '#1d90f5',
+                WebkitBoxSizing: 'border-box',
+                WebkitBorderRadius: '5px',
+                width: '30px'
+              },
+              buttonsMargin: 10
+            }}
+          />
 
           <Box mr="1rem">
-          <IconButton
+            <IconButton
               size="md"
               fontSize="lg"
               variant="ghost"
               color={textColor}
-              onClick={()=>{toClearChat();}}
+              onClick={() => { toClearChat(); }}
               marginLeft="2"
               icon={<FontAwesomeIcon icon={faShower} />}
               aria-label={`Clear Chat`}
@@ -129,7 +130,7 @@ const ChatWindow: React.FC<chatWindowProps> = ({
           {/* Chat Area */}
           <Box>
             <MessageWindow
-            currentMessageObj={currentMessageObj}
+              currentMessageObj={currentMessageObj}
               messages={messages}
               username={username}
               selected={selected}

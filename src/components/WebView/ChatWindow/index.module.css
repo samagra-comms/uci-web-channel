@@ -2,16 +2,16 @@
   position: fixed;
   flex-direction: column;
   height: 100vh;
-  width: 66vw;
+  width: 94vw;
   right: 0;
   box-shadow: 1px 8px 11px -2px #000;
 }
 
 .top_section {
-  width: 66vw;
+  width: 100%;
   height: 10vh;
   font-family: Mulish-bold;
-  font-size: 1.4rem;
+  font-size: 2rem;
   position: fixed;
   display: flex;
   flex-wrap: wrap;
@@ -19,7 +19,8 @@
   justify-content: space-between;
   z-index: 1;
   color: white;
-  padding: 0 3vw;
+  padding: 10px 6vw;
+
 }
 
 .headingContainer {
@@ -39,10 +40,11 @@
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
-  min-width: 5vh;
-  min-height: 5vh;
+  min-width: 7.5vh;
+  min-height: 7.5vh;
   border-radius: 50%;
   border: 3px solid green;
+  margin-right: 15px;
 }
 
 .toggleButtonContainer {
@@ -51,6 +53,7 @@
   align-items: flex-start;
   margin-right: 1rem;
 }
+
 
 .UserName {
   display: flex;
@@ -68,19 +71,21 @@
 }
 
 .chatWindow {
-  height: 90vh;
-  width: 66vw;
-  position: fixed;
-  top: 10vh;
+  height: 100vh;
+  width: 100%;
+  /* position: fixed; */
+  margin: auto;
+  margin-top: 10vh;
+  /* top: 10vh; */
   display: flex;
   justify-content: center;
   align-items: flex-start;
 }
 
 .BackBox {
-  width: 60vw;
+  width: 77vw;
   height: 85vh;
-  position: fixed;
+  margin: auto;
   border-radius: 14px;
   box-shadow: 2px 3px 11px 3px rgb(0 0 0 / 25%) inset;
   display: flex;
@@ -89,9 +94,9 @@
 }
 
 .wallpaper1 {
-  width: 60vw;
+  width: 77vw;
   height: 85vh;
-  position: fixed;
+  margin: auto;
   border-radius: 14px;
   box-shadow:2px 3px 11px 3px rgb(0 0 0 / 25%) inset;
   display: flex;
@@ -102,9 +107,9 @@
 }
 
 .wallpaper2 {
-  width: 60vw;
+  width: 77vw;
   height: 85vh;
-  position: fixed;
+  margin: auto;
   border-radius: 14px;
   box-shadow: 2px 3px 11px 3px rgb(0 0 0 / 25%) inset;
   display: flex;

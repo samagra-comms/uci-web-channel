@@ -1,8 +1,9 @@
 .container {
-  width: 55vw;
-  position: fixed;
-  bottom: 7vh;
-  right: 5.5vw;
+  width: 58vw;
+  margin: auto;
+  /* position: fixed; */
+  /* bottom: 7vh;
+  right: 5.5vw; */
 }
 
 .input_box {
