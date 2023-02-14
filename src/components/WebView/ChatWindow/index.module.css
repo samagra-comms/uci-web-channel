@@ -103,6 +103,9 @@
   flex-direction: column;
   justify-content: flex-start;
   background-image: url("../../../assets/images/homeScreen.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
   /* background-color: crimson; */
 }
 

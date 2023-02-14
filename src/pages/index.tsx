@@ -21,7 +21,7 @@ const Home: NextPage = () => {
   // All Users
   const [users, setUsers] = useState<
     { name: string; number: string | null; active: boolean }[]
-  >([{ name: "UCI", number: null, active: true }]);
+  >([{ name: "Farmer Bot", number: null, active: true }]);
   const [currentUser, setCurrentUser] = useState<{
     name: string;
     number: string | null;
@@ -84,7 +84,7 @@ const Home: NextPage = () => {
   const onChangeCurrentUser = (name: string, number: string | null) => {
     const myUser = users.find((user) => {
       return user.name === name;
-    }) || { name: "UCI", number: null };
+    }) || { name: "Farmer Bot", number: null };
     users.forEach((user, index) => {
       if (user.name === name && user.number === number) {
         user.active = true;
@@ -133,7 +133,7 @@ const Home: NextPage = () => {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="theme-color" content="#000000" />
         <meta name="UCI Web Channel" content="A project under C4GT" />
-        <title>UCI PWA</title>
+        <title>Farmer Bot</title>
       </Head>
       <CookiesProvider>
         <App

@@ -83,7 +83,7 @@ const App: React.FC<appProps> = ({
     user: string;
     phoneNumber: string | null;
     messages: any[];
-  }>({ user: "UCI", phoneNumber: null, messages: [] });
+  }>({ user: "Farmer Bot", phoneNumber: null, messages: [] });
 
   const initialState: {
     allMessages: {
@@ -95,7 +95,7 @@ const App: React.FC<appProps> = ({
     username: string;
     session: any;
   } = {
-    allMessages: [{ user: "UCI", phoneNumber: null, messages: [] }],
+    allMessages: [{ user: "Farmer Bot", phoneNumber: null, messages: [] }],
     messages: [],
     username: "",
     session: {},
