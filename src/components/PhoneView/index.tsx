@@ -46,7 +46,7 @@ const PhoneView: React.FC<phoneViewProps> = ({
     setToggleView(false);
   }
 
-  if (!toggleView) {
+  // if (!toggleView) {
     return (
       <ChatWindow
       toClearChat={toClearChat}
@@ -60,17 +60,17 @@ const PhoneView: React.FC<phoneViewProps> = ({
         sendLocation={onSendLocation}
       />
     );
-  } else {
-    return (
-      <RecentChats
-        onAddingNewUser={addingNewUser}
-        toChangeCurrentUser={toChangeCurrentUser}
-        allUsers={allUsers}
-        toRemoveUser={toRemoveUser}
-        toShowChatWindow={showChatWindow}
-      />
-    );
-  }
+  // } else {
+  //   return (
+  //     <RecentChats
+  //       onAddingNewUser={addingNewUser}
+  //       toChangeCurrentUser={toChangeCurrentUser}
+  //       allUsers={allUsers}
+  //       toRemoveUser={toRemoveUser}
+  //       toShowChatWindow={showChatWindow}
+  //     />
+  //   );
+  // }
 };
 
 export default PhoneView;

@@ -54,6 +54,8 @@ const Message: React.FC<messageProps> = ({
   // const box_color = useColorModeValue("#06d755", "#202C33");
   const recievedMessageColor = useColorModeValue("#fff","#424656")
   const text_color = useColorModeValue("#000", "#fff");
+  const messageBodyToggle = useColorModeValue(styles.lightModeMessage, styles.darkModeMessage);
+
   // ------------
   return (
     <Flex>
@@ -61,7 +63,7 @@ const Message: React.FC<messageProps> = ({
         <>
           <Spacer />
           <Box
-            className={`${styles.myMessage} ${styles.message} ${text.split(' ').length > 5?styles.bigMessage:styles.smallMessage}`}
+            className={`${styles.myMessage} ${styles.message} ${messageBodyToggle} ${text.split(' ').length > 5?styles.bigMessage:styles.smallMessage}`}
           >
             <Box className={styles.message_username}>
               <Text fontSize="md" fontWeight="bold">
@@ -226,7 +228,7 @@ const MessageWindow: React.FC<messageWindowProps> = (props) => {
   const messages: any = props.currentMessageObj.messages || [];
   console.log({ username, messages });
   return (
-    <Box mt={4} ref={messageWindow} className={styles.messagesContainer}>
+    <Box mt={4} ref={messageWindow} className={`${styles.messagesContainer}`}>
       {messages.length > 0 &&
         messages.map((msg: any, i: number) => {
           return (

@@ -59,12 +59,13 @@ const ChatWindow: React.FC<chatWindowProps> = ({
   );
 
 
+
   return (
     <Flex bgColor="#282A37" flexDirection="column" height="100vh" width="100%">
       {/* Top Section */}
       <Box className={`${styles.top_section} ${backgroundColorToggle}`}>
         {/* For the back button */}
-        <Box flex="1" className={headingColorToggle}>
+        {/* <Box flex="1" className={headingColorToggle}>
           <Button
             onClick={toShowChats}
             ml="0.5rem"
@@ -74,7 +75,7 @@ const ChatWindow: React.FC<chatWindowProps> = ({
           >
             <FontAwesomeIcon icon={faArrowLeft} />
           </Button>
-        </Box>
+        </Box> */}
         {/* Name and Icon */}
         <Flex flex="9" justifyContent='space-between'>
           <Flex justifyContent='center' alignItems='center'>
