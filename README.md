@@ -16,6 +16,7 @@ The Unified Communications Interface (UCI) aims to democratize the use of differ
 - Ability to include value added services in the bot interaction flow through Microservices (Internal or External)
 - Ability to create tools on top of UCI APIs to manage Bot configuration, conversations and visualization
 
+
 ## Requirements :scroll:
 
 [NodeJS](https://nodejs.org/en/download/) and NPM or [yarn](https://yarnpkg.com/getting-started/install)
@@ -71,5 +72,6 @@ Below are the designs of how output screens will look like. For more detailed vi
 ![Designs](https://user-images.githubusercontent.com/77741561/171156677-0ee016dd-a240-4edc-b2e8-50b08ac06a58.png)
 
 ## Contributing
+
 
 We really like contributions in several forms, see [CONTRIBUTING.md](CONTRIBUTING.md)
