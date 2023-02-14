@@ -62,9 +62,15 @@ const ChatWindow: React.FC<chatWindowProps> = ({
         {/* Name and Icon */}
 
         <Flex>
-          <div  style={{margin: 'auto', marginRight: '5px'}}><Image src={GovtOfOdisha} width={80} height={70}/></div>
-          <div  style={{margin: 'auto', marginRight: '5px'}}><Image src={KrushakOdisha} width={65} height={70}/></div>
-          <div  style={{margin: 'auto', marginRight: '5px'}}><Image src={KrishiMela} width={80} height={70}/></div>
+          <div style={{ margin: "auto", marginRight: "5px" }}>
+            <Image src={GovtOfOdisha} width={65} height={55} />
+          </div>
+          <div style={{ margin: "auto", marginRight: "5px" }}>
+            <Image src={KrushakOdisha} width={50} height={55} />
+          </div>
+          <div style={{ margin: "auto", marginRight: "5px" }}>
+            <Image src={KrishiMela} width={65} height={55} />
+          </div>
           <Box className={`${styles.avatarContainer} ${headingColorToggle} `}>
             {/* {currentUser.name === ""?<Box>UCI</Box>:<Box className={styles.innerRing} />} */}
             {
