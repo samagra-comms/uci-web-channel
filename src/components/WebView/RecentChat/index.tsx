@@ -82,7 +82,7 @@ const RecentChat: React.FC<RecentChats> = ({
     onAddingNewUser(newName, newPhoneNumber);
   };
 
-  return (
+  return (  
     <Box className={`${backgroundColorToggle}`}>
         
         {/* Heading */}

@@ -40,12 +40,12 @@ const WebView: React.FC<webViewProps> = ({
   return (
     <React.Fragment>
       <SettingsBar  />
-      <RecentChat
+      {/* <RecentChat
         onAddingNewUser={addingNewUser}
         toChangeCurrentUser={toChangeCurrentUser}
         allUsers={allUsers}
         toRemoveUser={toRemoveUser}
-      />
+      /> */}
       <ChatWindow
        currentMessageObj={currentMessageObj}
        toClearChat={toClearChat}
