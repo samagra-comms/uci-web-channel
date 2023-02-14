@@ -12,6 +12,10 @@
     0 100px 80px rgba(0, 0, 0, 0.12);
 }
 
+.loginImage{
+  margin: auto;
+}
+
 .signup {
   text-align: center;
   font-weight: 400;

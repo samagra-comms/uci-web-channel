@@ -83,9 +83,9 @@ const ChatWindow: React.FC<chatWindowProps> = ({
               {/* {currentUser.name === ""?<Box>UCI</Box>:<Box className={styles.innerRing} />} */}
               {<><Box className={styles.innerRing} /> <Box>Farmer Bot</Box></>}
             </Box>
-            <Box className={`${styles.UserName} ${headingColorToggle}`}>
+            {/* <Box className={`${styles.UserName} ${headingColorToggle}`}>
               {currentUser.name}
-            </Box>
+            </Box> */}
           </Flex>
 
 

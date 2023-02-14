@@ -25,7 +25,7 @@ const Home: NextPage = () => {
   const [currentUser, setCurrentUser] = useState<{
     name: string;
     number: string | null;
-  }>({name: "",number: ""});
+  }>({ name: "", number: "" });
 
   const [toggleSettings, setToggleSettings] = useState(0);
 
@@ -33,19 +33,23 @@ const Home: NextPage = () => {
     setProfileName(localStorage.getItem("profileName") || "");
     setPhoneNumber(localStorage.getItem("phoneNumber") || "");
     setUserBio(localStorage.getItem("userBio") || "");
-    if (localStorage.getItem("AllUsers") || "" !== "") {
-      setUsers(JSON.parse(localStorage.getItem("AllUsers") || ""));
-      JSON.parse(localStorage.getItem("AllUsers") || "").forEach(
-        (user: { name: string; number: string | null; active: boolean }) => {
-          if (user.active === true) {
-            setCurrentUser({
-              name: user.name,
-              number: user.number,
-            });
-          }
-        }
-      );
-    }
+    // if (localStorage.getItem("AllUsers") || "" !== "") {
+    //   setUsers(JSON.parse(localStorage.getItem("AllUsers") || ""));
+    //   JSON.parse(localStorage.getItem("AllUsers") || "").forEach(
+    //     (user: { name: string; number: string | null; active: boolean }) => {
+    //       if (user.active === true) {
+    //         setCurrentUser({
+    //           name: user.name,
+    //           number: user.number,
+    //         });
+    //       }
+    //     }
+    //   );
+    // }
+    setCurrentUser({
+      name: "uci",
+      number: "7668717742",
+    });
   }, []);
 
   const showSettings: React.MouseEventHandler = (event: React.MouseEvent) => {
@@ -127,7 +131,7 @@ const Home: NextPage = () => {
 
   return (
     <>
-    {/*  <React.StrictMode> */}
+      {/*  <React.StrictMode> */}
       <Head>
         <link rel="icon" href="/favicon.ico" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -184,7 +188,7 @@ const Home: NextPage = () => {
 
         <ColorModeScript />
       </CookiesProvider>
-    {/* </React.StrictMode> */}
+      {/* </React.StrictMode> */}
     </>
   );
 };

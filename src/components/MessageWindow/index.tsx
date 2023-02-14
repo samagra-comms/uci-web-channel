@@ -52,9 +52,12 @@ const Message: React.FC<messageProps> = ({
 }) => {
   // Theme toggle Settings
   // const box_color = useColorModeValue("#06d755", "#202C33");
-  const recievedMessageColor = useColorModeValue("#fff","#424656")
+  const recievedMessageColor = useColorModeValue("#fff", "#424656");
   const text_color = useColorModeValue("#000", "#fff");
-  const messageBodyToggle = useColorModeValue(styles.lightModeMessage, styles.darkModeMessage);
+  const messageBodyToggle = useColorModeValue(
+    styles.lightModeMessage,
+    styles.darkModeMessage
+  );
 
   // ------------
   return (
@@ -63,16 +66,23 @@ const Message: React.FC<messageProps> = ({
         <>
           <Spacer />
           <Box
-            className={`${styles.myMessage} ${styles.message} ${messageBodyToggle} ${text.split(' ').length > 5?styles.bigMessage:styles.smallMessage}`}
+            className={`${styles.myMessage} ${
+              styles.message
+            } ${messageBodyToggle} ${
+              text.split(" ").length > 5
+                ? styles.bigMessage
+                : styles.smallMessage
+            }`}
           >
             <Box className={styles.message_username}>
               <Text fontSize="md" fontWeight="bold">
                 {username}
               </Text>
             </Box>
-            {!image && !audio && !video && !doc && !location &&(
-              <div className="messages" style={{ whiteSpace: "pre-wrap" }}>{text}</div>
-              
+            {!image && !audio && !video && !doc && !location && (
+              <div className="messages" style={{ whiteSpace: "pre-wrap" }}>
+                {text}
+              </div>
             )}
             {location && (
               <div style={{ whiteSpace: "pre-wrap" }}>
@@ -118,14 +128,26 @@ const Message: React.FC<messageProps> = ({
         <>
           <div>
             <Box
-              bgColor={text === "Invalid Input!!! Please try again."
-              ? "#FF5C5C"
-              : '#424656'}
+              bgColor={
+                text === "Invalid Input!!! Please try again."
+                  ? "#FF5C5C"
+                  : recievedMessageColor
+              }
               borderColor="white"
               className={
                 text === "Invalid Input!!! Please try again."
-                  ? `${styles.message} ${styles.errorMessage} ${text.split(' ').length > 5?styles.bigMessage:styles.smallMessage}`
-                  : `${styles.message} ${styles.recievedMessage} ${recievedMessageColor} ${text.split(' ').length > 5?styles.bigMessage:styles.smallMessage}`
+                  ? `${styles.message} ${styles.errorMessage} ${
+                      text.split(" ").length > 5
+                        ? styles.bigMessage
+                        : styles.smallMessage
+                    }`
+                  : `${styles.message} ${
+                      styles.recievedMessage
+                    } ${recievedMessageColor} ${
+                      text.split(" ").length > 5
+                        ? styles.bigMessage
+                        : styles.smallMessage
+                    }`
               }
             >
               {/* <Box className={styles.message_username}>
@@ -133,14 +155,29 @@ const Message: React.FC<messageProps> = ({
                   {username}
                 </Text>
               </Box> */}
-              {!image && !audio && !video && !doc && !location && text.substring(0,5) !== "https" &&(
-                <div className="recievedMessage" style={{ whiteSpace: "pre-wrap" }}>{text}</div>
-                //<iframe src={text}></iframe>
-              )}
-              {!image && !audio && !video && !doc && !location && text.substring(0,5) === "https" &&  (
-                // <div style={{ whiteSpace: "pre-wrap" }}>{text}</div>
-                <iframe src={text}></iframe>
-              )}
+              {!image &&
+                !audio &&
+                !video &&
+                !doc &&
+                !location &&
+                text.substring(0, 5) !== "https" && (
+                  <div
+                    className="recievedMessage"
+                    style={{ whiteSpace: "pre-wrap" }}
+                  >
+                    {text}
+                  </div>
+                  //<iframe src={text}></iframe>
+                )}
+              {!image &&
+                !audio &&
+                !video &&
+                !doc &&
+                !location &&
+                text.substring(0, 5) === "https" && (
+                  // <div style={{ whiteSpace: "pre-wrap" }}>{text}</div>
+                  <iframe src={text}></iframe>
+                )}
               {image && (
                 <div style={{ whiteSpace: "pre-wrap" }}>
                   <img src={image} style={{ maxWidth: "300px" }} />
@@ -189,8 +226,7 @@ const Message: React.FC<messageProps> = ({
                 {choices.map((choice: any) => (
                   <Button
                     borderColor="white"
-                    // backgroundColor={recievedMessageColor}
-                    backgroundColor='#424656'
+                    backgroundColor={recievedMessageColor}
                     className={styles.chatChoices}
                     key={choice.key}
                     onClick={() => data(choice.key)}
@@ -209,7 +245,11 @@ const Message: React.FC<messageProps> = ({
 };
 
 interface messageWindowProps {
-  currentMessageObj: {user: string,phoneNumber: string|null,messages: any[]};
+  currentMessageObj: {
+    user: string;
+    phoneNumber: string | null;
+    messages: any[];
+  };
   selected: (option: { key: string; text: string; backmenu: boolean }) => void;
   messages: messageProps[];
   username: string;

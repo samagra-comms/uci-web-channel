@@ -11,7 +11,7 @@
     width: 100%;
     height: 10vh;
     font-family: Mulish-bold;
-    font-size: 2rem;
+    font-size: 1.4rem;
     position: fixed;
     display: flex;
     flex-wrap: wrap;
@@ -39,11 +39,11 @@
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
-    min-width: 7.5vh;
-    min-height: 7.5vh;
+    min-width: 7vh;
+    min-height: 7vh;
     border-radius: 50%;
     border: 3px solid green;
-    margin-right: 15px;
+    margin-right: 10px;
   }
   
   .toggleButtonContainer {

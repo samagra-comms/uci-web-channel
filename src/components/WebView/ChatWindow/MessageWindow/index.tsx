@@ -52,13 +52,15 @@ const Message: React.FC<messageProps> = ({
 }) => {
   // Theme toggle Settings
   // const box_color = useColorModeValue("#06d755", "#202C33");
-  const recievedMessageColor = useColorModeValue("pink","#424656")
-  const text_color = useColorModeValue("#000", "#fff");
-  const messageBodyToggle = useColorModeValue(styles.lightModeMessage, styles.darkModeMessage);
+  const recievedMessageColor = useColorModeValue("#fff", "#424656");
+  const text_color = useColorModeValue("#002C01", "#fff");
+  const messageBodyToggle = useColorModeValue(
+    styles.lightModeMessage,
+    styles.darkModeMessage
+  );
   // ------------
 
-
-var [today, setToday] = useState(new Date());
+  var [today, setToday] = useState(new Date());
 
   return (
     <Flex>
@@ -76,7 +78,9 @@ var [today, setToday] = useState(new Date());
               </Text>
             </Box>
             {!image && !audio && !video && !doc && !location && (
-              <div className="messages" style={{ whiteSpace: "pre-wrap" }}>{text}</div>
+              <div className="messages" style={{ whiteSpace: "pre-wrap" }}>
+                {text}
+              </div>
             )}
             {location && (
               <div style={{ whiteSpace: "pre-wrap" }}>
@@ -122,9 +126,11 @@ var [today, setToday] = useState(new Date());
         <>
           <div>
             <Box
-              bgColor={text === "Invalid Input!!! Please try again."
-              ? "#FF5C5C"
-              : "#424656"}
+              bgColor={
+                text === "Invalid Input!!! Please try again."
+                  ? "#FF5C5C"
+                  : recievedMessageColor
+              }
               color={text_color}
               borderColor="white"
               className={
@@ -138,14 +144,29 @@ var [today, setToday] = useState(new Date());
                   {username}
                 </Text> */}
               </Box>
-              {!image && !audio && !video && !doc && !location && text.substring(0,5) !== "https" &&(
-                <div className="recievedMessages" style={{ whiteSpace: "pre-wrap" }}>{text}</div>
-                //<iframe src={text}></iframe>
-              )}
-              {!image && !audio && !video && !doc && !location && text.substring(0,5) === "https" &&(
-                //<div style={{ whiteSpace: "pre-wrap" }}>{text}</div>
-                <iframe src={text}></iframe>
-              )}
+              {!image &&
+                !audio &&
+                !video &&
+                !doc &&
+                !location &&
+                text.substring(0, 5) !== "https" && (
+                  <div
+                    className="recievedMessages"
+                    style={{ whiteSpace: "pre-wrap" }}
+                  >
+                    {text}
+                  </div>
+                  //<iframe src={text}></iframe>
+                )}
+              {!image &&
+                !audio &&
+                !video &&
+                !doc &&
+                !location &&
+                text.substring(0, 5) === "https" && (
+                  //<div style={{ whiteSpace: "pre-wrap" }}>{text}</div>
+                  <iframe src={text}></iframe>
+                )}
               {image && (
                 <div style={{ whiteSpace: "pre-wrap" }}>
                   <img src={image} style={{ maxWidth: "300px" }} />
@@ -204,11 +225,11 @@ var [today, setToday] = useState(new Date());
                     key={choice.key}
                     onClick={() => data(choice)}
                   >
-                    <div className="choice">{choice.key} {choice.text}</div>
-                    
+                    <div className="choice">
+                      {choice.key} {choice.text}
+                    </div>
                   </Button>
                 ))}
-                
               </Box>
             )}
           </div>
@@ -220,7 +241,11 @@ var [today, setToday] = useState(new Date());
 };
 
 interface messageWindowProps {
-  currentMessageObj: {user: string,phoneNumber: string|null,messages: any[]}
+  currentMessageObj: {
+    user: string;
+    phoneNumber: string | null;
+    messages: any[];
+  };
   selected: (option: { key: string; text: string; backmenu: boolean }) => void;
   messages: messageProps[];
   // recieved: boolean;
@@ -254,7 +279,7 @@ const MessageWindow: React.FC<messageWindowProps> = (props) => {
     <Box mt={4} ref={messageWindow} className={styles.messagesContainer}>
       {/* {console.log(originalMessages)} */}
       {messages.length > 0 &&
-        messages.map((msg: any, i: number) => {          
+        messages.map((msg: any, i: number) => {
           return (
             <Message
               key={i}
@@ -278,4 +303,3 @@ const MessageWindow: React.FC<messageWindowProps> = (props) => {
 };
 
 export default MessageWindow;
-

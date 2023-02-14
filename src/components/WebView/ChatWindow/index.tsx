@@ -7,6 +7,8 @@ import ColorModeSwitcher from "../../ColorModeSwitcher";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft, faShower } from "@fortawesome/free-solid-svg-icons";
 import { useColorModeValue, IconButton } from "@chakra-ui/react";
+import KrushakOdisha from "../../../assets/images/krushak_odisha.png";
+import Image from "next/image";
 
 interface chatWindowProps {
   currentMessageObj: {
@@ -58,17 +60,19 @@ const ChatWindow: React.FC<chatWindowProps> = ({
         {/* Name and Icon */}
 
         <Flex>
+          {/* <Image src={KrushakOdisha} width={50} height={40}/> */}
           <Box className={`${styles.avatarContainer} ${headingColorToggle} `}>
             {/* {currentUser.name === ""?<Box>UCI</Box>:<Box className={styles.innerRing} />} */}
             {
-              <>             
-                <Box className={styles.innerRing} /><Box>Farmer Bot</Box>
+              <>
+                <Box className={styles.innerRing} />
+                <Box>KONNECT Odisha Agri GPT</Box>
               </>
             }
           </Box>
-          <Box className={`${styles.UserName} ${headingColorToggle}`}>
+          {/* <Box className={`${styles.UserName} ${headingColorToggle}`}>
             {currentUser.name}
-          </Box>
+          </Box> */}
         </Flex>
 
         <Box className={styles.toggleButtonContainer}>

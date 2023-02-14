@@ -12,7 +12,9 @@ import { Router, useRouter } from "next/router";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
 import { useColorModeValue } from "@chakra-ui/react";
-import Login from "../../assets/images/login.png";
+import Login from "../../assets/images/krushak_odisha.png";
+import GovtOfOdisha from "../../assets/images/logo.jpg";
+import KrishiMela from "../../assets/images/KrishiMela.jpg";
 import Image from "next/image";
 
 const LoginPage: React.FC = () => {
@@ -57,8 +59,49 @@ const LoginPage: React.FC = () => {
         className={styles.container}
         style={{ maxWidth: "340px", background: "white" }}
       >
-        <div style={{ padding: "40px 18px" }}>
-          <Image className={styles.loginImage} src={Login} alt="" />
+        <div style={{ padding: "40px 10px" }}>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              marginBottom: "40px",
+              marginTop: "-20px"
+            }}
+          >
+            <Image
+              className={styles.loginImage}
+              src={GovtOfOdisha}
+              alt=""
+              width={70}
+              height={70}
+            />
+            <Image
+              className={styles.loginImage}
+              src={KrishiMela}
+              alt=""
+              width={70}
+              height={70}
+            />
+          </div>
+          <div style={{ margin: "auto", textAlign: "center" }}>
+            <Image
+              className={styles.loginImage}
+              src={Login}
+              alt=""
+              width={140}
+              height={180}
+            />
+          </div>
+
+          <Box
+            fontWeight="700"
+            fontSize="20px"
+            marginBottom="20px"
+            textAlign={"center"}
+            color="darkgreen"
+          >
+            KONNECT Odisha Agri GPT
+          </Box>
           <Box
             fontWeight="700"
             fontSize="24px"
@@ -79,7 +122,7 @@ const LoginPage: React.FC = () => {
           <NumberInput style={{ margin: "40px 0px 0px 0px" }}>
             <NumberInputField
               height="45px"
-              padding="18px 16px"              
+              padding="18px 16px"
               filter="drop-shadow(0px 2px 2px rgba(0, 0, 0, 0.12))"
               borderRadius="0px"
               fontWeight="400"
@@ -104,19 +147,19 @@ const LoginPage: React.FC = () => {
           >
             Send OTP
           </Button>
-          <div className={styles.signup}>
+          {/* <div className={styles.signup}>
             <div>-------------&nbsp;&nbsp;</div>
             <div>Or sign up with</div>
             <div>&nbsp;&nbsp;-------------</div>
-          </div>
-          <div className={styles.createAccount} style={{ marginTop: "50px" }}>
+          </div> */}
+          {/* <div className={styles.createAccount} style={{ marginTop: "50px" }}>
             Not register yet?{" "}
             <b>
               <Link style={{ textDecoration: "none", color: "black" }}>
                 Create Account
               </Link>
             </b>
-          </div>
+          </div> */}
         </div>
       </Container>
     </div>
