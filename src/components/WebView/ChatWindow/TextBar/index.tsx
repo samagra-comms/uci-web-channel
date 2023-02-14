@@ -138,7 +138,7 @@ const TextBar: React.FC<textBarProps> = (props) => {
       <ToastContainer />
       <Box className={styles.container}>
         <form className={styles.sendMessage_form}>
-          <Popover>
+          {/* <Popover>
             <PopoverTrigger>
               <button
                 type="button"
@@ -210,7 +210,7 @@ const TextBar: React.FC<textBarProps> = (props) => {
                 />
               </div>
             </PopoverContent>
-          </Popover>
+          </Popover> */}
 
           <input
             type="text"
