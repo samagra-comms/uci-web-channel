@@ -64,7 +64,7 @@ const ChatWindow: React.FC<chatWindowProps> = ({
 
         <Flex>
           <div style={{ margin: "auto", marginRight: "5px" }}>
-            <Image src={GovtOfOdisha} width={60} height={50} />
+            <Image src={GovtOfOdisha} width={55} height={50} />
           </div>
           <div style={{ margin: "auto", marginRight: "5px" }}>
             <Image src={KrushakOdisha} width={45} height={50} />
@@ -73,7 +73,7 @@ const ChatWindow: React.FC<chatWindowProps> = ({
             <Image src={KrishiMela} width={60} height={50} />
           </div>
           <div style={{ margin: "auto", marginRight: "5px" }}>
-            <Image src={Phone} width={55} height={60} />
+            <Image src={Phone} width={53} height={58} />
           </div>
           <Box className={`${styles.avatarContainer} ${headingColorToggle} `}>
             {/* {currentUser.name === ""?<Box>UCI</Box>:<Box className={styles.innerRing} />} */}
