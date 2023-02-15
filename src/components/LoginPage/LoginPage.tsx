@@ -100,7 +100,7 @@ const LoginPage: React.FC = () => {
             textAlign={"center"}
             color="darkgreen"
           >
-            KONNECT Odisha Agri GPT
+            KONNECT Ama KrushAI Chat Bot
           </Box>
           <Box
             fontWeight="700"

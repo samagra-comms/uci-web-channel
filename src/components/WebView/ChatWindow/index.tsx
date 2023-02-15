@@ -10,6 +10,7 @@ import { useColorModeValue, IconButton } from "@chakra-ui/react";
 import KrushakOdisha from "../../../assets/images/krushak_odisha.png";
 import GovtOfOdisha from "../../../assets/images/logo.png";
 import KrishiMela from "../../../assets/images/KrishiMela.png";
+import Phone from "../../../assets/images/phone.png";
 import Image from "next/image";
 
 interface chatWindowProps {
@@ -63,20 +64,23 @@ const ChatWindow: React.FC<chatWindowProps> = ({
 
         <Flex>
           <div style={{ margin: "auto", marginRight: "5px" }}>
-            <Image src={GovtOfOdisha} width={65} height={55} />
+            <Image src={GovtOfOdisha} width={60} height={50} />
           </div>
           <div style={{ margin: "auto", marginRight: "5px" }}>
-            <Image src={KrushakOdisha} width={50} height={55} />
+            <Image src={KrushakOdisha} width={45} height={50} />
           </div>
           <div style={{ margin: "auto", marginRight: "5px" }}>
-            <Image src={KrishiMela} width={65} height={55} />
+            <Image src={KrishiMela} width={60} height={50} />
+          </div>
+          <div style={{ margin: "auto", marginRight: "5px" }}>
+            <Image src={Phone} width={55} height={60} />
           </div>
           <Box className={`${styles.avatarContainer} ${headingColorToggle} `}>
             {/* {currentUser.name === ""?<Box>UCI</Box>:<Box className={styles.innerRing} />} */}
             {
               <>
                 {/* <Box className={styles.innerRing} /> */}
-                <Box>KONNECT Odisha Agri GPT</Box>
+                <Box>KONNECT Ama KrushAI Chat Bot</Box>
               </>
             }
           </Box>
