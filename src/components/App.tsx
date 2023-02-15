@@ -170,7 +170,7 @@ const App: React.FC<appProps> = ({
 
   useEffect(() => {
     setSocket(
-      io(`${process.env.NEXT_PUBLIC_TRANSPORT_SOCKET_URL}`, {
+      io("wss://ts.gpt3.samagra.io", {
         query: { deviceId: `phone:${localStorage.getItem("phoneNumber")}` },
       })
     );
