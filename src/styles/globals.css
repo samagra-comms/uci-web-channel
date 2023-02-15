@@ -53,6 +53,14 @@ body {
   min-height: 100vh;
 }
 
+.flex{
+  display: flex;
+}
+
+.hidden{
+  display: none;
+}
+
 /* body {
   font-family: Mulish-regular !important;
   transition: opacity 200ms;

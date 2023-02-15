@@ -10,7 +10,7 @@ import {
   Link,
 } from "@chakra-ui/react";
 import { ExternalLinkIcon } from "@chakra-ui/icons";
-
+import { Loading } from "@nextui-org/react";
 interface messageProps {
   text: any;
   username: string;
@@ -60,24 +60,38 @@ const Message: React.FC<messageProps> = ({
   );
   // ------------
 
+  useEffect(() => {
+    console.log('Self:', self);
+    let div = document.getElementsByClassName('loader');
+    if (self) {
+      div[div.length-1]?.classList.remove('hidden');
+      div[div.length-1]?.classList.add('flex');
+    } else {
+      div[div.length-1]?.classList.add('hidden');
+      div[div.length-1]?.classList.remove('flex');
+    }
+  }, [self]);
+
   var [today, setToday] = useState(new Date());
 
   return (
     <Flex>
       {self === true && (
         <>
+          <div className='loader' style={{marginLeft: '3vw', alignItems: 'flex-end'}}><Loading color='white' size="xl" type="points"/></div>
           <Spacer />
           <Box
             borderColor="white"
             color="#fff"
             className={`${styles.myMessage} ${styles.message} ${messageBodyToggle}`}
           >
-            <Box className={styles.message_username}>
+            {/* <Box className={styles.message_username}>
               <Text fontSize="md" fontWeight="bold">
                 {username}
               </Text>
-            </Box>
+            </Box> */}
             {!image && !audio && !video && !doc && !location && (
+
               <div className="messages" style={{ whiteSpace: "pre-wrap" }}>
                 {text}
               </div>
@@ -139,11 +153,11 @@ const Message: React.FC<messageProps> = ({
                   : `${styles.message} ${styles.recievedMessage}`
               }
             >
-              <Box className={styles.message_username}>
-                {/* <Text fontSize="md" fontWeight="bold">
+              {/* <Box className={styles.message_username}>
+                <Text fontSize="md" fontWeight="bold">
                   {username}
-                </Text> */}
-              </Box>
+                </Text>
+              </Box> */}
               {!image &&
                 !audio &&
                 !video &&
@@ -154,6 +168,7 @@ const Message: React.FC<messageProps> = ({
                     className="recievedMessages"
                     style={{ whiteSpace: "pre-wrap" }}
                   >
+
                     {text}
                   </div>
                   //<iframe src={text}></iframe>

@@ -506,18 +506,18 @@ console.log("unmount")
 
   const sendLocation = (location: any): void => {
     send(location,state.session, accessToken, currentUser, socket,null);
-    navigator.geolocation.getCurrentPosition((position: any) => {
-      setState({
-        ...state,
-        messages: state.messages.concat({
-          username: state.username,
-          location: {
-            latitude: position.coords.latitude,
-            longitude: position.coords.longitude,
-          }
-        }),
-      });
-    })
+    // navigator.geolocation.getCurrentPosition((position: any) => {
+    //   setState({
+    //     ...state,
+    //     messages: state.messages.concat({
+    //       username: state.username,
+    //       location: {
+    //         latitude: position.coords.latitude,
+    //         longitude: position.coords.longitude,
+    //       }
+    //     }),
+    //   });
+    // })
    
   }
 

@@ -53,14 +53,14 @@ const TextBar: React.FC<textBarProps> = (props) => {
   const [location, setLocation] = useState("");
   useEffect(() => {
     if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(
-        (position: any) => {
-          const lat = position.coords.latitude;
-          const long = position.coords.longitude;
-          setLocation(`https://www.google.com/maps?q=${lat},${long}+&output=embed`);
-          //props?.onSend && props.onSend(url());
-        }
-      );
+      // navigator.geolocation.getCurrentPosition(
+      //   (position: any) => {
+      //     const lat = position.coords.latitude;
+      //     const long = position.coords.longitude;
+      //     setLocation(`https://www.google.com/maps?q=${lat},${long}+&output=embed`);
+      //     //props?.onSend && props.onSend(url());
+      //   }
+      // );
     }
     else{
       toast.error("Geolocation is not supported by this browser.");
@@ -127,7 +127,7 @@ const TextBar: React.FC<textBarProps> = (props) => {
       <ToastContainer />
       <Box className={styles.container}>
         <form className={styles.sendMessage_form}>
-        <Popover>
+        {/* <Popover>
           <PopoverTrigger>
             <button type="button" className={`${styles.add_button} ${attachmentColorToggle}`}>
               <FontAwesomeIcon icon={faPlus} />
@@ -172,7 +172,7 @@ const TextBar: React.FC<textBarProps> = (props) => {
                             }}/>
                   </div>
           </PopoverContent>
-        </Popover>
+        </Popover> */}
 
           <input
             type="text"

@@ -10,6 +10,7 @@ import {
   Link,
 } from "@chakra-ui/react";
 import { ExternalLinkIcon } from "@chakra-ui/icons";
+import { Loading } from "@nextui-org/react";
 
 interface messageProps {
   text: any;
@@ -59,11 +60,24 @@ const Message: React.FC<messageProps> = ({
     styles.darkModeMessage
   );
 
+  useEffect(() => {
+    console.log('Self:', self);
+    let div = document.getElementsByClassName('loader');
+    if (self) {
+      div[div.length-1]?.classList.remove('hidden');
+      div[div.length-1]?.classList.add('flex');
+    } else {
+      div[div.length-1]?.classList.add('hidden');
+      div[div.length-1]?.classList.remove('flex');
+    }
+  }, [self]);
+
   // ------------
   return (
     <Flex>
       {self === true && (
         <>
+          <div className='loader' style={{marginLeft: '3vw', alignItems: 'flex-end'}}><Loading color='white' size="xl" type="points"/></div>
           <Spacer />
           <Box
             className={`${styles.myMessage} ${

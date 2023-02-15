@@ -65,14 +65,14 @@ const TextBar: React.FC<textBarProps> = (props) => {
   const [location, setLocation] = useState("");
   useEffect(() => {
     if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition((position: any) => {
-        const lat = position.coords.latitude;
-        const long = position.coords.longitude;
-        setLocation(
-          `https://www.google.com/maps?q=${lat},${long}+&output=embed`
-        );
-        //props?.onSend && props.onSend(url());
-      });
+      // navigator.geolocation.getCurrentPosition((position: any) => {
+      //   const lat = position.coords.latitude;
+      //   const long = position.coords.longitude;
+      //   setLocation(
+      //     `https://www.google.com/maps?q=${lat},${long}+&output=embed`
+      //   );
+      //   //props?.onSend && props.onSend(url());
+      // });
     } else {
       toast.error("Geolocation is not supported by this browser.");
     }
