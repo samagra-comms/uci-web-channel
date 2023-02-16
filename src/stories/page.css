@@ -5,7 +5,7 @@ section {
   padding: 48px 20px;
   margin: 0 auto;
   max-width: 600px;
-  color: #333;
+  color: var(--grey);
 }
 
 section h2 {
@@ -23,7 +23,7 @@ section p {
 
 section a {
   text-decoration: none;
-  color: #1ea7fd;
+  color: var(--blue);
 }
 
 section ul {
@@ -41,8 +41,8 @@ section .tip {
   font-size: 11px;
   line-height: 12px;
   font-weight: 700;
-  background: #e7fdd8;
-  color: #66bf3c;
+  background: var(--primarygreen);
+  color: var(--secondarygreen);
   padding: 4px 12px;
   margin-right: 10px;
   vertical-align: top;
@@ -65,5 +65,5 @@ section .tip-wrapper svg {
 }
 
 section .tip-wrapper svg path {
-  fill: #1ea7fd;
+  fill: var(--blue);
 }

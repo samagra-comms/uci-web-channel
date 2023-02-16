@@ -1,5 +1,5 @@
-import { useRef, useEffect, MutableRefObject, useState } from "react";
-import styles from "./index.module.css";
+import { useRef, useEffect, MutableRefObject, useState } from 'react';
+import styles from './index.module.css';
 import {
   Text,
   Box,
@@ -8,9 +8,9 @@ import {
   Button,
   useColorModeValue,
   Link,
-} from "@chakra-ui/react";
-import { ExternalLinkIcon } from "@chakra-ui/icons";
-import { Loading } from "@nextui-org/react";
+} from '@chakra-ui/react';
+import { ExternalLinkIcon } from '@chakra-ui/icons';
+import { Loading } from '@nextui-org/react';
 interface messageProps {
   text: any;
   username: string;
@@ -51,58 +51,69 @@ const Message: React.FC<messageProps> = ({
   doc: any;
 }) => {
   // Theme toggle Settings
-  // const box_color = useColorModeValue("#06d755", "#202C33");
-  const recievedMessageColor = useColorModeValue("#fff", "#424656");
-  const text_color = useColorModeValue("#002C01", "#fff");
+  const recievedMessageColor = useColorModeValue('white', 'var(--darkgrey');
+  const text_color = useColorModeValue('var(--tertiarygreen)', 'white');
   const messageBodyToggle = useColorModeValue(
     styles.lightModeMessage,
     styles.darkModeMessage
   );
   // ------------
+  // var [time, setTime] = useState<string[]>([]);
 
   useEffect(() => {
     console.log('Self:', self);
     let div = document.getElementsByClassName('loader');
+
+    // console.log('Divs:', div)
     if (self) {
-      div[div.length-1]?.classList.remove('hidden');
-      div[div.length-1]?.classList.add('flex');
+      // let today = new Date();
+      // let currentTime = (today.getHours()%12 || 12) + ":" + ((today.getMinutes()<10?'0':'') + today.getMinutes());
+      // time.push(currentTime);
+      // for(let i = 0; i<time.length; i++){
+      //   document.getElementsByClassName('timestamp')[i].innerHTML = time[i];
+      // }
+      // console.log('time', time)
+      // console.log('current time', currentTime)
+      div[div.length - 1]?.classList.remove('hidden');
+      div[div.length - 1]?.classList.add('flex');
     } else {
-      div[div.length-1]?.classList.add('hidden');
-      div[div.length-1]?.classList.remove('flex');
+      for (let i = 0; i < div.length; i++) {
+        div[i]?.classList.add('hidden');
+        div[i]?.classList.remove('flex');
+      }
     }
   }, [self]);
-
-  var [today, setToday] = useState(new Date());
 
   return (
     <Flex>
       {self === true && (
         <>
-          <div className='loader' style={{marginLeft: '3vw', alignItems: 'flex-end'}}><Loading color='white' size="xl" type="points"/></div>
+          <div
+            className='loader hidden'
+            style={{ marginLeft: '3vw', alignItems: 'flex-end' }}>
+            <Loading color='white' size='xl' type='points' />
+          </div>
           <Spacer />
           <Box
-            borderColor="white"
-            color="#fff"
-            className={`${styles.myMessage} ${styles.message} ${messageBodyToggle}`}
-          >
+            borderColor='white'
+            color='white'
+            className={`${styles.myMessage} ${styles.message} ${messageBodyToggle}`}>
             {/* <Box className={styles.message_username}>
               <Text fontSize="md" fontWeight="bold">
                 {username}
               </Text>
             </Box> */}
             {!image && !audio && !video && !doc && !location && (
-
-              <div className="messages" style={{ whiteSpace: "pre-wrap" }}>
+              <div className='messages' style={{ whiteSpace: 'pre-wrap' }}>
                 {text}
               </div>
             )}
             {location && (
-              <div style={{ whiteSpace: "pre-wrap" }}>
+              <div style={{ whiteSpace: 'pre-wrap' }}>
                 <a
                   href={`https://www.google.com/maps?q=${location.latitude},${location.longitude}+&output=embed`}
-                  target="blank"
-                  style={{ color: "White" }}
-                >
+                  target='blank'
+                  style={{ color: 'White' }}>
                   <iframe
                     src={`https://www.google.com/maps?q=${location.latitude},${location.longitude}+&output=embed`}
                   />
@@ -110,8 +121,8 @@ const Message: React.FC<messageProps> = ({
               </div>
             )}
             {image && (
-              <div style={{ whiteSpace: "pre-wrap" }}>
-                <img src={image} style={{ maxWidth: "300px" }} />
+              <div style={{ whiteSpace: 'pre-wrap' }}>
+                <img src={image} style={{ maxWidth: '300px' }} />
               </div>
             )}
             {audio && (
@@ -121,18 +132,19 @@ const Message: React.FC<messageProps> = ({
               </audio>
             )}
             {video && (
-              <video width="320" height="240" controls>
+              <video width='320' height='240' controls>
                 <source src={video} />
                 Your browser does not support the video tag.
               </video>
             )}
             {doc && (
-              <Button colorScheme="blackAlpha" padding="10px" marginTop="10px">
+              <Button colorScheme='blackAlpha' padding='10px' marginTop='10px'>
                 <Link href={doc} isExternal>
-                  Click to open this file <ExternalLinkIcon mx="2px" />
+                  Click to open this file <ExternalLinkIcon mx='2px' />
                 </Link>
               </Button>
             )}
+            {/* <div className='timestamp' style={{fontSize: '10px', display: 'flex', justifyContent: 'flex-end'}}></div> */}
           </Box>
         </>
       )}
@@ -141,18 +153,17 @@ const Message: React.FC<messageProps> = ({
           <div>
             <Box
               bgColor={
-                text === "Invalid Input!!! Please try again."
-                  ? "#FF5C5C"
+                text === 'Invalid Input!!! Please try again.'
+                  ? 'var(--red)'
                   : recievedMessageColor
               }
               color={text_color}
-              borderColor="white"
+              borderColor='white'
               className={
-                text === "Invalid Input!!! Please try again."
+                text === 'Invalid Input!!! Please try again.'
                   ? `${styles.message} ${styles.errorMessage}`
                   : `${styles.message} ${styles.recievedMessage}`
-              }
-            >
+              }>
               {/* <Box className={styles.message_username}>
                 <Text fontSize="md" fontWeight="bold">
                   {username}
@@ -163,12 +174,10 @@ const Message: React.FC<messageProps> = ({
                 !video &&
                 !doc &&
                 !location &&
-                text.substring(0, 5) !== "https" && (
+                text.substring(0, 5) !== 'https' && (
                   <div
-                    className="recievedMessages"
-                    style={{ whiteSpace: "pre-wrap" }}
-                  >
-
+                    className='recievedMessages'
+                    style={{ whiteSpace: 'pre-wrap' }}>
                     {text}
                   </div>
                   //<iframe src={text}></iframe>
@@ -178,13 +187,13 @@ const Message: React.FC<messageProps> = ({
                 !video &&
                 !doc &&
                 !location &&
-                text.substring(0, 5) === "https" && (
+                text.substring(0, 5) === 'https' && (
                   //<div style={{ whiteSpace: "pre-wrap" }}>{text}</div>
                   <iframe src={text}></iframe>
                 )}
               {image && (
-                <div style={{ whiteSpace: "pre-wrap" }}>
-                  <img src={image} style={{ maxWidth: "300px" }} />
+                <div style={{ whiteSpace: 'pre-wrap' }}>
+                  <img src={image} style={{ maxWidth: '300px' }} />
                 </div>
               )}
               {audio && (
@@ -194,12 +203,11 @@ const Message: React.FC<messageProps> = ({
                 </audio>
               )}
               {location && (
-                <div style={{ whiteSpace: "pre-wrap" }}>
+                <div style={{ whiteSpace: 'pre-wrap' }}>
                   <a
                     href={`https://www.google.com/maps?q=${location.latitude},${location.longitude}+&output=embed`}
-                    target="blank"
-                    style={{ color: "White" }}
-                  >
+                    target='blank'
+                    style={{ color: 'White' }}>
                     <iframe
                       src={`https://www.google.com/maps?q=${location.latitude},${location.longitude}+&output=embed`}
                     />
@@ -207,23 +215,22 @@ const Message: React.FC<messageProps> = ({
                 </div>
               )}
               {video && (
-                <video width="320" height="240" controls>
+                <video width='320' height='240' controls>
                   <source src={video} />
                   Your browser does not support the video tag.
                 </video>
               )}
               {doc && (
                 <Button
-                  colorScheme="blackAlpha"
-                  padding="10px"
-                  marginTop="10px"
-                >
+                  colorScheme='blackAlpha'
+                  padding='10px'
+                  marginTop='10px'>
                   <Link href={doc} isExternal>
-                    Click to open this file <ExternalLinkIcon mx="2px" />
+                    Click to open this file <ExternalLinkIcon mx='2px' />
                   </Link>
                 </Button>
               )}
-              <div style={{ whiteSpace: "pre-wrap" }}>{caption}</div>
+              <div style={{ whiteSpace: 'pre-wrap' }}>{caption}</div>
               {/* <Box>
                   <div className="messages time">
                       {today.toLocaleString('en-US', { hour: 'numeric',minute: 'numeric', hour12: true })}
@@ -234,13 +241,12 @@ const Message: React.FC<messageProps> = ({
               <Box className={styles.chatChoices_container}>
                 {choices.map((choice: any) => (
                   <Button
-                    borderColor="white"
+                    borderColor='white'
                     backgroundColor={recievedMessageColor}
                     className={styles.chatChoices}
                     key={choice.key}
-                    onClick={() => data(choice)}
-                  >
-                    <div className="choice">
+                    onClick={() => data(choice)}>
+                    <div className='choice'>
                       {choice.key} {choice.text}
                     </div>
                   </Button>

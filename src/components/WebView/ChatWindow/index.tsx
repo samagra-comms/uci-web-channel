@@ -39,7 +39,7 @@ const ChatWindow: React.FC<chatWindowProps> = ({
   currentUser,
   onSendLocation,
 }) => {
-  const textColor = useColorModeValue("#202C33", "#fff");
+  const textColor = useColorModeValue("#202C33", "white");
   const backgroundColorToggle = useColorModeValue(
     styles.lightContainer,
     styles.darkContainer
@@ -86,7 +86,7 @@ const ChatWindow: React.FC<chatWindowProps> = ({
         </Flex>
 
         <Box className={styles.toggleButtonContainer}>
-          <IconButton
+          {/* <IconButton
             size="md"
             fontSize="lg"
             variant="ghost"
@@ -97,7 +97,7 @@ const ChatWindow: React.FC<chatWindowProps> = ({
             marginLeft="2"
             icon={<FontAwesomeIcon icon={faShower} />}
             aria-label={`Clear Chat`}
-          />
+          /> */}
           <ColorModeSwitcher />
         </Box>
       </Box>
@@ -131,7 +131,7 @@ const ChatWindow: React.FC<chatWindowProps> = ({
 
             {/* TextBar */}
             <Box className={styles.inputSection}>
-              <TextBar onSend={toSendMessage} onSendLocation={onSendLocation} />
+              <TextBar currentMessageObj={currentMessageObj} username={username} onSend={toSendMessage} onSendLocation={onSendLocation} />
             </Box>
           </Box>
         </Box>

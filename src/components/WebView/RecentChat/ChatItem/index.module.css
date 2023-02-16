@@ -10,11 +10,11 @@
 }
 
 .lightContainer {
-    background-color: #016F02;
+    background-color: var(--secondarygreen);
 }
 
 .darkContainer {
-    background-color: #272A37;
+    background-color: var(--primarydarkblue);
 }
 
 .activeContainer {
@@ -25,7 +25,7 @@
     align-items: center;
 
     border-radius: 10px;
-    background-color: #363636;
+    background-color: var(--darkgrey);
     box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.3);
 
 }

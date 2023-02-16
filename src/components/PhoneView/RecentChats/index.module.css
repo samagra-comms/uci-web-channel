@@ -1,13 +1,13 @@
 .lightContainer {
   position: fixed;
   height: 100vh;
-  background-color: #b7e89f;
+  background-color: var(--primarygreen);
 }
 
 .darkContainer {
   position: fixed;
   height: 100vh;
-  background-color: #272a37;
+  background-color: var(--primarydarkblue);
 }
 .headerContainer {
   width: 100%;
@@ -49,7 +49,7 @@
 }
 
 .backBox {
-  background-color: #272a37;
+  background-color: var(--primarydarkblue);
   top: 12vh;
   width: 95vw;
   height: 75vh;
@@ -87,20 +87,20 @@
 }
 
 .lightSettingsBar {
-  background-color: #016f02;
+  background-color: var(--secondarygreen);
 }
 
 .darkSettingsBar {
-  background-color: #1d90f5;
+  background-color: var(--blue);
 }
 
 .darkBackBox {
-  background-color: #1a1c23;
+  background-color: var(--tertiarydarkblue);
 }
 
 .addUser_button {
   margin: 0.4rem;
-  background-color: #016f02;
+  background-color: var(--secondarygreen);
   min-width: 50px;
   min-height: 50px;
   border-radius: 50%;
@@ -111,9 +111,9 @@
 }
 
 .lightBackBox {
-  background-color: #eeeeee;
+  background-color: white;
 }
 
 .darkBackBox {
-  background-color: #242631;
+  background-color: var(--tertiarydarkblue);
 }

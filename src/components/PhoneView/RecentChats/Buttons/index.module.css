@@ -2,22 +2,19 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    
-    
-    
     width: 12vw;
     height: 7vh;
     border-radius: 10px;
 }
 
 .lightButton {
-    background-color: #fff;
+    background-color: white;
     color: black;
 }
 
 .darkButton {
-    background-color: #575A6C;
-    color: #D4C17B;
+    background-color: var(--darkgrey);
+    color: var(--golden);
 }
 
 
@@ -25,20 +22,17 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    
-   
-    
     width: 12vw;
     height: 7vh;
     border-radius: 10px;
 }
 
 .lightActiveButton {
-    background-color: #1A1C23;
+    background-color: var(--primarydarkblue);
     color: white;
 }
 
 .darkActiveButton {
-    background-color: #016E02;
+    background-color: var(--secondarygreen);
     color: white;
 }

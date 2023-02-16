@@ -135,7 +135,7 @@ const Home: NextPage = () => {
       <Head>
         <link rel="icon" href="/favicon.ico" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <meta name="theme-color" content="#000000" />
+        <meta name="theme-color" content="black" />
         <meta name="UCI Web Channel" content="A project under C4GT" />
         <title>Farmer Bot</title>
       </Head>

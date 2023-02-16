@@ -7,7 +7,7 @@
 }
 
 .input_box {
-  background-color: #424656;
+  background-color: var(--darkgrey);
   border-radius: 15px;
   height: 6vh;
   width: 55vw;
@@ -16,7 +16,7 @@
 }
 
 .input_box:focus{
-  outline: 2px solid #1D90F5;
+  outline: 2px solid var(--blue);
 }
 
 
@@ -34,16 +34,15 @@
   align-items: center;
   border-radius: 10px;
   box-shadow: 4px 6px 4px 0px rgba(0, 0, 0, 0.25);
-  /* background-color: #1d90f5; */
   color: white;
 }
 
 .lightModeSubmitButton{
-  background-color: #016F02;
+  background-color: var(--secondarygreen);
 }
 
 .darkModeSubmitButton{
-  background-color: #1D90F5;
+  background-color: var(--blue);
 }
 
 .add_button {
@@ -56,26 +55,26 @@
   align-items: center;
   border-radius: 10px;
   box-shadow: 4px 6px 4px 0px rgba(0, 0, 0, 0.25);
-  border: 1px solid #525769;
-  background-color: #424656;
+  border: 1px solid var(--grey);
+  background-color: var(--darkgrey);
 }
 
 
 /* Theme Toggle Classes */
 
 .lightInput {
-  background-color: #fff;
+  background-color: white;
   
 }
 
 .darkInput {
-  background-color: #424656;
+  background-color: var(--darkgrey);
 }
 
 .lightAttach {
-  background-color: #fff;
+  background-color: white;
 }
 
 .darkAttach {
-  background-color: #424656;
+  background-color: var(--darkgrey);
 }

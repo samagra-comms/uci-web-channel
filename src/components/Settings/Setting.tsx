@@ -12,7 +12,7 @@ interface settingProps {
 
 const setting: React.FC<settingProps> = ({icon, settingName, clickFunction}) => {
 
-    const borderColor = useColorModeValue("#000","#fff")
+    const borderColor = useColorModeValue("black","white")
 
     return (
         <Flex cursor="pointer" height="50px" onClick={clickFunction} my="1rem">

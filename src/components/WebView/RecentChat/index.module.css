@@ -4,7 +4,7 @@
     width: 28vw;
     left: 6vw;
 
-    background-color: #B7E89F;
+    background-color: var(--primarygreen);
 }
 
 .darkContainer {
@@ -13,20 +13,20 @@
     width: 28vw;
     left: 6vw;
 
-    background-color: #272A37;
+    background-color: var(--primarydarkblue);
 }
 
 .lightModeButton{
-    background-color: #016F02;
+    background-color: var(--secondarygreen);
 }
 
 .darkModeButton{
-    background-color: #1D90F5;
+    background-color: var(--blue);
 }
 
 
 .top_section {
-    color: #017000;
+    color: var(--secondarygreen);
     font-family: Mulish-bold;
     font-size: 1.5rem;
     height: 10vh;
@@ -36,7 +36,7 @@
 }
 
 .lightColor {
-    color: #017000;
+    color: var(--secondarygreen);
 }
 
 .darkColor {

@@ -97,7 +97,7 @@ const SettingsBar: React.FC = () => {
                   up: <span style={{ fontSize: "15px" }}>A+</span>,
                   down: <span style={{ fontSize: "15px" }}>A-</span>,
                   style: {
-                    // backgroundColor: "#1d90f5",
+                    // backgroundColor: "var(--blue)",
                     // color: "white",
                     WebkitBoxSizing: "border-box",
                     WebkitBorderRadius: "5px",

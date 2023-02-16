@@ -3,32 +3,32 @@ import MagicBell, {
 } from "@magicbell/magicbell-react";
 
 const theme = {
-  icon: { borderColor: "#ffffff", width: "40px" },
-  unseenBadge: { backgroundColor: "#DF4759" },
+  icon: { borderColor: "white", width: "40px" },
+  unseenBadge: { backgroundColor: "var(--red)" },
   header: {
-    backgroundColor: "#000080",
-    textColor: "#ffffff",
+    backgroundColor: "var(--darkblue)",
+    textColor: "white",
     borderRadius: "16px",
   },
   footer: {
-    backgroundColor: "#000080",
-    textColor: "#ffffff",
+    backgroundColor: "var(--darkblue)",
+    textColor: "white",
     borderRadius: "16px",
   },
   notification: {
     default: {
-      textColor: "#15091F",
+      textColor: "black",
       borderRadius: "8px",
-      backgroundColor: "#000080",
+      backgroundColor: "var(--darkblue)",
     },
     unseen: {
-      backgroundColor: "#000080",
-      textColor: "#15091F",
+      backgroundColor: "var(--darkblue)",
+      textColor: "black",
       borderRadius: "8px",
     },
     unread: {
-      backgroundColor: "#000080",
-      textColor: "#15091F",
+      backgroundColor: "var(--darkblue)",
+      textColor: "black",
       borderRadius: "8px",
     },
   },

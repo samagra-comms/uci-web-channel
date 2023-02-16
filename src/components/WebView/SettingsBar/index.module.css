@@ -2,9 +2,6 @@
     position: fixed;
     height: 100vh;
     width: 8vw;
-
-    
-    /* background-color: aqua; */
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -13,9 +10,7 @@
 }
 
 .lightContainer {
-    /* background-image: linear-gradient(to right,rgba(0,0,0,0.3), rgba(255,255,255, 0.3));
-     */
-     background-color: #002C01;
+     background-color: var(--tertiarygreen);
 }
 
 .darkContainer {
@@ -23,7 +18,6 @@
 }
 
 .c4gtLogo {
-    /* background-image: url(../../../assets/images/c4gt_logo.png); */
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
@@ -54,7 +48,7 @@
 }
 
 .wallpaperButton{
-    background-color: #fff;
+    background-color: white;
     color: black;
     height: 50%;
     border-radius: 20px;
@@ -63,7 +57,7 @@
 }
 
 #tab{
-    background-color: #fff;
+    background-color: white;
     width: 100%;
 }
 
@@ -81,14 +75,14 @@
 }
 
 .button_container:active {
-    background-color: #292e33;
-    color: #fff;
+    background-color: var(--primarydarkblue);
+    color: white;
 }
 
 .lightModeButton{
-    background-color: #016F02;
+    background-color: var(--secondarygreen);
 }
 
 .darkModeButton{
-    background-color: #1D90F5;
+    background-color: var(--blue);
 }

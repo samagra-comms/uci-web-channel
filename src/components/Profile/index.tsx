@@ -22,7 +22,7 @@ const Profile: React.FC<profileProps> = ({
   removeProfile,
   toRemoveUser
 }) => {
-  const fontColor = useColorModeValue("#fff", "#fff");
+  const fontColor = useColorModeValue("white", "white");
 
   const onRemoveUser: React.MouseEventHandler = (event: React.MouseEvent) => {
     toRemoveUser(name);
@@ -53,7 +53,7 @@ const Profile: React.FC<profileProps> = ({
               className={styles.container}
               style={{
                 position: "relative",
-                backgroundColor: "#141414",
+                backgroundColor: "black",
                 width: "315px",
               }}
             >
@@ -69,7 +69,7 @@ const Profile: React.FC<profileProps> = ({
               <figcaption
                 style={{
                   width: "100%",
-                  backgroundColor: "#141414",
+                  backgroundColor: "black",
                   padding: "25px",
                   position: "relative",
                   color: `${fontColor}`,

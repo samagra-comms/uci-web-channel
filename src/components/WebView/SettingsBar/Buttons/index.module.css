@@ -2,9 +2,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    
-    /* background-color: #fff; */
-    background-color: #016F02;
+    background-color: var(--secondarygreen);
     color: rgb(255, 255, 255);
     font-size: 20px;
     border-radius: 10px;
@@ -15,8 +13,8 @@
     display: flex;
     justify-content: center;
     align-items: center;    
-    background-color: #016F02;
-    color: #fff;
+    background-color: var(--secondarygreen);
+    color: white;
     font-size: 20px;
     border-radius: 10px;
     box-shadow: 0px 4px 4px 0 rgba(0, 0, 0, 0.25);

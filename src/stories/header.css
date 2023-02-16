@@ -26,7 +26,7 @@ button + button {
 }
 
 .welcome {
-  color: #333;
+  color: var(--grey);
   font-size: 14px;
   margin-right: 10px;
 }

@@ -18,7 +18,7 @@ import {
 } from "@chakra-ui/react";
 import { io, Socket } from "socket.io-client";
 import { startWebsocketConnection } from "./websocket";
-import Notification from "./Notifications";
+import Notification from "./OTPpage/Notifications";
 import { useCookies, withCookies } from "react-cookie";
 import { useRouter } from "next/router";
 import ColorModeSwitcher from "./ColorModeSwitcher";

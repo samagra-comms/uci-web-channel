@@ -44,7 +44,7 @@ const ChatWindow: React.FC<chatWindowProps> = ({
 
 }) => {
 
-  const textColor = useColorModeValue("#202C33", "#fff");
+  const textColor = useColorModeValue("black", "white");
   const backgroundColorToggle = useColorModeValue(
     styles.lightContainer,
     styles.darkContainer
@@ -61,7 +61,7 @@ const ChatWindow: React.FC<chatWindowProps> = ({
 
 
   return (
-    <Flex bgColor="#282A37" flexDirection="column" height="100vh" width="100%">
+    <Flex bgColor="var(--primarydarkblue)" flexDirection="column" height="100vh" width="100%">
       {/* Top Section */}
       <Box className={`${styles.top_section} ${backgroundColorToggle}`}>
         {/* For the back button */}
@@ -99,7 +99,7 @@ const ChatWindow: React.FC<chatWindowProps> = ({
               up: <span style={{ 'fontSize': '15px', 'cursor': 'pointer' }}>A+</span>,
               down: <span style={{ 'fontSize': '15px', 'cursor': 'pointer' }}>A-</span>,
               style: {
-                color: '#1d90f5',
+                color: 'var(--blue)',
                 WebkitBoxSizing: 'border-box',
                 WebkitBorderRadius: '5px',
                 width: '30px'
@@ -109,7 +109,7 @@ const ChatWindow: React.FC<chatWindowProps> = ({
           /> */}
 
           <Box mr="1rem">
-            <IconButton
+            {/* <IconButton
               size="md"
               fontSize="lg"
               variant="ghost"
@@ -118,7 +118,7 @@ const ChatWindow: React.FC<chatWindowProps> = ({
               marginLeft="2"
               icon={<FontAwesomeIcon icon={faShower} />}
               aria-label={`Clear Chat`}
-            />
+            /> */}
             <ColorModeSwitcher />
           </Box>
         </Flex>
