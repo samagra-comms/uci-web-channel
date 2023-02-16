@@ -91,7 +91,7 @@ const OTPpage: React.FC = () => {
     styles.lightContainer,
     styles.darkContainer
   );
-  const buttonToggle = useColorModeValue("darkGreen", "#080664");
+  const buttonToggle = useColorModeValue("darkGreen", "var(--darkblue)");
   return (
     <div className={`${styles.main} ${backgroundColorToggle}`}>
       <Box
@@ -123,7 +123,7 @@ const OTPpage: React.FC = () => {
           flexDirection="column"
           alignContent="center"
           justifyContent="center"
-          color="#000"
+          color="black"
           px="1rem"
         >
           <div className={styles.otpVerify}>OTP Verification</div>
@@ -176,20 +176,20 @@ const OTPpage: React.FC = () => {
           </HStack>
           <Box width="100%">
             {" "}
-            <Button
+            <button
               className={styles.submitButton}
-              background={buttonToggle}
               style={{
                 marginTop: "43px",
                 width: "100%",
                 padding: "10px",
                 border: "none",
                 borderRadius: "0px",
+                backgroundColor:`${buttonToggle}`
               }}
               onClick={handleOTPSubmit}
             >
               Submit
-            </Button>
+            </button>
           </Box>
         </Box>
         <Box alignSelf="">
@@ -197,8 +197,9 @@ const OTPpage: React.FC = () => {
             You have an account?{" "}
             <b>
               <Link
+                href='/login'
                 style={{
-                  color: "#FFFFFF",
+                  color: "white",
                   textDecoration: "none",
                   cursor: "pointer",
                 }}

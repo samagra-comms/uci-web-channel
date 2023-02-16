@@ -13,7 +13,7 @@ const ColorModeSwitcher: React.FC<ColorModeSwitcherProps> = (props) => {
   const { toggleColorMode } = useColorMode();
   const text = useColorModeValue("light", "dark");
   const SwitchIcon = useColorModeValue(FaSun, FaMoon);
-  const textColor = useColorModeValue("#202C33","#fff");
+  const textColor = useColorModeValue('black','white');
   return (
     <IconButton
       size="md"

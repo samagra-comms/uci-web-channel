@@ -46,7 +46,7 @@ const TextBar: React.FC<textBarProps> = (props) => {
   // Toggle Settings
   const inputColorToggle = useColorModeValue(styles.lightInput,styles.darkInput)
   const attachmentColorToggle = useColorModeValue(styles.lightAttach,styles.darkAttach)
-  const backgroundColorToggle = useColorModeValue("#EEEEEE","#242631")
+  const backgroundColorToggle = useColorModeValue("white","var(--tertiarydarkblue)")
   const SubmitColorToggle = useColorModeValue(styles.lightModeSubmitButton,styles.darkModeSubmitButton)
   // ---------------
 
@@ -134,8 +134,8 @@ const TextBar: React.FC<textBarProps> = (props) => {
             </button>
           </PopoverTrigger>
           <PopoverContent marginLeft="5px" width="50px" border="none" alignContent="center" alignItems="center" backgroundColor={backgroundColorToggle} paddingLeft="5px">
-            <Button size="md" style={{margin: "15px 5px 0 0", backgroundColor:"#ff0079", borderRadius:"50%"}} onClick={sendLocation}>
-              <FontAwesomeIcon color="#FFFFFF" icon={faLocationDot} />
+            <Button size="md" style={{margin: "15px 5px 0 0", backgroundColor:"var(--red)", borderRadius:"50%"}} onClick={sendLocation}>
+              <FontAwesomeIcon color="white" icon={faLocationDot} />
             </Button>
             <div className="file btn btn-primary" 
                       style={
@@ -144,7 +144,7 @@ const TextBar: React.FC<textBarProps> = (props) => {
                           marginRight: '7px', 
                           paddingTop: '5px',
                           margin: "19px 5px 5px 0",
-                          backgroundColor:"#2656e9",
+                          backgroundColor:"var(--blue)",
                           width: "45px",
                           height: "45px",
                           borderRadius: "50%",
@@ -152,7 +152,7 @@ const TextBar: React.FC<textBarProps> = (props) => {
                           <div style={{
                             margin: "5px 0 0 17px",
                           }}>
-                            <FontAwesomeIcon color="#FFFFFF" icon={faFile} />
+                            <FontAwesomeIcon color="white" icon={faFile} />
                           </div>
                           <input type="file" name="file" 
                           style={
@@ -192,7 +192,7 @@ const TextBar: React.FC<textBarProps> = (props) => {
           {/* <Button
             bgColor={bg}
             color={faIcon}
-            boxShadow="0px 0px 2px 0px #0000005e"
+            boxShadow="0px 0px 2px 0px black"
             border="none"
             onClick={sendMessage}
             type="submit"

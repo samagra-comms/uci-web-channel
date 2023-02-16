@@ -46,6 +46,12 @@ import { ButtonGroup } from "react-bootstrap";
 interface textBarProps {
   onSend: (name: string, media: any) => void;
   onSendLocation: (location: string) => void;
+  currentMessageObj: {
+    user: string;
+    phoneNumber: string | null;
+    messages: any[];
+  };
+  username: string;
 }
 
 const TextBar: React.FC<textBarProps> = (props) => {
@@ -58,7 +64,7 @@ const TextBar: React.FC<textBarProps> = (props) => {
     styles.lightAttach,
     styles.darkAttach
   );
-  const backgroundColorToggle = useColorModeValue("#EEEEEE", "#242631");
+  const backgroundColorToggle = useColorModeValue("white", "var(--tertiarydarkblue)");
   const SubmitColorToggle = useColorModeValue(styles.lightModeSubmitButton,styles.darkModeSubmitButton)
 
 
@@ -82,6 +88,7 @@ const TextBar: React.FC<textBarProps> = (props) => {
     useRef<HTMLInputElement | null>(null);
 
   const send_btn = useRef<HTMLButtonElement | null>(null);
+  const messages: any = props.currentMessageObj.messages || [];
 
   const sendMessage: React.MouseEventHandler = (
     event: React.MouseEvent
@@ -90,10 +97,12 @@ const TextBar: React.FC<textBarProps> = (props) => {
     const message: string | undefined = input.current?.value;
     if (input.current?.value.trim().length === 0) {
       toast.error("Please enter a valid message");
-    } else if (message!.length > 0) {
+    }else if(messages.length>0 && messages[messages.length-1].username === props.username){
+      toast.error("Please wait for a reply");
+    }else if (message!.length > 0) {
       props?.onSend && props.onSend(input.current!.value, null);
+      input.current!.value = "";
     }
-    input.current!.value = "";
   };
 
   const sendMessageIfEnter: React.KeyboardEventHandler = (
@@ -102,7 +111,9 @@ const TextBar: React.FC<textBarProps> = (props) => {
     if (event.key === "Enter") {
       event.preventDefault();
       if (input.current!.value.length > 0) {
-        console.log(send_btn.current?.click());
+        if(messages.length>0 && messages[messages.length-1].username === props.username){
+          toast.error("Please wait for a reply");
+        }else console.log(send_btn.current?.click());
       }
     }
   };
@@ -158,12 +169,12 @@ const TextBar: React.FC<textBarProps> = (props) => {
                 type="button"
                 style={{
                   margin: "15px 5px 0 0",
-                  backgroundColor: "#ff0079",
+                  backgroundColor: "var(--red)",
                   borderRadius: "50%",
                 }}
                 onClick={sendLocation}
               >
-                <FontAwesomeIcon color="#FFFFFF" icon={faLocationDot} />
+                <FontAwesomeIcon color="white" icon={faLocationDot} />
               </Button>
               <div
                 className="file btn btn-primary"
@@ -173,7 +184,7 @@ const TextBar: React.FC<textBarProps> = (props) => {
                   marginRight: "7px",
                   paddingTop: "5px",
                   margin: "19px 5px 5px 0",
-                  backgroundColor: "#2656e9",
+                  backgroundColor: "var(--blue)",
                   width: "45px",
                   height: "45px",
                   borderRadius: "50%",
@@ -184,7 +195,7 @@ const TextBar: React.FC<textBarProps> = (props) => {
                     margin: "5px 0 0 17px",
                   }}
                 >
-                  <FontAwesomeIcon color="#FFFFFF" icon={faFile} />
+                  <FontAwesomeIcon color="white" icon={faFile} />
                 </div>
                 <input
                   type="file"
@@ -230,7 +241,7 @@ const TextBar: React.FC<textBarProps> = (props) => {
           {/* <Button
             bgColor={bg}
             color={faIcon}
-            boxShadow="0px 0px 2px 0px #0000005e"
+            boxShadow="0px 0px 2px 0px black"
             border="none"
             onClick={sendMessage}
             type="submit"
@@ -297,9 +308,9 @@ export default TextBar;
 //   // Toggle Settings
 //   const bg = useColorModeValue("#1D90F5", "#202C33");
 //   // const childrenIcon = useColorModeValue("#202C33","#AEBAC1")
-//   const bgColor = useColorModeValue("#FFFFFF", "#323644");
-//   const textColor = useColorModeValue("#000", "#fff");
-//   const faIcon = useColorModeValue("#202C33", "#fff");
+//   const bgColor = useColorModeValue("white", "#323644");
+//   const textColor = useColorModeValue("black", "white");
+//   const faIcon = useColorModeValue("#202C33", "white");
 //   // ---------------
 
 //   const input: MutableRefObject<HTMLInputElement | null> =

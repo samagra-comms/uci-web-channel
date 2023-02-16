@@ -21,7 +21,7 @@ const LoginPage: React.FC = () => {
   const router = useRouter();
   const [input, setInput] = useState("");
 
-  const textColor = useColorModeValue("#636363", "#fff");
+  // const textColor = useColorModeValue("var(--grey)", "white");
   // Setting the input value
   const handleNumber: React.ChangeEventHandler = (
     e: React.ChangeEvent<HTMLInputElement>
@@ -52,7 +52,7 @@ const LoginPage: React.FC = () => {
     styles.lightContainer,
     styles.darkContainer
   );
-  const buttonToggle = useColorModeValue("darkGreen", "#080664");
+  const buttonToggle = useColorModeValue("darkGreen", 'var(--darkblue)');
   return (
     <div className={`${styles.main} ${backgroundColorToggle}`}>
       <Container
@@ -107,19 +107,19 @@ const LoginPage: React.FC = () => {
             fontSize="24px"
             marginBottom="7px"
             textAlign={"center"}
-            color="#000"
+            color="black"
           >
             Login Account <FontAwesomeIcon icon={faUser} />
           </Box>
           <Box
             fontWeight="400"
             fontSize="13px"
-            color="#000"
+            color="black"
             textAlign={"center"}
           >
-            Hello , welcome back to our account !
+            Hello, welcome back to our account !
           </Box>
-          <NumberInput style={{ margin: "40px 0px 0px 0px" }}>
+          <NumberInput style={{ margin: "40px 0px 0px 0px", border: '1px solid grey' }}>
             <NumberInputField
               height="45px"
               padding="18px 16px"
@@ -127,26 +127,26 @@ const LoginPage: React.FC = () => {
               borderRadius="0px"
               fontWeight="400"
               fontSize="14px"
-              color="#6f6f6f"
+              color='var(--grey)'
               placeholder="Enter your phone number"
               value={input}
               onChange={handleNumber}
             />
           </NumberInput>
-          <Button
+          <button
             className={styles.submitButton}
-            background={buttonToggle}
             style={{
-              marginTop: "43px",
+              marginTop: "40px",
               width: "100%",
               padding: "10px",
               border: "none",
               borderRadius: "0px",
+              backgroundColor: `${buttonToggle}`
             }}
             onClick={handleOTPPage}
           >
             Send OTP
-          </Button>
+          </button>
           {/* <div className={styles.signup}>
             <div>-------------&nbsp;&nbsp;</div>
             <div>Or sign up with</div>

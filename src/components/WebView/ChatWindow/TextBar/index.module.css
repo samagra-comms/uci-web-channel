@@ -17,15 +17,15 @@
 }
 
 .input_box:focus {
-  outline: 2px solid #1d90f5;
+  outline: 2px solid var(--blue);
 }
 
 .lightInput {
-  background-color: #fff;
+  background-color: white;
 }
 
 .darkInput {
-  background-color: #424656;
+  background-color: var(--darkgrey);
 }
 
 .sendMessage_form {
@@ -41,16 +41,15 @@
   align-items: center;
   border-radius: 10px;
   box-shadow: 4px 6px 4px 0px rgba(0, 0, 0, 0.25);
-  /* background-color: #1d90f5; */
   color: white;
 }
 
 .lightModeSubmitButton{
-  background-color: #016F02;
+  background-color: var(--secondarygreen);
 }
 
 .darkModeSubmitButton{
-  background-color: #1D90F5;
+  background-color: var(--blue);
 }
 
 .add_button {
@@ -64,11 +63,11 @@
 }
 
 .lightAttach {
-  background-color: #fff;
+  background-color: white;
 }
 
 .darkAttach {
-  background-color: #424656;
+  background-color: var(--darkgrey);
 }
 
 .popover {

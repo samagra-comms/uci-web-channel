@@ -26,11 +26,11 @@
 }
 
 .darkModalContainer {
-  background-color: #282a37;
+  background-color: var(--primarydarkblue);
 }
 
 .lightModalContainer {
-  background-color: #d9d9d9;
+  background-color: white;
 }
 
 .modalContainer h1 {
@@ -52,16 +52,16 @@
   margin: 0.5rem 0rem;
   width: 100%;
   border-radius: 16px;
-  border: 2px solid #2387e1;
+  border: 2px solid var(--blue);
 }
 
 .lightInputBox {
-    background-color: #FFFFFF;
-    color: #017000;
+    background-color: white;
+    color: var(--secondarygreen);
 }
 
 .darkInputBox {
-background-color: #424656;
+background-color: var(--darkgrey);
 color: white;
 
 }
@@ -79,23 +79,21 @@ color: white;
 }
 
 .lightCancelButton {
-  background-color: #BE0F39;
+  background-color: var(--red);
   color: white;
   padding: 7px 25px !important;
   border-radius: 5px !important;
-  /* border: 1px solid #2387E1; */
 }
 
 .darkCancelButton {
-  background-color: #BE0F39;
+  background-color: var(--red);
   color: white;
   padding: 7px 25px !important;
   border-radius: 5px !important;
-  /* border: 1px solid #2387E1; */
 }
 
 .submitButton {
-  background-color: #1d90f5;
+  background-color: var(--blue);
   color: white;
   padding: 7px 25px !important;
   border-radius: 5px !important;

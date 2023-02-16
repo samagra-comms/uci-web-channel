@@ -18,8 +18,6 @@ const ChatSection: React.FC<chatSectionProps> = ({
   toRemoveUser,
   allUsers,
 }) => {
-  // const bg = useColorModeValue("#06d755", "#202C33");
-  const bg = useColorModeValue("#9A5C9C", "#202C33");
 
   const changingUser = (name: string) => {
     toChangeCurrentUser(name);
@@ -29,7 +27,7 @@ const ChatSection: React.FC<chatSectionProps> = ({
       {/* Settings Heading */}
       <Box
         flex="1"
-        bgColor={bg}
+        // bgColor={bg}
         mb="1rem"
         width="100%"
         display="flex"

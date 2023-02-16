@@ -52,9 +52,8 @@ const Message: React.FC<messageProps> = ({
   doc: any;
 }) => {
   // Theme toggle Settings
-  // const box_color = useColorModeValue("#06d755", "#202C33");
-  const recievedMessageColor = useColorModeValue("#fff", "#424656");
-  const text_color = useColorModeValue("#000", "#fff");
+  const recievedMessageColor = useColorModeValue("white", "var(--darkgrey)");
+  const text_color = useColorModeValue("black", "white");
   const messageBodyToggle = useColorModeValue(
     styles.lightModeMessage,
     styles.darkModeMessage
@@ -77,7 +76,7 @@ const Message: React.FC<messageProps> = ({
     <Flex>
       {self === true && (
         <>
-          <div className='loader' style={{marginLeft: '3vw', alignItems: 'flex-end'}}><Loading color='white' size="xl" type="points"/></div>
+          <div className='loader hidden' style={{marginLeft: '3vw', alignItems: 'flex-end'}}><Loading color='white' size="xl" type="points"/></div>
           <Spacer />
           <Box
             className={`${styles.myMessage} ${
@@ -144,7 +143,7 @@ const Message: React.FC<messageProps> = ({
             <Box
               bgColor={
                 text === "Invalid Input!!! Please try again."
-                  ? "#FF5C5C"
+                  ? "var(--red)"
                   : recievedMessageColor
               }
               borderColor="white"

@@ -28,16 +28,16 @@
 }
 
 .lightModeMessage {
-  background-color: #016F02;
+  background-color: var(--secondarygreen);
 }
 
 .darkModeMessage {
-  background-color: #1d90f5;
+  background-color: var(--blue);
 }
 
 .errorMessage {
   border-radius: 20px 20px 20px 0;
-  background-color: #be0f39;
+  background-color: var(--red);
   color: white;
   margin-left: 1.5rem;
   max-width: 50vw;
@@ -65,11 +65,11 @@
 }
 
 .lightMessage {
-  background-color: #fff;
+  background-color: white;
 }
 
 .darkMessage {
-  background-color: #fff;
+  background-color: white;
 }
 
 .chatChoices_container {
@@ -96,9 +96,9 @@
 }
 
 .lightModeMessage{
-  background-color: #016F02;
+  background-color: var(--secondarygreen);
 }
 
 .darkModeMessage{
-  background-color: #1d90f5;
+  background-color: var(--blue);
 }

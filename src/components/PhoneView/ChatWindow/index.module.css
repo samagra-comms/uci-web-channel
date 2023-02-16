@@ -4,7 +4,7 @@
     height: 100vh;
     width: 92vw;
     right: 0;
-    box-shadow: 1px 8px 11px -2px #000;
+    box-shadow: 1px 8px 11px -2px black;
   }
   
   .top_section {
@@ -63,20 +63,18 @@
   }
   
   .lightUsername {
-    color: #017000;
+    color: var(--secondarygreen);
   }
   
   .darkUsername {
-    color: #fff;
+    color: white;
   }
   
   .chatWindow {
     height: 100vh;
     width: 100%;
-    /* position: fixed; */
     margin: auto;
     margin-top: 10vh;
-    /* top: 10vh; */
     display: flex;
     justify-content: center;
     align-items: flex-start;
@@ -103,7 +101,6 @@
     flex-direction: column;
     justify-content: flex-start;
     background-image: url("https://wallpaperaccess.com/full/51364.jpg");
-    /* background-color: crimson; */
   }
   
   .wallpaper2 {
@@ -119,20 +116,20 @@
   }
   
   .lightBackBox {
-    background-color: #eeeeee;
+    background-color: white;
     background-image: url("../../../assets/images/homeScreen.png");
 
   }
   
   .darkBackBox {
-    background-color: #242631;
+    background-color: var(--tertiarydarkblue);
   }
   
   .lightContainer {
-    background-color: #b7e89f;
+    background-color: var(--primarygreen);
   }
   
   .darkContainer {
-    background-color: #282a37;
+    background-color: var(--primarydarkblue);
   }
   
