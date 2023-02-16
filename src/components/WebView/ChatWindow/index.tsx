@@ -40,7 +40,7 @@ const ChatWindow: React.FC<chatWindowProps> = ({
   currentUser,
   onSendLocation,
 }) => {
-  const textColor = useColorModeValue("#202C33", "white");
+  const textColor = useColorModeValue("black", "white");
   const backgroundColorToggle = useColorModeValue(
     styles.lightContainer,
     styles.darkContainer
