@@ -14,6 +14,7 @@ import { Loading } from '@nextui-org/react';
 interface messageProps {
   text: any;
   username: string;
+  time: string;
   self: boolean;
   choices: { key: string; text: string; backmenu: boolean }[];
   data: any;
@@ -28,6 +29,7 @@ interface messageProps {
 const Message: React.FC<messageProps> = ({
   text,
   username,
+  time,
   self,
   choices,
   data,
@@ -40,6 +42,7 @@ const Message: React.FC<messageProps> = ({
 }: {
   text: any;
   username: string;
+  time: string;
   self: boolean;
   choices: { key: string; text: string; backmenu: boolean }[];
   data: (option: { key: string; text: string; backmenu: boolean }) => void;
@@ -58,22 +61,19 @@ const Message: React.FC<messageProps> = ({
     styles.darkModeMessage
   );
   // ------------
-  // var [time, setTime] = useState<string[]>([]);
+  var [times, setTimes] = useState<string[]>([]);
 
   useEffect(() => {
     console.log('Self:', self);
     let div = document.getElementsByClassName('loader');
-
-    // console.log('Divs:', div)
+    // code for timestamps
+    // times.push(time);
+    // let divs = document.getElementsByClassName('timestamp');
+    // divs[divs.length-1].innerHTML = times[0];
+    // for(let i = 0; i<times.length; i++){
+    //   document.getElementsByClassName('timestamp')[i].innerHTML = times[i];
+    // }
     if (self) {
-      // let today = new Date();
-      // let currentTime = (today.getHours()%12 || 12) + ":" + ((today.getMinutes()<10?'0':'') + today.getMinutes());
-      // time.push(currentTime);
-      // for(let i = 0; i<time.length; i++){
-      //   document.getElementsByClassName('timestamp')[i].innerHTML = time[i];
-      // }
-      // console.log('time', time)
-      // console.log('current time', currentTime)
       div[div.length - 1]?.classList.remove('hidden');
       div[div.length - 1]?.classList.add('flex');
     } else {
@@ -97,7 +97,8 @@ const Message: React.FC<messageProps> = ({
           <Box
             borderColor='white'
             color='white'
-            className={`${styles.myMessage} ${styles.message} ${messageBodyToggle}`}>
+            className={`${styles.myMessage} ${styles.message} ${messageBodyToggle}`}
+          >
             {/* <Box className={styles.message_username}>
               <Text fontSize="md" fontWeight="bold">
                 {username}
@@ -236,6 +237,7 @@ const Message: React.FC<messageProps> = ({
                       {today.toLocaleString('en-US', { hour: 'numeric',minute: 'numeric', hour12: true })}
                   </div>
                 </Box> */}
+            {/* <div className='timestamp' style={{fontSize: '10px', display: 'flex', justifyContent: 'flex-end'}}></div> */}
             </Box>
             {choices && choices.length > 0 && (
               <Box className={styles.chatChoices_container}>
@@ -306,6 +308,7 @@ const MessageWindow: React.FC<messageWindowProps> = (props) => {
               key={i}
               text={msg.text}
               username={msg.username}
+              time={((new Date()).getHours()%12 || 12) + ":" + (((new Date()).getMinutes()<10?'0':'') + (new Date()).getMinutes())}
               self={username === msg.username}
               choices={msg.choices}
               data={props.selected}

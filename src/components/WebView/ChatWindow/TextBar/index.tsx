@@ -34,6 +34,7 @@ import {
   faPaperclip,
   faFile,
 } from "@fortawesome/free-solid-svg-icons";
+import {IoMdSend} from 'react-icons/io';
 import {
   Input,
   useColorModeValue,
@@ -226,7 +227,7 @@ const TextBar: React.FC<textBarProps> = (props) => {
           <input
             type="text"
             className={`${styles.input_box} ${inputColorToggle}`}
-            placeholder="Type your message"
+            placeholder="Ask your question"
             ref={input}
             onKeyDown={sendMessageIfEnter}
           />
@@ -236,7 +237,8 @@ const TextBar: React.FC<textBarProps> = (props) => {
             ref={send_btn}
             type="submit"
           >
-            <FontAwesomeIcon icon={faPaperPlane} />
+            {/* <FontAwesomeIcon icon={faPaperPlane} />*/}
+             <div style={{fontSize: '22px'}}><IoMdSend/></div>
           </button>
           {/* <Button
             bgColor={bg}

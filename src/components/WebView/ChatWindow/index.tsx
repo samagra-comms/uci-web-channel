@@ -102,7 +102,7 @@ const ChatWindow: React.FC<chatWindowProps> = ({
             icon={<FontAwesomeIcon icon={faShower} />}
             aria-label={`Clear Chat`}
           /> */}
-          <ColorModeSwitcher />
+          {/* <ColorModeSwitcher /> */}
         </Box>
       </Box>
 
