@@ -65,7 +65,7 @@ The websocket connection URL for the plaground can be used for testing - `wss://
 
 ### 5. Run it :checkered_flag:
 
-Run `yarn start`
+Run `yarn run dev`
 
 ## Designs
 Below are the designs of how output screens will look like. For more detailed view you can checkout the [Figma](https://www.figma.com/file/d8JiwkYJqGYXQaflCyNVzl/UCI-web-channel?node-id=0%3A1) file.
