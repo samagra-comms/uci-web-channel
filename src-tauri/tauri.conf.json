@@ -3,7 +3,7 @@
     "beforeBuildCommand": "yarn build",
     "beforeDevCommand": "yarn run dev",
     "devPath": "http://localhost:3000",
-    "distDir": "../out"
+    "distDir": "../.next"
   },
   "package": {
     "productName": "uci-web-channel",
