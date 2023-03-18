@@ -40,8 +40,8 @@ jobs:
       - name: Install app dependencies and build web
         # Remove `&& yarn build` if you build your frontend in `beforeBuildCommand`
         run: |
-        yarn install
-        yarn build
+          yarn install
+          yarn build
       - name: Build the app
         uses: tauri-apps/tauri-action@v0
 
