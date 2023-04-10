@@ -141,7 +141,7 @@ const App: React.FC<appProps> = ({
     }
 
 
-// const usersList = JSON.parse(localStorage.getItem("AllUsers") || "");
+    // const usersList = JSON.parse(localStorage.getItem("AllUsers") || "");
     // const newAllMessages = usersList.map(
     //   (obj: { name: string; number: string | null; active: boolean }) => {
     //     return { user: obj.name, phoneNumber: obj.number, messages: [] };
@@ -165,7 +165,7 @@ const App: React.FC<appProps> = ({
       }
     } catch (err) {
       console.log(err);
-    }    
+    }
   }, []);
 
   useEffect(() => {
@@ -178,12 +178,12 @@ const App: React.FC<appProps> = ({
 console.log("unmount")
     }
   },[])
-  
-  useEffect(() => {    
-    if (socket !== undefined) {    
-        startWebsocketConnection(socket);     
+
+  useEffect(() => {
+    if (socket !== undefined) {
+      startWebsocketConnection(socket);
     }
-  }, [socket]);  
+  }, [socket]);
 
   useEffect(() => {
     if (router.query.state || cookies["access_token"] !== "") {
@@ -192,7 +192,7 @@ console.log("unmount")
       scrollToBottom();
     } else {
       router.push("/login");
-    }    
+    }
     return () => {
       console.log('unmounted')
     }
@@ -214,6 +214,20 @@ console.log("unmount")
         messages: state.messages.concat({
           username: currentUser.name,
           text: msg.content.title,
+          time:
+            (new Date().getHours() % 12 || 12) +
+            ":" +
+            (new Date().getMinutes() < 10 ? "0" : "") +
+            new Date().getMinutes() +
+            (new Date().getHours() > 12 ? " PM" : " AM"),
+          date:
+            (new Date().getDay() < 10 ? "0" : "") +
+            new Date().getDay() +
+            "/" +
+            (new Date().getMonth() < 10 ? "0" : "") +
+            new Date().getMonth() +
+            "/" +
+            new Date().getFullYear(),
           image: msg.content.media_url,
           choices: msg.content.choices,
           caption: msg.content.caption,
@@ -226,6 +240,20 @@ console.log("unmount")
         messages: state.messages.concat({
           username: currentUser.name,
           text: msg.content.title,
+          time:
+            (new Date().getHours() % 12 || 12) +
+            ":" +
+            (new Date().getMinutes() < 10 ? "0" : "") +
+            new Date().getMinutes() +
+            (new Date().getHours() > 12 ? " PM" : " AM"),
+          date:
+            (new Date().getDay() < 10 ? "0" : "") +
+            new Date().getDay() +
+            "/" +
+            (new Date().getMonth() < 10 ? "0" : "") +
+            new Date().getMonth() +
+            "/" +
+            new Date().getFullYear(),
           audio: msg.content.media_url,
           choices: msg.content.choices,
         }),
@@ -237,6 +265,20 @@ console.log("unmount")
         messages: state.messages.concat({
           username: currentUser.name,
           text: msg.content.title,
+          time:
+            (new Date().getHours() % 12 || 12) +
+            ":" +
+            (new Date().getMinutes() < 10 ? "0" : "") +
+            new Date().getMinutes() +
+            (new Date().getHours() > 12 ? " PM" : " AM"),
+          date:
+            (new Date().getDay() < 10 ? "0" : "") +
+            new Date().getDay() +
+            "/" +
+            (new Date().getMonth() < 10 ? "0" : "") +
+            new Date().getMonth() +
+            "/" +
+            new Date().getFullYear(),
           video: msg.content.media_url,
           choices: msg.content.choices,
         }),
@@ -248,6 +290,20 @@ console.log("unmount")
         messages: state.messages.concat({
           username: currentUser.name,
           text: msg.content.title,
+          time:
+            (new Date().getHours() % 12 || 12) +
+            ":" +
+            (new Date().getMinutes() < 10 ? "0" : "") +
+            new Date().getMinutes() +
+            (new Date().getHours() > 12 ? " PM" : " AM"),
+          date:
+            (new Date().getDay() < 10 ? "0" : "") +
+            new Date().getDay() +
+            "/" +
+            (new Date().getMonth() < 10 ? "0" : "") +
+            new Date().getMonth() +
+            "/" +
+            new Date().getFullYear(),
           doc: msg.content.media_url,
           choices: msg.content.choices,
         }),
@@ -259,6 +315,20 @@ console.log("unmount")
         messages: state.messages.concat({
           username: currentUser.name,
           text: msg.content.title,
+          time:
+            (new Date().getHours() % 12 || 12) +
+            ":" +
+            (new Date().getMinutes() < 10 ? "0" : "") +
+            new Date().getMinutes() +
+            (new Date().getHours() > 12 ? " PM" : " AM"),
+          date:
+            (new Date().getDay() < 10 ? "0" : "") +
+            new Date().getDay() +
+            "/" +
+            (new Date().getMonth() < 10 ? "0" : "") +
+            new Date().getMonth() +
+            "/" +
+            new Date().getFullYear(),
           choices: msg.content.choices,
         }),
       });
@@ -269,6 +339,20 @@ console.log("unmount")
       {
         username: currentUser.name,
         text: msg.content.title,
+        time:
+          (new Date().getHours() % 12 || 12) +
+          ":" +
+          (new Date().getMinutes() < 10 ? "0" : "") +
+          new Date().getMinutes() +
+          (new Date().getHours() > 12 ? " PM" : " AM"),
+        date:
+          (new Date().getDay() < 10 ? "0" : "") +
+          new Date().getDay() +
+          "/" +
+          (new Date().getMonth() < 10 ? "0" : "") +
+          new Date().getMonth() +
+          "/" +
+          new Date().getFullYear(),
         choices: msg.content.choices,
       },
     ];
@@ -379,19 +463,19 @@ console.log("unmount")
 
     const oldAllMessages = [...state.allMessages];
 
-      const newAllMessages = oldAllMessages.filter((object) => {
-        return (
-          object.user !== currentUserMessageObject.user &&
-          object.phoneNumber !== currentUserMessageObject.phoneNumber
-        );
-      });
+    const newAllMessages = oldAllMessages.filter((object) => {
+      return (
+        object.user !== currentUserMessageObject.user &&
+        object.phoneNumber !== currentUserMessageObject.phoneNumber
+      );
+    });
 
 
-      newAllMessages.push(newCurrentMessageObj);
-      localStorage.setItem("allMessages", JSON.stringify(newAllMessages));
-      setCurrentUserMessageObject(newCurrentMessageObj);
-      setState({
-        ...state,
+    newAllMessages.push(newCurrentMessageObj);
+    localStorage.setItem("allMessages", JSON.stringify(newAllMessages));
+    setCurrentUserMessageObject(newCurrentMessageObj);
+    setState({
+      ...state,
         allMessages: newAllMessages
       })
   }
@@ -403,7 +487,7 @@ console.log("unmount")
     });
   };
 
- const sendMessage = (text: string, media: any): void => {
+  const sendMessage = (text: string, media: any): void => {
     if (!accessToken) {
       router.push("/login");
     } else {
@@ -414,7 +498,21 @@ console.log("unmount")
             ...state,
             messages: state.messages.concat({
               username: state.username,
-              image: media.url
+              image: media.url,
+              time:
+                (new Date().getHours() % 12 || 12) +
+                ":" +
+                (new Date().getMinutes() < 10 ? "0" : "") +
+                new Date().getMinutes() +
+                (new Date().getHours() > 12 ? " PM" : " AM"),
+              date:
+                (new Date().getDay() < 10 ? "0" : "") +
+                new Date().getDay() +
+                "/" +
+                (new Date().getMonth() < 10 ? "0" : "") +
+                new Date().getMonth() +
+                "/" +
+                new Date().getFullYear(),
             }),
           });
         }
@@ -423,7 +521,21 @@ console.log("unmount")
             ...state,
             messages: state.messages.concat({
               username: state.username,
-              audio: media.url
+              audio: media.url,
+              time:
+                (new Date().getHours() % 12 || 12) +
+                ":" +
+                (new Date().getMinutes() < 10 ? "0" : "") +
+                new Date().getMinutes() +
+                (new Date().getHours() > 12 ? " PM" : " AM"),
+              date:
+                (new Date().getDay() < 10 ? "0" : "") +
+                new Date().getDay() +
+                "/" +
+                (new Date().getMonth() < 10 ? "0" : "") +
+                new Date().getMonth() +
+                "/" +
+                new Date().getFullYear(),
             }),
           });
         }
@@ -433,6 +545,20 @@ console.log("unmount")
             messages: state.messages.concat({
               username: state.username,
               video: media.url,
+              time:
+                (new Date().getHours() % 12 || 12) +
+                ":" +
+                (new Date().getMinutes() < 10 ? "0" : "") +
+                new Date().getMinutes() +
+                (new Date().getHours() > 12 ? " PM" : " AM"),
+              date:
+                (new Date().getDay() < 10 ? "0" : "") +
+                new Date().getDay() +
+                "/" +
+                (new Date().getMonth() < 10 ? "0" : "") +
+                new Date().getMonth() +
+                "/" +
+                new Date().getFullYear(),
             }),
           });
         }
@@ -442,6 +568,20 @@ console.log("unmount")
             messages: state.messages.concat({
               username: state.username,
               doc: media.url,
+              time:
+                (new Date().getHours() % 12 || 12) +
+                ":" +
+                (new Date().getMinutes() < 10 ? "0" : "") +
+                new Date().getMinutes() +
+                (new Date().getHours() > 12 ? " PM" : " AM"),
+              date:
+                (new Date().getDay() < 10 ? "0" : "") +
+                new Date().getDay() +
+                "/" +
+                (new Date().getMonth() < 10 ? "0" : "") +
+                new Date().getMonth() +
+                "/" +
+                new Date().getFullYear(),
             }),
           });
         }else{
@@ -450,7 +590,21 @@ console.log("unmount")
             messages: state.messages.concat({
               username: state.username,
               text: text,
-              doc: media.url
+              doc: media.url,
+              time:
+                (new Date().getHours() % 12 || 12) +
+                ":" +
+                (new Date().getMinutes() < 10 ? "0" : "") +
+                new Date().getMinutes() +
+                (new Date().getHours() > 12 ? " PM" : " AM"),
+              date:
+                (new Date().getDay() < 10 ? "0" : "") +
+                new Date().getDay() +
+                "/" +
+                (new Date().getMonth() < 10 ? "0" : "") +
+                new Date().getMonth() +
+                "/" +
+                new Date().getFullYear(),
             }),
           });
         }
@@ -461,17 +615,31 @@ console.log("unmount")
           {
             username: state.username,
             text: text,
+            time:
+              (new Date().getHours() % 12 || 12) +
+              ":" +
+              (new Date().getMinutes() < 10 ? "0" : "") +
+              new Date().getMinutes() +
+              (new Date().getHours() > 12 ? " PM" : " AM"),
+            date:
+              (new Date().getDay() < 10 ? "0" : "") +
+              new Date().getDay() +
+              "/" +
+              (new Date().getMonth() < 10 ? "0" : "") +
+              new Date().getMonth() +
+              "/" +
+              new Date().getFullYear(),
           },
         ];
-  
+
         const newCurrentMessageObj = {
           user: currentUserMessageObject.user,
           phoneNumber: currentUserMessageObject.phoneNumber,
           messages: newMessage,
         };
-  
+
         const oldAllMessages = [...state.allMessages];
-  
+
         const newAllMessages = oldAllMessages.filter((object) => {
           return (
             object.user !== currentUserMessageObject.user &&
@@ -481,10 +649,10 @@ console.log("unmount")
 
         newAllMessages.push(newCurrentMessageObj);
         localStorage.setItem("allMessages", JSON.stringify(newAllMessages));
-  
+
         // setrecieved(false);
         send(text, state.session, accessToken, currentUser, socket , null);
-  
+
         console.log("this is")
         console.log(newCurrentMessageObj)
         setCurrentUserMessageObject(newCurrentMessageObj);
@@ -544,8 +712,8 @@ console.log("unmount")
   if (sizeVar.width < 768) {
     return (
       <PhoneView
-      currentMessageObj={currentUserMessageObject}
-      toClearChat={onClearingChat}
+        currentMessageObj={currentUserMessageObject}
+        toClearChat={onClearingChat}
         messages={state.messages}
         // recieved={recieved}
         username={state.username}
@@ -556,19 +724,19 @@ console.log("unmount")
         currentUser={currentUser}
         addingNewUser={onAddingUser}
         toRemoveUser={toRemoveUser}
-        onSendLocation={sendLocation} 
+        onSendLocation={sendLocation}
         toShowChats={{
           name: "",
           number: null
         }}        />
-        );
-      } else {
-        return (
-          <WebView
-          currentMessageObj={currentUserMessageObject}
-          toClearChat={onClearingChat}
-          messages={state.messages}
-          // recieved={recieved}
+    );
+  } else {
+    return (
+      <WebView
+        currentMessageObj={currentUserMessageObject}
+        toClearChat={onClearingChat}
+        messages={state.messages}
+        // recieved={recieved}
         username={state.username}
         selected={selected}
         sendMessageFunc={sendMessage}
