@@ -650,15 +650,15 @@ console.log("unmount")
         localStorage.setItem("allMessages", JSON.stringify(newAllMessages));
   
         // setrecieved(false);
-        send(text, state.session, accessToken, currentUser, socket, null);
-
-        console.log("this is");
-        console.log(newCurrentMessageObj);
+        send(text, state.session, accessToken, currentUser, socket , null);
+  
+        console.log("this is")
+        console.log(newCurrentMessageObj)
         setCurrentUserMessageObject(newCurrentMessageObj);
         setState({
           ...state,
-          allMessages: newAllMessages,
-        });
+          allMessages: newAllMessages
+        })
         // setState({
         //   ...state,
         //   messages: state.messages.concat({
@@ -672,7 +672,7 @@ console.log("unmount")
   };
 
   const sendLocation = (location: any): void => {
-    send(location, state.session, accessToken, currentUser, socket, null);
+    send(location,state.session, accessToken, currentUser, socket,null);
     // navigator.geolocation.getCurrentPosition((position: any) => {
     //   setState({
     //     ...state,
@@ -695,6 +695,7 @@ console.log("unmount")
         <TextBar onSend={setUserName} onSendLocation={sendLocation} />
       </div>
     );
+
   }
 
   const selected = (option: {
@@ -703,7 +704,7 @@ console.log("unmount")
     backmenu: boolean;
   }): void => {
     const toSend = option.key + " " + option.text;
-    sendMessage(toSend, null);
+    sendMessage(toSend,null);
   };
 
   const sizeVar = useWindowSize();
