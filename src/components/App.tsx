@@ -414,7 +414,7 @@ console.log("unmount")
   };
 
   const onChangingCurrentUser = (name: string, phoneNumber: string | null) => {
-  
+
     if (name === currentUser.name && phoneNumber === currentUser.number) {
       return;
     }
@@ -454,7 +454,7 @@ console.log("unmount")
   };
 
   const onClearingChat = () => {
-  
+
     const newCurrentMessageObj = {
       user: currentUserMessageObject.user,
       phoneNumber: currentUserMessageObject.phoneNumber,
@@ -471,15 +471,14 @@ console.log("unmount")
       });
 
 
-
-    newAllMessages.push(newCurrentMessageObj);
-    localStorage.setItem("allMessages", JSON.stringify(newAllMessages));
-    setCurrentUserMessageObject(newCurrentMessageObj);
-    setState({
-      ...state,
-      allMessages: newAllMessages,
-    });
-  };
+      newAllMessages.push(newCurrentMessageObj);
+      localStorage.setItem("allMessages", JSON.stringify(newAllMessages));
+      setCurrentUserMessageObject(newCurrentMessageObj);
+      setState({
+        ...state,
+        allMessages: newAllMessages
+      })
+  }
 
   const setUserName = (name: string): void => {
     setState({
@@ -493,8 +492,8 @@ console.log("unmount")
       router.push("/login");
     } else {
       // send(text, state.session, accessToken, currentUser, socket,null);
-      if (media) {
-        if (media.mimeType.slice(0, 5) === "image") {
+      if(media){  
+        if (media.mimeType.slice(0,5) === "image"){
           setState({
             ...state,
             messages: state.messages.concat({
