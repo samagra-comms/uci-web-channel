@@ -516,7 +516,8 @@ console.log("unmount")
             }),
           });
         }
-        else if (media.mimeType.slice(0,5) === "audio"){          setState({
+        else if (media.mimeType.slice(0,5) === "audio"){
+          setState({
             ...state,
             messages: state.messages.concat({
               username: state.username,
@@ -539,7 +540,7 @@ console.log("unmount")
           });
         }
         else if (media.mimeType.slice(0,5) === "video"){
-         setState({
+          setState({
             ...state,
             messages: state.messages.concat({
               username: state.username,
@@ -685,7 +686,8 @@ console.log("unmount")
     //     }),
     //   });
     // })
-  };
+
+  }
 
   if (state.username === null) {
     console.log("Please set a username first");
@@ -735,7 +737,8 @@ console.log("unmount")
           currentMessageObj={currentUserMessageObject}
           toClearChat={onClearingChat}
           messages={state.messages}
-          // recieved={recieved}        username={state.username}
+          // recieved={recieved}
+        username={state.username}
         selected={selected}
         sendMessageFunc={sendMessage}
         allUsers={allUsers}
