@@ -515,8 +515,8 @@ console.log("unmount")
                 new Date().getFullYear(),
             }),
           });
-        } else if (media.mimeType.slice(0, 5) === "audio") {
-          setState({
+        }
+        else if (media.mimeType.slice(0,5) === "audio"){          setState({
             ...state,
             messages: state.messages.concat({
               username: state.username,
@@ -537,8 +537,9 @@ console.log("unmount")
                 new Date().getFullYear(),
             }),
           });
-        } else if (media.mimeType.slice(0, 5) === "video") {
-          setState({
+        }
+        else if (media.mimeType.slice(0,5) === "video"){
+         setState({
             ...state,
             messages: state.messages.concat({
               username: state.username,
@@ -559,7 +560,8 @@ console.log("unmount")
                 new Date().getFullYear(),
             }),
           });
-        } else if (media.mimeType.slice(0, 11) === "application") {
+        }
+        else if (media.mimeType.slice(0,11) === "application"){
           setState({
             ...state,
             messages: state.messages.concat({
@@ -581,7 +583,7 @@ console.log("unmount")
                 new Date().getFullYear(),
             }),
           });
-        } else {
+        }else{
           setState({
             ...state,
             messages: state.messages.concat({
@@ -605,7 +607,8 @@ console.log("unmount")
             }),
           });
         }
-      } else {
+      }
+      else{
         const newMessage = [
           ...currentUserMessageObject.messages,
           {
