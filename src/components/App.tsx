@@ -233,7 +233,7 @@ console.log("unmount")
           caption: msg.content.caption,
         }),
       });
-    } 
+    }
     else if (msg.content.msg_type === "AUDIO") {
       setState({
         ...state,
@@ -258,7 +258,7 @@ console.log("unmount")
           choices: msg.content.choices,
         }),
       });
-    } 
+    }
     else if (msg.content.msg_type === "VIDEO") {
       setState({
         ...state,
@@ -283,7 +283,7 @@ console.log("unmount")
           choices: msg.content.choices,
         }),
       });
-    } 
+    }
     else if (msg.content.msg_type === "DOCUMENT") {
       setState({
         ...state,
@@ -308,7 +308,7 @@ console.log("unmount")
           choices: msg.content.choices,
         }),
       });
-    } 
+    }
     else if (msg.content.msg_type === "TEXT") {
       setState({
         ...state,
