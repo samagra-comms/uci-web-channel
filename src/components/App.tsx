@@ -28,8 +28,6 @@ import PhoneView from "./PhoneView/index";
 import WebView from "./WebView";
 import RecentChats from "./PhoneView/RecentChats";
 
-
-
 interface appProps {
   currentUser: { name: string; number: string | null };
   allUsers: { name: string; number: string | null; active: boolean }[];
@@ -140,7 +138,6 @@ const App: React.FC<appProps> = ({
       router.push("/login");
     }
 
-
     // const usersList = JSON.parse(localStorage.getItem("AllUsers") || "");
     // const newAllMessages = usersList.map(
     //   (obj: { name: string; number: string | null; active: boolean }) => {
@@ -175,9 +172,9 @@ const App: React.FC<appProps> = ({
       })
     );
     return () => {
-console.log("unmount")
-    }
-  },[])
+      console.log("unmount");
+    };
+  }, []);
 
   useEffect(() => {
     if (socket !== undefined) {
@@ -194,10 +191,9 @@ console.log("unmount")
       router.push("/login");
     }
     return () => {
-      console.log('unmounted')
-    }
-  }, [state])
-
+      console.log("unmounted");
+    };
+  }, [state]);
 
   const onSessionCreated = (session: { session: any }): void => {
     setState({
@@ -208,7 +204,7 @@ console.log("unmount")
 
   const onMessageReceived = (msg: any): void => {
     // console.log('message: ', msg.content.msg_type);
-    if (msg.content.msg_type === "IMAGE"){
+    if (msg.content.msg_type === "IMAGE") {
       setState({
         ...state,
         messages: state.messages.concat({
@@ -221,11 +217,11 @@ console.log("unmount")
             new Date().getMinutes() +
             (new Date().getHours() > 12 ? " PM" : " AM"),
           date:
-            (new Date().getDay() < 10 ? "0" : "") +
-            new Date().getDay() +
+            (new Date().getDate() < 10 ? "0" : "") +
+            new Date().getDate() +
             "/" +
-            (new Date().getMonth() < 10 ? "0" : "") +
-            new Date().getMonth() +
+            (new Date().getMonth() + 1 < 10 ? "0" : "") +
+            (new Date().getMonth() + 1) +
             "/" +
             new Date().getFullYear(),
           image: msg.content.media_url,
@@ -233,8 +229,7 @@ console.log("unmount")
           caption: msg.content.caption,
         }),
       });
-    }
-    else if (msg.content.msg_type === "AUDIO"){
+    } else if (msg.content.msg_type === "AUDIO") {
       setState({
         ...state,
         messages: state.messages.concat({
@@ -247,19 +242,18 @@ console.log("unmount")
             new Date().getMinutes() +
             (new Date().getHours() > 12 ? " PM" : " AM"),
           date:
-            (new Date().getDay() < 10 ? "0" : "") +
-            new Date().getDay() +
+            (new Date().getDate() < 10 ? "0" : "") +
+            new Date().getDate() +
             "/" +
-            (new Date().getMonth() < 10 ? "0" : "") +
-            new Date().getMonth() +
+            (new Date().getMonth() + 1 < 10 ? "0" : "") +
+            (new Date().getMonth() + 1) +
             "/" +
             new Date().getFullYear(),
           audio: msg.content.media_url,
           choices: msg.content.choices,
         }),
       });
-    }
-    else if (msg.content.msg_type === "VIDEO"){
+    } else if (msg.content.msg_type === "VIDEO") {
       setState({
         ...state,
         messages: state.messages.concat({
@@ -272,19 +266,18 @@ console.log("unmount")
             new Date().getMinutes() +
             (new Date().getHours() > 12 ? " PM" : " AM"),
           date:
-            (new Date().getDay() < 10 ? "0" : "") +
-            new Date().getDay() +
+            (new Date().getDate() < 10 ? "0" : "") +
+            new Date().getDate() +
             "/" +
-            (new Date().getMonth() < 10 ? "0" : "") +
-            new Date().getMonth() +
+            (new Date().getMonth() + 1 < 10 ? "0" : "") +
+            (new Date().getMonth() + 1) +
             "/" +
             new Date().getFullYear(),
           video: msg.content.media_url,
           choices: msg.content.choices,
         }),
       });
-    }
-    else if (msg.content.msg_type === "DOCUMENT"){
+    } else if (msg.content.msg_type === "DOCUMENT") {
       setState({
         ...state,
         messages: state.messages.concat({
@@ -297,19 +290,18 @@ console.log("unmount")
             new Date().getMinutes() +
             (new Date().getHours() > 12 ? " PM" : " AM"),
           date:
-            (new Date().getDay() < 10 ? "0" : "") +
-            new Date().getDay() +
+            (new Date().getDate() < 10 ? "0" : "") +
+            new Date().getDate() +
             "/" +
-            (new Date().getMonth() < 10 ? "0" : "") +
-            new Date().getMonth() +
+            (new Date().getMonth() + 1 < 10 ? "0" : "") +
+            (new Date().getMonth() + 1) +
             "/" +
             new Date().getFullYear(),
           doc: msg.content.media_url,
           choices: msg.content.choices,
         }),
       });
-    }
-    else if (msg.content.msg_type === "TEXT"){
+    } else if (msg.content.msg_type === "TEXT") {
       setState({
         ...state,
         messages: state.messages.concat({
@@ -322,11 +314,11 @@ console.log("unmount")
             new Date().getMinutes() +
             (new Date().getHours() > 12 ? " PM" : " AM"),
           date:
-            (new Date().getDay() < 10 ? "0" : "") +
-            new Date().getDay() +
+            (new Date().getDate() < 10 ? "0" : "") +
+            new Date().getDate() +
             "/" +
-            (new Date().getMonth() < 10 ? "0" : "") +
-            new Date().getMonth() +
+            (new Date().getMonth() + 1 < 10 ? "0" : "") +
+            (new Date().getMonth() + 1) +
             "/" +
             new Date().getFullYear(),
           choices: msg.content.choices,
@@ -346,11 +338,11 @@ console.log("unmount")
           new Date().getMinutes() +
           (new Date().getHours() > 12 ? " PM" : " AM"),
         date:
-          (new Date().getDay() < 10 ? "0" : "") +
-          new Date().getDay() +
+          (new Date().getDate() < 10 ? "0" : "") +
+          new Date().getDate() +
           "/" +
-          (new Date().getMonth() < 10 ? "0" : "") +
-          new Date().getMonth() +
+          (new Date().getMonth() + 1 < 10 ? "0" : "") +
+          (new Date().getMonth() + 1) +
           "/" +
           new Date().getFullYear(),
         choices: msg.content.choices,
@@ -376,8 +368,8 @@ console.log("unmount")
     setCurrentUserMessageObject(newCurrentMessageObj);
     setState({
       ...state,
-      allMessages: newAllMessages
-    })
+      allMessages: newAllMessages,
+    });
 
     // if (msg.from.split(":")[1] === currentUser.number) {
     //   setState({
@@ -414,7 +406,6 @@ console.log("unmount")
   };
 
   const onChangingCurrentUser = (name: string, phoneNumber: string | null) => {
-
     if (name === currentUser.name && phoneNumber === currentUser.number) {
       return;
     }
@@ -454,7 +445,6 @@ console.log("unmount")
   };
 
   const onClearingChat = () => {
-
     const newCurrentMessageObj = {
       user: currentUserMessageObject.user,
       phoneNumber: currentUserMessageObject.phoneNumber,
@@ -470,15 +460,14 @@ console.log("unmount")
       );
     });
 
-
     newAllMessages.push(newCurrentMessageObj);
     localStorage.setItem("allMessages", JSON.stringify(newAllMessages));
     setCurrentUserMessageObject(newCurrentMessageObj);
     setState({
       ...state,
-        allMessages: newAllMessages
-      })
-  }
+      allMessages: newAllMessages,
+    });
+  };
 
   const setUserName = (name: string): void => {
     setState({
@@ -492,8 +481,8 @@ console.log("unmount")
       router.push("/login");
     } else {
       // send(text, state.session, accessToken, currentUser, socket,null);
-      if(media){  
-        if (media.mimeType.slice(0,5) === "image"){
+      if (media) {
+        if (media.mimeType.slice(0, 5) === "image") {
           setState({
             ...state,
             messages: state.messages.concat({
@@ -506,17 +495,16 @@ console.log("unmount")
                 new Date().getMinutes() +
                 (new Date().getHours() > 12 ? " PM" : " AM"),
               date:
-                (new Date().getDay() < 10 ? "0" : "") +
-                new Date().getDay() +
+                (new Date().getDate() < 10 ? "0" : "") +
+                new Date().getDate() +
                 "/" +
-                (new Date().getMonth() < 10 ? "0" : "") +
-                new Date().getMonth() +
+                (new Date().getMonth() + 1 < 10 ? "0" : "") +
+                (new Date().getMonth() + 1) +
                 "/" +
                 new Date().getFullYear(),
             }),
           });
-        }
-        else if (media.mimeType.slice(0,5) === "audio"){
+        } else if (media.mimeType.slice(0, 5) === "audio") {
           setState({
             ...state,
             messages: state.messages.concat({
@@ -529,17 +517,16 @@ console.log("unmount")
                 new Date().getMinutes() +
                 (new Date().getHours() > 12 ? " PM" : " AM"),
               date:
-                (new Date().getDay() < 10 ? "0" : "") +
-                new Date().getDay() +
+                (new Date().getDate() < 10 ? "0" : "") +
+                new Date().getDate() +
                 "/" +
-                (new Date().getMonth() < 10 ? "0" : "") +
-                new Date().getMonth() +
+                (new Date().getMonth() + 1 < 10 ? "0" : "") +
+                (new Date().getMonth() + 1) +
                 "/" +
                 new Date().getFullYear(),
             }),
           });
-        }
-        else if (media.mimeType.slice(0,5) === "video"){
+        } else if (media.mimeType.slice(0, 5) === "video") {
           setState({
             ...state,
             messages: state.messages.concat({
@@ -552,17 +539,16 @@ console.log("unmount")
                 new Date().getMinutes() +
                 (new Date().getHours() > 12 ? " PM" : " AM"),
               date:
-                (new Date().getDay() < 10 ? "0" : "") +
-                new Date().getDay() +
+                (new Date().getDate() < 10 ? "0" : "") +
+                new Date().getDate() +
                 "/" +
-                (new Date().getMonth() < 10 ? "0" : "") +
-                new Date().getMonth() +
+                (new Date().getMonth() + 1 < 10 ? "0" : "") +
+                (new Date().getMonth() + 1) +
                 "/" +
                 new Date().getFullYear(),
             }),
           });
-        }
-        else if (media.mimeType.slice(0,11) === "application"){
+        } else if (media.mimeType.slice(0, 11) === "application") {
           setState({
             ...state,
             messages: state.messages.concat({
@@ -575,16 +561,16 @@ console.log("unmount")
                 new Date().getMinutes() +
                 (new Date().getHours() > 12 ? " PM" : " AM"),
               date:
-                (new Date().getDay() < 10 ? "0" : "") +
-                new Date().getDay() +
+                (new Date().getDate() < 10 ? "0" : "") +
+                new Date().getDate() +
                 "/" +
-                (new Date().getMonth() < 10 ? "0" : "") +
-                new Date().getMonth() +
+                (new Date().getMonth() + 1 < 10 ? "0" : "") +
+                (new Date().getMonth() + 1) +
                 "/" +
                 new Date().getFullYear(),
             }),
           });
-        }else{
+        } else {
           setState({
             ...state,
             messages: state.messages.concat({
@@ -598,18 +584,17 @@ console.log("unmount")
                 new Date().getMinutes() +
                 (new Date().getHours() > 12 ? " PM" : " AM"),
               date:
-                (new Date().getDay() < 10 ? "0" : "") +
-                new Date().getDay() +
+                (new Date().getDate() < 10 ? "0" : "") +
+                new Date().getDate() +
                 "/" +
-                (new Date().getMonth() < 10 ? "0" : "") +
-                new Date().getMonth() +
+                (new Date().getMonth() + 1 < 10 ? "0" : "") +
+                (new Date().getMonth() + 1) +
                 "/" +
                 new Date().getFullYear(),
             }),
           });
         }
-      }
-      else{
+      } else {
         const newMessage = [
           ...currentUserMessageObject.messages,
           {
@@ -622,11 +607,11 @@ console.log("unmount")
               new Date().getMinutes() +
               (new Date().getHours() > 12 ? " PM" : " AM"),
             date:
-              (new Date().getDay() < 10 ? "0" : "") +
-              new Date().getDay() +
+              (new Date().getDate() < 10 ? "0" : "") +
+              new Date().getDate() +
               "/" +
-              (new Date().getMonth() < 10 ? "0" : "") +
-              new Date().getMonth() +
+              (new Date().getMonth() + 1 < 10 ? "0" : "") +
+              (new Date().getMonth() + 1) +
               "/" +
               new Date().getFullYear(),
           },
@@ -651,15 +636,15 @@ console.log("unmount")
         localStorage.setItem("allMessages", JSON.stringify(newAllMessages));
 
         // setrecieved(false);
-        send(text, state.session, accessToken, currentUser, socket , null);
+        send(text, state.session, accessToken, currentUser, socket, null);
 
-        console.log("this is")
-        console.log(newCurrentMessageObj)
+        console.log("this is");
+        console.log(newCurrentMessageObj);
         setCurrentUserMessageObject(newCurrentMessageObj);
         setState({
           ...state,
-          allMessages: newAllMessages
-        })
+          allMessages: newAllMessages,
+        });
         // setState({
         //   ...state,
         //   messages: state.messages.concat({
@@ -667,13 +652,12 @@ console.log("unmount")
         //     text: text,
         //   }),
         // });
-
       }
     }
   };
 
   const sendLocation = (location: any): void => {
-    send(location,state.session, accessToken, currentUser, socket,null);
+    send(location, state.session, accessToken, currentUser, socket, null);
     // navigator.geolocation.getCurrentPosition((position: any) => {
     //   setState({
     //     ...state,
@@ -686,8 +670,7 @@ console.log("unmount")
     //     }),
     //   });
     // })
-   
-  }
+  };
 
   if (state.username === null) {
     console.log("Please set a username first");
@@ -705,7 +688,7 @@ console.log("unmount")
     backmenu: boolean;
   }): void => {
     const toSend = option.key + " " + option.text;
-    sendMessage(toSend,null);
+    sendMessage(toSend, null);
   };
 
   const sizeVar = useWindowSize();
@@ -727,8 +710,9 @@ console.log("unmount")
         onSendLocation={sendLocation}
         toShowChats={{
           name: "",
-          number: null
-        }}        />
+          number: null,
+        }}
+      />
     );
   } else {
     return (
