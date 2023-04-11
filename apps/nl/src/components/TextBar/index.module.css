@@ -1,0 +1,80 @@
+.container {
+  width: 80vw;
+  position: fixed;
+  bottom: 3vh;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.input_box {
+  background-color: var(--darkgrey);
+  border-radius: 15px;
+  height: 6vh;
+  width: 55vw;
+  padding: 1rem;
+  margin: 0 0.5rem;
+}
+
+.input_box:focus{
+  outline: 2px solid var(--blue);
+}
+
+
+.sendMessage_form {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.submit_button {
+  min-width: 55px;
+  min-height: 45px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+  box-shadow: 4px 6px 4px 0px rgba(0, 0, 0, 0.25);
+  color: white;
+}
+
+.lightModeSubmitButton{
+  background-color: var(--secondarygreen);
+}
+
+.darkModeSubmitButton{
+  background-color: var(--blue);
+}
+
+.add_button {
+  min-width: 55px;
+  min-height: 45px;
+  border-radius: 50%;
+  width: 10vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+  box-shadow: 4px 6px 4px 0px rgba(0, 0, 0, 0.25);
+  border: 1px solid var(--grey);
+  background-color: var(--darkgrey);
+}
+
+
+/* Theme Toggle Classes */
+
+.lightInput {
+  background-color: white;
+  
+}
+
+.darkInput {
+  background-color: var(--darkgrey);
+}
+
+.lightAttach {
+  background-color: white;
+}
+
+.darkAttach {
+  background-color: var(--darkgrey);
+}

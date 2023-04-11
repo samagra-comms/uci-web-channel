@@ -1,0 +1,21 @@
+.button_container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--secondarygreen);
+    color: rgb(255, 255, 255);
+    font-size: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 4px 0 rgba(0, 0, 0, 0.25);
+}
+
+.activebutton_container {
+    display: flex;
+    justify-content: center;
+    align-items: center;    
+    background-color: var(--secondarygreen);
+    color: white;
+    font-size: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 4px 0 rgba(0, 0, 0, 0.25);
+}
