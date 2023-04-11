@@ -28,6 +28,8 @@ import PhoneView from "./PhoneView/index";
 import WebView from "./WebView";
 import RecentChats from "./PhoneView/RecentChats";
 
+
+
 interface appProps {
   currentUser: { name: string; number: string | null };
   allUsers: { name: string; number: string | null; active: boolean }[];
@@ -138,7 +140,8 @@ const App: React.FC<appProps> = ({
       router.push("/login");
     }
 
-    // const usersList = JSON.parse(localStorage.getItem("AllUsers") || "");
+
+// const usersList = JSON.parse(localStorage.getItem("AllUsers") || "");
     // const newAllMessages = usersList.map(
     //   (obj: { name: string; number: string | null; active: boolean }) => {
     //     return { user: obj.name, phoneNumber: obj.number, messages: [] };
@@ -162,7 +165,7 @@ const App: React.FC<appProps> = ({
       }
     } catch (err) {
       console.log(err);
-    }
+    }    
   }, []);
 
   useEffect(() => {
@@ -172,15 +175,15 @@ const App: React.FC<appProps> = ({
       })
     );
     return () => {
-      console.log("unmount");
-    };
-  }, []);
+console.log("unmount")
+    }
+  },[])
 
   useEffect(() => {
     if (socket !== undefined) {
       startWebsocketConnection(socket);
     }
-  }, [socket]);
+  }, [socket]);  
 
   useEffect(() => {
     if (router.query.state || cookies["access_token"] !== "") {
@@ -189,11 +192,12 @@ const App: React.FC<appProps> = ({
       scrollToBottom();
     } else {
       router.push("/login");
-    }
+    }    
     return () => {
-      console.log("unmounted");
-    };
-  }, [state]);
+      console.log('unmounted')
+    }
+  }, [state])
+
 
   const onSessionCreated = (session: { session: any }): void => {
     setState({
@@ -204,7 +208,7 @@ const App: React.FC<appProps> = ({
 
   const onMessageReceived = (msg: any): void => {
     // console.log('message: ', msg.content.msg_type);
-    if (msg.content.msg_type === "IMAGE") {
+    if (msg.content.msg_type === "IMAGE"){
       setState({
         ...state,
         messages: state.messages.concat({
@@ -217,11 +221,11 @@ const App: React.FC<appProps> = ({
             new Date().getMinutes() +
             (new Date().getHours() > 12 ? " PM" : " AM"),
           date:
-            (new Date().getDate() < 10 ? "0" : "") +
-            new Date().getDate() +
+            (new Date().getDay() < 10 ? "0" : "") +
+            new Date().getDay() +
             "/" +
-            (new Date().getMonth() + 1 < 10 ? "0" : "") +
-            (new Date().getMonth() + 1) +
+            (new Date().getMonth() < 10 ? "0" : "") +
+            new Date().getMonth() +
             "/" +
             new Date().getFullYear(),
           image: msg.content.media_url,
@@ -229,7 +233,8 @@ const App: React.FC<appProps> = ({
           caption: msg.content.caption,
         }),
       });
-    } else if (msg.content.msg_type === "AUDIO") {
+    }
+    else if (msg.content.msg_type === "AUDIO"){
       setState({
         ...state,
         messages: state.messages.concat({
@@ -242,18 +247,19 @@ const App: React.FC<appProps> = ({
             new Date().getMinutes() +
             (new Date().getHours() > 12 ? " PM" : " AM"),
           date:
-            (new Date().getDate() < 10 ? "0" : "") +
-            new Date().getDate() +
+            (new Date().getDay() < 10 ? "0" : "") +
+            new Date().getDay() +
             "/" +
-            (new Date().getMonth() + 1 < 10 ? "0" : "") +
-            (new Date().getMonth() + 1) +
+            (new Date().getMonth() < 10 ? "0" : "") +
+            new Date().getMonth() +
             "/" +
             new Date().getFullYear(),
           audio: msg.content.media_url,
           choices: msg.content.choices,
         }),
       });
-    } else if (msg.content.msg_type === "VIDEO") {
+    }
+    else if (msg.content.msg_type === "VIDEO"){
       setState({
         ...state,
         messages: state.messages.concat({
@@ -266,18 +272,19 @@ const App: React.FC<appProps> = ({
             new Date().getMinutes() +
             (new Date().getHours() > 12 ? " PM" : " AM"),
           date:
-            (new Date().getDate() < 10 ? "0" : "") +
-            new Date().getDate() +
+            (new Date().getDay() < 10 ? "0" : "") +
+            new Date().getDay() +
             "/" +
-            (new Date().getMonth() + 1 < 10 ? "0" : "") +
-            (new Date().getMonth() + 1) +
+            (new Date().getMonth() < 10 ? "0" : "") +
+            new Date().getMonth() +
             "/" +
             new Date().getFullYear(),
           video: msg.content.media_url,
           choices: msg.content.choices,
         }),
       });
-    } else if (msg.content.msg_type === "DOCUMENT") {
+    }
+    else if (msg.content.msg_type === "DOCUMENT"){
       setState({
         ...state,
         messages: state.messages.concat({
@@ -290,18 +297,19 @@ const App: React.FC<appProps> = ({
             new Date().getMinutes() +
             (new Date().getHours() > 12 ? " PM" : " AM"),
           date:
-            (new Date().getDate() < 10 ? "0" : "") +
-            new Date().getDate() +
+            (new Date().getDay() < 10 ? "0" : "") +
+            new Date().getDay() +
             "/" +
-            (new Date().getMonth() + 1 < 10 ? "0" : "") +
-            (new Date().getMonth() + 1) +
+            (new Date().getMonth() < 10 ? "0" : "") +
+            new Date().getMonth() +
             "/" +
             new Date().getFullYear(),
           doc: msg.content.media_url,
           choices: msg.content.choices,
         }),
       });
-    } else if (msg.content.msg_type === "TEXT") {
+    }
+    else if (msg.content.msg_type === "TEXT"){
       setState({
         ...state,
         messages: state.messages.concat({
@@ -314,11 +322,11 @@ const App: React.FC<appProps> = ({
             new Date().getMinutes() +
             (new Date().getHours() > 12 ? " PM" : " AM"),
           date:
-            (new Date().getDate() < 10 ? "0" : "") +
-            new Date().getDate() +
+            (new Date().getDay() < 10 ? "0" : "") +
+            new Date().getDay() +
             "/" +
-            (new Date().getMonth() + 1 < 10 ? "0" : "") +
-            (new Date().getMonth() + 1) +
+            (new Date().getMonth() < 10 ? "0" : "") +
+            new Date().getMonth() +
             "/" +
             new Date().getFullYear(),
           choices: msg.content.choices,
@@ -338,11 +346,11 @@ const App: React.FC<appProps> = ({
           new Date().getMinutes() +
           (new Date().getHours() > 12 ? " PM" : " AM"),
         date:
-          (new Date().getDate() < 10 ? "0" : "") +
-          new Date().getDate() +
+          (new Date().getDay() < 10 ? "0" : "") +
+          new Date().getDay() +
           "/" +
-          (new Date().getMonth() + 1 < 10 ? "0" : "") +
-          (new Date().getMonth() + 1) +
+          (new Date().getMonth() < 10 ? "0" : "") +
+          new Date().getMonth() +
           "/" +
           new Date().getFullYear(),
         choices: msg.content.choices,
@@ -368,8 +376,8 @@ const App: React.FC<appProps> = ({
     setCurrentUserMessageObject(newCurrentMessageObj);
     setState({
       ...state,
-      allMessages: newAllMessages,
-    });
+      allMessages: newAllMessages
+    })
 
     // if (msg.from.split(":")[1] === currentUser.number) {
     //   setState({
@@ -406,6 +414,7 @@ const App: React.FC<appProps> = ({
   };
 
   const onChangingCurrentUser = (name: string, phoneNumber: string | null) => {
+
     if (name === currentUser.name && phoneNumber === currentUser.number) {
       return;
     }
@@ -445,6 +454,7 @@ const App: React.FC<appProps> = ({
   };
 
   const onClearingChat = () => {
+
     const newCurrentMessageObj = {
       user: currentUserMessageObject.user,
       phoneNumber: currentUserMessageObject.phoneNumber,
@@ -460,14 +470,15 @@ const App: React.FC<appProps> = ({
       );
     });
 
+
     newAllMessages.push(newCurrentMessageObj);
     localStorage.setItem("allMessages", JSON.stringify(newAllMessages));
     setCurrentUserMessageObject(newCurrentMessageObj);
     setState({
       ...state,
-      allMessages: newAllMessages,
-    });
-  };
+        allMessages: newAllMessages
+      })
+  }
 
   const setUserName = (name: string): void => {
     setState({
@@ -476,13 +487,13 @@ const App: React.FC<appProps> = ({
     });
   };
 
-  const sendMessage = (text: string, media: any): void => {
+ const sendMessage = (text: string, media: any): void => {
     if (!accessToken) {
       router.push("/login");
     } else {
       // send(text, state.session, accessToken, currentUser, socket,null);
-      if (media) {
-        if (media.mimeType.slice(0, 5) === "image") {
+      if(media){  
+        if (media.mimeType.slice(0,5) === "image"){
           setState({
             ...state,
             messages: state.messages.concat({
@@ -495,16 +506,17 @@ const App: React.FC<appProps> = ({
                 new Date().getMinutes() +
                 (new Date().getHours() > 12 ? " PM" : " AM"),
               date:
-                (new Date().getDate() < 10 ? "0" : "") +
-                new Date().getDate() +
+                (new Date().getDay() < 10 ? "0" : "") +
+                new Date().getDay() +
                 "/" +
-                (new Date().getMonth() + 1 < 10 ? "0" : "") +
-                (new Date().getMonth() + 1) +
+                (new Date().getMonth() < 10 ? "0" : "") +
+                new Date().getMonth() +
                 "/" +
                 new Date().getFullYear(),
             }),
           });
-        } else if (media.mimeType.slice(0, 5) === "audio") {
+        }
+        else if (media.mimeType.slice(0,5) === "audio"){
           setState({
             ...state,
             messages: state.messages.concat({
@@ -517,16 +529,17 @@ const App: React.FC<appProps> = ({
                 new Date().getMinutes() +
                 (new Date().getHours() > 12 ? " PM" : " AM"),
               date:
-                (new Date().getDate() < 10 ? "0" : "") +
-                new Date().getDate() +
+                (new Date().getDay() < 10 ? "0" : "") +
+                new Date().getDay() +
                 "/" +
-                (new Date().getMonth() + 1 < 10 ? "0" : "") +
-                (new Date().getMonth() + 1) +
+                (new Date().getMonth() < 10 ? "0" : "") +
+                new Date().getMonth() +
                 "/" +
                 new Date().getFullYear(),
             }),
           });
-        } else if (media.mimeType.slice(0, 5) === "video") {
+        }
+        else if (media.mimeType.slice(0,5) === "video"){
           setState({
             ...state,
             messages: state.messages.concat({
@@ -539,16 +552,17 @@ const App: React.FC<appProps> = ({
                 new Date().getMinutes() +
                 (new Date().getHours() > 12 ? " PM" : " AM"),
               date:
-                (new Date().getDate() < 10 ? "0" : "") +
-                new Date().getDate() +
+                (new Date().getDay() < 10 ? "0" : "") +
+                new Date().getDay() +
                 "/" +
-                (new Date().getMonth() + 1 < 10 ? "0" : "") +
-                (new Date().getMonth() + 1) +
+                (new Date().getMonth() < 10 ? "0" : "") +
+                new Date().getMonth() +
                 "/" +
                 new Date().getFullYear(),
             }),
           });
-        } else if (media.mimeType.slice(0, 11) === "application") {
+        }
+        else if (media.mimeType.slice(0,11) === "application"){
           setState({
             ...state,
             messages: state.messages.concat({
@@ -561,16 +575,16 @@ const App: React.FC<appProps> = ({
                 new Date().getMinutes() +
                 (new Date().getHours() > 12 ? " PM" : " AM"),
               date:
-                (new Date().getDate() < 10 ? "0" : "") +
-                new Date().getDate() +
+                (new Date().getDay() < 10 ? "0" : "") +
+                new Date().getDay() +
                 "/" +
-                (new Date().getMonth() + 1 < 10 ? "0" : "") +
-                (new Date().getMonth() + 1) +
+                (new Date().getMonth() < 10 ? "0" : "") +
+                new Date().getMonth() +
                 "/" +
                 new Date().getFullYear(),
             }),
           });
-        } else {
+        }else{
           setState({
             ...state,
             messages: state.messages.concat({
@@ -584,17 +598,18 @@ const App: React.FC<appProps> = ({
                 new Date().getMinutes() +
                 (new Date().getHours() > 12 ? " PM" : " AM"),
               date:
-                (new Date().getDate() < 10 ? "0" : "") +
-                new Date().getDate() +
+                (new Date().getDay() < 10 ? "0" : "") +
+                new Date().getDay() +
                 "/" +
-                (new Date().getMonth() + 1 < 10 ? "0" : "") +
-                (new Date().getMonth() + 1) +
+                (new Date().getMonth() < 10 ? "0" : "") +
+                new Date().getMonth() +
                 "/" +
                 new Date().getFullYear(),
             }),
           });
         }
-      } else {
+      }
+      else{
         const newMessage = [
           ...currentUserMessageObject.messages,
           {
@@ -607,24 +622,24 @@ const App: React.FC<appProps> = ({
               new Date().getMinutes() +
               (new Date().getHours() > 12 ? " PM" : " AM"),
             date:
-              (new Date().getDate() < 10 ? "0" : "") +
-              new Date().getDate() +
+              (new Date().getDay() < 10 ? "0" : "") +
+              new Date().getDay() +
               "/" +
-              (new Date().getMonth() + 1 < 10 ? "0" : "") +
-              (new Date().getMonth() + 1) +
+              (new Date().getMonth() < 10 ? "0" : "") +
+              new Date().getMonth() +
               "/" +
               new Date().getFullYear(),
           },
         ];
-
+  
         const newCurrentMessageObj = {
           user: currentUserMessageObject.user,
           phoneNumber: currentUserMessageObject.phoneNumber,
           messages: newMessage,
         };
-
+  
         const oldAllMessages = [...state.allMessages];
-
+  
         const newAllMessages = oldAllMessages.filter((object) => {
           return (
             object.user !== currentUserMessageObject.user &&
@@ -634,17 +649,17 @@ const App: React.FC<appProps> = ({
 
         newAllMessages.push(newCurrentMessageObj);
         localStorage.setItem("allMessages", JSON.stringify(newAllMessages));
-
+  
         // setrecieved(false);
-        send(text, state.session, accessToken, currentUser, socket, null);
+        send(text, state.session, accessToken, currentUser, socket , null);
 
-        console.log("this is");
-        console.log(newCurrentMessageObj);
+        console.log("this is")
+        console.log(newCurrentMessageObj)
         setCurrentUserMessageObject(newCurrentMessageObj);
         setState({
           ...state,
-          allMessages: newAllMessages,
-        });
+          allMessages: newAllMessages
+        })
         // setState({
         //   ...state,
         //   messages: state.messages.concat({
@@ -652,12 +667,13 @@ const App: React.FC<appProps> = ({
         //     text: text,
         //   }),
         // });
+
       }
     }
   };
 
   const sendLocation = (location: any): void => {
-    send(location, state.session, accessToken, currentUser, socket, null);
+    send(location,state.session, accessToken, currentUser, socket,null);
     // navigator.geolocation.getCurrentPosition((position: any) => {
     //   setState({
     //     ...state,
@@ -670,7 +686,8 @@ const App: React.FC<appProps> = ({
     //     }),
     //   });
     // })
-  };
+   
+  }
 
   if (state.username === null) {
     console.log("Please set a username first");
@@ -688,15 +705,15 @@ const App: React.FC<appProps> = ({
     backmenu: boolean;
   }): void => {
     const toSend = option.key + " " + option.text;
-    sendMessage(toSend, null);
+    sendMessage(toSend,null);
   };
 
   const sizeVar = useWindowSize();
   if (sizeVar.width < 768) {
     return (
       <PhoneView
-        currentMessageObj={currentUserMessageObject}
-        toClearChat={onClearingChat}
+      currentMessageObj={currentUserMessageObject}
+      toClearChat={onClearingChat}
         messages={state.messages}
         // recieved={recieved}
         username={state.username}
@@ -707,12 +724,11 @@ const App: React.FC<appProps> = ({
         currentUser={currentUser}
         addingNewUser={onAddingUser}
         toRemoveUser={toRemoveUser}
-        onSendLocation={sendLocation}
+        onSendLocation={sendLocation} 
         toShowChats={{
           name: "",
-          number: null,
-        }}
-      />
+          number: null
+        }}        />
     );
   } else {
     return (
