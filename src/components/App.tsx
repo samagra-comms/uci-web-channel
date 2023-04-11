@@ -726,18 +726,16 @@ console.log("unmount")
         onSendLocation={sendLocation} 
         toShowChats={{
           name: "",
-          number: null,
-        }}
-      />
-    );
-  } else {
-    return (
-      <WebView
-        currentMessageObj={currentUserMessageObject}
-        toClearChat={onClearingChat}
-        messages={state.messages}
-        // recieved={recieved}
-        username={state.username}
+          number: null
+        }}        />
+        );
+      } else {
+        return (
+          <WebView
+          currentMessageObj={currentUserMessageObject}
+          toClearChat={onClearingChat}
+          messages={state.messages}
+          // recieved={recieved}        username={state.username}
         selected={selected}
         sendMessageFunc={sendMessage}
         allUsers={allUsers}
