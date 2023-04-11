@@ -182,6 +182,7 @@ console.log("unmount")
   useEffect(() => {    
     if (socket !== undefined) {    
         startWebsocketConnection(socket);     
+    }
   }, [socket]);  
 
   useEffect(() => {
@@ -193,9 +194,10 @@ console.log("unmount")
       router.push("/login");
     }    
     return () => {
-      console.log("unmounted");
-    };
-  }, [state]);
+      console.log('unmounted')
+    }
+  }, [state])
+
 
   const onSessionCreated = (session: { session: any }): void => {
     setState({
@@ -206,7 +208,7 @@ console.log("unmount")
 
   const onMessageReceived = (msg: any): void => {
     // console.log('message: ', msg.content.msg_type);
-    if (msg.content.msg_type === "IMAGE") {
+    if (msg.content.msg_type === "IMAGE"){
       setState({
         ...state,
         messages: state.messages.concat({
