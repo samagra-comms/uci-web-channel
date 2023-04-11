@@ -28,6 +28,8 @@ import PhoneView from "./PhoneView/index";
 import WebView from "./WebView";
 import RecentChats from "./PhoneView/RecentChats";
 
+
+
 interface appProps {
   currentUser: { name: string; number: string | null };
   allUsers: { name: string; number: string | null; active: boolean }[];
@@ -137,6 +139,7 @@ const App: React.FC<appProps> = ({
     } else {
       router.push("/login");
     }
+
 
 // const usersList = JSON.parse(localStorage.getItem("AllUsers") || "");
     // const newAllMessages = usersList.map(
