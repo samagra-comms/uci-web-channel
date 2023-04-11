@@ -208,26 +208,28 @@ console.log("unmount")
 
   const onMessageReceived = (msg: any): void => {
     // console.log('message: ', msg.content.msg_type);
+    let TIME_VARIABLE=
+    (new Date().getHours() % 12 || 12) +
+    ":" +
+    (new Date().getMinutes() < 10 ? "0" : "") +
+    new Date().getMinutes() +
+    (new Date().getHours() > 12 ? " PM" : " AM")
+    let DATE_VARIABLE=
+    (new Date().getDate() < 10 ? "0" : "") +
+    new Date().getDate() +
+    "/" +
+    (new Date().getMonth() + 1 < 10 ? "0" : "") +
+    (new Date().getMonth() + 1) +
+    "/" +
+    new Date().getFullYear()
     if (msg.content.msg_type === "IMAGE"){
       setState({
         ...state,
         messages: state.messages.concat({
           username: currentUser.name,
           text: msg.content.title,
-          time:
-            (new Date().getHours() % 12 || 12) +
-            ":" +
-            (new Date().getMinutes() < 10 ? "0" : "") +
-            new Date().getMinutes() +
-            (new Date().getHours() > 12 ? " PM" : " AM"),
-          date:
-            (new Date().getDate() < 10 ? "0" : "") +
-            new Date().getDate() +
-            "/" +
-            (new Date().getMonth() + 1 < 10 ? "0" : "") +
-            (new Date().getMonth() + 1) +
-            "/" +
-            new Date().getFullYear(),
+          time: TIME_VARIABLE,
+          date: DATE_VARIABLE,
           image: msg.content.media_url,
           choices: msg.content.choices,
           caption: msg.content.caption,
@@ -240,20 +242,8 @@ console.log("unmount")
         messages: state.messages.concat({
           username: currentUser.name,
           text: msg.content.title,
-          time:
-            (new Date().getHours() % 12 || 12) +
-            ":" +
-            (new Date().getMinutes() < 10 ? "0" : "") +
-            new Date().getMinutes() +
-            (new Date().getHours() > 12 ? " PM" : " AM"),
-          date:
-            (new Date().getDate() < 10 ? "0" : "") +
-            new Date().getDate() +
-            "/" +
-            ((new Date().getMonth()+1) < 10 ? "0" : "") +
-            (new Date().getMonth()+1) +
-            "/" +
-            new Date().getFullYear(),
+          time: TIME_VARIABLE,
+          date: DATE_VARIABLE,
           audio: msg.content.media_url,
           choices: msg.content.choices,
         }),
@@ -265,20 +255,8 @@ console.log("unmount")
         messages: state.messages.concat({
           username: currentUser.name,
           text: msg.content.title,
-          time:
-            (new Date().getHours() % 12 || 12) +
-            ":" +
-            (new Date().getMinutes() < 10 ? "0" : "") +
-            new Date().getMinutes() +
-            (new Date().getHours() > 12 ? " PM" : " AM"),
-          date:
-            (new Date().getDate() < 10 ? "0" : "") +
-            new Date().getDate() +
-            "/" +
-            ((new Date().getMonth()+1) < 10 ? "0" : "") +
-            (new Date().getMonth()+1) +
-            "/" +
-            new Date().getFullYear(),
+          time: TIME_VARIABLE,
+          date: DATE_VARIABLE,
           video: msg.content.media_url,
           choices: msg.content.choices,
         }),
@@ -290,20 +268,8 @@ console.log("unmount")
         messages: state.messages.concat({
           username: currentUser.name,
           text: msg.content.title,
-          time:
-            (new Date().getHours() % 12 || 12) +
-            ":" +
-            (new Date().getMinutes() < 10 ? "0" : "") +
-            new Date().getMinutes() +
-            (new Date().getHours() > 12 ? " PM" : " AM"),
-          date:
-            (new Date().getDate() < 10 ? "0" : "") +
-            new Date().getDate() +
-            "/" +
-            ((new Date().getMonth()+1) < 10 ? "0" : "") +
-            (new Date().getMonth()+1) +
-            "/" +
-            new Date().getFullYear(),
+          time: TIME_VARIABLE,
+          date: DATE_VARIABLE,
           doc: msg.content.media_url,
           choices: msg.content.choices,
         }),
@@ -315,20 +281,8 @@ console.log("unmount")
         messages: state.messages.concat({
           username: currentUser.name,
           text: msg.content.title,
-          time:
-            (new Date().getHours() % 12 || 12) +
-            ":" +
-            (new Date().getMinutes() < 10 ? "0" : "") +
-            new Date().getMinutes() +
-            (new Date().getHours() > 12 ? " PM" : " AM"),
-          date:
-            (new Date().getDate() < 10 ? "0" : "") +
-            new Date().getDate() +
-            "/" +
-            ((new Date().getMonth()+1) < 10 ? "0" : "") +
-            (new Date().getMonth()+1) +
-            "/" +
-            new Date().getFullYear(),
+          time: TIME_VARIABLE,
+          date: DATE_VARIABLE,
           choices: msg.content.choices,
         }),
       });
@@ -339,20 +293,8 @@ console.log("unmount")
       {
         username: currentUser.name,
         text: msg.content.title,
-        time:
-          (new Date().getHours() % 12 || 12) +
-          ":" +
-          (new Date().getMinutes() < 10 ? "0" : "") +
-          new Date().getMinutes() +
-          (new Date().getHours() > 12 ? " PM" : " AM"),
-        date:
-          (new Date().getDate() < 10 ? "0" : "") +
-          new Date().getDate() +
-          "/" +
-          ((new Date().getMonth()+1) < 10 ? "0" : "") +
-          (new Date().getMonth()+1) +
-          "/" +
-          new Date().getFullYear(),
+        time: TIME_VARIABLE,
+        date: DATE_VARIABLE,
         choices: msg.content.choices,
       },
     ];
@@ -491,6 +433,20 @@ console.log("unmount")
     if (!accessToken) {
       router.push("/login");
     } else {
+      let TIME_VARIABLE=
+      (new Date().getHours() % 12 || 12) +
+      ":" +
+      (new Date().getMinutes() < 10 ? "0" : "") +
+      new Date().getMinutes() +
+      (new Date().getHours() > 12 ? " PM" : " AM")
+      let DATE_VARIABLE=
+      (new Date().getDate() < 10 ? "0" : "") +
+      new Date().getDate() +
+      "/" +
+      (new Date().getMonth() + 1 < 10 ? "0" : "") +
+      (new Date().getMonth() + 1) +
+      "/" +
+      new Date().getFullYear()     
       // send(text, state.session, accessToken, currentUser, socket,null);
       if(media){  
         if (media.mimeType.slice(0,5) === "image"){
@@ -499,20 +455,8 @@ console.log("unmount")
             messages: state.messages.concat({
               username: state.username,
               image: media.url,
-              time:
-                (new Date().getHours() % 12 || 12) +
-                ":" +
-                (new Date().getMinutes() < 10 ? "0" : "") +
-                new Date().getMinutes() +
-                (new Date().getHours() > 12 ? " PM" : " AM"),
-              date:
-                (new Date().getDate() < 10 ? "0" : "") +
-                new Date().getDate() +
-                "/" +
-                ((new Date().getMonth()+1) < 10 ? "0" : "") +
-                (new Date().getMonth()+1) +
-                "/" +
-                new Date().getFullYear(),
+              time: TIME_VARIABLE,
+              date: DATE_VARIABLE,
             }),
           });
         }
@@ -522,20 +466,8 @@ console.log("unmount")
             messages: state.messages.concat({
               username: state.username,
               audio: media.url,
-              time:
-                (new Date().getHours() % 12 || 12) +
-                ":" +
-                (new Date().getMinutes() < 10 ? "0" : "") +
-                new Date().getMinutes() +
-                (new Date().getHours() > 12 ? " PM" : " AM"),
-              date:
-                (new Date().getDate() < 10 ? "0" : "") +
-                new Date().getDate() +
-                "/" +
-                ((new Date().getMonth()+1) < 10 ? "0" : "") +
-                (new Date().getMonth()+1) +
-                "/" +
-                new Date().getFullYear(),
+              time: TIME_VARIABLE,
+              date: DATE_VARIABLE,
             }),
           });
         }
@@ -545,20 +477,8 @@ console.log("unmount")
             messages: state.messages.concat({
               username: state.username,
               video: media.url,
-              time:
-                (new Date().getHours() % 12 || 12) +
-                ":" +
-                (new Date().getMinutes() < 10 ? "0" : "") +
-                new Date().getMinutes() +
-                (new Date().getHours() > 12 ? " PM" : " AM"),
-              date:
-                (new Date().getDate() < 10 ? "0" : "") +
-                new Date().getDate() +
-                "/" +
-                ((new Date().getMonth()+1) < 10 ? "0" : "") +
-                (new Date().getMonth()+1) +
-                "/" +
-                new Date().getFullYear(),
+              time: TIME_VARIABLE,
+              date: DATE_VARIABLE,
             }),
           });
         }
@@ -568,20 +488,8 @@ console.log("unmount")
             messages: state.messages.concat({
               username: state.username,
               doc: media.url,
-              time:
-                (new Date().getHours() % 12 || 12) +
-                ":" +
-                (new Date().getMinutes() < 10 ? "0" : "") +
-                new Date().getMinutes() +
-                (new Date().getHours() > 12 ? " PM" : " AM"),
-              date:
-                (new Date().getDate() < 10 ? "0" : "") +
-                new Date().getDate() +
-                "/" +
-                ((new Date().getMonth()+1) < 10 ? "0" : "") +
-                (new Date().getMonth()+1) +
-                "/" +
-                new Date().getFullYear(),
+              time: TIME_VARIABLE,
+              date: DATE_VARIABLE,
             }),
           });
         }else{
@@ -591,20 +499,8 @@ console.log("unmount")
               username: state.username,
               text: text,
               doc: media.url,
-              time:
-                (new Date().getHours() % 12 || 12) +
-                ":" +
-                (new Date().getMinutes() < 10 ? "0" : "") +
-                new Date().getMinutes() +
-                (new Date().getHours() > 12 ? " PM" : " AM"),
-              date:
-                (new Date().getDate() < 10 ? "0" : "") +
-                new Date().getDate() +
-                "/" +
-                ((new Date().getMonth()+1) < 10 ? "0" : "") +
-                (new Date().getMonth()+1) +
-                "/" +
-                new Date().getFullYear(),
+              time: TIME_VARIABLE,
+              date: DATE_VARIABLE,
             }),
           });
         }
@@ -615,20 +511,8 @@ console.log("unmount")
           {
             username: state.username,
             text: text,
-            time:
-              (new Date().getHours() % 12 || 12) +
-              ":" +
-              (new Date().getMinutes() < 10 ? "0" : "") +
-              new Date().getMinutes() +
-              (new Date().getHours() > 12 ? " PM" : " AM"),
-            date:
-              (new Date().getDate() < 10 ? "0" : "") +
-              new Date().getDate() +
-              "/" +
-              ((new Date().getMonth()+1) < 10 ? "0" : "") +
-              (new Date().getMonth()+1) +
-              "/" +
-              new Date().getFullYear(),
+            time: TIME_VARIABLE,
+            date: DATE_VARIABLE,
           },
         ];
   
