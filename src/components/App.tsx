@@ -376,8 +376,8 @@ console.log("unmount")
     setCurrentUserMessageObject(newCurrentMessageObj);
     setState({
       ...state,
-      allMessages: newAllMessages,
-    });
+      allMessages: newAllMessages
+    })
 
     // if (msg.from.split(":")[1] === currentUser.number) {
     //   setState({
@@ -414,6 +414,7 @@ console.log("unmount")
   };
 
   const onChangingCurrentUser = (name: string, phoneNumber: string | null) => {
+  
     if (name === currentUser.name && phoneNumber === currentUser.number) {
       return;
     }
@@ -453,6 +454,7 @@ console.log("unmount")
   };
 
   const onClearingChat = () => {
+  
     const newCurrentMessageObj = {
       user: currentUserMessageObject.user,
       phoneNumber: currentUserMessageObject.phoneNumber,
@@ -461,12 +463,14 @@ console.log("unmount")
 
     const oldAllMessages = [...state.allMessages];
 
-    const newAllMessages = oldAllMessages.filter((object) => {
-      return (
-        object.user !== currentUserMessageObject.user &&
-        object.phoneNumber !== currentUserMessageObject.phoneNumber
-      );
-    });
+      const newAllMessages = oldAllMessages.filter((object) => {
+        return (
+          object.user !== currentUserMessageObject.user &&
+          object.phoneNumber !== currentUserMessageObject.phoneNumber
+        );
+      });
+
+
 
     newAllMessages.push(newCurrentMessageObj);
     localStorage.setItem("allMessages", JSON.stringify(newAllMessages));
