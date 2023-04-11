@@ -175,14 +175,13 @@ const App: React.FC<appProps> = ({
       })
     );
     return () => {
-      console.log("unmount");
-    };
-  }, []);
-
-  useEffect(() => {
-    if (socket !== undefined) {
-      startWebsocketConnection(socket);
+console.log("unmount")
     }
+  },[])
+  
+  useEffect(() => {    
+    if (socket !== undefined) {    
+        startWebsocketConnection(socket);     
   }, [socket]);  
 
   useEffect(() => {
