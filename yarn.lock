@@ -8691,7 +8691,7 @@
   "resolved" "https://registry.npmjs.org/character-reference-invalid/-/character-reference-invalid-1.1.4.tgz"
   "version" "1.1.4"
 
-"chatui@*", "chatui@file:/Users/abhishekkumar/Desktop/app-turbo-akai/packages/chat-ui":
+"chatui@*", "chatui@file:/Users/abhishekkumar/GitHub_Repos/Samagra/uci-web-channel/packages/chat-ui":
   "resolved" "file:packages/chat-ui"
   "version" "0.0.0"
   dependencies:
@@ -9955,7 +9955,7 @@
   "resolved" "https://registry.npmjs.org/delegates/-/delegates-1.0.0.tgz"
   "version" "1.0.0"
 
-"demo-test@file:/Users/abhishekkumar/Desktop/app-turbo-akai/apps/nl_react":
+"demo-test@file:/Users/abhishekkumar/GitHub_Repos/Samagra/uci-web-channel/apps/nl_react":
   "resolved" "file:apps/nl_react"
   "version" "0.1.0"
   dependencies:
@@ -15656,7 +15656,7 @@
   "resolved" "https://registry.npmjs.org/nested-error-stacks/-/nested-error-stacks-2.1.1.tgz"
   "version" "2.1.1"
 
-"next-uci-web-channel@file:/Users/abhishekkumar/Desktop/app-turbo-akai/apps/nl":
+"next-uci-web-channel@file:/Users/abhishekkumar/GitHub_Repos/Samagra/uci-web-channel/apps/nl":
   "resolved" "file:apps/nl"
   "version" "1.0.0"
   dependencies:

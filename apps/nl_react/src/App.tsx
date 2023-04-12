@@ -32,7 +32,7 @@ const App: FC = () => {
       map(users, (user) => ({ id: user?.botUuid, msg: user?.startingMessage })),
     [users]
   );
-console.log("bot:",{messages})
+  console.log("bot:", { messages });
   // useEffect(() => {
   //   setLocalStorage();
   // }, []);
@@ -209,11 +209,10 @@ console.log("bot:",{messages})
                   sortBy(
                     response?.data?.result?.map((bot: any, index: number) => {
                       if (
-                        // bot?.logicIDs?.[0]?.transformers?.[0]?.meta?.type !==
-                        //   "broadcast" &&
-                        // includes(botIds, bot?.id)
-                        true
-                        ) {
+                        bot?.logicIDs?.[0]?.transformers?.[0]?.meta?.type !==
+                          "broadcast" &&
+                        includes(botIds, bot?.id)
+                      ) {
                         if (index === 0)
                           return normalizeUsers({
                             ...bot,
@@ -351,13 +350,18 @@ console.log("bot:",{messages})
             return [
               ...map(prev, (prevMsg, index) => {
                 if (Number(index) === prev?.length - 1 && prevMsg?.choices) {
-                  console.log("debug: if",{prevMsg})
-                  return {...prevMsg,choices:map(prevMsg?.choices, (choice) => ({
-                    ...choice,
-                    active: choice?.key == text
-                  })),disabled:true}
+                  console.log("debug: if", { prevMsg });
+                  return {
+                    ...prevMsg,
+                    choices: map(prevMsg?.choices, (choice) => ({
+                      ...choice,
+                      active: choice?.key == text,
+                    })),
+                    disabled: true,
+                  };
                 }
-                return { ...prevMsg, disabled: true }
+                console.log('debug: else')
+                return { ...prevMsg, disabled: true };
               }),
               {
                 username: state.username,
@@ -368,7 +372,7 @@ console.log("bot:",{messages})
                 time: moment().valueOf(),
                 disabled: true,
               },
-            ]
+            ];
           });
         }
     },

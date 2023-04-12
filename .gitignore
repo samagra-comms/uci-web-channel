@@ -28,7 +28,9 @@ yarn-error.log*
 .env.development.local
 .env.test.local
 .env.production.local
-
+.env
+apps/nl/.env
+apps/nl_react/.env
 # turbo
 .turbo
 
