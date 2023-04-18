@@ -32,7 +32,7 @@ const App: FC = () => {
       map(users, (user) => ({ id: user?.botUuid, msg: user?.startingMessage })),
     [users]
   );
-  console.log("bot:", { messages });
+ 
   // useEffect(() => {
   //   setLocalStorage();
   // }, []);
@@ -272,6 +272,18 @@ const App: FC = () => {
     }
   }, []);
 
+  // log baseurl received from android
+  useEffect(() => {
+    window &&
+      window?.androidInteract?.log(
+        `baseUrls:${JSON.stringify({
+          socketUrl: localStorage.getItem("socketUrl"),
+          chatHistoryUrl: localStorage.getItem("chatHistoryUrl"),
+          botDetailsUrl: localStorage.getItem("botDetailsUrl"),
+        })}`
+      );
+  }, []);
+
   const onChangeCurrentUser = useCallback((newUser: User) => {
     setCurrentUser({ ...newUser, active: true });
     localStorage.removeItem("userMsgs");
@@ -360,7 +372,7 @@ const App: FC = () => {
                     disabled: true,
                   };
                 }
-                console.log('debug: else')
+                console.log("debug: else");
                 return { ...prevMsg, disabled: true };
               }),
               {

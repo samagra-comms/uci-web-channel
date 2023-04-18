@@ -1,6 +1,7 @@
 import { io } from 'socket.io-client';
+import { getBaseUrl } from './utils/getBaseUrl';
 
-const URL = `${process.env.REACT_APP_TRANSPORT_SOCKET_URL}`;
+const URL = `${getBaseUrl('socket')}`;
 
 export const socket = io(URL, {
 	transportOptions: {
