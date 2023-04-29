@@ -52,17 +52,17 @@ origin  https://github.com/Your_Username/uci-web-channel.git (fetch)
 origin  https://github.com/Your_Username/uci-web-channel.git (push)
 ```
 
-### 4. Create a new .env file and copy contents from .env.sample :open_file_folder:
+### 4. Create a new .env file and copy contents from .env.local :open_file_folder:
 
 ```sh
-cp .env.sample .env
+cp .env.local .env
 ```
 
 The websocket connection URL for the plaground can be used for testing - `wss://comms-playground.samagra.io` for the `REACT_APP_TRANSPORT_SOCKET_URL`.
 
 ### 5. Run it :checkered_flag:
 
-Run `yarn start`
+Run `yarn run dev`
 
 ## Designs
 Below are the designs of how output screens will look like. For more detailed view you can checkout the [Figma](https://www.figma.com/file/d8JiwkYJqGYXQaflCyNVzl/UCI-web-channel?node-id=0%3A1) file.
