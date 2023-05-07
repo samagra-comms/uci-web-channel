@@ -1,73 +1,74 @@
-# Turborepo starter
+# Unified Communication Interface 
 
-This is an official Yarn v1 starter turborepo.
+## About UCI :open_book:
 
-## What's inside?
+The Unified Communications Interface (UCI) aims to democratize the use of different communication channels such as WhatsApp, Telegram, SMS, email and more for governance use cases through a standard configurable manner that is reusable and scalable across all governance use cases.
 
-This turborepo uses [Yarn](https://classic.yarnpkg.com/) as a package manager. It includes the following packages/apps:
+## Features :dart:
 
-### Apps and Packages
+- Ability to connect to any communication channel through any service provider without doing custom changes in the core logic UCI.
+- The UCI ecosystem is independent of external variables like communication channel and service provider powered by XMessage standard.
+- Ability to have a configurable conversation logic for the bot
+- Ability to connect to any database (local or federated) via services
+- Ability to include value added services in the bot interaction flow through Microservices (Internal or External)
+- Ability to create tools on top of UCI APIs to manage Bot configuration, conversations and visualization
 
-- `docs`: a [Next.js](https://nextjs.org/) app
-- `web`: another [Next.js](https://nextjs.org/) app
-- `ui`: a stub React component library shared by both `web` and `docs` applications
-- `eslint-config-custom`: `eslint` configurations (includes `eslint-config-next` and `eslint-config-prettier`)
-- `tsconfig`: `tsconfig.json`s used throughout the monorepo
 
-Each package/app is 100% [TypeScript](https://www.typescriptlang.org/).
+## Requirements :scroll:
 
-### Utilities
+[NodeJS](https://nodejs.org/en/download/) and NPM or [yarn](https://yarnpkg.com/getting-started/install)
 
-This turborepo has some additional tools already setup for you:
+## Installation :walking:
 
-- [TypeScript](https://www.typescriptlang.org/) for static type checking
-- [ESLint](https://eslint.org/) for code linting
-- [Prettier](https://prettier.io) for code formatting
+### 1. Fork it :fork_and_knife:
 
-### Build
+You can get your own fork/copy of [UCI](https://github.com/Samagra-Development/uci-web-channel) by using the <kbd><b>Fork</b></kbd> button.
 
-To build all apps and packages, run the following command:
+### 2. Clone it :busts_in_silhouette:
 
-```
-cd my-turborepo
-yarn run build
-```
+You need to clone (download) it to a local machine using
 
-### Develop
-
-To develop all apps and packages, run the following command:
-
-```
-cd my-turborepo
-yarn run dev
+```sh
+git clone https://github.com/Your_Username/uci-web-channel.git
 ```
 
-### Remote Caching
+> This makes a local copy of the repository in your machine.
+Once you have cloned the `uci-web-channel` repository in GitHub, move to that folder first using the change directory command.
 
-Turborepo can use a technique known as [Remote Caching](https://turbo.build/repo/docs/core-concepts/remote-caching) to share cache artifacts across machines, enabling you to share build caches with your team and CI/CD pipelines.
-
-By default, Turborepo will cache locally. To enable Remote Caching you will need an account with Vercel. If you don't have an account you can [create one](https://vercel.com/signup), then enter the following commands:
-
-```
-cd my-turborepo
-npx turbo login
+```sh
+# This will change directory to a folder uci-web-channel
+cd uci-web-channel
 ```
 
-This will authenticate the Turborepo CLI with your [Vercel account](https://vercel.com/docs/concepts/personal-accounts/overview).
+Move to this folder for all other commands.
 
-Next, you can link your Turborepo to your Remote Cache by running the following command from the root of your turborepo:
+### 3. Set it up :arrow_up:
 
+Run the following commands to see that _your local copy_ has a reference to _your forked remote repository_ in GitHub :octocat:
+
+```sh
+git remote -v
+origin  https://github.com/Your_Username/uci-web-channel.git (fetch)
+origin  https://github.com/Your_Username/uci-web-channel.git (push)
 ```
-npx turbo link
+
+### 4. Create a new .env file and copy contents from .env.sample :open_file_folder:
+
+```sh
+cp .env.sample .env
 ```
 
-## Useful Links
+The websocket connection URL for the plaground can be used for testing - `wss://comms-playground.samagra.io` for the `REACT_APP_TRANSPORT_SOCKET_URL`.
 
-Learn more about the power of Turborepo:
+### 5. Run it :checkered_flag:
 
-- [Tasks](https://turbo.build/repo/docs/core-concepts/monorepos/running-tasks)
-- [Caching](https://turbo.build/repo/docs/core-concepts/caching)
-- [Remote Caching](https://turbo.build/repo/docs/core-concepts/remote-caching)
-- [Filtering](https://turbo.build/repo/docs/core-concepts/monorepos/filtering)
-- [Configuration Options](https://turbo.build/repo/docs/reference/configuration)
-- [CLI Usage](https://turbo.build/repo/docs/reference/command-line-reference)
+Run `npm run dev`
+
+## Designs
+Below are the designs of how output screens will look like. For more detailed view you can checkout the [Figma](https://www.figma.com/file/d8JiwkYJqGYXQaflCyNVzl/UCI-web-channel?node-id=0%3A1) file.
+![Designs](https://user-images.githubusercontent.com/77741561/171156677-0ee016dd-a240-4edc-b2e8-50b08ac06a58.png)
+
+## Contributing
+
+
+We really like contributions in several forms, see [CONTRIBUTING.md](CONTRIBUTING.md)
