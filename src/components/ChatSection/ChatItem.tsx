@@ -3,6 +3,8 @@ import { useState } from "react";
 import Profile from "../Profile";
 import { Flex, Box, Text, useColorModeValue } from "@chakra-ui/react";
 import styles from "./ChatItem.module.css";
+import chatSection from "./ChatSection.module.css";
+import Image from "next/image";
 
 interface chatItemProps {
   image: string;
@@ -30,19 +32,14 @@ const ChatItem: React.FC<chatItemProps> = ({ image, name, toChangeUser,toRemoveU
           alignItems="center"
           justifyContent="center"
         >
+          
           <Box
             cursor="pointer"
             onClick={() => {
               setShowProfile(true);
             }}
-            borderRadius="50%"
-            bgImage={image}
-            height="60px"
-            width="60px"
-            bgPosition="center"
-            bgRepeat="no-repeat"
-            bgSize="cover"
           />
+          <Image src={image} alt='Dan Abramov' height="60px" width="60px" className={chatSection.image_box}/>
         </Flex>
         <Flex
           onClick={() => {

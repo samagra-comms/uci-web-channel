@@ -4,6 +4,9 @@ import styles from "./ChatSection.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEllipsisVertical } from "@fortawesome/free-solid-svg-icons";
 import ChatItem from "./ChatItem";
+import image from "../../assets/images/avatar.jpg"
+import Image from "next/image";
+import killua from "../../assets/images/killua.jpg"
 
 interface chatSectionProps {
   toShowSettings: (event: React.MouseEvent) => void;
@@ -36,15 +39,7 @@ const ChatSection: React.FC<chatSectionProps> = ({
         justifyContent="space-between"
       >
         <Flex justifyContent="center" alignItems="center" flex="1">
-          <Box
-            borderRadius="50%"
-            bgImage="url('/killua.jpg')"
-            height="60px"
-            width="60px"
-            bgPosition="center"
-            bgRepeat="no-repeat"
-            bgSize="cover"
-          />
+          <Image src={killua} alt='Dan Abramov' height="60px" width="60px" className={styles.image_box}/>
         </Flex>
 
         <Box
@@ -65,7 +60,7 @@ const ChatSection: React.FC<chatSectionProps> = ({
       <Box flex="8">
         {allUsers.map((user) => {
           return (
-            <ChatItem key={user.name} toRemoveUser={toRemoveUser} image="url('/avatar.jpg')" active={user.active} name={user.name} toChangeUser={changingUser} />
+            <ChatItem key={user.name} toRemoveUser={toRemoveUser} image={image} active={user.active} name={user.name} toChangeUser={changingUser} />
           );
         })}
       </Box>

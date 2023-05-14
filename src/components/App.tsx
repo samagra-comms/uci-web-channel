@@ -66,9 +66,9 @@ const App: React.FC<appProps> = ({ currentUser, allUsers, userName }) => {
   // Chakra Theme Toggle Information
   const bgImg = useColorModeValue(
     // "url('/light_back_2.jpg')",
-    "url('/background.jpg')",
+    "url('../assets/images/background.jpg')",
     // "url('/dark_back.png')"
-    "url('/background2.jpg')"
+    "url('../assets/images/background2.jpg')"
   );
   // const bg = useColorModeValue("#06d755", "#202C33");
   const bg = useColorModeValue("#E78C3D", "#202C33");
@@ -218,7 +218,7 @@ const App: React.FC<appProps> = ({ currentUser, allUsers, userName }) => {
     >
       {/* Heading */}
       <Flex
-        backgroundImage={"url('/sidebar.png')"}
+        backgroundImage={"url('../assets/images/sidebar.png')"}
         backgroundRepeat="no-repeat"
         backgroundSize="cover"
         backgroundBlendMode="multiply"

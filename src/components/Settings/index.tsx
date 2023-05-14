@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Flex, Box, Text, Button, Input } from "@chakra-ui/react";
+import Image from "next/image";
 import styles from "./RecentChats.module.css";
 import Setting from "./Setting";
 import TextBar from "../TextBar";
@@ -14,6 +15,7 @@ import {
   faPhone,
   faBomb,
 } from "@fortawesome/free-solid-svg-icons";
+import killua from "../../assets/images/killua.jpg"
 
 interface recentChatProps {
   toShowChatSection: (event: React.MouseEvent) => void;
@@ -168,15 +170,7 @@ const Settings: React.FC<recentChatProps> = ({
       {/* Profile Section */}
       <Flex flex="1" flexWrap="wrap">
         <Flex justifyContent="center" alignItems="center" flex="2" p="10px">
-          <Box
-            borderRadius="50%"
-            bgImage="url('/killua.jpg')"
-            height="130px"
-            width="130px"
-            bgPosition="center"
-            bgRepeat="no-repeat"
-            bgSize="cover"
-          />
+          <Image src={killua} alt='Dan Abramov' height="130px" width="130px" className={styles.image_box}/>
         </Flex>
         <ProfileSection name={userName} bio={userBio} />
       </Flex>

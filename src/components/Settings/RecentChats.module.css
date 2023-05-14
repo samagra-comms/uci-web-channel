@@ -6,3 +6,10 @@
     display: flex;
     flex-direction: column;
 }
+
+.image_box{
+    border-radius:100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}

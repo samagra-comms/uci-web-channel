@@ -1,5 +1,5 @@
 import styles from "./profile.module.css";
-import avatar from "../../../public/avatar.jpg";
+import avatar from "../../assets/images/avatar.jpg";
 import { Box, Text, Flex, Button } from "@chakra-ui/react";
 import { useColorModeValue } from "@chakra-ui/react";
 import React, { useState, useEffect } from "react";
