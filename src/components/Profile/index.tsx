@@ -76,7 +76,7 @@ const Profile: React.FC<profileProps> = ({
                 }}
               >
                 <img
-                  src="/avatar.jpg"
+                  src="../assets/images/avatar.jpg"
                   alt="profilePic"
                   style={{
                     borderRadius: "50%",
