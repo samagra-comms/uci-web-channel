@@ -93,7 +93,6 @@ const MessageWindow: React.FC<messageWindowProps> = (props) => {
         setIsIntersecting(entry.isIntersecting);
       }
     );
-    console.log(isIntersecting);
     observer.observe(scrollRef.current);
 
     return () => observer.disconnect();
@@ -124,7 +123,7 @@ const MessageWindow: React.FC<messageWindowProps> = (props) => {
   }, [messageWindow]);
 
   
-  console.log({ username, messages});
+  // console.log({ username, messages});
   return (
     <Box mt={20} ref={messageWindow} pos="relative">
       {messages.length > 0 &&
