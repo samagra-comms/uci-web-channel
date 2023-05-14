@@ -1,6 +1,8 @@
-import { useRef, useEffect, MutableRefObject } from "react";
+import { useRef, useEffect, MutableRefObject, useState, useCallback } from "react";
 import styles from "./index.module.css";
 import { Text, Box, Flex, Spacer, Button, useColorModeValue } from "@chakra-ui/react";
+import { faArrowDown } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 interface messageProps {
   text: any,
@@ -65,6 +67,7 @@ const Message: React.FC<messageProps> = ({
           <Spacer />
         </>
       )}
+      
     </Flex>
   );
 };
@@ -76,8 +79,42 @@ interface messageWindowProps {
 }
 
 const MessageWindow: React.FC<messageWindowProps> = (props) => {
+  const bg = useColorModeValue("#06d755", "#202C33");
 
+  const username: string = props.username;
+  const messages: any = props.messages || [];
   let messageWindow = useRef<HTMLDivElement>(null);
+  let scrollRef = useRef<HTMLDivElement>(null);
+  const [isIntersecting, setIsIntersecting] = useState(false);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setIsIntersecting(entry.isIntersecting);
+      }
+    );
+    console.log(isIntersecting);
+    observer.observe(scrollRef.current);
+
+    return () => observer.disconnect();
+  }, [isIntersecting]);
+
+  useEffect(()=>{
+    scrollBottom();
+  },[])
+
+  useEffect(()=>{
+    scrollBottom();
+  },[messages])
+
+  const viewBottom=()=>{
+    scrollBottom();
+  }
+
+  const scrollBottom=()=>{
+    if (scrollRef.current)
+    scrollRef.current.scrollIntoView({ behaviour: "smooth" });
+  }
 
   useEffect(() => {
     if (messageWindow.current !== null) {
@@ -86,11 +123,10 @@ const MessageWindow: React.FC<messageWindowProps> = (props) => {
     }
   }, [messageWindow]);
 
-  const username: string = props.username;
-  const messages: any = props.messages || [];
+  
   console.log({ username, messages});
   return (
-    <Box mt={20} ref={messageWindow}>
+    <Box mt={20} ref={messageWindow} pos="relative">
       {messages.length > 0 &&
         messages.map((msg: any, i: number) => {
           return (
@@ -104,7 +140,28 @@ const MessageWindow: React.FC<messageWindowProps> = (props) => {
             />
             );
           })}
+        {!isIntersecting &&
+        <Button
+            bgColor={bg}
+            // color={faIcon}
+            pos="sticky"
+            bottom="0"
+            w="40px"
+            h="40px"
+            borderRadius="50%"
+            boxShadow="0px 0px 2px 0px #0000005e"
+            border="none"
+            className="send__btn"
+            onClick={viewBottom}
+            
+          >
+            <FontAwesomeIcon icon={faArrowDown} />
+          </Button>
+          }
+      
       <div>&nbsp;</div>
+
+      <div style={{ float: "left", clear: "both" }} ref={scrollRef}></div>
     </Box>
   );
 };
