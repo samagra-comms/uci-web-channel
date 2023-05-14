@@ -16,9 +16,9 @@ import { NextRouter, useRouter } from "next/router";
 import { useCookies } from "react-cookie";
 import styles from "./OTP.module.css";
 import Image from "next/image";
-import image1 from "../../../public/empty_otp.png";
-import image2 from "../../../public/otp_done.png";
-import image3 from "../../../public/wrong_otp.png";
+import image1 from "../../assets/images/empty_otp.png";
+import image2 from "../../assets/images/otp_done.png";
+import image3 from "../../assets/images/wrong_otp.png";
 
 const OTPpage: React.FC = () => {
   const router: NextRouter = useRouter();
