@@ -58,6 +58,8 @@ const ChatUiWindow: FC<{
 	useEffect(() => {
 		const phone = localStorage.getItem('mobile');
 		if (phone === '') toast.error('Mobile Number required');
+		// sendMessage();
+		// setLoading(false);
 		if (navigator.onLine) {
 			if (conversationHistoryUrl)
 				axios

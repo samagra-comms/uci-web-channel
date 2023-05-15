@@ -1,0 +1,174 @@
+.lightContainer {
+    position: fixed;
+    height: 100vh;
+    background-color: var(--primarygreen);
+  }
+  
+  .darkContainer {
+    position: fixed;
+    height: 100vh;
+    background-color: var(--primarydarkblue);
+   
+  }
+  .headerContainer {
+    width: 100%;
+    height: 80px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    position: fixed;
+    justify-content: space-between;
+    z-index: 1;
+    background-color: var(--primarygreen);
+    color: var(--secondarygreen);
+  }
+  
+  .heading {
+    font-size: 1.5rem;
+    font-family: 'Mulish', sans-serif;
+    font-weight: 700;
+    margin-left: 2rem;
+  }
+  
+  .logo_box {
+    /* background-image: url("../../../assets/images/c4gt_logo.png"); */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    min-width: 2.5rem;
+    min-height: 2.5rem;
+    flex: flex-end;
+    margin-right: 1rem;
+  }
+  
+  .mainContainer {
+    margin-top: 12vh;
+    height: 88vh;
+    width: 100%;
+    bottom: 0;
+    position: fixed;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+  }
+  
+  .backBox {
+    background-color: white;
+    top: 14vh;
+    width: 100vw;
+    height: 87vh;
+    /* position: fixed; */
+    border-radius: 60px 60px 0px 0px;
+    /* box-shadow: 2px 2px 20px 6px rgba(0, 0, 0, 0.25) inset; */
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+  }
+  
+  .chatList {
+    margin-top: 2vh;
+    max-height: 78vh;
+    overflow: auto;
+    padding: 0 6vw;
+    /* display: flex;
+    flex-direction: column;
+    align-items: center; */
+  }
+  
+  .darkBackBox {
+    background-color: var(--tertiarydarkblue);
+   
+  }
+  
+  .addUser_button {
+    margin: 0.4rem;
+    background-color: var(--secondarygreen);
+    min-width: 50px;
+    min-height: 50px;
+    border-radius: 50%;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .lightBackBox {
+    background-color: white;
+  }
+  
+  .darkBackBox {
+    background-color: var(--tertiarydarkblue);
+  }
+  .container {
+    position: fixed;
+    flex-direction: column;
+    height: 100vh;
+    width: 92vw;
+    right: 0;
+    /* box-shadow: 1px 8px 11px -2px black; */
+  }
+  
+  .top_section {
+    width: 100%;
+    height: 80px;
+    font-family: 'Mulish', sans-serif;
+    font-weight: 700;
+    font-size: 1.4rem;
+    position: fixed;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    /* z-index: 1; */
+    color: white;
+    padding: 0px 3.5vw;
+    background-color: var(--primarygreen);
+  }
+  
+  .top_section button {
+    background-color: white;
+    color: var(--primarygreen);
+    font-size: 20px;
+  }
+  
+  .headingContainer {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .toggleButtonContainer {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    margin-right: 1rem;
+  }
+  
+  .UserName {
+    display: flex;
+    align-items: center;
+    padding-left: 0.5rem;
+    height: 80px;
+  }
+  .chatWindow {
+    height: 100vh;
+    width: 100%;
+    margin: auto;
+    margin-top: 80px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    background-color: var(--primaryyellow);
+  }
+  
+  .BackBox {
+    width: 100vw;
+    height: 86vh;
+    margin-top: 4vh;
+    border-radius: 60px 60px 0px 0px;
+    /* box-shadow: 2px 3px 11px 3px rgb(0 0 0 / 25%) inset; */
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+  }
+  

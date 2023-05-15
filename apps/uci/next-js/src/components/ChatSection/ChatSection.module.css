@@ -1,7 +1,0 @@
-.main__container {
-    flex: 1;
-    width: 5%;
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-}

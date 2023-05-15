@@ -15,7 +15,7 @@ import { normalizeUsers } from "./utils/normalize-user";
 import { socket } from "./socket";
 import { includes, without, map, sortBy, reverse } from "lodash";
 import { getBotDetailsUrl } from "./utils/urls";
-// import { setLocalStorage } from "./utils/set-local-storage";
+ import { setLocalStorage } from "./utils/set-local-storage";
 import { initialState } from "./utils/initial-states";
 
 const App: FC = () => {
@@ -209,9 +209,10 @@ const App: FC = () => {
                   sortBy(
                     response?.data?.result?.map((bot: any, index: number) => {
                       if (
-                        bot?.logicIDs?.[0]?.transformers?.[0]?.meta?.type !==
-                          "broadcast" &&
-                        includes(botIds, bot?.id)
+                        // bot?.logicIDs?.[0]?.transformers?.[0]?.meta?.type !==
+                        //   "broadcast" &&
+                        // includes(botIds, bot?.id)
+                        true
                       ) {
                         if (index === 0)
                           return normalizeUsers({

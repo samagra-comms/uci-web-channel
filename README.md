@@ -38,6 +38,8 @@ Once you have cloned the `uci-web-channel` repository in GitHub, move to that fo
 ```sh
 # This will change directory to a folder uci-web-channel
 cd uci-web-channel
+npm i
+npm run dev
 ```
 
 Move to this folder for all other commands.

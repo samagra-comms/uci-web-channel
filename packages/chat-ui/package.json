@@ -15,7 +15,7 @@
   "scripts": {
     "clean": "rm -rf dist && rm -rf es && rm -rf lib",
     "prebuild_remove": "npm run clean",
-    "dev":"npm run build && npm run build:umd",
+    "dev": "npm run build && npm run build:umd",
     "prefix": "NODE_ENV=production postcss dist/index.css -o dist/index.css",
     "copy:less": "copyfiles -u 1 src/**/*.less src/**/**/*.less es",
     "js:cjs": "BABEL_ENV=cjs babel src -d lib --extensions '.ts,.tsx'",
@@ -36,7 +36,8 @@
     "clsx": "^1.1.1",
     "core-js": "^3.23.1",
     "dompurify": "^2.3.8",
-    "intersection-observer": "^0.12.2"
+    "intersection-observer": "^0.12.2",
+    "is-builtin-module": "^3.2.1"
   },
   "devDependencies": {
     "@babel/cli": "^7.17.10",
