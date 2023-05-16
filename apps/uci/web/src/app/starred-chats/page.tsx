@@ -8,8 +8,9 @@ import styles from './page.module.css';
 import { useRouter } from 'next/navigation';
 import { AppContext } from '@/context';
 import { User } from '@/types';
-import { StarredChatItem } from '@/components';
+
 import { NextPage } from 'next';
+import StarredChatItem from '@/components/common/starred-chat-item';
 
 
 const StarredChats: NextPage = () => {

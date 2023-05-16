@@ -17,7 +17,7 @@ interface chatItemProps {
 	isBlank?: boolean;
 }
 
-export const StarredChatItem: React.FC<chatItemProps> = ({ active, name, phoneNumber, user, isBlank }) => {
+ const StarredChatItem: React.FC<chatItemProps> = ({ active, name, phoneNumber, user, isBlank }) => {
 	const history = useRouter();
 
 	const fontColorToggle = useColorModeValue(styles.darkFontColor, styles.lightFontColor);
@@ -67,3 +67,4 @@ export const StarredChatItem: React.FC<chatItemProps> = ({ active, name, phoneNu
 };
 
 
+export default StarredChatItem;
