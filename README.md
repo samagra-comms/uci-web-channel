@@ -1,6 +1,19 @@
-# Unified Communication Interface 
+<h1 align="center">Welcome to UCI Web Channel👋</h1>
+<p>
+ 
+  <img src="https://img.shields.io/badge/node-%3E%3D14.0.0-blue.svg" />
+  <a href="doc url" target="_blank">
+    <img alt="Documentation" src="https://img.shields.io/badge/documentation-yes-brightgreen.svg" />
+  </a>
+  <a href="https://github.com/samagra-comms/uci-web-channel/graphs/commit-activity" target="_blank">
+    <img alt="Maintenance" src="https://img.shields.io/badge/Maintained%3F-yes-green.svg" />
+  </a>
+  <a href="https://github.com/samagra-comms/uci-web-channel/blob/master/LICENSE" target="_blank">
+    <img alt="License: MIT" src="https://img.shields.io/github/license/samagra-comms/web" />
+  </a>
+</p>
 
-## About UCI :open_book:
+> ## About UCI :open_book:
 
 The Unified Communications Interface (UCI) aims to democratize the use of different communication channels such as WhatsApp, Telegram, SMS, email and more for governance use cases through a standard configurable manner that is reusable and scalable across all governance use cases.
 
@@ -14,63 +27,46 @@ The Unified Communications Interface (UCI) aims to democratize the use of differ
 - Ability to create tools on top of UCI APIs to manage Bot configuration, conversations and visualization
 
 
-## Requirements :scroll:
 
-[NodeJS](https://nodejs.org/en/download/) and NPM or [yarn](https://yarnpkg.com/getting-started/install)
+### 🏠 [Homepage](https://github.com/samagra-comms/uci-web-channel)
 
-## Installation :walking:
+### ✨ [Demo](uci-web-channel-two.vercel.app/#/)
 
-### 1. Fork it :fork_and_knife:
+## Prerequisites
 
-You can get your own fork/copy of [UCI](https://github.com/Samagra-Development/uci-web-channel) by using the <kbd><b>Fork</b></kbd> button.
+- node >=14.0.0
 
-### 2. Clone it :busts_in_silhouette:
-
-You need to clone (download) it to a local machine using
+## Install
 
 ```sh
-git clone https://github.com/Your_Username/uci-web-channel.git
+npm install
 ```
 
-> This makes a local copy of the repository in your machine.
-Once you have cloned the `uci-web-channel` repository in GitHub, move to that folder first using the change directory command.
+## Usage
 
 ```sh
-# This will change directory to a folder uci-web-channel
-cd uci-web-channel
-npm i
 npm run dev
 ```
 
-Move to this folder for all other commands.
+## Author
 
-### 3. Set it up :arrow_up:
+👤 **@geeky-abhishek**
 
-Run the following commands to see that _your local copy_ has a reference to _your forked remote repository_ in GitHub :octocat:
+* Website: website
+* Github: [@samagra-comms](https://github.com/samagra-comms)
 
-```sh
-git remote -v
-origin  https://github.com/Your_Username/uci-web-channel.git (fetch)
-origin  https://github.com/Your_Username/uci-web-channel.git (push)
-```
+## 🤝 Contributing
 
-### 4. Create a new .env file and copy contents from .env.sample :open_file_folder:
+Contributions, issues and feature requests are welcome!<br />Feel free to check [issues page](https://github.com/samagra-comms/uci-web-channel/issues). You can also take a look at the [contributing guide](https://github.com/samagra-comms/uci-web-channel/blob/master/CONTRIBUTING.md).
 
-```sh
-cp .env.sample .env
-```
+## Show your support
 
-The websocket connection URL for the plaground can be used for testing - `wss://comms-playground.samagra.io` for the `REACT_APP_TRANSPORT_SOCKET_URL`.
+Give a ⭐️ if this project helped you!
 
-### 5. Run it :checkered_flag:
+## 📝 License
 
-Run `npm run dev`
+Copyright © 2023 [@geeky-abhishek](https://github.com/samagra-comms).<br />
+This project is [MIT](https://github.com/samagra-comms/uci-web-channel/blob/master/LICENSE) licensed.
 
-## Designs
-Below are the designs of how output screens will look like. For more detailed view you can checkout the [Figma](https://www.figma.com/file/d8JiwkYJqGYXQaflCyNVzl/UCI-web-channel?node-id=0%3A1) file.
-![Designs](https://user-images.githubusercontent.com/77741561/171156677-0ee016dd-a240-4edc-b2e8-50b08ac06a58.png)
-
-## Contributing
-
-
-We really like contributions in several forms, see [CONTRIBUTING.md](CONTRIBUTING.md)
+***
+_This README was generated with ❤️ by [readme-md-generator](https://github.com/kefranabg/readme-md-generator)_

@@ -6,6 +6,7 @@ export const useLocalStorage = (
 	initialState: string | null,
 	parseToJson = false
 ): [any, any] | void => {
+	
     if(typeof window !== 'undefined')
 	{const [value, setValue] = useState(
 		

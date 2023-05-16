@@ -17,13 +17,13 @@ type chatItemProps= {
 	isBlank?: boolean;
 }
 
-const StarredChatItem: React.FC<chatItemProps> = ({ active, name, phoneNumber, user, isBlank }) => {
+ const StarredItemList: React.FC<chatItemProps> = ({ active, name, phoneNumber, user, isBlank }) => {
 	const history = useRouter();
 
 	const fontColorToggle = useColorModeValue(styles.darkFontColor, styles.lightFontColor);
 
 	const onChangingCurrentUserHandler = useCallback(() => {
-		history.push(`/starred-chat/${user?.id}`);
+		history.push(`/starred-chats/${user?.id}`);
 	}, [history, user]);
 
 	return (
@@ -66,6 +66,6 @@ const StarredChatItem: React.FC<chatItemProps> = ({ active, name, phoneNumber, u
 	);
 };
 
+export default StarredItemList
 
-export default StarredChatItem
 

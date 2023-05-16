@@ -4,3 +4,4 @@ export * from './fullscreen-loader';
 export * from './message-item';
 export * from './starred-chat-item';
 export * from './starred-chat-list';
+export * from './starred-item-list';

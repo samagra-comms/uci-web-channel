@@ -1,34 +1,72 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+<h1 align="center">Welcome to UCI Web Channel👋</h1>
+<p>
+ 
+  <img src="https://img.shields.io/badge/node-%3E%3D14.0.0-blue.svg" />
+  <a href="doc url" target="_blank">
+    <img alt="Documentation" src="https://img.shields.io/badge/documentation-yes-brightgreen.svg" />
+  </a>
+  <a href="https://github.com/samagra-comms/uci-web-channel/graphs/commit-activity" target="_blank">
+    <img alt="Maintenance" src="https://img.shields.io/badge/Maintained%3F-yes-green.svg" />
+  </a>
+  <a href="https://github.com/samagra-comms/uci-web-channel/blob/master/LICENSE" target="_blank">
+    <img alt="License: MIT" src="https://img.shields.io/github/license/samagra-comms/web" />
+  </a>
+</p>
 
-## Getting Started
+> ## About UCI :open_book:
 
-First, run the development server:
+The Unified Communications Interface (UCI) aims to democratize the use of different communication channels such as WhatsApp, Telegram, SMS, email and more for governance use cases through a standard configurable manner that is reusable and scalable across all governance use cases.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
+## Features :dart:
+
+- Ability to connect to any communication channel through any service provider without doing custom changes in the core logic UCI.
+- The UCI ecosystem is independent of external variables like communication channel and service provider powered by XMessage standard.
+- Ability to have a configurable conversation logic for the bot
+- Ability to connect to any database (local or federated) via services
+- Ability to include value added services in the bot interaction flow through Microservices (Internal or External)
+- Ability to create tools on top of UCI APIs to manage Bot configuration, conversations and visualization
+
+
+
+### 🏠 [Homepage](https://github.com/samagra-comms/uci-web-channel)
+
+### ✨ [Demo](uci-web-channel-two.vercel.app/#/)
+
+## Prerequisites
+
+- node >=14.0.0
+
+## Install
+
+```sh
+npm install
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Usage
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```sh
+npm run dev
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+## Author
 
-## Learn More
+👤 **@geeky-abhishek**
 
-To learn more about Next.js, take a look at the following resources:
+* Website: website
+* Github: [@samagra-comms](https://github.com/samagra-comms)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 🤝 Contributing
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+Contributions, issues and feature requests are welcome!<br />Feel free to check [issues page](https://github.com/samagra-comms/uci-web-channel/issues). You can also take a look at the [contributing guide](https://github.com/samagra-comms/uci-web-channel/blob/master/CONTRIBUTING.md).
 
-## Deploy on Vercel
+## Show your support
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Give a ⭐️ if this project helped you!
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+## 📝 License
+
+Copyright © 2023 [@geeky-abhishek](https://github.com/samagra-comms).<br />
+This project is [MIT](https://github.com/samagra-comms/uci-web-channel/blob/master/LICENSE) licensed.
+
+***
+_This README was generated with ❤️ by [readme-md-generator](https://github.com/kefranabg/readme-md-generator)_

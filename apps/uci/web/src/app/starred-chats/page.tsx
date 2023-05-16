@@ -8,8 +8,12 @@ import styles from './page.module.css';
 import { useRouter } from 'next/navigation';
 import { AppContext } from '@/context';
 import { User } from '@/types';
-import { StarredChatItem } from '@/components';
+
 import { NextPage } from 'next';
+import StarredChatItem from '@/components/common/starred-chat-item';
+// import { StarredChatItem } from '@/components';
+
+
 
 
 const StarredChats: NextPage = () => {
@@ -75,22 +79,38 @@ const StarredChats: NextPage = () => {
 								{(starredBots ?? [])?.map((user, index) => (
 									<StarredChatItem
 										toChangeCurrentUser={(): null => null}
-										key={index}
-										active={user.active}
-										name={user.name}
-										phoneNumber={user.number}
+										// key={index}
+										active={user?.active}
+										name={user?.name}
+										phoneNumber={user?.number}
 										user={user}
 									/>
+									
+									// <StarredItemList
+									// toChangeCurrentUser={(): null => null}
+									// // key={index}
+									// active={user?.active}
+									// name={user?.name}
+									// phoneNumber={user?.number}
+									// user={user}
+									// />
 								))}
 							</>
 						) : (
 							<StarredChatItem
 								toChangeCurrentUser={(): null => null}
-								key={0}
+								// key={0}
 								active={false}
 								name={'No Starred Messages'}
 								isBlank
 							/>
+							// <StarredItemList 
+							// toChangeCurrentUser={(): null => null}
+							// 	// key={0}
+							// 	active={false}
+							// 	name={'No Starred Messages'}
+							// 	isBlank
+							// />
 						)}
 					</Box>
 				</Box>
