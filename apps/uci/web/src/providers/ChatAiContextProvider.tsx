@@ -10,7 +10,6 @@ import {
 import { v4 as uuidv4 } from 'uuid';
 import { send } from '../socket';
 import toast from 'react-hot-toast';
-import flagsmith from 'flagsmith/isomorphic';
 import { io } from 'socket.io-client';
 import { Button } from '@chakra-ui/react';
 import { User } from '@/types';
@@ -37,8 +36,8 @@ export const ChatAiContextProvider: FC<{
     const [isMobileAvailable, setIsMobileAvailable] = useState(
         localStorage.getItem('phoneNumber') ? true : false || false
     );
-    const timer1 = flagsmith.getValue('timer1', { fallback: 5000 });
-    const timer2 = flagsmith.getValue('timer2', { fallback: 25000 });
+    const timer1 = 5000;
+    const timer2 = 25000;
 
     const [isConnected, setIsConnected] = useState(newSocket?.connected || false);
     console.log(messages);
