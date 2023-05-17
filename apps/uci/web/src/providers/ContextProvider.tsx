@@ -223,7 +223,7 @@ console.log("socket: BotResponse",{msg})
       const checkOnline = async (): Promise<void> => {
         if (window.navigator.onLine) {
 
-          const botIds = JSON.parse(localStorage.getItem("botList") || '');
+          const botIds = JSON.parse(localStorage.getItem("botList") || '{}');
           getBotDetailsList()
             .then((response): any => {
               console.log({ response })
