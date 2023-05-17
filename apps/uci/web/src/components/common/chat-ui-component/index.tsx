@@ -1,7 +1,7 @@
 "use client";
 //@ts-ignore
 import Chat from "chatui";
-import "@chatui/core/dist/index.css";
+import "chatui/dist/index.css";
 import axios from "axios";
 import React, {
     FC,

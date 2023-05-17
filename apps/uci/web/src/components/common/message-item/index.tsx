@@ -13,7 +13,7 @@ import React, {
   useMemo,
   useState,
 } from "react";
-import { Button } from "react-bootstrap";
+
 import { toast } from "react-hot-toast";
 
 // @ts-ignore
@@ -22,6 +22,7 @@ import botImage from "../../../assets/images/bot_icon_2.png";
 import Image from "next/image";
 import { AppContext } from "../../../context";
 import { useLocalStorage } from "@/hooks";
+import { Button } from "@chakra-ui/react";
 
 export const MessageItem: FC<any> = ({
   currentUser,

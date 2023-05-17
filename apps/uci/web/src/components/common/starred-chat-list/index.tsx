@@ -2,7 +2,7 @@
 import React, { FC, ReactElement, useCallback, useContext, useMemo } from 'react';
 //@ts-ignore
 import Chat, { Bubble, FileCard, List, ListItem, Video } from 'chatui';
-import "@chatui/core/dist/index.css";
+import "chatui/dist/index.css";
 import { map } from 'lodash';
 import moment from 'moment';
 import styles from './index.module.css';
