@@ -70,6 +70,9 @@ Run `npm run dev`
 Below are the designs of how output screens will look like. For more detailed view you can checkout the [Figma](https://www.figma.com/file/d8JiwkYJqGYXQaflCyNVzl/UCI-web-channel?node-id=0%3A1) file.
 ![Designs](https://user-images.githubusercontent.com/77741561/171156677-0ee016dd-a240-4edc-b2e8-50b08ac06a58.png)
 
+
+## Docs Link 
+Follow for the [Docs](https://uci-web-channel-docs.vercel.app/) 
 ## Contributing
 
 
