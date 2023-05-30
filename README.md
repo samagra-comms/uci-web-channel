@@ -60,7 +60,7 @@ origin  https://github.com/Your_Username/uci-web-channel.git (push)
 cp .env.sample .env
 ```
 
-The websocket connection URL for the plaground can be used for testing - `wss://comms-playground.samagra.io` for the `REACT_APP_TRANSPORT_SOCKET_URL`.
+The websocket connection URL for the plaground can be used for testing - `wss://comms-playground.samagra.io` for the `NEXT_PUBLIC_TRANSPORT_SOCKET_URL`.
 
 ### 5. Run it :checkered_flag:
 
