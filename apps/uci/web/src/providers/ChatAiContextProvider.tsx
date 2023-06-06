@@ -353,7 +353,8 @@ export const ChatAiContextProvider: FC<{
             newSocket,
         ]
     );
-
+if(!window)
+return <></>
     return (
         <AppContext.Provider value={values}>
             {children}

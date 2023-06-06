@@ -3,7 +3,7 @@ import { ChatAiContextProvider } from './ChatAiContextProvider'
 import { NLContextProvider } from './NLContextProvider'
 
 export const ContextProvider = ({ children }: { children: React.ReactNode }) => {
-  let contextRender = "NL"
+  let contextRender = "AI"
   if (contextRender === "AI") {
     return (<ChatAiContextProvider>
       {children}
