@@ -1,0 +1,12 @@
+# Ignore build output
+/.next
+
+# Ignore public directory
+/public
+
+# Ignore generated files
+/.env
+/.env.sample
+
+# Ignore node_modules directory
+../node_modules
