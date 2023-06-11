@@ -13,8 +13,8 @@ import { useRouter } from 'next/navigation';
 import { AppContext } from '@/context';
 import { NextPage } from 'next';
 import { Suspense } from "react";
- import { ChatUiComponent } from '@/components';
-
+import { ChatUiComponent } from '@/components';
+import config1 from "./config1.json";
 
 const Chats: NextPage<{ params: { chatid: string } }> = ({ params }) => {
 
@@ -45,23 +45,18 @@ const Chats: NextPage<{ params: { chatid: string } }> = ({ params }) => {
     if(typeof window=== undefined || typeof window=== 'undefined' )
     return <></>
     return <>
-        <Flex bgColor="var(--primarydarkblue)" flexDirection="column" height="100vh" width="100%">
+        <Flex style={{ backgroundColor: config1.style1["bgColor"], flexDirection: config1.style1["flexDirection"], height: config1.style1["height"], width: config1.style1["width"]}}>
             {/* Top Section */}
-            <Box className={`${styles.top_section}`}>
-                {/* For the back button */}
+            <Box style={{ width: config1.top_section["width"], height: config1.top_section["height"], fontFamily: config1.top_section["font-family"], fontWeight: config1.top_section["font-weight"], fontSize: config1.top_section["font-size"], display: config1.top_section["display"], flexWrap: config1.top_section["flex-wrap"], alignitem: config1.top_section["align-item"], color: config1.top_section["color"], padding: config1.top_section["padding"], backgroundColor: config1.top_section["background-color"]}}>
+                {/* For the back button */
                 <Box flex="1.5">
-                    <Button
-                        style={{
-                            border: 'none',
-                            padding: '0.75rem 1rem',
-                            borderRadius: '50%',
-                            fontSize: '14px'
-                        }}
-                        onClick={(): void => {
-                            localStorage.removeItem('userMsgs');
-                            context?.setMessages([]);
-                            router.push('/');
-                        }}
+                <Button style={{ border: config1.style2["border"], padding: config1.style2["padding"], borderRadius: config1.style2["borderRadius"], fontSize: config1.style2["fontSize"],
+                   }}
+                    onClick={(): void => {
+                    localStorage.removeItem('userMsgs');
+                    context?.setMessages([]);
+                    router.push('/');
+                    }}
                         size="sm"
                         variant="ghost"
                     >
@@ -69,33 +64,17 @@ const Chats: NextPage<{ params: { chatid: string } }> = ({ params }) => {
                     </Button>
                 </Box>
                 {/* Name and Icon  */}
-                <Flex flex="9" justifyContent="space-between" alignItems="center">
-                    <Flex justifyContent="center" alignItems="center" width={'100%'}>
-                        <Box className={`${styles.avatarContainer} `} style={{ width: '100%' }}>
+                <Flex >
+                    <Flex style={{ justifyContent: config1.style3["justifyContent"], alignItems: config1.style3["alignItems"], width: config1.style3["width"]}}>
+                        <Box style={{ display: config1.avatarContainer["display"], alignItems: config1.avatarContainer["align-items"], height: config1.avatarContainer["height"], width: config1.avatarContainer["width"]}}>
                             {
                                 <>
-                                    <div className={styles.innerRing}>
+                                    <div style={{ width: config1.innerRing["width"], height: config1.innerRing["height"], borderRadius: config1.innerRing["border-radius"], border: config1.innerRing["border"], marginRight: config1.innerRing["margin-right"]}}>
                                         <Image src={profilePic} alt="profile pic" />
                                     </div>
-                                    <Box
-                                        style={{
-                                            display: 'flex',
-                                            justifyContent: 'space-between',
-                                            verticalAlign: 'center',
-                                            width: '100%'
-                                        }}
+                                    <Box style={{ display: config1.style4["display"], justifyContent: config1.style4["justifyContent"], verticalAlign: config1.style4["verticalAlign"], width: config1.style4["width"]}}
                                     >
-                                        <p
-                                            style={{
-                                                textOverflow: 'ellipsis',
-                                                maxWidth: '45vw',
-                                                overflow: 'hidden',
-                                                whiteSpace: 'nowrap',
-                                                textAlign: 'left',
-                                                marginBottom: 'auto',
-                                                marginTop: 'auto'
-                                            }}
-                                        >
+                                        <p style={{ textOverflow: config1.style5["textOverflow"], maxWidth: config1.style5["maxWidth"], overflow: config1.style5["overflow"], whiteSpace: config1.style5["whiteSpace"], textAlign: config1.style5["textAlign"], marginBottom: config1.style5["marginBottom"], marginTop: config1.style5["marginTop"]}}>
                                             {context?.currentUser?.name}
                                         </p>
                                         {/* <MDBNavbar>
@@ -165,9 +144,9 @@ const Chats: NextPage<{ params: { chatid: string } }> = ({ params }) => {
             </Box>
 
             {/* Chat Window */}
-            <Box className={`${styles.chatWindow}`}>
+            <Box style={{ height: config1.chatWindow["height"], width: config1.chatWindow["width"], margin: config1.chatWindow["margin"], display: config1.chatWindow["display"], justifyContent: config1.chatWindow["justify-content"], alignItems: config1.chatWindow["align-items"], backgroundColor: config1.chatWindow["background-color"]}}>
                 {/* NeoMorphism Box */}
-                <Box className={`${styles.BackBox}`} style={{ borderRadius: '0px' }}>
+                <Box style={{ width: config1.BackBox["width"], height: config1.BackBox["height"], borderRadius: config1.BackBox["border-radius"], display: config1.BackBox["display"], flexDirection: config1.BackBox["flex-direction"], justifyContent: config1.BackBox["justify-content"]}}>
                     {/* Chat Area */}
                     <Box style={{ height: '100%' }}>
                     <ChatUiComponent currentUser={context?.currentUser} />

@@ -1,0 +1,30 @@
+{
+    ".onHover": {
+      "font-size": "16px !important"
+    },
+    ".question": {
+      "border": "2px solid var(--lightgrey) !important",
+      "border-radius": "5px",
+      "padding": "2px"
+    },
+    ".p": {
+      "font-size": "16px"
+    },
+    ".onHover:hover": {},
+    ".active": {
+      "background": "var(--golden) !important"
+    },
+    ".list": {
+      "background": "none !important"
+    },
+    ".bubbleB": {
+      "width": "88vw !important"
+    },
+    ".listItem": {
+      "border": "2px solid var(--lightgrey) !important",
+      "border-radius": "5px",
+      "margin-bottom": "5px",
+      "background-color": "white"
+    }
+  }
+  

@@ -1,0 +1,105 @@
+{
+    ".spinner": {
+      "--size": "30px",
+      "--first-block-clr": "#005bba",
+      "--second-block-clr": "#fed500",
+      "--clr": "#111",
+      "width": "100px",
+      "height": "100px",
+      "position": "relative",
+      "margin": "auto"
+    },
+    ".spinner::after, .spinner::before": {
+      "-webkit-box-sizing": "border-box",
+      "box-sizing": "border-box",
+      "position": "absolute",
+      "content": "",
+      "width": "var(--size)",
+      "height": "var(--size)",
+      "top": "50%",
+      "-webkit-animation": "up 2.4s cubic-bezier(0, 0, 0.24, 1.21) infinite",
+      "animation": "up 2.4s cubic-bezier(0, 0, 0.24, 1.21) infinite",
+      "left": "50%",
+      "background": "var(--first-block-clr)"
+    },
+    ".spinner::after": {
+      "background": "var(--second-block-clr)",
+      "top": "calc(50% - var(--size))",
+      "left": "calc(50% - var(--size))",
+      "-webkit-animation": "down 2.4s cubic-bezier(0, 0, 0.24, 1.21) infinite",
+      "animation": "down 2.4s cubic-bezier(0, 0, 0.24, 1.21) infinite"
+    },
+    "@-webkit-keyframes down": {
+      "0%, 100%": {
+        "-webkit-transform": "none",
+        "transform": "none"
+      },
+      "25%": {
+        "-webkit-transform": "translateX(100%)",
+        "transform": "translateX(100%)"
+      },
+      "50%": {
+        "-webkit-transform": "translateX(100%) translateY(100%)",
+        "transform": "translateX(100%) translateY(100%)"
+      },
+      "75%": {
+        "-webkit-transform": "translateY(100%)",
+        "transform": "translateY(100%)"
+      }
+    },
+    "@keyframes down": {
+      "0%, 100%": {
+        "-webkit-transform": "none",
+        "transform": "none"
+      },
+      "25%": {
+        "-webkit-transform": "translateX(100%)",
+        "transform": "translateX(100%)"
+      },
+      "50%": {
+        "-webkit-transform": "translateX(100%) translateY(100%)",
+        "transform": "translateX(100%) translateY(100%)"
+      },
+      "75%": {
+        "-webkit-transform": "translateY(100%)",
+        "transform": "translateY(100%)"
+      }
+    },
+    "@-webkit-keyframes up": {
+      "0%, 100%": {
+        "-webkit-transform": "none",
+        "transform": "none"
+      },
+      "25%": {
+        "-webkit-transform": "translateX(-100%)",
+        "transform": "translateX(-100%)"
+      },
+      "50%": {
+        "-webkit-transform": "translateX(-100%) translateY(-100%)",
+        "transform": "translateX(-100%) translateY(-100%)"
+      },
+      "75%": {
+        "-webkit-transform": "translateY(-100%)",
+        "transform": "translateY(-100%)"
+      }
+    },
+    "@keyframes up": {
+      "0%, 100%": {
+        "-webkit-transform": "none",
+        "transform": "none"
+      },
+      "25%": {
+        "-webkit-transform": "translateX(-100%)",
+        "transform": "translateX(-100%)"
+      },
+      "50%": {
+        "-webkit-transform": "translateX(-100%) translateY(-100%)",
+        "transform": "translateX(-100%) translateY(-100%)"
+      },
+      "75%": {
+        "-webkit-transform": "translateY(-100%)",
+        "transform": "translateY(-100%)"
+      }
+    }
+  }
+  
