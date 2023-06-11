@@ -8,7 +8,7 @@ import styles from './page.module.css';
 import { useRouter } from 'next/navigation';
 import { AppContext } from '@/context';
 import { User } from '@/types';
-
+import config5 from "./config5.json";
 import { NextPage } from 'next';
 import StarredChatItem from '@/components/common/starred-chat-item';
 
@@ -62,15 +62,9 @@ const StarredChats: NextPage = () => {
 			<Box className={styles.mainContainer}>
 				<Box className={`${styles.backBox}`}>
 					<Box className={styles.chatList}>
-						<Box
-							style={{
-								textAlign: 'center',
-								fontWeight: 700,
-								fontFamily: 'Mulish'
-							}}
-						>
-							प्रत्येक चैट के Starred Messages को देखने के लिए, नीचे चैट पर क्लिक करें।
-						</Box>
+					<Box style={{ fontFamily: config5.style["fontFamily"], fontWeight: config5.style["fontWeight"], textAlign: config5.style["textAlign"]}}>
+प्रत्येक चैट के Starred Messages को देखने के लिए, नीचे चैट पर क्लिक करें।
+  </Box>
 						{starredBots.length > 0 ? (
 							<>
 								{(starredBots ?? [])?.map((user, index) => (

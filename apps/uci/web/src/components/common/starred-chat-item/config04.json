@@ -1,0 +1,59 @@
+{
+    ".container": {
+      "height": "5rem",
+      "width": "100%",
+      "display": "flex",
+      "align-items": "center",
+      "border-bottom": "2px var(--lightgrey) dotted",
+      "background-color": "white",
+      "font-weight": "600"
+    },
+    ".activeContainer": {
+      "height": "5rem",
+      "width": "100%",
+      "display": "flex",
+      "align-items": "center",
+      "border-bottom": "2px var(--lightgrey) dotted",
+      "background-color": "white",
+      "font-weight": "600"
+    },
+    ".avatar": {
+      "height": "6vh",
+      "width": "6vh",
+      "border-radius": "50%"
+    },
+    ".chatItem_text": {
+      "flex": "1",
+      "height": "100%",
+      "margin-left": "2vw",
+      "padding": "0 1vh",
+      "display": "flex",
+      "flex-direction": "column"
+    },
+    ".chatItem_userName": {
+      "flex": "8",
+      "display": "flex",
+      "align-items": "center",
+      "font-size": "1rem",
+      "font-family": "'Mulish', sans-serif",
+      "font-weight": "700"
+    },
+    ".chatItem_phoneNumber": {
+      "flex": "5",
+      "display": "flex",
+      "align-items": "flex-start",
+      "font-size": "0.5rem",
+      "color": "rgba(255, 255, 255, 0.7)"
+    },
+    ".chatItem_botName": {
+      "flex": "1",
+      "display": "flex",
+      "align-items": "center",
+      "font-size": "1rem",
+      "font-family": "'Mulish', sans-serif"
+    },
+    ".chatItem_botNumber": {
+      "flex": "0"
+    }
+  }
+  
