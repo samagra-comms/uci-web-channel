@@ -17,6 +17,8 @@ interface messageProps {
   username: string;
   self: boolean;
   choices: { key: string; text: string; backmenu: boolean }[];
+  time: any;
+  date: any;
   data: any;
   location: any;
   image: any;
@@ -31,6 +33,8 @@ const Message: React.FC<messageProps> = ({
   username,
   self,
   choices,
+  time,
+  date,
   data,
   location,
   image,
@@ -43,6 +47,8 @@ const Message: React.FC<messageProps> = ({
   username: string;
   self: boolean;
   choices: { key: string; text: string; backmenu: boolean }[];
+  time: any;
+  date: any;
   data: (option: { key: string; text: string; backmenu: boolean }) => void;
   location: any;
   image: any;
@@ -134,6 +140,16 @@ const Message: React.FC<messageProps> = ({
                 </Link>
               </Button>
             )}
+            <div
+              className="timestamp"
+              style={{
+                fontSize: "10px",
+                display: "flex",
+                justifyContent: "flex-end",
+              }}
+            >
+              {date + " " + time}
+            </div>
           </Box>
         </>
       )}
@@ -233,6 +249,16 @@ const Message: React.FC<messageProps> = ({
                 </Button>
               )}
               <div style={{ whiteSpace: "pre-wrap" }}>{caption}</div>
+              <div
+                className="timestamp"
+                style={{
+                  fontSize: "10px",
+                  display: "flex",
+                  justifyContent: "flex-end",
+                }}
+              >
+                {date + " " + time}
+              </div>
             </Box>
             {choices && choices.length > 0 && (
               <Box className={styles.chatChoices_container}>
@@ -292,6 +318,8 @@ const MessageWindow: React.FC<messageWindowProps> = (props) => {
               username={msg.username}
               self={username === msg.username}
               choices={msg.choices}
+              time={msg.time}
+              date={msg.date}
               data={props.selected}
               location={msg.location}
               image={msg.image}

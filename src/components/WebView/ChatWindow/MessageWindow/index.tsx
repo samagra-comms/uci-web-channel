@@ -15,6 +15,7 @@ interface messageProps {
   text: any;
   username: string;
   time: string;
+  date: string;
   self: boolean;
   choices: { key: string; text: string; backmenu: boolean }[];
   data: any;
@@ -30,6 +31,7 @@ const Message: React.FC<messageProps> = ({
   text,
   username,
   time,
+  date,
   self,
   choices,
   data,
@@ -43,6 +45,7 @@ const Message: React.FC<messageProps> = ({
   text: any;
   username: string;
   time: string;
+  date: string;
   self: boolean;
   choices: { key: string; text: string; backmenu: boolean }[];
   data: (option: { key: string; text: string; backmenu: boolean }) => void;
@@ -145,7 +148,16 @@ const Message: React.FC<messageProps> = ({
                 </Link>
               </Button>
             )}
-            {/* <div className='timestamp' style={{fontSize: '10px', display: 'flex', justifyContent: 'flex-end'}}></div> */}
+            <div
+              className="timestamp"
+              style={{
+                fontSize: "10px",
+                display: "flex",
+                justifyContent: "flex-end",
+              }}
+            >
+              {date + " " + time}
+            </div>
           </Box>
         </>
       )}
@@ -237,7 +249,16 @@ const Message: React.FC<messageProps> = ({
                       {today.toLocaleString('en-US', { hour: 'numeric',minute: 'numeric', hour12: true })}
                   </div>
                 </Box> */}
-            {/* <div className='timestamp' style={{fontSize: '10px', display: 'flex', justifyContent: 'flex-end'}}></div> */}
+              <div
+                className="timestamp"
+                style={{
+                  fontSize: "10px",
+                  display: "flex",
+                  justifyContent: "flex-end",
+                }}
+              >
+                {date + " " + time}
+              </div>
             </Box>
             {choices && choices.length > 0 && (
               <Box className={styles.chatChoices_container}>
@@ -308,7 +329,8 @@ const MessageWindow: React.FC<messageWindowProps> = (props) => {
               key={i}
               text={msg.text}
               username={msg.username}
-              time={((new Date()).getHours()%12 || 12) + ":" + (((new Date()).getMinutes()<10?'0':'') + (new Date()).getMinutes())}
+              time={msg.time}
+              date={msg.date}
               self={username === msg.username}
               choices={msg.choices}
               data={props.selected}
