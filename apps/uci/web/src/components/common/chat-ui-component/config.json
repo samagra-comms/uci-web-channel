@@ -1,0 +1,24 @@
+{
+    "INITIAL_LOADING_STATE": true,
+    "DEFAULT_POSITION": "right",
+    "DEFAULT_MESSAGE_FLAG": false,
+    "EMPTY_STRING": "",
+    "locale":"en-US",
+    "ERROR_MESSAGES": {
+      "MOBILE_REQUIRED": "Mobile Number required",
+      "FETCHING_CHAT_HISTORY_ONLINE": "error in fetching chat history(online)",
+      "ACTION_NOT_ALLOWED": "action not allowed",
+      "ON_COMPLETED_ERROR": "error in onChatCompleted func"
+    },
+    "CHAT_UI": {
+      "MSG_TYPES": ["image", "text", "audio", "file", "video"],
+      "POSITIONS": ["right", "left"]
+    },
+    "PLACEHOLDER":{
+        "CHAT_INPUT":"Please select from options",
+        "QUESTION": "Ask Your Question"
+
+    }
+    
+  }
+  
