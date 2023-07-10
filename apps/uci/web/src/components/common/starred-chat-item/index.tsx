@@ -1,9 +1,6 @@
-"use client";
 import React, { useCallback } from 'react';
 import { Box, useColorModeValue } from '@chakra-ui/react';
 import styles from './index.module.css';
-import profilePic from '../../../assets/images/bot_icon_2.png';
-import crossPic from '../../../assets/images/cross.png';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import { User } from '@/types';
@@ -17,9 +14,26 @@ interface chatItemProps {
 	isBlank?: boolean;
 }
 
- const StarredChatItem: React.FC<chatItemProps> = ({ active, name, phoneNumber, user, isBlank }) => {
-	const history = useRouter();
+interface Config {
+	images: {
+		profilePic: string;
+		crossPic: string;
+	};
+	textStyles: {
+		ellipsis: {
+			textOverflow: 'ellipsis';
+			maxWidth: string;
+			overflow: 'hidden';
+			whiteSpace: 'normal' | 'nowrap' | 'pre' | 'pre-line' | 'pre-wrap' | 'initial' | 'inherit';
+			marginBottom: string;
+		};
+	};
+}
 
+const config = (require('./config.json') as Config);
+
+const StarredChatItem: React.FC<chatItemProps> = ({ active, name, phoneNumber, user, isBlank }) => {
+	const history = useRouter();
 	const fontColorToggle = useColorModeValue(styles.darkFontColor, styles.lightFontColor);
 
 	const onChangingCurrentUserHandler = useCallback(() => {
@@ -36,27 +50,17 @@ interface chatItemProps {
 				<div className={styles.avatar}>
 					{
 						<Image
-							src={!isBlank ? profilePic : crossPic}
+							src={!isBlank ? require(config.images.profilePic) : require(config.images.crossPic)}
 							alt="profile pic"
 						/>
 					}
 				</div>
 				<Box className={`${styles.chatItem_text}`}>
 					<Box
-						className={`${
-							phoneNumber === null ? styles.chatItem_botName : styles.chatItem_userName
-						} ${active ? styles.activeFont : fontColorToggle}`}
+						className={`${phoneNumber === null ? styles.chatItem_botName : styles.chatItem_userName
+							} ${active ? styles.activeFont : fontColorToggle}`}
 					>
-						<p
-							style={{
-								textOverflow: 'ellipsis',
-								maxWidth: '70vw',
-								overflow: 'hidden',
-								whiteSpace: 'nowrap',
-								marginBottom: 'auto',
-								marginTop: 'auto'
-							}}
-						>
+						<p style={config.textStyles.ellipsis}>
 							{name}
 						</p>
 					</Box>
@@ -65,6 +69,5 @@ interface chatItemProps {
 		</React.Fragment>
 	);
 };
-
 
 export default StarredChatItem;

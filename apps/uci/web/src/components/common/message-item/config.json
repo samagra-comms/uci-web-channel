@@ -1,0 +1,53 @@
+{
+    "botImage": "../../../assets/images/bot_icon_2.png",
+    "style": {
+      "width": 40,
+      "marginRight": "4px",
+      "textAlign": "center",
+      "fontSize": "16px",
+      "color": "var(--grey)",
+      "marginLeft": "10px",
+      "padding": "7px"
+    },
+    "bubbleType": {
+      "text": "text",
+      "image": "image",
+      "file": "file"
+    },
+    "iconColor": {
+      "starred": "var(--primaryyellow)",
+      "default": "var(--grey)"
+    },
+    "imageSize": {
+      "width": 299,
+      "height": 200
+    },
+    "dateFormat": "DD/MM/YYYY : hh:mm",
+    "video": {
+      "style": {
+        "padding": "7px",
+        "color": "var(--grey)",
+        "fontSize": "10px"
+      },
+      "cover": "data:image/png;base64,...",
+      "starColor": {
+        "starred": "var(--primaryyellow)",
+        "default": "var(--grey)"
+      }
+    },
+    "options": {
+      "style": {
+        "width": "95px",
+        "marginRight": "4px",
+        "textAlign": "center",
+        "fontSize": "16px"
+      },
+      "starColor": {
+        "starred": "var(--primaryyellow)",
+        "default": "var(--grey)"
+      }
+    }
+  
+    
+  }
+  

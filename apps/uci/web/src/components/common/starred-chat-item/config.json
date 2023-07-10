@@ -1,0 +1,16 @@
+{
+  "images": {
+    "profilePic": "../../../assets/images/bot_icon_2.png",
+    "crossPic": "../../../assets/images/cross.png"
+  },
+  "textStyles": {
+    "ellipsis": {
+      "textOverflow": "ellipsis",
+      "maxWidth": "70vw",
+      "overflow": "hidden",
+      "whiteSpace": "nowrap",
+      "marginBottom": "auto",
+      "marginTop": "auto"
+    }
+  }
+}

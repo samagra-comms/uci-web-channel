@@ -23,35 +23,36 @@ import { normalizedChat } from "../../../utils/normalize-chats";
 import { AppContext } from "../../../context";
 import FullScreenLoader from "../fullscreen-loader";
 import { MessageItem } from "../message-item";
+import configData from "./config.json";
+
 
 type ChatUiMsgType = {
     type: "image" | "text" | "audio" | "file" | "video";
     content: { text: string; data: any };
     position: "right" | "left";
 };
+
 export const ChatUiComponent: FC<{
     currentUser: any;
 }> = ({ currentUser }) => {
-    const [loading, setLoading] = useState(true);
-    const context = useContext(AppContext);
 
+    const [loading, setLoading] = useState(configData.INITIAL_LOADING_STATE);
+    const context = useContext(AppContext);
     const chatUIMsg = useMemo<ChatUiMsgType>(
         () =>
             context?.messages?.map((msg: any) => ({
                 type: getMsgType(msg),
                 content: { text: msg?.text, data: { ...msg } },
-                position: msg?.position ?? "right",
+                position: msg?.position ?? configData.DEFAULT_POSITION,
             })),
         [context?.messages]
     );
-
-
 
     const sendMessage = useCallback(() => {
         context?.sendMessage(
             currentUser?.startingMessage,
             null,
-            false,
+            configData.DEFAULT_MESSAGE_FLAG,
             currentUser
         );
     }, [context, currentUser]);
@@ -72,15 +73,15 @@ export const ChatUiComponent: FC<{
 
     useEffect(() => {
         const phone = localStorage.getItem("mobile");
-        if (phone === "") toast.error("Mobile Number required");
+        if (phone === configData.EMPTY_STRING) toast.error(configData.ERROR_MESSAGES.MOBILE_REQUIRED);
 
         if (navigator.onLine) {
-            console.log("chatUi=>:",{navigator:navigator.onLine,conversationHistoryUrl})
+            console.log("chatUi=>:", { navigator: navigator.onLine, conversationHistoryUrl })
             if (conversationHistoryUrl && context?.socket?.connected) {
                 axios
                     .get(conversationHistoryUrl)
                     .then((res) => {
-                        console.log("chatUi=>:",{res})
+                        console.log("chatUi=>:", { res })
                         setLoading(false);
                         if (res?.data?.result?.records?.length > 0) {
                             const normalizedChats = normalizedChat(res.data.result.records);
@@ -94,12 +95,12 @@ export const ChatUiComponent: FC<{
                         }
                     })
                     .catch((err) => {
-                        console.log("chatUi=>:",{err})
+                        console.log("chatUi=>:", { err })
                         setLoading(false);
                         toast.error(JSON.stringify(err?.message));
                         window &&
                             window?.androidInteract?.log(
-                                `error in fetching chat history(online):${JSON.stringify(err)}`
+                                `${configData.ERROR_MESSAGES.FETCHING_CHAT_HISTORY_ONLINE}:${JSON.stringify(err)}`
                             );
                     });
             } else {
@@ -119,10 +120,10 @@ export const ChatUiComponent: FC<{
                         setMessages(offlineMsgs);
                     }
                 } catch (err) {
-                    
+
                     window &&
                         window?.androidInteract?.log(
-                            `error in getting chat history(offline):${JSON.stringify(err)}`
+                            `${configData.ERROR_MESSAGES.FETCHING_CHAT_HISTORY_ONLINE}:${JSON.stringify(err)}`
                         );
                 }
             }
@@ -143,20 +144,20 @@ export const ChatUiComponent: FC<{
         } catch (err) {
             window &&
                 window?.androidInteract?.log(
-                    `error in onChatCompleted func:${JSON.stringify(err)}`
+                    `${configData.ERROR_MESSAGES.ON_COMPLETED_ERROR}:${JSON.stringify(err)}`
                 );
         }
     }, [context?.state?.messages, currentUser?.id]);
 
     const handleSend = useCallback(
         (type: string, val: any) => {
-            if (type === "text" && val.trim()) {
+            if (type === configData.CHAT_UI.MSG_TYPES[1] && val.trim()) {
                 if (
                     find(context?.botStartingMsgs, { msg: val.trim() }) &&
                     find(context?.botStartingMsgs, { msg: val.trim() })?.id !==
                     currentUser?.botUuid
                 ) {
-                    toast.error("action not allowed");
+                    toast.error(configData.ERROR_MESSAGES.ACTION_NOT_ALLOWED);
                 } else {
                     context?.sendMessage(val, null, true, currentUser);
                 }
@@ -187,9 +188,9 @@ export const ChatUiComponent: FC<{
                     />
                 )}
                 onSend={handleSend}
-                locale="en-US"
+                locale={configData.locale}
                 placeholder={
-                    isSendDisabled ? "Please select from options" : "Ask Your Question"
+                    isSendDisabled ? configData.PLACEHOLDER.CHAT_INPUT : configData.PLACEHOLDER.QUESTION
                 }
             />
         </>
