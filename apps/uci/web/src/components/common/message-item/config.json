@@ -22,6 +22,32 @@
       "width": 299,
       "height": 200
     },
-    "dateFormat": "DD/MM/YYYY : hh:mm"
+    "dateFormat": "DD/MM/YYYY : hh:mm",
+    "video": {
+      "style": {
+        "padding": "7px",
+        "color": "var(--grey)",
+        "fontSize": "10px"
+      },
+      "cover": "data:image/png;base64,...",
+      "starColor": {
+        "starred": "var(--primaryyellow)",
+        "default": "var(--grey)"
+      }
+    },
+    "options": {
+      "style": {
+        "width": "95px",
+        "marginRight": "4px",
+        "textAlign": "center",
+        "fontSize": "16px"
+      },
+      "starColor": {
+        "starred": "var(--primaryyellow)",
+        "default": "var(--grey)"
+      }
+    }
+  
+    
   }
   
