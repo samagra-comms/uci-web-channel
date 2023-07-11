@@ -7,6 +7,7 @@ import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import { User } from '@/types';
 import { AppContext } from '@/context';
+import moment from 'moment';
 
 interface chatItemProps {
 	active: boolean;
@@ -16,15 +17,21 @@ interface chatItemProps {
 	isBlank?: boolean;
 }
 
+
 const ChatItem: React.FC<chatItemProps> = ({ active, name, phoneNumber, user, isBlank }) => {
 	const history = useRouter();
 	const context = useContext(AppContext);
 
 	const fontColorToggle = useColorModeValue(styles.darkFontColor, styles.lightFontColor);
 
+	const expiredItem = user?.endDate!== undefined && user.endDate < moment().format() && user?.status === 'ENABLED';
+
+
 	const onChangingCurrentUserHandler = useCallback(() => {
 		localStorage.setItem('currentUser', JSON.stringify(user));
 		context?.toChangeCurrentUser(user);
+		// console.log('user Date', user?.endDate);
+		// console.log('user Status', user?.status);
 		history.push(`/chats/${user?.id}`);
 	}, [context, history, user]);
 
@@ -53,7 +60,8 @@ const ChatItem: React.FC<chatItemProps> = ({ active, name, phoneNumber, user, is
 								maxWidth: '70vw',
 								overflow: 'hidden',
 								whiteSpace: 'nowrap',
-								marginBottom: '0'
+								marginBottom: '0',
+								color: expiredItem ? 'lightgrey' : 'black'
 							}}
 						>
 							{name}
@@ -62,7 +70,9 @@ const ChatItem: React.FC<chatItemProps> = ({ active, name, phoneNumber, user, is
 				</Box>
 			</button>
 		</React.Fragment>
+						
 	);
+
 };
 
 export default ChatItem;
