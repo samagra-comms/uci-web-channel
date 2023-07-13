@@ -4,11 +4,12 @@ import { reverse, sortBy, without } from "lodash";
 import moment from "moment";
 import { useEffect } from "react";
 import { toast } from "react-hot-toast";
+import { setUsers, setCurrentUser, setLoading } from "@/types/react-dispatch";
 
 interface GetBotItemProp{
-    setUsers: React.Dispatch<React.SetStateAction<any>>;
-    setCurrentUser: React.Dispatch<React.SetStateAction<any>>;
-    setLoading: React.Dispatch<React.SetStateAction<boolean>>;
+   setUsers: setUsers,
+   setCurrentUser: setCurrentUser,
+   setLoading: setLoading
 }
 
 

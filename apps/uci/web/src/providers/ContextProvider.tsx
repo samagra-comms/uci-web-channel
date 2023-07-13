@@ -13,8 +13,8 @@ import { Toaster } from "react-hot-toast";
 import { AppContext } from "@/context";
 import { io, Socket } from 'socket.io-client';
 import { getBotDetailsList } from "@/utils/api-handler";
-import SocketConnection from "@/components/SocketComponent";
-import GetBotList from "@/components/GetBotList";
+import SocketConnection from "@/components/socket-components";
+import GetBotList from "@/components/get-bot-list";
 
 
 export const ContextProvider: FC<{ children: React.ReactNode }> = ({ children }) => {
@@ -47,12 +47,7 @@ export const ContextProvider: FC<{ children: React.ReactNode }> = ({ children })
   );
 
   useEffect(() => {
-    const hasLocalStorageBeenSet = localStorage.getItem('localStorageSet');
-
-    if (!hasLocalStorageBeenSet) {
       setLocalStorage();
-      localStorage.setItem('localStorageSet', 'true');
-    }
   }, []);
 
 

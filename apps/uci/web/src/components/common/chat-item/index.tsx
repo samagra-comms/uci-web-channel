@@ -1,4 +1,4 @@
-import React, { useCallback, useContext } from 'react';
+import React, { useCallback, useContext, useMemo } from 'react';
 import { Box, useColorModeValue } from '@chakra-ui/react';
 import styles from './index.module.css';
 import profilePic from '../../../assets/images/bot_icon_2.png';
@@ -24,10 +24,12 @@ const ChatItem: React.FC<chatItemProps> = ({ active, name, phoneNumber, user, is
 
 	const fontColorToggle = useColorModeValue(styles.darkFontColor, styles.lightFontColor);
 
-	const expiredItem = user?.endDate!== undefined && user.endDate < moment().format() && user?.status === 'ENABLED';
+	const expiredItem = useMemo(() => {
+		return user?.endDate !== undefined && user.endDate < moment().format() && user?.status === 'ENABLED';
+	  }, [user]);
 
 
-	const onChangingCurrentUserHandler = useCallback(() => {
+	const onChangeUser = useCallback(() => {
 		localStorage.setItem('currentUser', JSON.stringify(user));
 		context?.toChangeCurrentUser(user);
 		// console.log('user Date', user?.endDate);
@@ -38,7 +40,7 @@ const ChatItem: React.FC<chatItemProps> = ({ active, name, phoneNumber, user, is
 	return (
 		<React.Fragment>
 			<button
-				onClick={onChangingCurrentUserHandler}
+				onClick={onChangeUser}
 				disabled={isBlank}
 				className={` ${active ? styles.activeContainer : styles.container}`}
 			>
