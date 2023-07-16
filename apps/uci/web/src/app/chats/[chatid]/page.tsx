@@ -25,11 +25,6 @@ const Chats: NextPage<{ params: { chatid: string } }> = ({ params }) => {
         if (!params?.chatid) router.push('/');
     }, [router, params?.chatid]);
 
-    useEffect(() => {
-        window && window?.androidInteract?.onBotListingScreenFocused(false);
-        window &&
-            window?.androidInteract?.log(`On Home Page onBotListingScreenFocused:false triggered`);
-    }, []);
 
 
 
