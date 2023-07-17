@@ -1,13 +1,13 @@
 import React, { useCallback, useContext, useMemo } from 'react';
 import { Box, useColorModeValue } from '@chakra-ui/react';
 import styles from './index.module.css';
-import profilePic from '../../../assets/images/bot_icon_2.png';
-import crossPic from '../../../assets/images/cross.png';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
+import {profilePic, crossPic} from '@/assets';
 import { User } from '@/types';
 import { AppContext } from '@/context';
 import moment from 'moment';
+import { config } from '@/config';
 
 interface chatItemProps {
 	active: boolean;
@@ -16,7 +16,6 @@ interface chatItemProps {
 	user?: User;
 	isBlank?: boolean;
 }
-
 
 const ChatItem: React.FC<chatItemProps> = ({ active, name, phoneNumber, user, isBlank }) => {
 	const history = useRouter();
@@ -48,33 +47,30 @@ const ChatItem: React.FC<chatItemProps> = ({ active, name, phoneNumber, user, is
 					<Image
 						src={!isBlank ? profilePic : crossPic}
 						alt="profile pic"
+						width={220}
+						height={220}
 					/>
 				</div>
 				<Box className={`${styles.chatItem_text}`}>
 					<Box
 						className={`${
 							phoneNumber === null ? styles.chatItem_botName : styles.chatItem_userName
-						} ${active ? styles.activeFont : fontColorToggle}`}
-					>
-						<p
-							style={{
+						} ${active ? styles.activeFont : fontColorToggle}`}>
+						<p style={{
 								textOverflow: 'ellipsis',
 								maxWidth: '70vw',
 								overflow: 'hidden',
 								whiteSpace: 'nowrap',
 								marginBottom: '0',
 								color: expiredItem ? 'lightgrey' : 'black'
-							}}
-						>
+							}}>
 							{name}
 						</p>
 					</Box>
 				</Box>
 			</button>
-		</React.Fragment>
-						
+		</React.Fragment>					
 	);
-
 };
 
 export default ChatItem;

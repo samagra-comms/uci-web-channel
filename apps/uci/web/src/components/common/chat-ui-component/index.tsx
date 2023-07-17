@@ -3,26 +3,13 @@
 import Chat from "chatui";
 import "chatui/dist/index.css";
 import axios from "axios";
-import React, {
-    FC,
-    ReactElement,
-    useCallback,
-    useContext,
-    useEffect,
-    useMemo,
-    useState,
-} from "react";
-
+import React, {FC,ReactElement,useCallback,useContext,useEffect,useMemo,useState} from "react";
 import { filter, find, last } from "lodash";
 import { toast } from "react-hot-toast";
-
-
-import { getConvHistoryUrl } from "../../../utils/urls";
-import { getMsgType } from "../../../utils/get-msg-type";
-import { normalizedChat } from "../../../utils/normalize-chats";
-import { AppContext } from "../../../context";
-import FullScreenLoader from "../fullscreen-loader";
-import { MessageItem } from "../message-item";
+import { getConvHistoryUrl,getMsgType,normalizedChat } from "@/utils";
+import { AppContext } from "@/context";
+import { MessageItem,FullScreenLoader } from "@/components";
+import { config } from "@/config";
 
 type ChatUiMsgType = {
     type: "image" | "text" | "audio" | "file" | "video";
@@ -44,8 +31,6 @@ export const ChatUiComponent: FC<{
             })),
         [context?.messages]
     );
-
-
 
     const sendMessage = useCallback(() => {
         context?.sendMessage(
@@ -71,7 +56,7 @@ export const ChatUiComponent: FC<{
 
 
     useEffect(() => {
-        const phone = localStorage.getItem("mobile");
+        const phone = config.Socket.mobile;
         if (phone === "") toast.error("Mobile Number required");
 
         if (navigator.onLine) {
@@ -106,8 +91,6 @@ export const ChatUiComponent: FC<{
                             // @ts-ignore
                             { botUuid: JSON.parse(localStorage.getItem("currentUser"))?.id }
                         );
-                       
-
                         setMessages(offlineMsgs);
                     }
             }

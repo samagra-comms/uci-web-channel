@@ -5,13 +5,13 @@ import moment from "moment";
 import { useEffect } from "react";
 import { toast } from "react-hot-toast";
 import { setUsers, setCurrentUser, setLoading } from "@/types/react-dispatch";
+import { config } from "@/config";
 
 interface GetBotItemProp{
    setUsers: setUsers,
    setCurrentUser: setCurrentUser,
    setLoading: setLoading
 }
-
 
 const GetBotList: React.FC<GetBotItemProp> = ({ setUsers, setCurrentUser, setLoading }) => {
 
@@ -20,7 +20,7 @@ const GetBotList: React.FC<GetBotItemProp> = ({ setUsers, setCurrentUser, setLoa
           const checkOnline = async (): Promise<void> => {
             if (window.navigator.onLine) {
     
-              const botIds = JSON.parse(localStorage.getItem("botList") || '{}');
+              const botIds = JSON.parse(config.BotList.botlist);
               getBotDetailsList()
                 .then((response): any => {
                   console.log({ response })

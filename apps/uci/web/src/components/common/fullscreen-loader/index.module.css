@@ -120,4 +120,9 @@
            transform: translateY(-100%);
   }
  }
+
+ .modal-content{
+        background: none;
+        box-shadow: none;
+ }
  
