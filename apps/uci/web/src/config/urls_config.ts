@@ -1,13 +1,9 @@
+import { BaseUrls } from "@/types";
+
 // urlsConfig.ts
 const environment = process.env.NEXT_PUBLIC_ENVIRONMENT || 'development';
 
-const baseUrls: {
-    [key: string]: {
-        chatHistoryUrl?: string;
-        botDetailsUrl?: string;
-        otpBaseUrl?: string;
-    };
-} = {
+const baseUrls: BaseUrls = {
     development: {
         chatHistoryUrl: process.env.NEXT_PUBLIC_CHAT_HISTORY_URL,
         botDetailsUrl: process.env.NEXT_PUBLIC_UCI_BOT_BASE_URL,

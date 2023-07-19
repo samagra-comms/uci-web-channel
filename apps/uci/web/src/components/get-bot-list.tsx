@@ -20,7 +20,7 @@ const GetBotList: React.FC<GetBotItemProp> = ({ setUsers, setCurrentUser, setLoa
           const checkOnline = async (): Promise<void> => {
             if (window.navigator.onLine) {
     
-              const botIds = JSON.parse(config.BotList.botlist);
+              const botIds = JSON.parse(config.list[0].botList);
               getBotDetailsList()
                 .then((response): any => {
                   console.log({ response })
@@ -49,7 +49,6 @@ const GetBotList: React.FC<GetBotItemProp> = ({ setUsers, setCurrentUser, setLoa
                     ),
                     null
                   );
-    
     
                   // @ts-ignore
                   setUsers(botDetailsList);

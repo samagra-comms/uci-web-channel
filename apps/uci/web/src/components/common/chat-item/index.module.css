@@ -86,6 +86,17 @@
   flex: 0;
 }
 
-.chatItem_innertext{
-  
+.paragraphStyle {
+	text-overflow: ellipsis;
+	max-width: 70vw;
+	overflow: hidden;
+	white-space: nowrap;
+	margin-bottom: 0;
 }
+.paragraphStyleExpired {
+	color: lightgrey;
+}
+.paragraphStyleActive {
+	color: black;
+}
+

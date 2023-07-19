@@ -10,12 +10,8 @@ import { getConvHistoryUrl,getMsgType,normalizedChat } from "@/utils";
 import { AppContext } from "@/context";
 import { MessageItem,FullScreenLoader } from "@/components";
 import { config } from "@/config";
+import { ChatUiMsgType } from "@/types";
 
-type ChatUiMsgType = {
-    type: "image" | "text" | "audio" | "file" | "video";
-    content: { text: string; data: any };
-    position: "right" | "left";
-};
 export const ChatUiComponent: FC<{
     currentUser: any;
 }> = ({ currentUser }) => {
@@ -54,9 +50,8 @@ export const ChatUiComponent: FC<{
         [context?.currentUser]
     );
 
-
     useEffect(() => {
-        const phone = config.Socket.mobile;
+        const phone = config.socket.mobile;
         if (phone === "") toast.error("Mobile Number required");
 
         if (navigator.onLine) {
@@ -98,7 +93,6 @@ export const ChatUiComponent: FC<{
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [conversationHistoryUrl, context?.socket?.connected
     ]);
-
 
     const handleSend = useCallback(
         (type: string, val: any) => {

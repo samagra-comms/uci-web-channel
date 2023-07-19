@@ -3,11 +3,11 @@ import { Box, useColorModeValue } from '@chakra-ui/react';
 import styles from './index.module.css';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
-import {profilePic, crossPic} from '@/assets';
+import { profilePic, crossPic } from '@/assets';
 import { User } from '@/types';
 import { AppContext } from '@/context';
 import moment from 'moment';
-import { config } from '@/config';
+import { theme } from '@/config';
 
 interface chatItemProps {
 	active: boolean;
@@ -25,7 +25,7 @@ const ChatItem: React.FC<chatItemProps> = ({ active, name, phoneNumber, user, is
 
 	const expiredItem = useMemo(() => {
 		return user?.endDate !== undefined && user.endDate < moment().format() && user?.status === 'ENABLED';
-	  }, [user]);
+	}, [user]);
 
 
 	const onChangeUser = useCallback(() => {
@@ -47,29 +47,21 @@ const ChatItem: React.FC<chatItemProps> = ({ active, name, phoneNumber, user, is
 					<Image
 						src={!isBlank ? profilePic : crossPic}
 						alt="profile pic"
-						width={220}
-						height={220}
+						width={theme.image.width}
+						height={theme.image.height}
 					/>
 				</div>
 				<Box className={`${styles.chatItem_text}`}>
 					<Box
-						className={`${
-							phoneNumber === null ? styles.chatItem_botName : styles.chatItem_userName
-						} ${active ? styles.activeFont : fontColorToggle}`}>
-						<p style={{
-								textOverflow: 'ellipsis',
-								maxWidth: '70vw',
-								overflow: 'hidden',
-								whiteSpace: 'nowrap',
-								marginBottom: '0',
-								color: expiredItem ? 'lightgrey' : 'black'
-							}}>
+						className={`${phoneNumber === null ? styles.chatItem_botName : styles.chatItem_userName
+							} ${active ? styles.activeFont : fontColorToggle}`}>
+						<p className={`${styles.paragraphStyle} ${expiredItem ? styles.paragraphStyleExpired : styles.paragraphStyleActive}`}>
 							{name}
 						</p>
 					</Box>
 				</Box>
 			</button>
-		</React.Fragment>					
+		</React.Fragment>
 	);
 };
 

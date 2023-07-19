@@ -30,5 +30,17 @@ export const theme= {
         small: "40px",
         medium: "95px",
         large: "299px",
-    }
+    },
+    modal:{
+        bgColor: 'blackAlpha.300',
+        backdropFilter: 'blur(10px) hue-rotate(90deg)',
+    },
+    image:{
+        width: 220,
+        height: 220,
+    },
+    case_image:{
+        width: 290,
+        height: 200,
+    },
 };

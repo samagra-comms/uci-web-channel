@@ -6,12 +6,59 @@ import "chatui/dist/index.css";
 import { map } from 'lodash';
 import moment from 'moment';
 import styles from './index.module.css';
-import {botImage} from '@/assets';
+import { botImage } from '@/assets';
 import Image from 'next/image';
 import { AppContext } from '@/context';
 import { User } from '@/types';
 import { getMsgType } from '@/utils';
-import {theme,config} from '@/config';
+import { theme, config } from '@/config';
+import styled from 'styled-components';
+
+const ImageDiv = styled.div`
+  width: ${theme.width.small};
+  margin-right: ${theme.margin.small};
+  text-align: center;
+`;
+
+const StyledImage = styled(Image)`
+  border-radius: 50%;
+`;
+
+const StyledBubble = styled(Bubble)`
+  p {
+    font-size: ${theme.textStyles.medium.fontSize};
+  }
+  span {
+    color: var(--grey);
+    font-size: ${theme.textStyles.small.fontSize};
+  }
+`;
+
+const StyledBubbleImage = styled(Bubble)`
+  div {
+    padding: ${theme.padding.medium};
+  }
+  span {
+    color: var(--grey);
+    font-size: ${theme.textStyles.small.fontSize};
+  }
+`;
+
+const StyledBubbleOptions = styled(Bubble)`
+  div {
+    display: flex;
+  }
+  span {
+    font-size: ${theme.textStyles.medium.fontSize};
+  }
+  div:nth-child(3) {
+    margin-top: ${theme.margin.medium};
+  }
+  span:last-child {
+    color: var(--grey);
+    font-size: ${theme.textStyles.small.fontSize};
+  }
+`;
 
 export const StarredChatList: FC<{ user: User }> = ({ user }) => {
     const context = useContext(AppContext);
@@ -29,14 +76,10 @@ export const StarredChatList: FC<{ user: User }> = ({ user }) => {
 
     const getLists = useCallback(
         ({ choices, isDisabled }: { choices: any; isDisabled: boolean }) => (
-
-            // @ts-ignore
             <List className={`${styles.list}`}>
                 {map(choices ?? [], (choice, index) => (
                     <ListItem
                         className={`${styles.onHover} ${styles.listItem}`}
-                        // @ts-ignore
-                        // eslint-disable-next-line react/no-children-prop
                         children={<span style={{ fontSize: theme.textStyles.small.fontSize }}>{choice.text || choice.key}</span>}
                     />
                 ))}
@@ -52,30 +95,29 @@ export const StarredChatList: FC<{ user: User }> = ({ user }) => {
                 return (
                     <>
                         {content?.data?.position === 'left' && (
-                            <div style={{ width: theme.width.small, marginRight: theme.margin.small, textAlign: 'center' }}>
-                                <Image alt="botIcon" src={botImage} style={{ borderRadius: '50%' }} />
-                            </div>
+                            <ImageDiv>
+                                <StyledImage alt="botIcon" src={botImage} />
+                            </ImageDiv>
                         )}
-                        <Bubble type="text">
-                            <p style={{ fontSize: theme.textStyles.medium.fontSize }}>{content.text}</p>
-                            <span style={{ color: 'var(--grey)', fontSize: theme.textStyles.small.fontSize }}>
+                        <StyledBubble type="text">
+                            <p>{content.text}</p>
+                            <span>
                                 {moment
                                     .utc(content?.data?.sentTimestamp || content?.data?.receivedTimeStamp)
                                     .local()
                                     .format('DD/MM/YYYY : hh:mm')}
                             </span>
-                        </Bubble>
+                        </StyledBubble>
                     </>
                 );
             case 'image':
-                // eslint-disable-next-line no-case-declarations
                 const url = content?.data?.payload?.media?.url || content?.data?.imageUrl;
                 return (
-                    <Bubble type="image">
-                        <div style={{ padding: theme.padding.medium }}>
+                    <StyledBubbleImage type="image">
+                        <div>
                             <Image src={url} width="299" height="200" alt="image" />
-                            <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                                <span style={{ color: 'var(--grey)', fontSize: theme.textStyles.small.fontSize }}>
+                            <div>
+                                <span>
                                     {moment
                                         .utc(content?.data?.sentTimestamp || content?.data?.receivedTimeStamp)
                                         .local()
@@ -83,25 +125,19 @@ export const StarredChatList: FC<{ user: User }> = ({ user }) => {
                                 </span>
                             </div>
                         </div>
-                    </Bubble>
+                    </StyledBubbleImage>
                 );
             case 'video': {
                 const vidUrl = content?.data?.payload?.media?.url || content?.data?.videoUrl;
                 return (
-                    <Bubble type="image">
-                        <div style={{ padding: theme.padding.medium }}>
+                    <StyledBubbleImage type="image">
+                        <div>
                             <Video
-                                cover={config.Starred_Chat.video_cover}
+                                cover={config.chat.video_cover}
                                 src={vidUrl}
                             />
-                            <div
-                                style={{
-                                    display: 'flex',
-                                    justifyContent: 'space-between',
-                                    alignItems: 'self-end'
-                                }}
-                            >
-                                <span style={{ color: 'var(--grey)', fontSize: theme.textStyles.small.fontSize }}>
+                            <div>
+                                <span>
                                     {moment
                                         .utc(content?.data?.sentTimestamp || content?.data?.receivedTimeStamp)
                                         .local()
@@ -109,59 +145,42 @@ export const StarredChatList: FC<{ user: User }> = ({ user }) => {
                                 </span>
                             </div>
                         </div>
-                    </Bubble>
+                    </StyledBubbleImage>
                 );
             }
 
             case 'file':
                 return (
                     <FileCard
-                        // @ts-ignore
                         file={{
-                            name: config.Starred_Chat.file_name,
-                            size:config.Starred_Chat.size
+                            name: 'sample',
+                            size: 12345,
                         }}
                         extension="pdf" >
                         <a target="_blank"
-                            href="https://www.africau.edu/images/default/sample.pdf"
-                            rel="noreferrer" >
-                            Sample
+                            href={content?.data?.payload?.media?.url || content?.data?.fileUrl}
+                            style={{ textDecoration: 'none' }}>
+                            Download
                         </a>
                     </FileCard>
                 );
-            case 'options': {
+            case 'options':
                 return (
-                    <>
-                        <div style={{ width: theme.width.medium, marginRight: theme.margin.small, textAlign: 'center' }}>
-                            <Image alt="botIcon" src={botImage} style={{ borderRadius: '50%' }} />
+                    <StyledBubbleOptions type="options">
+                        <div>
+                            <span>{content.text}</span>
                         </div>
-                        <Bubble type="text">
-                            <div style={{ display: 'flex' }}>
-                                <span style={{ fontSize: theme.textStyles.medium.fontSize }}>{content.text}</span>
-                            </div>
-                            <div style={{ marginTop: theme.margin.medium }} />
-                            {getLists({
-                                choices: content?.data?.payload?.buttonChoices ?? content?.data?.choices,
-                                isDisabled: content?.data?.disabled
-                            })}
-                            <div
-                                style={{
-                                    display: 'flex',
-                                    justifyContent: 'space-between',
-                                    alignItems: 'self-end'
-                                }}
-                            >
-                                <span style={{ color: 'var(--grey)', fontSize: theme.textStyles.small.fontSize }}>
-                                    {moment
-                                        .utc(content?.data?.sentTimestamp || content?.data?.receivedTimeStamp)
-                                        .local()
-                                        .format('DD/MM/YYYY : hh:mm')}
-                                </span>
-                            </div>
-                        </Bubble>
-                    </>
+                        {getLists(content.data)}
+                        <div>
+                            <span>
+                                {moment
+                                    .utc(content?.data?.sentTimestamp || content?.data?.receivedTimeStamp)
+                                    .local()
+                                    .format('DD/MM/YYYY : hh:mm')}
+                            </span>
+                        </div>
+                    </StyledBubbleOptions>
                 );
-            }
             default:
                 return <></>;
         }
@@ -169,14 +188,10 @@ export const StarredChatList: FC<{ user: User }> = ({ user }) => {
 
     return (
         <Chat
+            className={styles.chat}
+            navbar={{ title: 'Starred Messages' }}
             messages={msgs}
             renderMessageContent={renderMessageContent}
-            onSend={(): null => null}
-            locale="en-US"
-            disableSend
-            placeholder={config.Starred_Chat.placeholder}
         />
     );
 };
-
-

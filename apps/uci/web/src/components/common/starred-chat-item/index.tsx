@@ -56,5 +56,4 @@ interface chatItemProps {
 	);
 };
 
-
 export default StarredChatItem;
