@@ -1,0 +1,10 @@
+node_modules/
+.env
+.next
+out
+out.zip
+build
+./build/*
+build.zip
+build*.zip
+.DS_Store
