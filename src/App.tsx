@@ -47,10 +47,11 @@ const App: FC = () => {
     socket.connect();
   }, []);
 
-  useEffect(()=>{
-    if((!localStorage.getItem('mobile') || !(localStorage.getItem('auth')) || !localStorage.getItem('botList')))
-      history.push('/auth')
-  },[history])
+  // useEffect(()=>{
+  //   if((!localStorage.getItem('mobile') || !(localStorage.getItem('auth')) || !localStorage.getItem('botList')))
+  //     history.push('/auth')
+  // },[history])
+  
   useEffect(() => {
     if (!isConnected) connect();
   }, [isConnected, connect]);
