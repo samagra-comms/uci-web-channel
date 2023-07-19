@@ -27,7 +27,6 @@ const ChatItem: React.FC<chatItemProps> = ({ active, name, phoneNumber, user, is
 		return user?.endDate !== undefined && user.endDate < moment().format() && user?.status === 'ENABLED';
 	}, [user]);
 
-
 	const onChangeUser = useCallback(() => {
 		localStorage.setItem('currentUser', JSON.stringify(user));
 		context?.toChangeCurrentUser(user);
