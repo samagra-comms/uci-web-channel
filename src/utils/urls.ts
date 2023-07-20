@@ -7,7 +7,7 @@ export const getConvHistoryUrl = (user: any): string =>
 	}/xmsg/conversation-history?provider=pwa&endDate=${moment()
 		.add(7, "days")
 		.format("DD-MM-YYYY")}&startDate=19-03-2023&botId=${user?.id
-	}&userId=${`nlpwa:${localStorage.getItem("mobile")}`}`;
+	}&userId=${`nlpwa:${localStorage.getItem("mobile")|| process.env.REACT_APP_MOBILE}`}`;
 
 export const getBotDetailsUrl = (): string =>
 	`${localStorage.getItem("botDetailsUrl") ||
