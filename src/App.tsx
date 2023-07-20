@@ -202,23 +202,19 @@ const App: FC = () => {
 
   // getting botList from android and fetching bot details
   const filterList =useMemo(()=>{
-    if(localStorage.getItem('filterList')){
-      return localStorage.getItem('filterList')=== 'True'
+    if(localStorage.getItem('filterList') || process.env.REACT_APP_FILTER_LIST){
+      return localStorage.getItem('filterList') || process.env.REACT_APP_FILTER_LIST === 'True'
     }
     return true
   },[]);
  
-  console.log('crty:',{currentUser})
+  
   useEffect(() => {
     try {
       const checkOnline = async (): Promise<void> => {
         if (window.navigator.onLine) {
-          // window && window?.androidInteract?.log(localStorage.getItem('botList'));
-          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-          // @ts-ignore
           const botIds = JSON.parse(localStorage.getItem("botList"));
           window && window?.androidInteract?.log("debug: botList "+JSON.stringify(botIds));
-          console.log("debug: botList",JSON.stringify(botIds))
           const config = {
             headers: {
               "Content-Type": "application/json",
