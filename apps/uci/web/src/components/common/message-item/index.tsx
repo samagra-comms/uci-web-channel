@@ -14,31 +14,7 @@ import { useLocalStorage } from "@/hooks";
 import { Button } from "@chakra-ui/react";
 import { theme } from "@/config";
 import styled from "styled-components";
-
-const Span = styled.span`
-  font-size: ${theme.textStyles.medium.fontSize};
-`;
-
-const BubbleDiv = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: self-end;
-`;
-
-const BubbleSpan = styled.span`
-  color: var(--grey);
-  font-size: ${theme.textStyles.small.fontSize};
-`;
-
-const Div = styled.div`
-  padding: ${theme.padding.medium};
-`;
-
-const ContentDiv = styled.div`
-  width: ${theme.width.medium};
-  margin-right: ${theme.margin.small};
-  text-align: center;
-`;
+import { Span,BubbleSpan,ContentDiv,Div,BubbleDiv } from './styled'
 
 export const MessageItem: React.FC<any> = ({
   currentUser,

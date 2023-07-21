@@ -60,8 +60,7 @@ const ChatItem: React.FC<chatItemProps> = ({ active, name, phoneNumber, user, is
 					/>
 				</div>
 				<Box className={`${styles.chatItem_text}`}>
-					<Box
-						className={`${phoneNumber === null ? styles.chatItem_botName : styles.chatItem_userName
+					<Box className={`${phoneNumber === null ? styles.chatItem_botName : styles.chatItem_userName
 							} ${active ? styles.activeFont : fontColorToggle}`}>
 						<p className={`${styles.paragraphStyle} ${expiredItem ? styles.paragraphStyleExpired : styles.paragraphStyleActive}`}>
 							{name}

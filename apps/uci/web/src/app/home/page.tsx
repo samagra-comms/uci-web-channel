@@ -37,23 +37,6 @@ export default function Home() {
   }, [history]);
 
   useEffect(() => {
-    try {
-      if (localStorage.getItem('botToFocus')) {
-        const bot = find(allUsers, { id: localStorage.getItem('botToFocus') });
-        if (bot) {
-          localStorage.removeItem("botToFocus");
-          context?.toChangeCurrentUser(bot);
-          setTimeout(() => {
-            history.push(`/chats/${bot?.id}`);
-          }, 100);
-        }
-      }
-    } catch (err: any) {
-      toast.error(err.message);
-    }
-  }, [history, allUsers, context]);
-
-  useEffect(() => {
     setTimeout(() => {
       context?.setLoading(false);
       if (document.getElementById("mainLoader")) {
