@@ -11,8 +11,7 @@ import Image from 'next/image';
 import { AppContext } from '@/context';
 import { User } from '@/types';
 import { getMsgType } from '@/utils';
-import { theme, config } from '@/config';
-import styled from 'styled-components';
+import { config } from '@/config';
 import { StyledBubble, StyledBubbleImage, StyledBubbleOptions,StyledImage,ImageDiv,Span } from './styled';
 
 export const StarredChatList: FC<{ user: User }> = ({ user }) => {
@@ -103,7 +102,6 @@ export const StarredChatList: FC<{ user: User }> = ({ user }) => {
                     </StyledBubbleImage>
                 );
             }
-
             case 'file':
                 return (
                     <FileCard
@@ -114,7 +112,7 @@ export const StarredChatList: FC<{ user: User }> = ({ user }) => {
                         extension="pdf" >
                         <a target="_blank"
                             href={content?.data?.payload?.media?.url || content?.data?.fileUrl}
-                            style={{ textDecoration: 'none' }}>
+                            className={`${styles.file}`} download>
                             Download
                         </a>
                     </FileCard>

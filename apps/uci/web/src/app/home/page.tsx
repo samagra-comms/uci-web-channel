@@ -2,7 +2,7 @@
 import { AppContext } from "@/context";
 import { Box, Button, Flex, useBreakpointValue } from "@chakra-ui/react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { filter, find } from "lodash";
+import { filter } from "lodash";
 import { useRouter } from "next/navigation";
 import { useCallback, useContext, useEffect, useState } from "react";
 import { toast } from "react-hot-toast";

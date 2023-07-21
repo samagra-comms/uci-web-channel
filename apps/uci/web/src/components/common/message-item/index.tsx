@@ -13,7 +13,6 @@ import { AppContext } from "@/context";
 import { useLocalStorage } from "@/hooks";
 import { Button } from "@chakra-ui/react";
 import { theme } from "@/config";
-import styled from "styled-components";
 import { Span,BubbleSpan,ContentDiv,Div,BubbleDiv } from './styled'
 
 export const MessageItem: React.FC<any> = ({
