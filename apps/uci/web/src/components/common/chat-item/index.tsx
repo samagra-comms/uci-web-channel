@@ -1,5 +1,5 @@
-import React, { useCallback, useContext, useMemo } from 'react';
-import { Box, useColorModeValue } from '@chakra-ui/react';
+import React, { useCallback, useContext, useEffect, useMemo } from 'react';
+import { Box, useBreakpointValue, useColorModeValue } from '@chakra-ui/react';
 import styles from './index.module.css';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
@@ -17,9 +17,16 @@ interface chatItemProps {
 	isBlank?: boolean;
 }
 
+
 const ChatItem: React.FC<chatItemProps> = ({ active, name, phoneNumber, user, isBlank }) => {
 	const history = useRouter();
 	const context = useContext(AppContext);
+
+	const isMobile = useBreakpointValue({ base: true, md: false });
+
+// 	useEffect(() => {
+// 		isMobile && context?.setLoading(false);
+// },[]);
 
 	const fontColorToggle = useColorModeValue(styles.darkFontColor, styles.lightFontColor);
 
@@ -32,8 +39,10 @@ const ChatItem: React.FC<chatItemProps> = ({ active, name, phoneNumber, user, is
 		context?.toChangeCurrentUser(user);
 		// console.log('user Date', user?.endDate);
 		// console.log('user Status', user?.status);
-		history.push(`/chats/${user?.id}`);
-	}, [context, history, user]);
+		if (isMobile) {
+			history.push(`/chats/${user?.id}`);
+		}
+	}, [context, history, user,isMobile]);
 
 	return (
 		<React.Fragment>
