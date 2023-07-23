@@ -9,81 +9,78 @@ import { AppContext } from '@/context';
 import moment from 'moment';
 
 interface chatItemProps {
-	active: boolean;
-	name: string;
-	phoneNumber: string | null;
-	user?: User;
-	isBlank?: boolean;
+  active: boolean;
+  name: string;
+  phoneNumber: string | null;
+  user?: User;
+  isBlank?: boolean;
 }
 
 const ChatItem: React.FC<chatItemProps> = ({ active, name, phoneNumber, user, isBlank }) => {
-	const history = useRouter();
-	const context = useContext(AppContext);
-	const [botIcon, setBotIcon] = useState(profilePic);
+  const history = useRouter();
+  const context = useContext(AppContext);
+  const [botIcon, setBotIcon] = useState(profilePic);
 
-	const isMobile = useBreakpointValue({ base: true, md: false });
+  const isMobile = useBreakpointValue({ base: true, md: false });
 
-	useEffect(() => {
-		if (user?.botImage) {
-			fetch(user?.botImage)
-				.then((res) => {
-					if (res.status === 403) {
-						setBotIcon(profilePic);
-					} else {
-						setBotIcon(user?.botImage);
-					}
-				})
-				.catch((err) => {
-					setBotIcon(profilePic);
-				});
-		} else {
-			setBotIcon(profilePic);
-		}
-	}, [user?.botImage]);
+  useEffect(() => {
+    if (user?.botImage) {
+      fetch(user?.botImage)
+        .then((res) => {
+          if (res.status === 403) {
+            setBotIcon(profilePic);
+          } else {
+            setBotIcon(user?.botImage);
+          }
+        })
+        .catch((err) => {
+          setBotIcon(profilePic);
+        });
+    } else {
+      setBotIcon(profilePic);
+    }
+  }, [user?.botImage]);
 
+  const expiredItem = useMemo(() => {
+    return (user?.endDate !== undefined && user.endDate < moment().format()) || (user?.status !== 'ENABLED');
+  }, [user]);
 
-	const fontColorToggle = useColorModeValue(styles.darkFontColor, styles.lightFontColor);
+  const onChangeUser = useCallback(() => {
+    localStorage.setItem('currentUser', JSON.stringify(user));
+    context?.toChangeCurrentUser(user);
+    if (isMobile) {
+      history.push(`/chats/${user?.id}`);
+    }
+  }, [context, history, user, isMobile]);
 
-	const expiredItem = useMemo(() => {
-		return (user?.endDate !== undefined && user.endDate < moment().format()) || (user?.status !== 'ENABLED')
-	}, [user]);
-
-	const onChangeUser = useCallback(() => {
-		localStorage.setItem('currentUser', JSON.stringify(user));
-		context?.toChangeCurrentUser(user);
-		// console.log('user Date', user?.endDate);
-		// console.log('user Status', user?.status);
-		if (isMobile) {
-			history.push(`/chats/${user?.id}`);
-		}
-	}, [context, history, user, isMobile]);
-
-	return (
-		<React.Fragment>
-			<button
-				onClick={onChangeUser}
-				disabled={isBlank}
-				className={` ${active ? styles.activeContainer : styles.container}`}
-			>
-				<div className={styles.avatar}>
-					<img
-						src={!isBlank ? botIcon : crossPic}
-						height={"100%"}
-						width={"100%"}
-						alt="profile pic"
-					/>
-				</div>
-				<Box className={`${styles.chatItem_text}`}>
-					<Box className={`${phoneNumber === null ? styles.chatItem_botName : styles.chatItem_userName
-						} ${active ? styles.activeFont : fontColorToggle}`}>
-						<p className={`${styles.paragraphStyle} ${expiredItem ? styles.paragraphStyleExpired : styles.paragraphStyleActive}`}>
-							{name}
-						</p>
-					</Box>
-				</Box>
-			</button>
-		</React.Fragment>
-	);
+  return (
+    <React.Fragment>
+      <button
+        onClick={onChangeUser}
+        disabled={isBlank}
+        className={`${active ? styles.activeContainer : styles.container}`}
+      >
+        <div className={styles.avatar}>
+          <img
+            src={!isBlank ? botIcon : crossPic}
+            height={'100%'}
+            width={'100%'}
+            alt="profile pic"
+          />
+        </div>
+        <Box className={`${styles.chatItem_text}`}>
+          <Box
+            className={`${phoneNumber === null ? styles.chatItem_botName : styles.chatItem_userName
+              } ${active ? styles.activeFont : ''}`}
+          >
+            <p className={`${styles.paragraphStyle} ${expiredItem ? styles.paragraphStyleExpired : styles.paragraphStyleActive}`}>
+              {name}
+            </p>
+          </Box>
+        </Box>
+      </button>
+    </React.Fragment>
+  );
 };
 
 export default ChatItem;
