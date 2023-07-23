@@ -3,14 +3,17 @@
 import Chat from "chatui";
 import "chatui/dist/index.css";
 import axios from "axios";
-import React, {FC,ReactElement,useCallback,useContext,useEffect,useMemo,useState} from "react";
+import React, { FC, ReactElement, useCallback, useContext, useEffect, useMemo, useState } from "react";
 import { filter, find, last } from "lodash";
 import { toast } from "react-hot-toast";
-import { getConvHistoryUrl,getMsgType,normalizedChat } from "@/utils";
+import { getConvHistoryUrl, getMsgType, normalizedChat } from "@/utils";
 import { AppContext } from "@/context";
-import { MessageItem,FullScreenLoader } from "@/components";
+import { MessageItem, FullScreenLoader } from "@/components";
 import { config } from "@/config";
 import { ChatUiMsgType } from "@/types";
+import styles from "./index.module.css";
+import './index.module.css'
+import CustomChat from "../custom-chat/custom-chat";
 
 export const ChatUiComponent: FC<{
     currentUser: any;
@@ -55,12 +58,12 @@ export const ChatUiComponent: FC<{
         if (phone === "") toast.error("Mobile Number required");
 
         if (navigator.onLine) {
-            console.log("chatUi=>:",{navigator:navigator.onLine,conversationHistoryUrl})
+            console.log("chatUi=>:", { navigator: navigator.onLine, conversationHistoryUrl })
             if (conversationHistoryUrl && context?.socket?.connected) {
                 axios
                     .get(conversationHistoryUrl)
                     .then((res) => {
-                        console.log("chatUi=>:",{res})
+                        console.log("chatUi=>:", { res })
                         setLoading(false);
                         if (res?.data?.result?.records?.length > 0) {
                             const normalizedChats = normalizedChat(res.data.result.records);
@@ -72,22 +75,22 @@ export const ChatUiComponent: FC<{
                         }
                     })
                     .catch((err) => {
-                        console.log("chatUi=>:",{err})
+                        console.log("chatUi=>:", { err })
                         setLoading(false);
                         toast.error(JSON.stringify(err?.message));
                     });
             } else {
                 setLoading(false);
-                    if (localStorage.getItem("chatHistory")) {
-                        const offlineMsgs = filter(
-                            // @ts-ignore
-                            JSON.parse(localStorage.getItem("chatHistory")),
+                if (localStorage.getItem("chatHistory")) {
+                    const offlineMsgs = filter(
+                        // @ts-ignore
+                        JSON.parse(localStorage.getItem("chatHistory")),
 
-                            // @ts-ignore
-                            { botUuid: JSON.parse(localStorage.getItem("currentUser"))?.id }
-                        );
-                        setMessages(offlineMsgs);
-                    }
+                        // @ts-ignore
+                        { botUuid: JSON.parse(localStorage.getItem("currentUser"))?.id }
+                    );
+                    setMessages(offlineMsgs);
+                }
             }
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -120,23 +123,11 @@ export const ChatUiComponent: FC<{
     return (
         <>
             <FullScreenLoader loading={loading} />
-            <Chat
+            <CustomChat
                 disableSend={isSendDisabled}
                 messages={chatUIMsg}
-                renderMessageContent={(props: any): ReactElement => (
-                    <MessageItem
-                        key={props}
-                        msg={props}
-                        chatUIMsg={chatUIMsg}
-                        currentUser={currentUser}
-                        onSend={context?.sendMessage}
-                    />
-                )}
                 onSend={handleSend}
-                locale="en-US"
-                placeholder={
-                    isSendDisabled ? "Please select from options" : "Ask Your Question"
-                }
+                placeholder={isSendDisabled ? "Please select from options" : "Ask Your Question"}
             />
         </>
     );

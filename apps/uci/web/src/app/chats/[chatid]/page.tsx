@@ -18,7 +18,7 @@ const Chats: NextPage<{ params?: { chatid: string } }> = ({ params }) => {
     const pathname = usePathname();
     const isHomepage = pathname === '/';
     const isMobile = useBreakpointValue({ base: true, md: false });
-    const mainFlexWidth = isMobile ? '100vw' : '187vw';
+    const mainFlexWidth = isMobile ? '100vw' : '186vw';
 
     useEffect(() => {
         if (!params?.chatid) router.push('/');

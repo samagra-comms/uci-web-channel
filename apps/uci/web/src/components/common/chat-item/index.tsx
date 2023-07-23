@@ -1,4 +1,4 @@
-import React, { useCallback, useContext, useEffect, useMemo } from 'react';
+import React, { useCallback, useContext, useEffect, useMemo, useState } from 'react';
 import { Box, useBreakpointValue, useColorModeValue } from '@chakra-ui/react';
 import styles from './index.module.css';
 import { useRouter } from 'next/navigation';
@@ -7,7 +7,6 @@ import { profilePic, crossPic } from '@/assets';
 import { User } from '@/types';
 import { AppContext } from '@/context';
 import moment from 'moment';
-import { theme } from '@/config';
 
 interface chatItemProps {
 	active: boolean;
@@ -17,21 +16,36 @@ interface chatItemProps {
 	isBlank?: boolean;
 }
 
-
 const ChatItem: React.FC<chatItemProps> = ({ active, name, phoneNumber, user, isBlank }) => {
 	const history = useRouter();
 	const context = useContext(AppContext);
+	const [botIcon, setBotIcon] = useState(profilePic);
 
 	const isMobile = useBreakpointValue({ base: true, md: false });
 
-// 	useEffect(() => {
-// 		isMobile && context?.setLoading(false);
-// },[]);
+	useEffect(() => {
+		if (user?.botImage) {
+			fetch(user?.botImage)
+				.then((res) => {
+					if (res.status === 403) {
+						setBotIcon(profilePic);
+					} else {
+						setBotIcon(user?.botImage);
+					}
+				})
+				.catch((err) => {
+					setBotIcon(profilePic);
+				});
+		} else {
+			setBotIcon(profilePic);
+		}
+	}, [user?.botImage]);
+
 
 	const fontColorToggle = useColorModeValue(styles.darkFontColor, styles.lightFontColor);
 
 	const expiredItem = useMemo(() => {
-		return user?.endDate !== undefined && user.endDate < moment().format() && user?.status === 'ENABLED';
+		return (user?.endDate !== undefined && user.endDate < moment().format()) || (user?.status !== 'ENABLED')
 	}, [user]);
 
 	const onChangeUser = useCallback(() => {
@@ -42,7 +56,7 @@ const ChatItem: React.FC<chatItemProps> = ({ active, name, phoneNumber, user, is
 		if (isMobile) {
 			history.push(`/chats/${user?.id}`);
 		}
-	}, [context, history, user,isMobile]);
+	}, [context, history, user, isMobile]);
 
 	return (
 		<React.Fragment>
@@ -52,16 +66,16 @@ const ChatItem: React.FC<chatItemProps> = ({ active, name, phoneNumber, user, is
 				className={` ${active ? styles.activeContainer : styles.container}`}
 			>
 				<div className={styles.avatar}>
-					<Image
-						src={!isBlank ? profilePic : crossPic}
+					<img
+						src={!isBlank ? botIcon : crossPic}
+						height={"100%"}
+						width={"100%"}
 						alt="profile pic"
-						width={theme.image.width}
-						height={theme.image.height}
 					/>
 				</div>
 				<Box className={`${styles.chatItem_text}`}>
 					<Box className={`${phoneNumber === null ? styles.chatItem_botName : styles.chatItem_userName
-							} ${active ? styles.activeFont : fontColorToggle}`}>
+						} ${active ? styles.activeFont : fontColorToggle}`}>
 						<p className={`${styles.paragraphStyle} ${expiredItem ? styles.paragraphStyleExpired : styles.paragraphStyleActive}`}>
 							{name}
 						</p>

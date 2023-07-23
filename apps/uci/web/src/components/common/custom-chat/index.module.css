@@ -1,0 +1,97 @@
+/* Container for the entire chat */
+.custom-chat-container {
+    background-color: #f0f0f0; /* Light gray background color */
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+/* Styling for the chat bubbles */
+.custom-chat-messages {
+    flex-grow: 1; 
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; 
+}
+
+.custom-chat-bubble {
+    max-width: 70%; 
+    margin: 10px;
+    padding: 15px;
+    border-radius: 20px;
+    font-size: 16px;
+    color: #333; /* Dark gray text color */
+    word-wrap: break-word; 
+    background-color: #fff; /* White background for chat bubbles */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05); /* Light shadow for 3D effect */
+}
+
+.custom-chat-bubble.right {
+    background-color: #d9f7be; /* Light green background for right-aligned messages */
+    color: #333; /* Dark gray text color */
+    align-self: flex-end; 
+}
+
+/* Styling for the input box and send button */
+.custom-chat-input {
+    display: flex;
+    align-items: center;
+    background-color: #fff; 
+    border-radius: 30px;
+    padding: 10px; 
+    animation: slideUp 0.5s ease; 
+    margin-top: 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05); /* Light shadow for 3D effect */
+}
+
+.custom-chat-input input {
+    flex: 1;
+    border: none;
+    outline: none;
+    font-size: 16px;
+    padding: 10px 20px;
+}
+
+.custom-chat-input button {
+    background-color: #d9f7be; /* Light green background for the send button */
+    color: #333; /* Dark gray text color for the send button */
+    font-size: 18px;
+    margin-left: 10px;
+    cursor: pointer;
+    transition: transform 0.2s; 
+    border-radius: 50%; /* Rounded send button */
+    padding: 10px; /* Padding for the send button */
+}
+
+.custom-chat-input button:hover {
+    transform: scale(1.1); 
+    background-color: #b7e4c7; /* Darker green on hover */
+}
+
+/* Placeholder styles */
+.custom-chat-input input::placeholder {
+    color: #888; 
+    opacity: 0.8;
+    font-size: 14px; 
+    font-weight: normal; 
+}
+
+.send-btn{
+    margin-right: 20px;
+}
+
+/* Slide-up animation keyframes */
+@keyframes slideUp {
+    from {
+        transform: translateY(50px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
