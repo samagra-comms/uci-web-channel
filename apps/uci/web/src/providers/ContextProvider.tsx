@@ -7,12 +7,10 @@ import { toast } from "react-hot-toast";
 import { SocketResponse, UpdateMsgState, User } from "../types";
 import { initialState } from "../utils/initial-states";
 import moment from "moment";
-import { normalizeUsers } from "../utils/normalize-user";
 import { setLocalStorage } from "../utils/set-local-storage";
 import { Toaster } from "react-hot-toast";
 import { AppContext } from "@/context";
-import { io, Socket } from 'socket.io-client';
-import { getBotDetailsList } from "@/utils/api-handler";
+import { Socket } from 'socket.io-client';
 import SocketConnection from "@/components/socket-components";
 import GetBotList from "@/components/get-bot-list";
 

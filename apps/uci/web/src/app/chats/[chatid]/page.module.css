@@ -1,141 +1,145 @@
+
 .container {
-    position: fixed;
-    flex-direction: column;
-    height: 100vh;
-    width: 92vw;
-    right: 0;
-    /* box-shadow: 1px 8px 11px -2px black; */
+  position: fixed;
+  flex-direction: column;
+  height: 100vh;
+  width: 100vw;
+}
+
+.top_section {
+  /* background-color: #25d366 */
+  height: 80px;
+  font-weight: 700;
+  font-size: 1.4rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: var(--white);
+  padding: 0px 20px;
+  bottom: 0;
+}
+
+/* Heading text */
+.headingContainer,
+.avatarContainer,
+.toggleButtonContainer {
+  display: flex;
+  align-items: center;
+}
+
+.whatsappLogo {
+  width: 32px;
+  height: 32px;
+  margin-right: 10px;
+}
+
+.innerRing {
+  width: 70px;
+  height: 55px;
+  border-radius: 50%;
+  border: 3px solid #25d366; /* WhatsApp green */
+  margin-right: 10px;
+}
+
+/* Chat window */
+.chatWindow {
+  height: 100vh;
+  margin: auto;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  width: 100%;
+  padding: 0.5vw;
+  padding-bottom: 0.5vw;
+}
+
+/* Chat background */
+.BackBox {
+  width: 100vw;
+  height: 90vh;
+  border-radius: 25px 25px 0px 0px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.wallpaper1,
+.wallpaper2 {
+  width: 82vw;
+  height: 85vh;
+  margin: auto;
+  border-radius: 14px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+/* Chat messages container */
+.chat_component {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+/* Styling for individual chat messages */
+.message {
+  padding: 10px;
+  border-radius: 10px;
+  margin: 10px 0;
+  max-width: 70%;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+/* Styling for the timestamp in chat messages */
+.timeStamp {
+  font-size: 12px;
+  color: #888;
+}
+
+/* Chat input box */
+.chatInput {
+  padding: 10px 20px;
+  background-color: var(--white); /* White background */
+  border: 1px solid var(--light-gray); /* Light gray border */
+  flex: 1;
+  font-size: 14px;
+  border-radius: 30px;
+  outline: none;
+  transition: border-color 0.3s ease;
+}
+
+.chatInput:focus {
+  border-color: var(--whatsapp-dark-green); /* Darker green border on focus */
+  box-shadow: 0 0 0 2px #128c7e1a; /* Lighter green glow on focus */
+}
+
+/* Styling for the send button */
+.sendButton {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 2px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.message,
+.chatInput,
+.sendButton {
+  animation: fadeInUp 0.5s ease;
+}
+
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
   }
-  
-  .top_section {
-    width: 100%;
-    height: 80px;
-    font-family: 'Mulish', sans-serif;
-    font-weight: 700;
-    font-size: 1.4rem;
-    /* position: fixed; */
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: space-between;
-    /* z-index: 1; */
-    color: white;
-    padding: 0px 3.5vw;
-    background-color: var(--primarygreen);
+  100% {
+    opacity: 1;
+    transform: translateY(0);
   }
-  
-  .top_section button {
-    background-color: white;
-    color: var(--primarygreen);
-    font-size: 20px;
-  }
-  
-  .headingContainer {
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-  }
-  
-  .avatarContainer {
-    display: flex;
-    align-items: center;
-    height: 67px;
-  }
-  
-  .innerRing {
-    /* background-image: url('../../../../public/killua.jpg');
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover; */
-    width: 70px;
-    height: 55px;
-    border-radius: 50%;
-    border: 3px solid green;
-    margin-right: 10px;
-  }
-  
-  .toggleButtonContainer {
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
-    margin-right: 1rem;
-  }
-  
-  .UserName {
-    display: flex;
-    align-items: center;
-    padding-left: 0.5rem;
-    height: 80px;
-  }
-  
-  /* .lightUsername {
-    color: var(--secondarygreen);
-  }
-  
-  .darkUsername {
-    color: white;
-  } */
-  
-  .chatWindow {
-    height: 100vh;
-    width: 100%;
-    margin: auto;
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
-    background-color: var(--primaryyellow);
-  }
-  
-  .BackBox {
-    width: 100vw;
-    height: 90vh;
-    /* margin-top: 4vh; */
-    border-radius: 25px 25px 0px 0px;
-    /* box-shadow: 2px 3px 11px 3px rgb(0 0 0 / 25%) inset; */
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-  }
-  
-  .wallpaper1 {
-    width: 82vw;
-    height: 85vh;
-    margin: auto;
-    border-radius: 14px;
-    /* box-shadow:2px 3px 11px 3px rgb(0 0 0 / 25%) inset; */
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    background-image: url('https://wallpaperaccess.com/full/51364.jpg');
-  }
-  
-  .wallpaper2 {
-    width: 82vw;
-    height: 85vh;
-    margin: auto;
-    border-radius: 14px;
-    /* box-shadow: 2px 3px 11px 3px rgb(0 0 0 / 25%) inset; */
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    background-image: url('https://cdn.pixabay.com/photo/2017/08/30/01/05/milky-way-2695569__480.jpg');
-  }
-  
-  /* .lightBackBox {
-    background-color: white;
-    background-image: url("../../../assets/images/homeScreen.png");
-  
-  }
-  
-  .darkBackBox {
-    background-color: var(--tertiarydarkblue);
-  }
-  
-  .lightContainer {
-    background-color: var(--primarygreen);
-  }
-  
-  .darkContainer {
-    background-color: var(--primarydarkblue);
-  } */
-  
+}

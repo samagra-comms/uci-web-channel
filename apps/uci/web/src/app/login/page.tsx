@@ -6,7 +6,6 @@ import {
     NumberInputField,
     Container,
     Box,
-    
 } from "@chakra-ui/react";
 import { useRouter } from "next/navigation";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
