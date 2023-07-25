@@ -10,6 +10,7 @@ interface SocketConnectionProps {
 // const [socket, setSocket] = useState<Socket>();
 // const [isMobileAvailable, setIsMobileAvailable] = useState(false)
 
+
 const SocketConnection: React.FC<SocketConnectionProps> = ({ isMobileAvailable, setSocket }) => {
   useEffect(() => {
     if (config.socket.auth || isMobileAvailable) {
