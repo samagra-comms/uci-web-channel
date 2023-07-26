@@ -21,7 +21,7 @@ import { getConvHistoryUrl } from "../../../utils/urls";
 import { getMsgType } from "../../../utils/get-msg-type";
 import { normalizedChat } from "../../../utils/normalize-chats";
 import { AppContext } from "../../../context";
-import FullScreenLoader from "../fullscreen-loader";
+import {FullScreenLoader} from "../fullscreen-loader";
 import { MessageItem } from "../message-item";
 
 type ChatUiMsgType = {

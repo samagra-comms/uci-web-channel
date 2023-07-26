@@ -2,7 +2,7 @@ import React, { FC } from 'react';
 import styles from './index.module.css';
 import { Modal, ModalContent, ModalOverlay } from '@chakra-ui/react';
 
-const FullScreenLoader: FC<{ loading: boolean }> = ({ loading }) => (
+export const FullScreenLoader: FC<{ loading: boolean }> = ({ loading }) => (
 
 	<Modal isCentered isOpen={loading} onClose={() => null} >
 		<ModalOverlay
@@ -14,5 +14,3 @@ const FullScreenLoader: FC<{ loading: boolean }> = ({ loading }) => (
 		</ModalContent>
 	</Modal>
 );
-
-export default FullScreenLoader;

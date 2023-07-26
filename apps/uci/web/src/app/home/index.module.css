@@ -1,0 +1,204 @@
+.container {
+  position: fixed;
+  flex-direction: column;
+  height: 100vh;
+  width: 100vw;
+}
+
+/* Top section */
+.top_section {
+  height: 60px;
+  font-family: 'Helvetica Neue', Arial, sans-serif;
+  font-weight: 700;
+  font-size: 1.4rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  padding: 0px 20px;
+  /* background-color: rgb(40, 31, 31); */
+  --tw-bg-opacity: 1;
+  background-color: rgb(22 27 34/var(--tw-bg-opacity));
+}
+
+/* Main heading style */
+.heading {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-left: 10px;
+}
+
+/* Main container for chat list */
+.mainContainer {
+  height: calc(100vh - 60px);
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  position: fixed;
+  justify-content: center;
+  align-items: flex-end;
+  bottom: 0;
+
+}
+
+/* Chat list container */
+.backBox {
+  width: 100%;
+  height: 100%;
+  left: 0;
+  right: 0;
+  border-right: 1px solid #ddd; /* Light gray border */
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  background-color: #f0f0f0; /* Light gray background */
+}
+
+/* Starred chats button */
+.starred {
+  background-color: #d9f7be; /* Light green background */
+  font-weight: bold;
+  font-size: 14px;
+  width: 80%;
+  margin: 20px auto 10px auto;
+  padding: 4px;
+}
+
+/* Chat list */
+.chatList {
+  margin-top: 10px;
+  padding: 0 10px;
+  overflow: auto;
+  flex: 1;
+}
+
+/* Chat item */
+.chatItem {
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+/* Hover effect for chat item */
+.chatItem:hover {
+  background-color: #e0e0e0; /* Light gray background on hover */
+}
+
+/* Avatar style */
+.avatar {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  margin-right: 10px;
+  border: 2px solid #fff; /* Add a white border around the avatar */
+  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2); /* Add a subtle shadow effect */
+}
+
+/* Username style */
+.userName {
+  font-weight: 600;
+}
+
+/* Chat component */
+.chat_component {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Wallpaper style */
+.wallpaper1,
+.wallpaper2 {
+  flex: 1;
+  background-color: #f0f0f0; /* Light gray background */
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+/* Chat message style */
+.message {
+  padding: 10px;
+  background-color: #d9f7be; /* Light green background */
+  border-radius: 10px;
+  margin: 10px 0;
+  animation: fadeInUp 0.5s ease; /* Animation for chat messages */
+  transition: background-color 0.3s ease, transform 0.3s ease; /* Add smooth transition */
+}
+
+/* Timestamp style */
+.timeStamp {
+  font-size: 12px;
+  color: #888;
+}
+
+/* Chat input box style */
+.chatInput {
+  padding: 10px 15px;
+  background-color: #f0f0f0; /* Light gray background */
+  border: none;
+  flex: 1;
+  font-size: 14px;
+  animation: slideInUp 0.5s ease; /* Animation for chat input box */
+  transition: opacity 0.3s ease, transform 0.3s ease; /* Add smooth transition */
+}
+
+/* Send button style */
+.sendButton {
+  background-color: #1a1a1a; /* Dark background */
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease; /* Add smooth transition */
+}
+
+/* Hover effect for send button */
+.sendButton:hover {
+  background-color: #333; /* Darker background on hover */
+  transform: scale(1.05); /* Slightly scale up the button on hover */
+}
+
+/* Light container style */
+.lightContainer {
+  /* Light gray background color */
+  background-color: #f0f0f0;
+  color: #333; /* Set text color for better contrast */
+}
+
+/* Dark container style */
+.darkContainer {
+  /* Dark background color */
+  background-color: #1a1a1a;
+  color: #fff; /* Set text color for better contrast */
+}
+
+/* Animation for chat messages */
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Animation for chat input box */
+@keyframes slideInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+
