@@ -1,3 +1,4 @@
+
 'use client'
 import type { NextPage } from 'next';
 import styles from "./page.module.css";
@@ -13,6 +14,7 @@ import { PinInputComponent } from '@/components/otp/pin-input';
 import Image from 'next/image';
 import { useGetQueryParam } from '../../hooks';
 import { toast } from 'react-hot-toast';
+
 
 const OTPPage: NextPage = () => {
     const router = useRouter();

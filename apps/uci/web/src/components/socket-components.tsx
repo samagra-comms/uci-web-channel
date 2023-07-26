@@ -1,6 +1,5 @@
 import io, { Socket } from 'socket.io-client';
 import React, { useEffect, useState } from 'react';
-import {config} from '@/config';
 
 interface SocketConnectionProps {
   isMobileAvailable: boolean;
@@ -13,28 +12,30 @@ interface SocketConnectionProps {
 
 const SocketConnection: React.FC<SocketConnectionProps> = ({ isMobileAvailable, setSocket }) => {
   useEffect(() => {
-    if (config.socket.auth || isMobileAvailable) {
-      const URL = config.socket.url;
+    if (localStorage.getItem('auth') || isMobileAvailable) {
+      const URL = process.env.NEXT_PUBLIC_TRANSPORT_SOCKET_URL || '';
       setSocket(
         io(URL, {
           transportOptions: {
             polling: {
               extraHeaders: {
-                Authorization: `Bearer ${config.socket.auth}`,
+                Authorization: `Bearer ${localStorage.getItem('auth')}`,
                 channel: 'nlpwa',
               },
             },
           },
           query: {
-            deviceId: `nlpwa:${config.socket.mobile}`,
+            deviceId: `nlpwa:${localStorage.getItem('mobile')}`,
           },
           autoConnect: false,
           upgrade: false,
         })
       );
     }
+
   }, [isMobileAvailable, setSocket]);
   return null;
 }
+
 
 export default SocketConnection;
