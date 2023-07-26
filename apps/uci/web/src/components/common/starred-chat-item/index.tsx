@@ -2,7 +2,8 @@
 import React, { useCallback } from 'react';
 import { Box, useColorModeValue } from '@chakra-ui/react';
 import styles from './index.module.css';
-import {profilePic,crossPic} from '@/assets';
+import profilePic from '../../../assets/images/bot_icon_2.png';
+import crossPic from '../../../assets/images/cross.png';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import { User } from '@/types';
@@ -46,7 +47,16 @@ interface chatItemProps {
 							phoneNumber === null ? styles.chatItem_botName : styles.chatItem_userName
 						} ${active ? styles.activeFont : fontColorToggle}`}
 					>
-						<p className={`${styles.chatItem_name}`}>
+						<p
+							style={{
+								textOverflow: 'ellipsis',
+								maxWidth: '70vw',
+								overflow: 'hidden',
+								whiteSpace: 'nowrap',
+								marginBottom: 'auto',
+								marginTop: 'auto'
+							}}
+						>
 							{name}
 						</p>
 					</Box>
@@ -55,5 +65,6 @@ interface chatItemProps {
 		</React.Fragment>
 	);
 };
+
 
 export default StarredChatItem;

@@ -1,89 +1,33 @@
-/* index.module.css */
-
-/* Override Chakra-UI styles for Chat component */
-
-/* ... (Keep the previous styles here) */
-
-/* Add new styles for an attractive WhatsApp-like UI */
-
 .onHover {
 	font-size: 16px !important;
 }
 
-.question {
-	border: 2px solid #ccc !important;
-	border-radius: 15px;
-	padding: 10px;
-	background-color: #f0f9eb;
-	/* Light green background */
-	font-size: 16px;
-	font-weight: bold;
-	color: #075e54;
-	/* WhatsApp green */
+.question{
+	border: 2px solid var(--lightgrey) !important;
+	border-radius: 5px;
+	padding: 2px;
 }
 
 .p {
 	font-size: 16px;
 }
+.onHover:hover {
+	/* background: var(--golden); */
+}
 
 .active {
-	background-color: #e1f2fd !important;
-	/* Light blue background */
-	border: 2px solid #4da1ff !important;
-	/* Light blue border */
-	border-radius: 15px;
-	padding: 10px;
-	color: #075e54;
-	/* WhatsApp green */
+	background: var(--golden) !important;
 }
-
 .list {
-	background: none !important;
+	background: none !important;	
 }
-
 .bubbleB {
 	width: 88vw !important;
-	background-color: #dcf8c6;
-	/* Lighter green background */
-	border-radius: 20px;
-	padding: 10px 15px;
-	font-size: 16px;
-	color: #333;
-	/* Dark gray color */
-	display: flex;
-	align-items: center;
+	
 }
-
 .listItem {
-	border: 2px solid #ccc !important;
-	border-radius: 15px;
+	border: 2px solid var(--lightgrey) !important;
+	border-radius: 5px;
 	margin-bottom: 5px;
 	background-color: white;
-	padding: 10px;
-	font-size: 16px;
 }
-
-.botImageDiv {
-	width: 50px;
-	/* Set an appropriate width for the bot image container */
-	height: 50px;
-	/* Set an appropriate height for the bot image container */
-	margin-right: 10px;
-	/* Adjust the margin as needed */
-	text-align: center;
-}
-
-.botImage {
-	border-radius: 50%;
-	width: 100%;
-	/* Make the bot image fill its container */
-	height: 100%;
-	/* Make the bot image fill its container */
-}
-
-.bubbleDiv {
-	display: flex;
-}
-
-/* Additional styling for Chat messages */
-/* Customize as needed */

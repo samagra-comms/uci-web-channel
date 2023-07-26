@@ -1,5 +1,5 @@
 "use client";
-import React, { useContext, useMemo, useEffect } from 'react';
+import React, { useContext, FC, useMemo, useEffect } from 'react';
 import { Box, Flex, Button } from '@chakra-ui/react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';

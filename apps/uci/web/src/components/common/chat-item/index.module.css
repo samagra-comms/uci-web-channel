@@ -1,142 +1,87 @@
 .container {
-  height: 6rem;
-  width: 100%;
-  display: flex;
-  align-items: center;
-  border-bottom: 2px #ddd solid;
-  font-weight: 600;
-  margin-bottom: 10px;
-  transition: background-color 0.3s ease-in-out, transform 0.3s ease-in-out;
-  animation: fadeIn 0.5s ease-in-out;
-  border-radius: 12px; /* Rounded corners for a softer look */
-  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
-  /* background-color: rgb(21 16 48 ); */
-  --tw-bg-opacity: 0.75;
-  background-color: rgb(22 27 34/var(--tw-bg-opacity));
-
-  /* More prominent shadow */
-}
-
-.container:hover {
-  background-color: #f8f8f8; /* Lighter hover color */
-  transform: translateY(-2px); 
-  color:black;/* Slightly lifted effect on hover */
-}
-
-/* Active container */
-.activeContainer {
+  /* margin: 2vh 0; */
   height: 4rem;
   width: 100%;
   display: flex;
   align-items: center;
-  border-bottom: 2px #ddd solid;
-  background-color: #e3f9c2; /* Light green background */
+  border-bottom: 2px var(--lightgrey) dotted;
+  background-color: white;
+  /* border-radius: 10px; */
+  /* box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.3); */
   font-weight: 600;
   margin-bottom: 10px;
-  border-radius: 12px; /* Rounded corners for a softer look */
-  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2); /* More prominent shadow */
 }
 
-.activeContainer:hover {
-  background-color: #c2f48c; /* Darker green on hover */
-  transform: translateY(-2px);
+/* .lightContainer {
+    background-color: var(--primarygreen);
 }
 
-/* Avatar style */
-.avatar {
-  height: 48px;
-  width: 48px;
-  border: 2px solid #ddd; /* Light gray border */
-  border-radius: 50%;
-  overflow: hidden;
-  margin-left: 20px;
-  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2); /* More prominent shadow */
-}
+.darkContainer {
+    background-color: var(--primarydarkblue);
+} */
 
-.avatar img {
+.activeContainer {
+  /* margin: 2vh 0; */
+  height: 4rem;
   width: 100%;
-  height: 100%;
-  object-fit: cover;
+  display: flex;
+  align-items: center;
+  border-bottom: 2px var(--lightgrey) dotted;
+  background-color: white;
+  /* border-radius: 10px; */
+  /* background-color: var(--blue); */
+  font-weight: 600;
+  margin-bottom: 10px;
+  /* box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.3); */
 }
 
-/* Chat item text container */
+.avatar {
+  /* background-image: url('../../../../assets/images/killua.jpg');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover; */
+  height: 6vh;
+  width: 6vh;
+  border: 2px solid var(--lightgrey);
+  /* margin: 0 1vh; */
+  /* padding: 10px; */
+  border-radius: 50%;
+}
+
 .chatItem_text {
   flex: 1;
   height: 100%;
-  margin-left: 15px;
-  padding: 0 8px;
+  margin-left: 2vw;
+  padding: 0 1vh;
   display: flex;
   flex-direction: column;
-  color: white;
-  /* background-color: white; */
 }
 
-/* Chat item username */
 .chatItem_userName {
   flex: 8;
   display: flex;
   align-items: center;
-  font-size: 1.2rem;
-  font-family: 'Helvetica', sans-serif;
+  font-size: 1rem;
+  font-family: 'Mulish', sans-serif;
   font-weight: 700;
-  color: #333;
 }
 
-/* Chat item phone number */
 .chatItem_phoneNumber {
   flex: 5;
   display: flex;
   align-items: flex-start;
-  font-size: 1rem;
-  color: #666; /* Darker gray for less emphasis */
+  font-size: 0.5rem;
+  color: rgba(255, 255, 255, 0.7);
 }
 
-/* Chat item bot name */
 .chatItem_botName {
   flex: 1;
   display: flex;
   align-items: center;
   font-size: 1rem;
-  font-family: 'Helvetica', sans-serif;
-  color: #888; /* Light gray for less emphasis */
+  font-family: 'Mulish', sans-serif;
 }
 
-/* Paragraph style */
-.paragraphStyle {
-  text-overflow: ellipsis;
-  max-width: 70vw;
-  overflow: hidden;
-  white-space: nowrap;
-  margin-bottom: 0;
-  font-size: 1rem;
-}
-
-/* Paragraph style for expired bots */
-.paragraphStyleExpired {
-  color: #999;
-  text-decoration: line-through;
-  font-size: 0.9rem;
-  opacity: 0.6;
-}
-
-/* Paragraph style for active bots */
-.paragraphStyleActive {
-  color:white;
-  font-size: 1.1rem;
-  font-weight: bold;
-}
-.paragraphStyleActive:hover {
-  color: black;
-  font-size: 1.1rem;
-  font-weight: bold;
-}
-
-/* Animation for fading in */
-@keyframes fadeIn {
-  0% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
-  }
+.chatItem_botNumber {
+  flex: 0;
 }
