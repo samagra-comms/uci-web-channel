@@ -12,7 +12,6 @@ import React, {
     useMemo,
     useState,
 } from "react";
-
 import { filter, find, last } from "lodash";
 import { toast } from "react-hot-toast";
 
@@ -115,7 +114,6 @@ export const ChatUiComponent: FC<{
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [conversationHistoryUrl, context?.socket?.connected
     ]);
-
 
     const handleSend = useCallback(
         (type: string, val: any) => {
