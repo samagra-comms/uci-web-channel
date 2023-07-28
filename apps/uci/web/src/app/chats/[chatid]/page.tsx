@@ -25,65 +25,70 @@ const Chats: NextPage<{ params?: { chatid: string } }> = ({ params }) => {
     }, [router, params?.chatid]);
 
     if (typeof window === undefined || typeof window === 'undefined')
-    return <>
-           </>
+        return <>
+        </>
     return <>
         <Flex width={mainFlexWidth} display={{ base: isHomepage ? 'none' : 'flex', md: 'flex' }}>
             <Flex bgColor="var(--primarydarkblue)" flexDirection="column" height="100vh" width="100%">
                 {/* Top Section */}
                 <Box className={`${styles.top_section}`}>
-                <Box flex="1.5" display={{ base: 'block', md: 'none' }}>
-                    <Button
-                        style={{
-                            border: 'none',
-                            padding: '0.75rem 1rem',
-                            borderRadius: '50%',
-                            fontSize: '14px'
-                        }}
-                        onClick={(): void => {
-                            localStorage.removeItem('userMsgs');
-                            context?.setMessages([]);
-                            router.push('/');
-                        }}
-                        size="sm"
-                        variant="ghost"
-                    >
-                        <FontAwesomeIcon icon={faChevronLeft} />
-                    </Button>
-                </Box>
+                    <Box flex="1.5" display={{ base: 'block', md: 'none' }}>
+                        <Button
+                            style={{
+                                border: 'none',
+                                padding: '0.75rem 1rem',
+                                borderRadius: '50%',
+                                fontSize: '14px'
+                            }}
+                            onClick={(): void => {
+                                localStorage.removeItem('userMsgs');
+                                context?.setMessages([]);
+                                router.push('/');
+                            }}
+                            size="sm"
+                            variant="ghost"
+                        >
+                            <FontAwesomeIcon icon={faChevronLeft} />
+                        </Button>
+                    </Box>
                     <Flex flex='9' justifyContent="space-between" alignItems="center" >
                         <Flex justifyContent="center" alignItems="center" width={'100%'}>
-                            <Box className={`${styles.avatarContainer} `} style={{ width: '100%' }}>
-                                {
-                                    <>
-                                        <div className={styles.innerRing}>
-                                            <Image src={profilePic} alt="profile pic" />
-                                        </div>
-                                        <Box
-                                            style={{
-                                                display: 'flex',
-                                                justifyContent: 'space-between',
-                                                verticalAlign: 'center',
-                                                width: '100%'
-                                            }}
-                                        >
-                                            <p
+                            {
+                                context?.currentUser &&
+
+                                <Box className={`${styles.avatarContainer} `} style={{ width: '100%' }}>
+                                    {
+                                        <>
+                                            <div className={styles.innerRing}>
+                                                <Image src={profilePic} alt="profile pic" />
+                                            </div>
+                                            <Box
                                                 style={{
-                                                    textOverflow: 'ellipsis',
-                                                    maxWidth: '45vw',
-                                                    overflow: 'hidden',
-                                                    whiteSpace: 'nowrap',
-                                                    textAlign: 'left',
-                                                    marginBottom: 'auto',
-                                                    marginTop: 'auto'
+                                                    display: 'flex',
+                                                    justifyContent: 'space-between',
+                                                    verticalAlign: 'center',
+                                                    width: '100%'
                                                 }}
                                             >
-                                                {context?.currentUser?.name}
-                                            </p>
-                                        </Box>
-                                    </>
-                                }
-                            </Box>
+                                                <p
+                                                    style={{
+                                                        textOverflow: 'ellipsis',
+                                                        maxWidth: '45vw',
+                                                        overflow: 'hidden',
+                                                        whiteSpace: 'nowrap',
+                                                        textAlign: 'left',
+                                                        marginBottom: 'auto',
+                                                        marginTop: 'auto'
+                                                    }}
+                                                >
+                                                    {context?.currentUser?.name}
+                                                </p>
+                                            </Box>
+                                        </>
+                                    }
+                                </Box>
+                            }
+
                         </Flex>
                     </Flex>
                 </Box>

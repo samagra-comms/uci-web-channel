@@ -22,6 +22,7 @@ import { normalizedChat } from "../../../utils/normalize-chats";
 import { AppContext } from "../../../context";
 import {FullScreenLoader} from "../fullscreen-loader";
 import { MessageItem } from "../message-item";
+import { Box, Flex } from "@chakra-ui/react";
 
 type ChatUiMsgType = {
     type: "image" | "text" | "audio" | "file" | "video";
@@ -32,6 +33,7 @@ export const ChatUiComponent: FC<{
     currentUser: any;
 }> = ({ currentUser }) => {
     const [loading, setLoading] = useState(true);
+
     const context = useContext(AppContext);
 
     const chatUIMsg = useMemo<ChatUiMsgType>(
@@ -43,8 +45,6 @@ export const ChatUiComponent: FC<{
             })),
         [context?.messages]
     );
-
-
 
     const sendMessage = useCallback(() => {
         context?.sendMessage(
@@ -138,6 +138,17 @@ export const ChatUiComponent: FC<{
         [chatUIMsg]
     );
 
+    if (!currentUser) {
+        // If no bot is selected, render the message "No bot is selected"
+        return (
+          <Flex justifyContent="center" alignItems="center" height="100vh">
+            <Box fontSize="24px" fontWeight="bold" color="gray.500">
+              No bot is selected
+            </Box>
+          </Flex>
+        );
+      }
+      
     return (
         <>
             <FullScreenLoader loading={loading} />

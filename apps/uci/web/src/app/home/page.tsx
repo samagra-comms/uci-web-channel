@@ -91,6 +91,7 @@ export default function Home() {
     }
   }, [searchTerm, sortedUsers]);
 
+
   return (
     <Flex flexDirection="column" height="100vh" width="100vw">
       <Box className={`${styles.top_section}`}>
