@@ -87,77 +87,9 @@ export const MessageItem: FC<any> = ({
           const t = omit(newStarredMsgs, [msgToStarred?.botUuid]);
           context?.setStarredMsgs(t);
           localStorage.setItem("starredChats", JSON.stringify(t));
-          try {
-            window &&
-              window?.androidInteract?.onMsgSaveUpdate(JSON.stringify(t));
-            window &&
-              window?.androidInteract?.onEvent(
-                "nl-chatbotscreen-starmessage",
-                JSON.stringify({
-                  starred: false,
-                  botid: msgToStarred?.botUuid,
-                  messageid: msgToStarred?.messageId,
-                  timestamp: moment().valueOf(),
-                })
-              );
-            window &&
-              window?.androidInteract?.log(
-                "nl-chatbotscreen-starmessage event:",
-                JSON.stringify({
-                  starred: false,
-                  botid: msgToStarred?.botUuid,
-                  messageid: msgToStarred?.messageId,
-                  timestamp: moment().valueOf(),
-                })
-              );
-            window &&
-              window?.androidInteract?.log(
-                `new starred : ${JSON.stringify(t)}`
-              );
-          } catch (err) {
-            window &&
-              window?.androidInteract?.log(
-                `error in onMsgSaveUpdate func:${JSON.stringify(err)}`
-              );
-          }
         } else {
           context?.setStarredMsgs(newStarredMsgs);
           localStorage.setItem("starredChats", JSON.stringify(newStarredMsgs));
-          try {
-            window &&
-              window?.androidInteract?.onMsgSaveUpdate(
-                JSON.stringify(newStarredMsgs)
-              );
-            window &&
-              window?.androidInteract?.onEvent(
-                "nl-chatbotscreen-starmessage",
-                JSON.stringify({
-                  starred: true,
-                  botid: msgToStarred?.botUuid,
-                  messageid: msgToStarred?.messageId,
-                  timestamp: moment().valueOf(),
-                })
-              );
-            window &&
-              window?.androidInteract?.log(
-                "nl-chatbotscreen-starmessage event:",
-                JSON.stringify({
-                  starred: true,
-                  botid: msgToStarred?.botUuid,
-                  messageid: msgToStarred?.messageId,
-                  timestamp: moment().valueOf(),
-                })
-              );
-            window &&
-              window?.androidInteract?.log(
-                `new starred : ${JSON.stringify(newStarredMsgs)}`
-              );
-          } catch (err) {
-            window &&
-              window?.androidInteract?.log(
-                `error in onMsgSaveUpdate func:${JSON.stringify(err)}`
-              );
-          }
         }
         setMsgToStarred({});
         setIsInLocal(false);
@@ -185,21 +117,6 @@ export const MessageItem: FC<any> = ({
           }
 
           localStorage.setItem("starredChats", JSON.stringify(valueToReturn));
-          try {
-            window &&
-              window?.androidInteract?.onMsgSaveUpdate(
-                JSON.stringify(valueToReturn)
-              );
-            window &&
-              window?.androidInteract?.log(
-                `new starred : ${JSON.stringify(valueToReturn)}`
-              );
-          } catch (err) {
-            window &&
-              window?.androidInteract?.log(
-                `error in onMsgSaveUpdate func:${JSON.stringify(err)}`
-              );
-          }
           return valueToReturn;
         });
       }
@@ -248,18 +165,6 @@ export const MessageItem: FC<any> = ({
     [handleSend]
   );
 
-  const download = (url: string): void => {
-    try {
-      window && window?.androidInteract?.onImageDownload(url);
-      console.log("onImageDownload function executed");
-    } catch (err) {
-      console.log("onImageDownload function failed");
-      window &&
-        window?.androidInteract?.log(
-          `error in onImageDownload: ${JSON.stringify(err)}`
-        );
-    }
-  };
 
   const { content, type } = msg;
   

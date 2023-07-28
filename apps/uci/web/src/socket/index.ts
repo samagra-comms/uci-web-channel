@@ -1,5 +1,3 @@
-import React from "react";
-
 type SendType={
 	text:string;
 	socketSession:{userID:string;socketID:string},

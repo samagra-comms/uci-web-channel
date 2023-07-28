@@ -82,16 +82,6 @@ export default function Home() {
               borderRadius: "50%",
               fontSize: "14px",
             }}
-            onClick={(): void => {
-              try {
-                window && window?.androidInteract?.onDestroyScreen();
-              } catch (err) {
-                window &&
-                  window?.androidInteract?.log(
-                    `error in destroying screen:${JSON.stringify(err)}`
-                  );
-              }
-            }}
             size="sm"
             variant="ghost"
           >

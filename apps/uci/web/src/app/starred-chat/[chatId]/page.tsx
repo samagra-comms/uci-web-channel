@@ -19,11 +19,6 @@ const StarredChat: NextPage<{ params: { chatId: string } }> = ({ params }) => {
 	const history = useRouter();
 	const user = useMemo(() => find(context?.allUsers, { id: params?.chatId }), [context?.allUsers, params?.chatId]);
 
-	useEffect(() => {
-		window && window?.androidInteract?.onBotListingScreenFocused(false);
-		window &&
-			window?.androidInteract?.onEvent(`On Home Page onBotListingScreenFocused:false triggered`);
-	}, []);
 
 	return (
 		<Flex bgColor="var(--primarydarkblue)" flexDirection="column" height="100vh" width="100%">

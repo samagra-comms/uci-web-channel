@@ -13,6 +13,8 @@ import { Toaster } from "react-hot-toast";
 import { AppContext } from "@/context";
 import { io, Socket } from 'socket.io-client';
 import { getBotDetailsList } from "@/utils/api-handler";
+import SocketConnection from "@/components/socket-components";
+import GetBotList from "@/components/get-bot-list";
 
 
 export const ContextProvider: FC<{ children: React.ReactNode }> = ({ children }) => {
@@ -25,8 +27,8 @@ export const ContextProvider: FC<{ children: React.ReactNode }> = ({ children })
   const [isMobileAvailable, setIsMobileAvailable] = useState(false)
   const [currentUser, setCurrentUser] = useState<User>();
 
-  const [loading, setLoading] = useState(true);
-  const [starredMsgs, setStarredMsgs] = useState({});
+  const [loading, setLoading] = useState<boolean>(true);
+  const [starredMsgs, setStarredMsgs] = useState<object>({});
 
   // const authToken = useLocalStorage('auth', '');
   // const currentUserLocal = useLocalStorage('currentUser', '', true);
@@ -35,7 +37,8 @@ export const ContextProvider: FC<{ children: React.ReactNode }> = ({ children })
   // const starredChats = useLocalStorage('starredChats', '');
   // const botList = useLocalStorage('botList', '', true);
 
-  const [isSendDisabled, setIsSendDisabled] = useState(false);
+  const [isSendDisabled, setIsSendDisabled] = useState<boolean>(false);
+
 
   const botStartingMsgs = useMemo(
     () =>
@@ -43,9 +46,9 @@ export const ContextProvider: FC<{ children: React.ReactNode }> = ({ children })
     [users]
   );
 
-  // useEffect(() => {
-  //   setLocalStorage();
-  // }, []);
+  useEffect(() => {
+      setLocalStorage();
+  }, []);
 
 
   const connect = (): void => {
@@ -57,17 +60,7 @@ export const ContextProvider: FC<{ children: React.ReactNode }> = ({ children })
       connect();
   }, [isConnected, socket]);
 
-  const [state, setState] =
-    useState<{
-      allMessages: {
-        user: string;
-        phoneNumber: string | null;
-        messages: any[];
-      }[];
-      messages: any[];
-      username: string;
-      session: any;
-    }>(initialState);
+  const [state, setState] = useState(initialState);
 
   const updateMsgState = useCallback(({ user, msg, media }: UpdateMsgState) => {
     const newMsg = {
@@ -87,92 +80,65 @@ export const ContextProvider: FC<{ children: React.ReactNode }> = ({ children })
 
   const onMessageReceived = useCallback(
     (msg: SocketResponse): void => {
-console.log("socket: BotResponse",{msg})
-      // @ts-ignore
+      console.log("socket: BotResponse", { msg });
+
+      //@ts-ignore
       const user = JSON.parse(localStorage.getItem("currentUser"));
+      let media = {};
 
       if (msg.content.msg_type === "IMAGE") {
-        updateMsgState({
-          user,
-          msg,
-          media: { imageUrl: msg?.content?.media_url },
-        });
+        media = { imageUrl: msg?.content?.media_url };
       } else if (msg.content.msg_type === "AUDIO") {
-        updateMsgState({
-          user,
-          msg,
-          media: { audioUrl: msg?.content?.media_url },
-        });
+        media = { audioUrl: msg?.content?.media_url };
       } else if (msg.content.msg_type === "VIDEO") {
-        updateMsgState({
-          user,
-          msg,
-          media: { videoUrl: msg?.content?.media_url },
-        });
+        media = { videoUrl: msg?.content?.media_url };
       } else if (
         msg.content.msg_type === "DOCUMENT" ||
         msg.content.msg_type === "FILE"
       ) {
-        updateMsgState({
-          user,
-          msg,
-          media: { fileUrl: msg?.content?.media_url },
-        });
+        media = { fileUrl: msg?.content?.media_url };
       } else if (msg.content.msg_type === "TEXT") {
-        updateMsgState({ user, msg, media: {} });
+        media = {};
       }
+
+      updateMsgState({
+        user,
+        msg,
+        media,
+      });
+
+      const newMessage = {
+        username: user?.name,
+        text: msg.content.title,
+        choices: msg.content.choices,
+        position: "left",
+      };
 
       localStorage.setItem(
         "userMsgs",
-        JSON.stringify([
-          ...messages,
-          {
-            username: user?.name,
-            text: msg.content.title,
-            choices: msg.content.choices,
-            position: "left",
-          },
-        ])
+        JSON.stringify([...messages, newMessage])
       );
     },
     [messages, updateMsgState]
   );
 
-
   // useEffect(() => {
-  //   setLocalStorage();
+  //   const hasLocalStorageBeenSet = localStorage.getItem('localStorageSet');
+
+  //   if(!hasLocalStorageBeenSet) {     
+  //     setLocalStorage();
+  //     localStorage.setItem('localStorageSet', 'true');
+  //   }
   // }, []);
 
 
 
-  useEffect(() => {
-    if (localStorage.getItem('auth') || isMobileAvailable) {
-      const URL = process.env.NEXT_PUBLIC_TRANSPORT_SOCKET_URL || '';
-      setSocket(
-        io(URL, {
-          transportOptions: {
-            polling: {
-              extraHeaders: {
-                Authorization: `Bearer ${localStorage.getItem('auth')}`,
-                channel: 'nlpwa',
-              },
-            },
-          },
-          query: {
-            deviceId: `nlpwa:${localStorage.getItem('mobile')}`,
-          },
-          autoConnect: false,
-          upgrade: false,
-        })
-      );
-    }
-  }, [isMobileAvailable]);
-
+  console.log(socket);
 
   useEffect(() => {
 
     function onConnect(): void {
-      window && window?.androidInteract?.log(`socket: onConnectCallback`);
+     
       setIsConnected(true);
     }
 
@@ -181,8 +147,6 @@ console.log("socket: BotResponse",{msg})
     }
 
     function onDisconnect(): void {
-      console.log("socket: disconnecting");
-      window && window?.androidInteract?.log(`socket: onDisconnectCallback`);
       setIsConnected(false);
     }
 
@@ -199,10 +163,6 @@ console.log("socket: BotResponse",{msg})
     }
 
     return () => {
-      window &&
-        window?.androidInteract?.log(
-          `socket: turning off everything on return`
-        );
       // socket?.disconnect();
       // socket?.off("connect", onConnect);
       // socket?.off("disconnect", onDisconnect);
@@ -216,80 +176,8 @@ console.log("socket: BotResponse",{msg})
       setStarredMsgs(JSON.parse(localStorage.getItem("starredChats") || '{}'));
     }
   }, []);
-
-  // getting botList from android and fetching bot details
-  useEffect(() => {
-    try {
-      const checkOnline = async (): Promise<void> => {
-        if (window.navigator.onLine) {
-
-          const botIds = JSON.parse(localStorage.getItem("botList") || '{}');
-          getBotDetailsList()
-            .then((response): any => {
-              console.log({ response })
-              const botDetailsList = without(
-                reverse(
-                  sortBy(
-                    response?.data?.result?.map((bot: any, index: number) => {
-                      if (
-                        // bot?.logicIDs?.[0]?.transformers?.[0]?.meta?.type !==
-                        // "broadcast" &&
-                        // includes(botIds, bot?.id)
-                        true
-                      ) {
-                        if(index===0) localStorage.setItem('userID', bot?.id);
-                        return normalizeUsers({
-                          ...bot,
-                          active: index === 0,
-                          botUuid: bot?.id,
-                          createTime: moment(bot?.createdAt).valueOf(),
-                        });
-                      }
-                      return null;
-                    }),
-                    ["createTime"]
-                  )
-                ),
-                null
-              );
-
-              window &&
-                window?.androidInteract?.log(JSON.stringify(botDetailsList));
-
-
-              // @ts-ignore
-              setUsers(botDetailsList);
-              setLoading(false);
-              window?.androidInteract?.onBotDetailsLoaded(
-                JSON.stringify(botDetailsList)
-              );
-              if (localStorage.getItem("currentUser")) {
-
-                // @ts-ignore
-                setCurrentUser(JSON.parse(localStorage.getItem("currentUser")));
-
-                // @ts-ignore
-              } else setCurrentUser(botDetailsList?.[0]);
-            })
-            .catch((err: any) => console.log("qwerty:", { err }));
-        } else {
-          setLoading(false);
-          if (localStorage.getItem("botDetails")) {
-            setUsers(JSON.parse(localStorage.getItem("botDetails") || '[]'));
-            setCurrentUser(JSON.parse(localStorage.getItem("botDetails") || '[]')?.[0]);
-          }
-        }
-      };
-      checkOnline();
-    } catch (err: any) {
-      toast.error(err?.message);
-      window &&
-        window?.androidInteract?.log(
-          `error in fetching botList:${JSON.stringify(err)}`
-        );
-    }
-  }, []);
-
+  
+  
   const onChangeCurrentUser = useCallback((newUser: User) => {
     setCurrentUser({ ...newUser, active: true });
     localStorage.removeItem("userMsgs");
@@ -299,7 +187,7 @@ console.log("socket: BotResponse",{msg})
   const sendMessage = useCallback(
     (text: string, media: any, isVisibile = true): void => {
 
-      send({ text, socketSession, socket});
+      send({ text, socketSession, socket });
       if (isVisibile)
         if (media) {
           if (media.mimeType.slice(0, 5) === 'image') {
@@ -309,7 +197,7 @@ console.log("socket: BotResponse",{msg})
           } else {
           }
         } else {
-       
+
           setMessages((prev: any) => {
             return [
               ...map(prev, (prevMsg, index) => {
@@ -334,10 +222,10 @@ console.log("socket: BotResponse",{msg})
               },
             ]
           });
-   
+
         }
     },
-    [currentUser,socketSession]
+    [currentUser, socketSession]
   );
 
   const values = useMemo(
@@ -374,12 +262,18 @@ console.log("socket: BotResponse",{msg})
     ]
   );
 
-  
+
   return (
     //@ts-ignore
     <AppContext.Provider value={values}>
       <>
+        <SocketConnection
+          isMobileAvailable={isMobileAvailable}
+          setSocket={setSocket}
+        />
+       <GetBotList setUsers={setUsers} setCurrentUser={setCurrentUser} setLoading={setLoading} />
         {children}
+
         <Toaster
           position="top-right"
           reverseOrder={false}
