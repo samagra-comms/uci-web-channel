@@ -2,6 +2,7 @@ import React from 'react';
 import { Button } from '../Button';
 import { useLocale } from '../LocaleProvider';
 
+
 interface SendButtonProps {
   disabled: boolean;
   onClick: (e: React.MouseEvent<HTMLButtonElement>) => void;
@@ -11,14 +12,14 @@ export const SendButton = ({ disabled, onClick }: SendButtonProps) => {
   const { trans } = useLocale('Composer');
   return (
     <div className="Composer-actions">
-      <Button
+      {/* Use the send icon from Font Awesome */}
+      <button
         className="Composer-sendBtn"
         disabled={disabled}
-        onMouseDown={onClick}
-        color="primary"
+        onClick={onClick}
       >
-        {trans('send')}
-      </Button>
+        <i className="fas fa-paper-plane"></i>
+      </button>
     </div>
   );
 };

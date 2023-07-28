@@ -1,44 +1,35 @@
 .container {
-  height: 6rem;
+  height: 72px;
   width: 100%;
   display: flex;
   align-items: center;
-  border-bottom: 2px #ddd solid;
+  /* border-bottom: 1px solid #ccc; */
   font-weight: 600;
-  margin-bottom: 10px;
+  padding: 0 16px;
   transition: background-color 0.3s ease-in-out, transform 0.3s ease-in-out;
   animation: fadeIn 0.5s ease-in-out;
-  border-radius: 12px; /* Rounded corners for a softer look */
-  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
-  /* background-color: rgb(21 16 48 ); */
-  --tw-bg-opacity: 0.75;
-  background-color: rgb(22 27 34/var(--tw-bg-opacity));
-
-  /* More prominent shadow */
+  border-radius: 8px; /* Rounded corners for a softer look */
 }
 
 .container:hover {
-  background-color: #f8f8f8; /* Lighter hover color */
-  transform: translateY(-2px); 
-  color:black;/* Slightly lifted effect on hover */
+  background-color: white; /* Lighter hover color */
+  transform: translateY(-2px);
 }
 
 /* Active container */
 .activeContainer {
-  height: 4rem;
+  height: 72px;
   width: 100%;
   display: flex;
   align-items: center;
-  border-bottom: 2px #ddd solid;
-  background-color: #e3f9c2; /* Light green background */
+  background-color: #f3f3f3; /* Light gray background */
   font-weight: 600;
-  margin-bottom: 10px;
-  border-radius: 12px; /* Rounded corners for a softer look */
-  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2); /* More prominent shadow */
+  padding: 0 16px;
+  border-radius: 8px; /* Rounded corners for a softer look */
 }
 
 .activeContainer:hover {
-  background-color: #c2f48c; /* Darker green on hover */
+  background-color: #e5e5e5; /* Slightly darker gray on hover */
   transform: translateY(-2px);
 }
 
@@ -46,11 +37,10 @@
 .avatar {
   height: 48px;
   width: 48px;
-  border: 2px solid #ddd; /* Light gray border */
   border-radius: 50%;
   overflow: hidden;
-  margin-left: 20px;
-  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2); /* More prominent shadow */
+  margin-left: 16px;
+  box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1); /* Slightly prominent shadow */
 }
 
 .avatar img {
@@ -63,12 +53,11 @@
 .chatItem_text {
   flex: 1;
   height: 100%;
-  margin-left: 15px;
-  padding: 0 8px;
+  margin-left: 16px;
+  padding: 4px 8px;
   display: flex;
   flex-direction: column;
-  color: white;
-  /* background-color: white; */
+  color: #333; /* Dark gray text color */
 }
 
 /* Chat item username */
@@ -76,10 +65,8 @@
   flex: 8;
   display: flex;
   align-items: center;
-  font-size: 1.2rem;
-  font-family: 'Helvetica', sans-serif;
-  font-weight: 700;
-  color: #333;
+  font-size: 16px;
+  font-weight: 600;
 }
 
 /* Chat item phone number */
@@ -87,7 +74,7 @@
   flex: 5;
   display: flex;
   align-items: flex-start;
-  font-size: 1rem;
+  font-size: 14px;
   color: #666; /* Darker gray for less emphasis */
 }
 
@@ -96,39 +83,32 @@
   flex: 1;
   display: flex;
   align-items: center;
-  font-size: 1rem;
-  font-family: 'Helvetica', sans-serif;
+  font-size: 14px;
   color: #888; /* Light gray for less emphasis */
 }
 
 /* Paragraph style */
 .paragraphStyle {
   text-overflow: ellipsis;
-  max-width: 70vw;
+  max-width: calc(100% - 48px); /* Adjust based on avatar width */
   overflow: hidden;
   white-space: nowrap;
   margin-bottom: 0;
-  font-size: 1rem;
+  font-size: 16px;
 }
 
 /* Paragraph style for expired bots */
 .paragraphStyleExpired {
   color: #999;
   text-decoration: line-through;
-  font-size: 0.9rem;
+  font-size: 14px;
   opacity: 0.6;
 }
 
 /* Paragraph style for active bots */
 .paragraphStyleActive {
-  color:white;
-  font-size: 1.1rem;
-  font-weight: bold;
-}
-.paragraphStyleActive:hover {
-  color: black;
-  font-size: 1.1rem;
-  font-weight: bold;
+  font-size: 16px;
+  font-weight: 600;
 }
 
 /* Animation for fading in */

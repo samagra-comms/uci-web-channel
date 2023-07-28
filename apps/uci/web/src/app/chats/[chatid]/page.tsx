@@ -90,7 +90,7 @@ const Chats: NextPage<{ params?: { chatid: string } }> = ({ params }) => {
                 {/* Chat Window */}
                 <Box className={`${styles.chatWindow}`}>
                     {/* NeoMorphism Box */}
-                    <Box className={`${styles.BackBox}`} style={{ borderRadius: '0px' }}>
+                    <Box className={`${styles.BackBox}`}>
                         {/* Chat Area */}
                         <Box style={{ height: '100%' }}>
                             <ChatUiComponent currentUser={context?.currentUser} />

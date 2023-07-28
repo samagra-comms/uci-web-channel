@@ -16,7 +16,6 @@
   justify-content: center;
   color: white;
   padding: 0px 20px;
-  /* background-color: rgb(40, 31, 31); */
   --tw-bg-opacity: 1;
   background-color: rgb(22 27 34/var(--tw-bg-opacity));
 }
@@ -38,7 +37,6 @@
   justify-content: center;
   align-items: flex-end;
   bottom: 0;
-
 }
 
 /* Chat list container */
@@ -47,11 +45,11 @@
   height: 100%;
   left: 0;
   right: 0;
-  border-right: 1px solid #ddd; /* Light gray border */
+  border-right: 1px solid #ddd; 
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  background-color: #f0f0f0; /* Light gray background */
+  background-color: #f0f0f0;
 }
 
 /* Starred chats button */
@@ -66,7 +64,7 @@
 
 /* Chat list */
 .chatList {
-  margin-top: 10px;
+  margin-top: 70px;
   padding: 0 10px;
   overflow: auto;
   flex: 1;
@@ -200,5 +198,8 @@
   }
 }
 
-
+.search{
+  z-index: 200;
+  margin: 2vw;
+}
 

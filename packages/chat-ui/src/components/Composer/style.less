@@ -30,6 +30,7 @@
 .Composer-inputWrap {
   flex: 1;
   position: relative;
+
 }
 
 .Composer-input {
@@ -38,10 +39,11 @@
   padding: @composer-input-padding;
   border: @composer-input-border;
   border-radius: @composer-input-border-radius;
-  background: @composer-input-bg;
+  background: none;
   line-height: 20px;
   font-size: 15px;
   caret-color: @composer-input-caret-color;
+  outline: none;
   transition: @composer-input-transition;
 }
 
@@ -49,4 +51,29 @@
   min-width: 0;
   padding-left: 16px;
   padding-right: 16px;
+  color: #333; /* Dark gray text color for the send button */
+  font-size: 18px;
+  margin-left: 10px;
+  cursor: pointer;
+  transition: transform 0.2s; 
+  border-radius: 50%; /* Rounded send button */
+  padding: 10px; 
+}
+
+
+.Composer-sendBtn:hover {
+  transform: scale(1.05); 
+  background-color: #545a5d; /* Darker green on hover */
+}
+
+/* Slide-up animation keyframes */
+@keyframes slideUp {
+  from {
+      transform: translateY(50px);
+      opacity: 0;
+  }
+  to {
+      transform: translateY(0);
+      opacity: 1;
+  }
 }

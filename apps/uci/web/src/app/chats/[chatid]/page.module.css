@@ -1,4 +1,4 @@
-
+/* Container for the entire chat app */
 .container {
   position: fixed;
   flex-direction: column;
@@ -6,8 +6,8 @@
   width: 100vw;
 }
 
+/* Top section */
 .top_section {
-  /* background-color: #25d366 */
   height: 80px;
   font-weight: 700;
   font-size: 1.4rem;
@@ -16,7 +16,7 @@
   justify-content: space-between;
   color: var(--white);
   padding: 0px 20px;
-  bottom: 0;
+  background-color: var(--whatsapp-dark-green); /* WhatsApp green */
 }
 
 /* Heading text */
@@ -30,7 +30,6 @@
 .whatsappLogo {
   width: 32px;
   height: 32px;
-  margin-right: 10px;
 }
 
 .innerRing {
@@ -43,30 +42,28 @@
 
 /* Chat window */
 .chatWindow {
-  height: 100vh;
-  margin: auto;
+  flex: 1;
   display: flex;
   justify-content: center;
   align-items: flex-start;
   width: 100%;
-  padding: 0.5vw;
-  padding-bottom: 0.5vw;
+  padding: 1.5vw;
+  padding-top: 0.5vw;
 }
 
 /* Chat background */
 .BackBox {
-  width: 100vw;
-  height: 90vh;
-  border-radius: 25px 25px 0px 0px;
+  width: 100%;
+  height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
+  border-radius: 1.3vw;
 }
 
 .wallpaper1,
 .wallpaper2 {
-  width: 82vw;
-  height: 85vh;
+  flex: 1; /* Fill the available vertical space */
   margin: auto;
   border-radius: 14px;
   display: flex;
@@ -79,11 +76,12 @@
 
 /* Chat messages container */
 .chat_component {
+  flex: 1; /* Fill the available vertical space */
   width: 100%;
-  height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
+  overflow-y: auto; /* Add vertical scrolling */
 }
 
 /* Styling for individual chat messages */

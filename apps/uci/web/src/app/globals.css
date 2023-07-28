@@ -83,6 +83,8 @@ body {
   --red: #be0f39;
   --golden: rgba(253,199,0,0.7);
   --primaryyellow: #fec701;
+  --black: #000000;
+  --white: rgb(255, 255, 255);
 }
 
 body {
@@ -115,7 +117,7 @@ body {
 }
 
 .ChatFooter {
-  background-color: var(--primaryyellow) !important;
+  background-color: var(--white) !important;
 }
 
 button{
