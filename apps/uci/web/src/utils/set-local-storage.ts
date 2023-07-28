@@ -3,8 +3,8 @@ export const setLocalStorage = (): void => {
 		'auth',`${process.env.NEXT_PUBLIC_ACCESS_TOKEN}`
 	);
 	localStorage.setItem('mobile', `${process.env.NEXT_PUBLIC_USER_MOBILE}`);
-	localStorage.setItem(
-		'botList',
+    localStorage.setItem(
+        'botList',
 		`${process.env.NEXT_PUBLIC_BOT_LIST}`
-	);
+    );
 };

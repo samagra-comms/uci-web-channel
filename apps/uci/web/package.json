@@ -26,6 +26,7 @@
     "autoprefixer": "10.4.14",
     "axios": "^1.4.0",
     "chatui": "*",
+    "socketclass": "*",
     "framer-motion": "^10.12.10",
     "lodash": "^4.17.21",
     "moment": "^2.29.4",

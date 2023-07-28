@@ -27,7 +27,7 @@ class UCI {
 
     this.msgReceiveCb = onRecieveCallback;
     this.socket.connect();
-   
+
     this.socket.on("botResponse", this.handleMessage);
     this.socket.on("session", this.handleSocketSession);
   }
@@ -42,7 +42,7 @@ class UCI {
     this.session = session;
   };
 
-  onDisconnect=()=>{
+  onDisconnect = () => {
     this.socket?.disconnect()
   }
 
@@ -62,15 +62,18 @@ class UCI {
   };
 }
 
+export { UCI };
+
 // const socket = new UCI({ url, socketOptions, callback });
 // socket.sendMessage({ text, to, from, callback, optional });
 
 
 // const socket = new UCI({url, socketOptions, callback});
 // socket.sendMessage({text, to, from, callback, optional});
-// socket.handleMessage();                             
+// socket.handleMessage();          
 
-//! Callback will have 'bot request, bot response' 
-//! options will have connections and messages 
+
+//! Callback will have 'bot request, bot response'
+//! options will have connections and messages
 //$ Like this: options:{connection:{}, message: {}} 
 
