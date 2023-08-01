@@ -4,6 +4,8 @@ type SendType={
 	socket: any;
   }
   
+  
+  
   export const send = ({text, socketSession,  socket}:SendType) => {
 	console.log("socket:",{text,socketSession,socket})
 	socket?.emit('botRequest', {
@@ -21,3 +23,10 @@ type SendType={
     });
 	
   }
+
+
+
+
+
+
+

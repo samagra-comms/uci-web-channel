@@ -7830,6 +7830,10 @@
     "@socket.io/component-emitter" "~3.1.0"
     "debug" "~4.3.1"
 
+"socketclass@*", "socketclass@file:C:\\Users\\KIIT\\Desktop\\uci-web-channel\\packages\\socket":
+  "resolved" "file:packages/socket"
+  "version" "0.0.1"
+
 "source-map-js@^1.0.2":
   "integrity" "sha512-R0XvVJ9WusLiqTCEiGCmICCMplcCkIwwR11mOSD9CR5u+IXYdiseeEuXCVAjS54zqwkLcPNnmU4OeJ6tUrWhDw=="
   "resolved" "https://registry.npmjs.org/source-map-js/-/source-map-js-1.0.2.tgz"
@@ -8590,6 +8594,7 @@
     "react-hot-toast" "^2.4.1"
     "react-intl" "^6.4.2"
     "socket.io-client" "4.5.1"
+    "socketclass" "*"
     "tailwindcss" "3.3.2"
     "typescript" "5.0.4"
     "utf-8-validate" "^6.0.3"
