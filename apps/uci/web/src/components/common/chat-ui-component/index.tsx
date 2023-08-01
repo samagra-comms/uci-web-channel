@@ -73,10 +73,10 @@ export const ChatUiComponent: FC<{
     useEffect(() => {
         const phone = localStorage.getItem("mobile");
         if (phone === "") toast.error("Mobile Number required");
-
+console.log({context})
         if (navigator.onLine) {
             console.log("chatUi=>:",{navigator:navigator.onLine,conversationHistoryUrl})
-            if (conversationHistoryUrl && context?.socket?.connected) {
+            if (conversationHistoryUrl && context?.newSocket?.socket?.connected) {
                 axios
                     .get(conversationHistoryUrl)
                     .then((res) => {

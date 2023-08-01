@@ -30,15 +30,19 @@ class UCI {
 
     this.socket.on("botResponse", this.handleMessage);
     this.socket.on("session", this.handleSocketSession);
+    this.socket.on("exception", (ee)=>{
+        console.log({ee})
+    });
   }
 
   handleMessage = (message: any) => {
     //ReceiveCallback to be used here
-    console.log(message);
+    console.log({message});
     this.msgReceiveCb(message);
   };
 
   handleSocketSession = (session:any) => {
+    console.log("venom:",{session})
     this.session = session;
   };
 
@@ -48,17 +52,18 @@ class UCI {
   
 
   sendMessage = ({ text, to, from, optional }: any) => {
+    console.log("I'm Here",{text,session:this.session,optional})
     this.socket?.emit("botRequest", {
       content: {
         text,
-        to,
+        userId: this.session.userID,
         appId: optional?.appId,
         channel: optional?.channel,
-        from,
+        from:this.session.socketID,
         context: null,
         accessToken: null,
       },
-      to,
+      to:this.session.userID,
     });
   };
 }

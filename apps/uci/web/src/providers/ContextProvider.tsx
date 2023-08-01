@@ -23,6 +23,7 @@ export const ContextProvider: FC<{ children: React.ReactNode }> = ({ children })
   const [messages, setMessages] = useState<Array<any>>([]);
   const [socketSession, setSocketSession] = useState<any>();
   const [socket, setSocket] = useState<Socket>();
+  const [newSocket, setNewSocket] = useState<Socket>();
   const [isConnected, setIsConnected] = useState(false);
   const [isMobileAvailable, setIsMobileAvailable] = useState(false)
   const [currentUser, setCurrentUser] = useState<User>();
@@ -186,8 +187,11 @@ export const ContextProvider: FC<{ children: React.ReactNode }> = ({ children })
 
   const sendMessage = useCallback(
     (text: string, media: any, isVisibile = true): void => {
-
-      send({ text, socketSession, socket });
+      console.log({newSocket})
+      //@ts-ignore
+     newSocket?.sendMessage({text,optional:{ appId:JSON.parse(localStorage.getItem('currentUser') || '')?.id,
+     channel: 'NL App'}})
+    //  send({ text, socketSession, socket });
       if (isVisibile)
         if (media) {
           if (media.mimeType.slice(0, 5) === 'image') {
@@ -225,7 +229,7 @@ export const ContextProvider: FC<{ children: React.ReactNode }> = ({ children })
 
         }
     },
-    [currentUser, socketSession]
+    [currentUser, socketSession,socket]
   );
 
   const values = useMemo(
@@ -243,6 +247,7 @@ export const ContextProvider: FC<{ children: React.ReactNode }> = ({ children })
       loading,
       setLoading,
       socket,
+      newSocket,
       botStartingMsgs, isSendDisabled, setIsSendDisabled
     }),
     [
@@ -251,6 +256,7 @@ export const ContextProvider: FC<{ children: React.ReactNode }> = ({ children })
       onChangeCurrentUser,
       state,
       socket,
+      newSocket,
       sendMessage,
       messages,
       starredMsgs,
@@ -268,8 +274,11 @@ export const ContextProvider: FC<{ children: React.ReactNode }> = ({ children })
     <AppContext.Provider value={values}>
       <>
         <SocketConnection
+         setNewSocket={setNewSocket}
           isMobileAvailable={isMobileAvailable}
           setSocket={setSocket}
+          newSocket={newSocket}
+          onMessageReceived={onMessageReceived}
         />
        <GetBotList setUsers={setUsers} setCurrentUser={setCurrentUser} setLoading={setLoading} />
         {children}
