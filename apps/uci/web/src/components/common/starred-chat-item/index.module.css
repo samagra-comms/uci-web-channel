@@ -1,47 +1,26 @@
 .container {
-  /* margin: 2vh 0; */
   height: 5rem;
   width: 100%;
   display: flex;
   align-items: center;
   border-bottom: 2px var(--lightgrey) dotted;
   background-color: white;
-  /* border-radius: 10px; */
-  /* box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.3); */
   font-weight: 600;
 }
-
-/* .lightContainer {
-    background-color: var(--primarygreen);
-}
-
-.darkContainer {
-    background-color: var(--primarydarkblue);
-} */
 
 .activeContainer {
-  /* margin: 2vh 0; */
   height: 5rem;
   width: 100%;
   display: flex;
   align-items: center;
   border-bottom: 2px var(--lightgrey) dotted;
   background-color: white;
-  /* border-radius: 10px; */
-  /* background-color: var(--blue); */
   font-weight: 600;
-  /* box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.3); */
 }
 
 .avatar {
-  /* background-image: url('../../../../assets/images/killua.jpg');
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover; */
   height: 6vh;
   width: 6vh;
-  /* margin: 0 1vh; */
-  /* padding: 10px; */
   border-radius: 50%;
 }
 
@@ -81,4 +60,13 @@
 
 .chatItem_botNumber {
   flex: 0;
+}
+
+.chatItem_name{
+    text-overflow: ellipsis;
+    max-width : 70vw;
+    overflow: 'hidden';
+    white-space: 'nowrap';
+    margin-bottom: 'auto';
+    margin-top: 'auto';
 }

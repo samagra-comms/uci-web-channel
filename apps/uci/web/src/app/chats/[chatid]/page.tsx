@@ -1,7 +1,7 @@
 'use client'
 import React, { useContext, useEffect } from 'react';
 import { Box, Button, Flex, useBreakpointValue } from '@chakra-ui/react';
-import profilePic from '../../../assets/images/bot_icon_2.png';
+import profilePic from '@/assets/images/bot_icon_2.png';
 import styles from './page.module.css';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import Image from 'next/image';
@@ -11,6 +11,8 @@ import { NextPage } from 'next';
 import { ChatUiComponent } from '@/components';
 import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { config } from '@/config';
+import { Span, StyledBox } from './styled';
 
 const Chats: NextPage<{ params?: { chatid: string } }> = ({ params }) => {
     const router = useRouter();
@@ -31,73 +33,47 @@ const Chats: NextPage<{ params?: { chatid: string } }> = ({ params }) => {
         <Flex width={mainFlexWidth} display={{ base: isHomepage ? 'none' : 'flex', md: 'flex' }}>
             <Flex bgColor="var(--primarydarkblue)" flexDirection="column" height="100vh" width="100%">
                 {/* Top Section */}
-                <Box className={`${styles.top_section}`}>
+                <Box className={`${styles.top_section}`} height={config.ChatWindow.topbar.height} background={config.ChatWindow.topbar.background}>
                     <Box flex="1.5" display={{ base: 'block', md: 'none' }}>
                         <Button
-                            style={{
-                                border: 'none',
-                                padding: '0.75rem 1rem',
-                                borderRadius: '50%',
-                                fontSize: '14px'
-                            }}
                             onClick={(): void => {
                                 localStorage.removeItem('userMsgs');
                                 context?.setMessages([]);
                                 router.push('/');
                             }}
-                            size="sm"
                             variant="ghost"
                         >
-                            <FontAwesomeIcon icon={faChevronLeft} />
+                            <FontAwesomeIcon icon={config.ChatWindow.topbar.icon} />
                         </Button>
                     </Box>
                     <Flex flex='9' justifyContent="space-between" alignItems="center" >
                         <Flex justifyContent="center" alignItems="center" width={'100%'}>
                             {
                                 context?.currentUser &&
-
                                 <Box className={`${styles.avatarContainer} `} style={{ width: '100%' }}>
                                     {
                                         <>
-                                            <div className={styles.innerRing}>
-                                                <Image src={profilePic} alt="profile pic" />
-                                            </div>
-                                            <Box
-                                                style={{
-                                                    display: 'flex',
-                                                    justifyContent: 'space-between',
-                                                    verticalAlign: 'center',
-                                                    width: '100%'
-                                                }}
-                                            >
-                                                <p
-                                                    style={{
-                                                        textOverflow: 'ellipsis',
-                                                        maxWidth: '45vw',
-                                                        overflow: 'hidden',
-                                                        whiteSpace: 'nowrap',
-                                                        textAlign: 'left',
-                                                        marginBottom: 'auto',
-                                                        marginTop: 'auto'
-                                                    }}
-                                                >
-                                                    {context?.currentUser?.name}
-                                                </p>
+                                            <Box className={styles.innerRing} border={config.ChatWindow.topbar.iconborer}>
+                                                <Image src={config.ChatWindow.topbar.image} alt="profile pic" />
                                             </Box>
+                                            <StyledBox>
+                                                <Span>
+                                                    {context?.currentUser?.name}
+                                                </Span>
+                                            </StyledBox>
                                         </>
                                     }
                                 </Box>
                             }
-
                         </Flex>
                     </Flex>
                 </Box>
                 {/* Chat Window */}
-                <Box className={`${styles.chatWindow}`}>
+                <Box className={`${styles.chatWindow}`} padding={config.ChatWindow.window.padding} width={config.ChatWindow.window.width} background={config.ChatWindow.window.background} paddingTop="0.6vw" >
                     {/* NeoMorphism Box */}
-                    <Box className={`${styles.BackBox}`}>
+                    <Box className={`${styles.BackBox}`} borderRadius={config.ChatWindow.innerWindow.borderRadius}>
                         {/* Chat Area */}
-                        <Box style={{ height: '100%' }}>
+                        <Box height={config.ChatWindow.window.height}>
                             <ChatUiComponent currentUser={context?.currentUser} />
                         </Box>
                     </Box>

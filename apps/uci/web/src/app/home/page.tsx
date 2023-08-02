@@ -4,13 +4,13 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { filter, forEach } from 'lodash';
 import { useRouter } from 'next/navigation';
 import { toast } from 'react-hot-toast';
-import { faComment, faSearch } from '@fortawesome/free-solid-svg-icons';
 import styles from './index.module.css';
 import ChatItem from '@/components/common/chat-item';
 import moment from 'moment';
 import StarredChatItem from '@/components/common/starred-chat-item';
 import { User } from '@/types';
 import { AppContext } from '@/context';
+import { config } from '@/config';
 
 export default function Home() {
   const { currentUser, allUsers, setMessages } = useContext(AppContext);
@@ -91,78 +91,80 @@ export default function Home() {
     }
   }, [searchTerm, sortedUsers]);
 
-
   return (
     <Flex flexDirection="column" height="100vh" width="100vw">
-      <Box className={`${styles.top_section}`}>
+      <Box className={`${styles.top_section}`} backgroundColor={config.heading.bgcolor}>
         <Box flex="1.5">
-          <Tooltip label="Back to Chats">
+          <Tooltip label={config.icon.chat.label}>
             <IconButton
-              icon={<FontAwesomeIcon icon={faComment} />}
-              className={`${styles.button}`}
-              aria-label="Back to Chats"
+              icon={<FontAwesomeIcon icon={config.icon.chat.icon} />}
+              aria-label="Chats"
+              size={config.icon.chat.size}
+              colorScheme={config.icon.chat.colorScheme}
+              variant={config.icon.chat.variant}
+              margin={config.icon.chat.margin}
             />
           </Tooltip>
         </Box>
 
         <Flex flex="9" justifyContent="space-between" alignItems="center">
           <Flex justifyContent="center" alignItems="center">
-            <Heading as="h1" size="lg" color="teal.500">
-              Chats
+            <Heading as="h1" size={config.heading.size} color={config.heading.color} margin={config.heading.margin}>
+              {config.heading.text}
             </Heading>
           </Flex>
         </Flex>
       </Box>
       <Box height="75px" />
-      <Box pl="20px" pr="20px" className={`${styles.search}`}>
+      <Box margin={config.search.margin} className={`${styles.search}`}>
         <InputGroup>
           <Input
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            placeholder="Search"
-            size="lg"
-            borderRadius="6vw"
-            background="white"
+            placeholder={config.search.placeholder}
+            size={config.search.size}
+            borderRadius={config.search.borderRadius}
+            background={config.search.background}
+            outline={config.search.outline}
             paddingLeft="50px"
-
           />
-          <InputLeftElement justifyContent="center" paddingLeft="20px" paddingTop="0.7vw">
-            <FontAwesomeIcon icon={faSearch} />
+          <InputLeftElement justifyContent="center" padding={config.search.iconPadding}>
+            <FontAwesomeIcon icon={config.search.icon} />
           </InputLeftElement>
         </InputGroup>
 
       </Box>
       <Box flex="1" overflow="hidden" overflowY="hidden">
         <Box className={`${styles.mainContainer}`} width={isMobile ? '100%' : '35%'}>
-          <Box className={`${styles.backBox}`}>
+          <Box className={`${styles.backBox}`} background={config.chatList.background}>
             <Tabs isFitted variant="unstyled" colorScheme="teal" onChange={onTabChange} marginTop="5">
               <TabList display="flex" pl="1rem" pr="1rem" pt="1rem" mb="1rem" justifyContent="center" borderRadius="lg" overflow="hidden">
                 <Tab
-                  _selected={{ color: 'white', bg: 'teal.500' }}
+                  _selected={{ color: config.tab.bots.color, bg: config.tab.bots.background }}
                   _focus={{ outline: 'none' }}
                   fontWeight="bold"
                   textAlign="center"
-                  fontSize={{ base: 'md', md: 'lg' }}
+                  fontSize={{ base: config.tab.bots.fontsize, md: config.tab.bots.fontsize }}
                   px="0rem"
                   py="0.5rem"
                   borderBottomWidth="2px"
-                  borderRadius="md"
+                  borderRadius={config.tab.bots.borderRadius}
                 >
-                  Bots
+                  {config.tab.bots.text}
                 </Tab>
                 <Tab
-                  _selected={{ color: 'white', bg: 'teal.500' }}
+                  _selected={{ color: config.tab.Starredchat.color, bg: config.tab.Starredchat.background }}
                   _focus={{ outline: 'none' }}
                   fontWeight="bold"
                   textAlign="center"
-                  fontSize={{ base: 'md', md: 'lg' }}
+                  fontSize={{ base: config.tab.Starredchat.fontsize, md: config.tab.Starredchat.fontsize }}
                   px="0rem"
                   py="0.5rem"
                   flex="1"
                   borderBottomWidth="2px"
-                  borderRadius="md"
+                  borderRadius={config.tab.Starredchat.borderRadius}
                 >
-                  Starred Chats
+                  {config.tab.Starredchat.text}
                 </Tab>
               </TabList>
               <TabPanels>

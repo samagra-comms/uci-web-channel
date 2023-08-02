@@ -22,14 +22,14 @@
   width: 100%;
   display: flex;
   align-items: center;
-  background-color: #f3f3f3; /* Light gray background */
+  background-color: #f3f3f3;
   font-weight: 600;
   padding: 0 16px;
-  border-radius: 8px; /* Rounded corners for a softer look */
+  border-radius: 8px;
 }
 
 .activeContainer:hover {
-  background-color: #e5e5e5; /* Slightly darker gray on hover */
+  background-color: #e5e5e5;
   transform: translateY(-2px);
 }
 

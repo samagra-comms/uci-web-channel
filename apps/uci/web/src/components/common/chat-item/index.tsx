@@ -2,7 +2,6 @@ import React, { useCallback, useContext, useEffect, useMemo, useState } from 're
 import { Box, useBreakpointValue, useColorModeValue } from '@chakra-ui/react';
 import styles from './index.module.css';
 import { useRouter } from 'next/navigation';
-import Image from 'next/image';
 import { profilePic, crossPic } from '@/assets';
 import { User } from '@/types';
 import { AppContext } from '@/context';
@@ -59,7 +58,7 @@ const ChatItem: React.FC<chatItemProps> = ({ active, name, phoneNumber, user, is
         onClick={onChangeUser}
         disabled={isBlank}
         className={`${active ? styles.activeContainer : styles.container}`}
-      >
+        >
         <div className={styles.avatar}>
           <img
             src={!isBlank ? botIcon : crossPic}

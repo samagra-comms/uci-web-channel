@@ -48,14 +48,7 @@ interface chatItemProps {
 						} ${active ? styles.activeFont : fontColorToggle}`}
 					>
 						<p
-							style={{
-								textOverflow: 'ellipsis',
-								maxWidth: '70vw',
-								overflow: 'hidden',
-								whiteSpace: 'nowrap',
-								marginBottom: 'auto',
-								marginTop: 'auto'
-							}}
+							
 						>
 							{name}
 						</p>

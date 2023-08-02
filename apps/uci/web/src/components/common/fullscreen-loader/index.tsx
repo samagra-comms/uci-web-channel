@@ -9,7 +9,7 @@ export const FullScreenLoader: FC<{ loading: boolean }> = ({ loading }) => (
 			bg='blackAlpha.300'
 			backdropFilter='blur(10px) hue-rotate(90deg)'
 		/>
-		<ModalContent style={{ background: 'none', boxShadow: 'none' }}>
+		<ModalContent className={`${styles.modalContent}`}>
 			<div id="loader" className={`${styles.spinner}`}></div>
 		</ModalContent>
 	</Modal>

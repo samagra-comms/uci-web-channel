@@ -1,7 +1,7 @@
 import React from 'react';
-import { Button } from '../Button';
 import { useLocale } from '../LocaleProvider';
-
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { config } from '../../../../../apps/uci/web/src/config/config';
 
 interface SendButtonProps {
   disabled: boolean;
@@ -18,7 +18,7 @@ export const SendButton = ({ disabled, onClick }: SendButtonProps) => {
         disabled={disabled}
         onClick={onClick}
       >
-        <i className="fas fa-paper-plane"></i>
+        <FontAwesomeIcon icon={config.ChatWindow.innerWindow.input.icon} />
       </button>
     </div>
   );

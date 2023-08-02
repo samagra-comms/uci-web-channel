@@ -8,7 +8,6 @@
 
 /* Top section */
 .top_section {
-  height: 80px;
   font-weight: 700;
   font-size: 1.4rem;
   display: flex;
@@ -16,7 +15,6 @@
   justify-content: space-between;
   color: var(--white);
   padding: 0px 20px;
-  background-color: var(--whatsapp-dark-green); /* WhatsApp green */
 }
 
 /* Heading text */
@@ -36,19 +34,16 @@
   width: 70px;
   height: 55px;
   border-radius: 50%;
-  border: 3px solid #25d366; /* WhatsApp green */
   margin-right: 10px;
 }
 
-/* Chat window */
 .chatWindow {
   flex: 1;
   display: flex;
   justify-content: center;
   align-items: flex-start;
-  width: 100%;
-  padding: 1.5vw;
-  padding-top: 0.5vw;
+  padding-top: 0vw;
+  z-index: 0;
 }
 
 /* Chat background */
@@ -58,7 +53,6 @@
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  border-radius: 1.3vw;
 }
 
 .wallpaper1,
@@ -93,17 +87,15 @@
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
 }
 
-/* Styling for the timestamp in chat messages */
 .timeStamp {
   font-size: 12px;
   color: #888;
 }
 
-/* Chat input box */
 .chatInput {
   padding: 10px 20px;
-  background-color: var(--white); /* White background */
-  border: 1px solid var(--light-gray); /* Light gray border */
+  background-color: var(--white);
+  border: 1px solid var(--light-gray);
   flex: 1;
   font-size: 14px;
   border-radius: 30px;
@@ -129,6 +121,16 @@
 .chatInput,
 .sendButton {
   animation: fadeInUp 0.5s ease;
+}
+
+.Bot_name{
+  text-overflow: ellipsis;
+  max-width : 45vw;
+  overflow: hidden;
+  white-space: nowrap;
+  margin-bottom: auto;
+  margin-top: auto;
+  text-align: left;
 }
 
 @keyframes fadeInUp {
