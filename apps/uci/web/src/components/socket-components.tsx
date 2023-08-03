@@ -1,10 +1,12 @@
 import io, { Socket } from 'socket.io-client';
 import React, { useEffect, useState } from 'react';
-import {UCI} from '../providers/socketClass';
+import { UCI } from 'socket-package';
 interface SocketConnectionProps {
   isMobileAvailable: boolean;
   setSocket: React.Dispatch<React.SetStateAction<Socket | undefined>>;
   setNewSocket:any
+  onMessageReceived:any
+  newSocket:any
 }
 
 // const [socket, setSocket] = useState<Socket>();

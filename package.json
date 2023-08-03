@@ -21,6 +21,7 @@
   },
   "packageManager": "yarn@1.22.19",
   "dependencies": {
-    "cross-env": "^7.0.3"
+    "cross-env": "^7.0.3",
+    "socket-package": "^0.4.0"
   }
 }
