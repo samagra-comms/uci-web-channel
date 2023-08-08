@@ -18,6 +18,7 @@ import crossPic from "../../../../assets/images/cross.png";
 import { AppContext } from "../../../../utils/app-context";
 import { User } from "../../../../types";
 
+
 interface chatItemProps {
   active: boolean;
   name: string;
@@ -64,6 +65,9 @@ const ChatItem: React.FC<chatItemProps> = ({
       setBotIcon(profilePic);
     }
   }, [user?.botImage]);
+
+ 
+
   return (
     <React.Fragment>
       <button
@@ -94,6 +98,8 @@ const ChatItem: React.FC<chatItemProps> = ({
                 overflow: "hidden",
                 whiteSpace: "nowrap",
                 marginBottom: "0",
+                color: user?.isExpired ? 'lightgrey' : 'black',
+                textDecoration:user?.isExpired ? 'line-through':'none'
               }}
             >
               {name}

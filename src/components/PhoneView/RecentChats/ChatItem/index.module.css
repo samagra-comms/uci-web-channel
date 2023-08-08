@@ -46,6 +46,7 @@
   /* margin: 0 1vh; */
   /* padding: 10px; */
   border-radius: 50%;
+  background: white;
 }
 
 .chatItem_text {

@@ -52,6 +52,7 @@
   border-radius: 50%;
   border: 3px solid green;
   margin-right: 10px;
+  background-color: lightgray;
 }
 
 .toggleButtonContainer {

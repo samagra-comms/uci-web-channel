@@ -125,6 +125,7 @@ const ChatWindow: React.FC<chatWindowProps> = ({ currentUser }) => {
                         textAlign: "left",
                         marginBottom: "auto",
                         marginTop: "auto",
+                        textDecoration:currentUser?.isExpired ? 'line-through':'none'
                       }}
                     >
                       {currentUser?.name}

@@ -13,7 +13,7 @@ import moment from "moment";
 import { toast, Toaster } from "react-hot-toast";
 import { normalizeUsers } from "./utils/normalize-user";
 import { socket } from "./socket";
-import { includes, without, map, sortBy, reverse } from "lodash";
+import { includes, without, map, sortBy, reverse, filter, concat } from "lodash";
 import { getBotDetailsUrl } from "./utils/urls";
 // import { setLocalStorage } from "./utils/set-local-storage";
 import { initialState } from "./utils/initial-states";
@@ -228,6 +228,7 @@ const App: FC = () => {
           axios
             .get(url, config)
             .then((response): any => {
+              console.log({response})
               setLoading(false);
               window && window?.androidInteract?.log("debug: allBots"+JSON.stringify(response?.data?.result));
               const botDetailsList = without(
@@ -236,7 +237,7 @@ const App: FC = () => {
                     response?.data?.result?.map((bot: any, index: number) => {
                       if (
                         filterList ? bot?.logicIDs?.[0]?.transformers?.[0]?.meta?.type !==
-                          "broadcast" &&
+                          "broadcast"  && bot?.status=== "ENABLED" &&
                         includes(botIds, bot?.id) : true
                       ) {
                         if (index === 0)
@@ -260,16 +261,19 @@ const App: FC = () => {
                 ),
                 null
               );
-
+         
+          const activeBots=filter(botDetailsList,{isExpired:false});
+          const expiredBots=filter(botDetailsList,{isExpired:true});
+          const botList=concat(activeBots,expiredBots)
               window &&
                 window?.androidInteract?.log(JSON.stringify(botDetailsList));
 
               // eslint-disable-next-line @typescript-eslint/ban-ts-comment
               // @ts-ignore
-              setUsers(botDetailsList);
-              console.log("crty:",{botDetailsList})
+              setUsers(botList);
+
               window?.androidInteract?.onBotDetailsLoaded(
-                JSON.stringify(botDetailsList)
+                JSON.stringify(botList)
               );
               if (localStorage.getItem("currentUser")) {
                 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -277,7 +281,7 @@ const App: FC = () => {
                 setCurrentUser(JSON.parse(localStorage.getItem("currentUser")));
                 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
                 // @ts-ignore
-              } else setCurrentUser(botDetailsList?.[0]);
+              } else setCurrentUser(botList?.[0]);
             })
             .catch((err) => {
               setLoading(false);
