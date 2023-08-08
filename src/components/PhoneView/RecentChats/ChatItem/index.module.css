@@ -4,14 +4,18 @@
   width: 100%;
   display: flex;
   align-items: center;
-  border-bottom: 2px var(--lightgrey) dotted;
+  border-bottom: 2px solid rgba(184, 186, 187,0.1);
   background-color: white;
   /* border-radius: 10px; */
   /* box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.3); */
   font-weight: 600;
-  margin-bottom: 10px;
+  /* margin-bottom: 10px; */
 }
 
+.container:hover {
+  background-color: lightgray;
+  color: white;
+}
 /* .lightContainer {
     background-color: var(--primarygreen);
 }
@@ -26,7 +30,7 @@
   width: 100%;
   display: flex;
   align-items: center;
-  border-bottom: 2px var(--lightgrey) dotted;
+  border-bottom: 2px var(--lightgrey) solid;
   background-color: white;
   /* border-radius: 10px; */
   /* background-color: var(--blue); */
@@ -40,13 +44,23 @@
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover; */
-  height: 6vh;
-  width: 6vh;
+  height: 7vh;
+  width: 7vh;
   border: 2px solid var(--lightgrey);
   /* margin: 0 1vh; */
   /* padding: 10px; */
   border-radius: 50%;
-  background: white;
+  background: white;  
+}
+
+.disabled  {
+  overflow: hidden;
+  background: #bab7b7;  /* fallback for old browsers */
+  background: linear-gradient(rgba(138, 134, 138, 0.8), rgba(136, 132, 132, 0.8)), url("https://ik.imagekit.io/ikmedia/blog/hero-image.jpeg");  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(rgba(109, 102, 109, 0.8), rgba(44, 42, 42, 0.8)), url("https://ik.imagekit.io/ikmedia/blog/hero-image.jpeg"); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  background-size: cover;
+  background-repeat: no-repeat;
+  opacity: 0.5;
 }
 
 .chatItem_text {

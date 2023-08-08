@@ -24,8 +24,8 @@ export const normalizedChat = (chats: any): any => {
 		['time', 'messageState']
 	);
 	return map(sortedChats, (sortedChat, index) => {
-		if (index === Number(sortedChats.length - 1))
-			console.log('qwer123:', { index, sortedChat, length: chats.length });
+		// if (index === Number(sortedChats.length - 1))
+		// 	console.log('qwer123:', { index, sortedChat, length: chats.length });
 		return { ...sortedChat, disabled: index !== Number(sortedChats?.length) - 1 };
 	});
 };

@@ -11,7 +11,7 @@
 }
 .top_section {
   width: 100%;
-  height: 80px;
+  height: 60px;
   font-family: 'Mulish', sans-serif;
   font-weight: 700;
   font-size: 1.4rem;
@@ -45,8 +45,8 @@ font-weight: 700;
 }
 
 .mainContainer {
-  margin-top: 12vh;
-  height: 88vh;
+  margin-top: 0vh;
+  height: 91vh;
   width: 100%;
   bottom: 0;
   position: fixed;
@@ -57,11 +57,11 @@ font-weight: 700;
 
 .backBox {
   background-color: white;
-  top: 14vh;
+  /* top: 14vh; */
   width: 100vw;
-  height: 87vh;
+  height: 89vh;
   /* position: fixed; */
-  border-radius: 60px 60px 0px 0px;
+  border-radius: 40px 40px 0px 0px;
   /* box-shadow: 2px 2px 20px 6px rgba(0, 0, 0, 0.25) inset; */
   display: flex;
   flex-direction: column;
@@ -76,13 +76,19 @@ font-weight: 700;
   width: 80%;
   margin: 20px auto 0px auto;
   padding: 4px;
+  border-radius: 5px;
+}
+.starred:hover {
+  background-color: var(--primarygreen);
+  color: white;
 }
 
 .chatList {
   margin-top: 2vh;
   max-height: 78vh;
   overflow: auto;
-  padding: 0 6vw;
+  padding: 0 4vw;
+  /* padding: 0 6vw; */
   /* display: flex;
   flex-direction: column;
   align-items: center; */

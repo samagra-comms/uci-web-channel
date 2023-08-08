@@ -110,7 +110,6 @@ const ChatUiWindow: FC<{
 
             if (res?.data?.result?.records?.length > 0) {
               const normalizedChats = normalizedChat(res.data.result.records);
-			  console.log("venom:",{normalizedChats})
               window &&
                 window?.androidInteract?.log(JSON.stringify(normalizedChats));
               localStorage.setItem("userMsgs", JSON.stringify(normalizedChats));

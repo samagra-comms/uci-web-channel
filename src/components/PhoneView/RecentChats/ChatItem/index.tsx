@@ -73,9 +73,9 @@ const ChatItem: React.FC<chatItemProps> = ({
       <button
         onClick={onChangingCurrentUserHandler}
         disabled={isBlank}
-        className={` ${active ? styles.activeContainer : styles.container}`}
+        className={styles.container}
       >
-        <div className={styles.avatar}>
+        <div className={`${styles.avatar} ${user?.isExpired  ? styles.disabled : null}`}>
           <img
             src={!isBlank ? botIcon : crossPic}
             height={"100%"}

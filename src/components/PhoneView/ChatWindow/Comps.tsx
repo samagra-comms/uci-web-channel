@@ -35,7 +35,7 @@ export const RenderComp: FC<any> = ({
   chatUIMsg,
   onSend,
 }) => {
-  console.log("venom2:", { currentUser });
+ 
   const context = useContext(AppContext);
 
   const [isInLocal, setIsInLocal] = useState(false);
@@ -219,7 +219,7 @@ export const RenderComp: FC<any> = ({
 
   const getLists = useCallback(
     ({ choices, isDisabled }: { choices: any; isDisabled: boolean }) => {
-      console.log("qwer12:", { choices, isDisabled });
+ 
       return (
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
@@ -257,9 +257,7 @@ export const RenderComp: FC<any> = ({
   const download = (url: string): void => {
     try {
       window && window?.androidInteract?.onImageDownload(currentUser?.id, url);
-      console.log("onImageDownload function executed");
     } catch (err) {
-      console.log("onImageDownload function failed");
       window &&
         window?.androidInteract?.log(
           `error in onImageDownload: ${JSON.stringify(err)}`
@@ -318,7 +316,6 @@ export const RenderComp: FC<any> = ({
       );
 
     case "image": {
-      console.log("venom: data", { content });
       const url = content?.data?.payload?.media?.url || content?.data?.imageUrl;
       return (
         <>

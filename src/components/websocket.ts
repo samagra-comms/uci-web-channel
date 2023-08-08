@@ -25,7 +25,6 @@ export const send = (
 			to: 'admin'
 		});
 	} else {
-		console.log('mobile:', { mobile: `nlpwa:${localStorage.getItem('mobile')}` });
 		socket?.emit('botRequest', {
 			content: {
 				text: msg,
