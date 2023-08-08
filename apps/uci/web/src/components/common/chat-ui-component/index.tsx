@@ -35,7 +35,7 @@ export const ChatUiComponent: FC<{
     const [loading, setLoading] = useState(true);
 
     const context = useContext(AppContext);
-
+    
     const chatUIMsg = useMemo<ChatUiMsgType>(
         () =>
             context?.messages?.map((msg: any) => ({
@@ -138,38 +138,28 @@ export const ChatUiComponent: FC<{
         [chatUIMsg]
     );
 
-    if (!currentUser) {
-        // If no bot is selected, render the message "No bot is selected"
-        return (
-          <Flex justifyContent="center" alignItems="center" height="100vh">
-            <Box fontSize="24px" fontWeight="bold" color="gray.500">
-              No bot is selected
-            </Box>
-          </Flex>
-        );
-      }
       
     return (
         <>
-            <FullScreenLoader loading={loading} />
-            <Chat
-                disableSend={isSendDisabled}
-                messages={chatUIMsg}
-                renderMessageContent={(props: any): ReactElement => (
-                    <MessageItem
-                        key={props}
-                        msg={props}
-                        chatUIMsg={chatUIMsg}
-                        currentUser={currentUser}
-                        onSend={context?.sendMessage}
-                    />
-                )}
-                onSend={handleSend}
-                locale="en-US"
-                placeholder={
-                    isSendDisabled ? "Please select from options" : "Ask Your Question"
-                }
-            />
+        <FullScreenLoader loading={loading} />
+                 <Chat
+                 disableSend={isSendDisabled}
+                 messages={chatUIMsg}
+                 renderMessageContent={(props: any): ReactElement => (
+                     <MessageItem
+                         key={props}
+                         msg={props}
+                         chatUIMsg={chatUIMsg}
+                         currentUser={currentUser}
+                         onSend={context?.sendMessage}
+                     />
+                 )}
+                 onSend={handleSend}
+                 locale="en-US"
+                 placeholder={
+                     isSendDisabled ? "Please select from options" : "Ask Your Question"
+                 }
+             />      
         </>
     );
 };

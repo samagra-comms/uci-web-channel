@@ -16,7 +16,6 @@ import { getBotDetailsList } from "@/utils/api-handler";
 import SocketConnection from "@/components/socket-components";
 import GetBotList from "@/components/get-bot-list";
 
-
 export const ContextProvider: FC<{ children: React.ReactNode }> = ({ children }) => {
 
   const [users, setUsers] = useState<User[]>([]);
@@ -29,6 +28,7 @@ export const ContextProvider: FC<{ children: React.ReactNode }> = ({ children })
 
   const [loading, setLoading] = useState<boolean>(true);
   const [starredMsgs, setStarredMsgs] = useState<object>({});
+  // const [isSelected, setIsSelected] = useState<boolean>(false);
 
   // const authToken = useLocalStorage('auth', '');
   // const currentUserLocal = useLocalStorage('currentUser', '', true);
@@ -76,6 +76,12 @@ export const ContextProvider: FC<{ children: React.ReactNode }> = ({ children })
     setMessages((prev: any) => [...prev, newMsg]);
     if (msg.content.choices)
       setIsSendDisabled(true);
+  }, []);
+
+  useEffect(() => {
+    return () => {
+      localStorage.removeItem('currentUser');
+    }
   }, []);
 
   const onMessageReceived = useCallback(
@@ -243,7 +249,8 @@ export const ContextProvider: FC<{ children: React.ReactNode }> = ({ children })
       loading,
       setLoading,
       socket,
-      botStartingMsgs, isSendDisabled, setIsSendDisabled
+      botStartingMsgs, isSendDisabled, setIsSendDisabled,
+      // isSelected
     }),
     [
       currentUser,
@@ -258,7 +265,8 @@ export const ContextProvider: FC<{ children: React.ReactNode }> = ({ children })
       loading,
       setLoading,
       botStartingMsgs,
-      isSendDisabled, setIsSendDisabled
+      isSendDisabled, setIsSendDisabled,
+      // isSelected
     ]
   );
 
@@ -273,7 +281,6 @@ export const ContextProvider: FC<{ children: React.ReactNode }> = ({ children })
         />
        <GetBotList setUsers={setUsers} setCurrentUser={setCurrentUser} setLoading={setLoading} />
         {children}
-
         <Toaster
           position="top-right"
           reverseOrder={false}

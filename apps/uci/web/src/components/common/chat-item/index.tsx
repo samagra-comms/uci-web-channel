@@ -1,5 +1,5 @@
-import React, { useCallback, useContext, useEffect, useMemo, useState } from 'react';
-import { Box, useBreakpointValue, useColorModeValue } from '@chakra-ui/react';
+import React, { use, useCallback, useContext, useEffect, useMemo, useState } from 'react';
+import { Box, useBreakpointValue } from '@chakra-ui/react';
 import styles from './index.module.css';
 import { useRouter } from 'next/navigation';
 import { profilePic, crossPic } from '@/assets';
@@ -18,27 +18,27 @@ interface chatItemProps {
 const ChatItem: React.FC<chatItemProps> = ({ active, name, phoneNumber, user, isBlank }) => {
   const history = useRouter();
   const context = useContext(AppContext);
-  const [botIcon, setBotIcon] = useState(profilePic);
+  const [userImage, setBotImage] = useState(profilePic);
 
   const isMobile = useBreakpointValue({ base: true, md: false });
 
   useEffect(() => {
-    if (user?.botImage) {
-      fetch(user?.botImage)
+    if (context?.currentUser?.botImage) {
+      fetch(context?.currentUser?.botImage)
         .then((res) => {
           if (res.status === 403) {
-            setBotIcon(profilePic);
+            setBotImage(profilePic);
           } else {
-            setBotIcon(user?.botImage);
+            setBotImage(context?.currentUser?.botImage);
           }
         })
         .catch((err) => {
-          setBotIcon(profilePic);
+          setBotImage(profilePic);
         });
     } else {
-      setBotIcon(profilePic);
+      setBotImage(profilePic);
     }
-  }, [user?.botImage]);
+  }, [context?.currentUser?.botImage]);
 
   const expiredItem = useMemo(() => {
     return (user?.endDate !== undefined && user.endDate < moment().format()) || (user?.status !== 'ENABLED');
@@ -58,20 +58,14 @@ const ChatItem: React.FC<chatItemProps> = ({ active, name, phoneNumber, user, is
         onClick={onChangeUser}
         disabled={isBlank}
         className={`${active ? styles.activeContainer : styles.container}`}
-        >
+      >
         <div className={styles.avatar}>
-          <img
-            src={!isBlank ? botIcon : crossPic}
-            height={'100%'}
-            width={'100%'}
-            alt="profile pic"
-          />
+          <img src={userImage} alt="profile pic" width={300} height={300} />
         </div>
         <Box className={`${styles.chatItem_text}`}>
           <Box
             className={`${phoneNumber === null ? styles.chatItem_botName : styles.chatItem_userName
-              } ${active ? styles.activeFont : ''}`}
-          >
+              } ${active ? styles.activeFont : ''}`}>
             <p className={`${styles.paragraphStyle} ${expiredItem ? styles.paragraphStyleExpired : styles.paragraphStyleActive}`}>
               {name}
             </p>

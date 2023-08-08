@@ -93,7 +93,7 @@ export default function Home() {
 
   return (
     <Flex flexDirection="column" height="100vh" width="100vw">
-      <Box className={`${styles.top_section}`} backgroundColor={config.heading.bgcolor}>
+      <Box className={`${styles.top_section}`} backgroundColor={config.heading.bgcolor} width={config?.heading?.width}>
         <Box flex="1.5">
           <Tooltip label={config.icon.chat.label}>
             <IconButton
@@ -106,7 +106,6 @@ export default function Home() {
             />
           </Tooltip>
         </Box>
-
         <Flex flex="9" justifyContent="space-between" alignItems="center">
           <Flex justifyContent="center" alignItems="center">
             <Heading as="h1" size={config.heading.size} color={config.heading.color} margin={config.heading.margin}>
@@ -132,11 +131,10 @@ export default function Home() {
             <FontAwesomeIcon icon={config.search.icon} />
           </InputLeftElement>
         </InputGroup>
-
       </Box>
       <Box flex="1" overflow="hidden" overflowY="hidden">
         <Box className={`${styles.mainContainer}`} width={isMobile ? '100%' : '35%'}>
-          <Box className={`${styles.backBox}`} background={config.chatList.background}>
+          <Box className={`${styles.backBox}`} background={config?.chatList?.background}>
             <Tabs isFitted variant="unstyled" colorScheme="teal" onChange={onTabChange} marginTop="5">
               <TabList display="flex" pl="1rem" pr="1rem" pt="1rem" mb="1rem" justifyContent="center" borderRadius="lg" overflow="hidden">
                 <Tab
@@ -148,7 +146,7 @@ export default function Home() {
                   px="0rem"
                   py="0.5rem"
                   borderBottomWidth="2px"
-                  borderRadius={config.tab.bots.borderRadius}
+                  borderRadius={config?.tab?.bots?.borderRadius}
                 >
                   {config.tab.bots.text}
                 </Tab>
@@ -162,7 +160,7 @@ export default function Home() {
                   py="0.5rem"
                   flex="1"
                   borderBottomWidth="2px"
-                  borderRadius={config.tab.Starredchat.borderRadius}
+                  borderRadius={config?.tab?.Starredchat?.borderRadius}
                 >
                   {config.tab.Starredchat.text}
                 </Tab>

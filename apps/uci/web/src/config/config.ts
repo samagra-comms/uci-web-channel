@@ -20,21 +20,22 @@ export const config = {
         color: "teal.500",
         size: "md",
         bgcolor: "black",
-        margin: "0px 0px 0px 0px"
+        margin: "0px 0px 0px 0px",
+        width:"100%"
     },
     tab: {
         bots: {
             text: "Bots",
             color: "white",
             background: "teal.700",
-            fontsize: "lg",
+            fontSize: "lg",
             borderRadius: "md"
         },
         Starredchat: {
             text: "Starred Chat",
             color: "white",
             background: "teal.500",
-            fontsize: "lg",
+            fontSize: "lg",
             borderRadius: "md"
         },
     },
@@ -66,6 +67,17 @@ export const config = {
         background: "#f0f0f0",
     },
 
+    chatItem :{
+        windth : "100%",
+        height : "100%",
+        fontSize : "1vw",
+        fontColor : "black",
+        fontWeight : "bold",
+        background : "white",
+        padding : "1vw",
+        margin : "0 0 0 2vw",
+    },
+
     message: {
         icon: botImage,
         iconSize: 10,
@@ -76,7 +88,7 @@ export const config = {
             borderRadius : "0.5vw",
         },
         botMsg:{
-           fontsize:"lg",
+           fontSize:"lg",
            starredColor:"red",
            borderRadius : "1vw",
            background: "white",
@@ -91,13 +103,13 @@ export const config = {
         topbar: {
             icon: faChevronLeft,
             iconSize: "sm",
-            Color: "white",
+            color: "white",
             textMargin: "0 0 0 10px",
-            FontSize: "md",
+            fontSize: "md",
             image: profilePic,
             height: "70px",
             background: "gray.700",
-            iconborer: "3px solid #25d366",
+            iconBorer: "3px solid #25d366",
         },
         window: {
             padding: "1.5vw",
@@ -105,7 +117,7 @@ export const config = {
             background: "gray.700",
             height: "100%",
         },
-        innerWindow: {
+        innerwindow: {
             borderRadius: "1.3vw",
             input: {
                 icon: faPaperPlane,

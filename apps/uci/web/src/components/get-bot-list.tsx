@@ -58,9 +58,12 @@ const GetBotList: React.FC<GetBotItemProp> = ({ setUsers, setCurrentUser, setLoa
     
                     // @ts-ignore
                     setCurrentUser(JSON.parse(localStorage.getItem("currentUser")));
+
     
-                    // @ts-ignore
-                  } else setCurrentUser(botDetailsList?.[0]);
+                    
+                  } 
+                  // else setCurrentUser(botDetailsList?.[0]
+                    // );
                 })
                 .catch((err: any) => console.log("qwerty:", { err }));
             } else {

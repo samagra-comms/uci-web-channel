@@ -1,12 +1,13 @@
 "use client";
 import React, { useCallback } from 'react';
-import { Box, useColorModeValue } from '@chakra-ui/react';
+import { useColorModeValue } from '@chakra-ui/react';
 import styles from './index.module.css';
-import profilePic from '../../../assets/images/bot_icon_2.png';
-import crossPic from '../../../assets/images/cross.png';
+import profilePic from '@/assets/images/bot_icon_2.png';
+import crossPic from '@/assets/images/cross.png';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import { User } from '@/types';
+import { Text, ChatButton, UserName,AvatarImage } from './styled';
 
 interface chatItemProps {
 	active: boolean;
@@ -17,7 +18,7 @@ interface chatItemProps {
 	isBlank?: boolean;
 }
 
- const StarredChatItem: React.FC<chatItemProps> = ({ active, name, phoneNumber, user, isBlank }) => {
+const StarredChatItem: React.FC<chatItemProps> = ({ active, name, phoneNumber, user, isBlank }) => {
 	const history = useRouter();
 
 	const fontColorToggle = useColorModeValue(styles.darkFontColor, styles.lightFontColor);
@@ -28,36 +29,21 @@ interface chatItemProps {
 
 	return (
 		<React.Fragment>
-			<button
-				disabled={isBlank}
+			<ChatButton disabled={isBlank}
 				onClick={onChangingCurrentUserHandler}
-				className={` ${active ? styles.activeContainer : styles.container}`}
-			>
-				<div className={styles.avatar}>
-					{
-						<Image
-							src={!isBlank ? profilePic : crossPic}
-							alt="profile pic"
-						/>
-					}
-				</div>
-				<Box className={`${styles.chatItem_text}`}>
-					<Box
-						className={`${
-							phoneNumber === null ? styles.chatItem_botName : styles.chatItem_userName
-						} ${active ? styles.activeFont : fontColorToggle}`}
-					>
-						<p
-							
-						>
-							{name}
-						</p>
-					</Box>
-				</Box>
-			</button>
+				active={active}>
+				<AvatarImage>
+						<Image src={!isBlank ? profilePic : crossPic}
+						alt="profile pic"/>
+				</AvatarImage>
+				<Text>
+					<UserName active={active} phoneNumber={phoneNumber}>
+						<p>{name}</p>
+					</UserName>
+				</Text>
+			</ChatButton>
 		</React.Fragment>
 	);
 };
-
 
 export default StarredChatItem;
