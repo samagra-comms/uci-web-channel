@@ -1,11 +1,11 @@
-import React, { use, useCallback, useContext, useEffect, useMemo, useState } from 'react';
-import { Box, useBreakpointValue } from '@chakra-ui/react';
-import styles from './index.module.css';
+import React, { useCallback, useContext, useEffect, useMemo, useState } from 'react';
+import { useBreakpointValue } from '@chakra-ui/react';
 import { useRouter } from 'next/navigation';
-import { profilePic, crossPic } from '@/assets';
+import { profilePic } from '@/assets';
 import { User } from '@/types';
 import { AppContext } from '@/context';
 import moment from 'moment';
+import { AvatarContainer, AvatarImage, ChatItemText, Container, Paragraph, UserName } from './styled';
 
 interface chatItemProps {
   active: boolean;
@@ -54,24 +54,16 @@ const ChatItem: React.FC<chatItemProps> = ({ active, name, phoneNumber, user, is
 
   return (
     <React.Fragment>
-      <button
-        onClick={onChangeUser}
-        disabled={isBlank}
-        className={`${active ? styles.activeContainer : styles.container}`}
-      >
-        <div className={styles.avatar}>
-          <img src={userImage} alt="profile pic" width={300} height={300} />
-        </div>
-        <Box className={`${styles.chatItem_text}`}>
-          <Box
-            className={`${phoneNumber === null ? styles.chatItem_botName : styles.chatItem_userName
-              } ${active ? styles.activeFont : ''}`}>
-            <p className={`${styles.paragraphStyle} ${expiredItem ? styles.paragraphStyleExpired : styles.paragraphStyleActive}`}>
-              {name}
-            </p>
-          </Box>
-        </Box>
-      </button>
+      <Container onClick={onChangeUser} disabled={isBlank} active={active}>
+        <AvatarContainer>
+          <AvatarImage src={userImage} alt="profile pic" />
+        </AvatarContainer>
+        <ChatItemText>
+          <UserName isBot={phoneNumber == null}>
+            <Paragraph expired={expiredItem}>{name}</Paragraph>
+          </UserName>
+        </ChatItemText>
+      </Container>
     </React.Fragment>
   );
 };

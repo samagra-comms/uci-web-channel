@@ -138,7 +138,6 @@ export const StarredChatList: FC<{ user: User }> = ({ user }) => {
                 return <></>;
         }
     }
-
     return (
         <Chat
             className={styles.chat}

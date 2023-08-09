@@ -43,4 +43,20 @@ export const theme= {
         width: 290,
         height: 200,
     },
+    theme1 : {
+        innerBackground: "gray.700",
+        color: "black",
+        fontSize: "1vw",
+        fontWeight: "bold", 
+        headingColor:"teal.300" ,
+        background: "#f0f0f0"     
+    },
+    theme2 : {
+        innerbackground: "black",
+        color: "white",
+        fontSize: "1vw",
+        fontWeight: "bold",
+        headingColor:"white",
+        background : "#f0f0f0",
+    },
 };

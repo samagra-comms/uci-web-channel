@@ -46,17 +46,17 @@ const Chats = ({ params }: chatProps) => {
         if (!params?.chatid) router.push('/');
     }, [router, params?.chatid]);
 
-    console.log({context});
+    console.log({ context });
 
     if (typeof window === undefined || typeof window === 'undefined')
         return <>
-        <div>hi</div>
+            <div>hi</div>
         </>
-    
+
     return (<>
         <Flex width={mainFlexWidth} display={{ base: isHomepage ? 'none' : 'flex', md: 'flex' }}>
             <Flex bgColor="var(--primarydarkblue)" flexDirection="column" height="100vh" width="100%">
-                {   
+                {
                     context?.currentUser ?
                         (<>
                             <Box className={`${styles.top_section}`} height={config?.ChatWindow?.topbar?.height} background={config?.ChatWindow?.topbar?.background}>
@@ -78,7 +78,7 @@ const Chats = ({ params }: chatProps) => {
                                             <Box className={`${styles.avatarContainer} `} style={{ width: '100%' }}>
                                                 {
                                                     <>
-                                                        <Box className={styles.innerRing} border={config.ChatWindow.topbar.iconborer}>
+                                                        <Box className={styles.innerRing} border={config.ChatWindow.topbar.iconBorder}>
                                                             <img src={userImage} alt="profile pic" width={300} height={300} />
                                                         </Box>
                                                         <StyledBox>
@@ -96,7 +96,7 @@ const Chats = ({ params }: chatProps) => {
                             {/* Chat Window */}
                             <Box className={`${styles.chatWindow}`} padding={config.ChatWindow.window.padding} width={config.ChatWindow.window.width} background={config.ChatWindow.window.background} paddingTop="0.6vw" >
                                 {/* NeoMorphism Box */}
-                                <Box className={`${styles.BackBox}`} borderRadius={config.ChatWindow.innerwindow.borderRadius}>
+                                <Box className={`${styles.BackBox}`} borderRadius={config.ChatWindow.innerWindow.borderRadius}>
                                     {/* Chat Area */}
                                     <Box height={config.ChatWindow.window.height}>
                                         <ChatUiComponent currentUser={context?.currentUser} />
@@ -105,11 +105,15 @@ const Chats = ({ params }: chatProps) => {
                             </Box>
                         </>)
                         :
-                        <div>not selected</div>
+                        <Flex justifyContent="center" alignItems="center" height="100vh">
+                            <Box fontSize="24px" fontWeight="bold" color="gray.500">
+                                No bot is selected
+                            </Box>
+                        </Flex>
                 }
             </Flex>
         </Flex>
-        </>)
+    </>)
 };
 
 export default Chats;

@@ -35,7 +35,7 @@ export const ChatUiComponent: FC<{
     const [loading, setLoading] = useState(true);
 
     const context = useContext(AppContext);
-    
+
     const chatUIMsg = useMemo<ChatUiMsgType>(
         () =>
             context?.messages?.map((msg: any) => ({

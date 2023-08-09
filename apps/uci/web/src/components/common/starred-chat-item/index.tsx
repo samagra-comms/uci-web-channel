@@ -1,7 +1,6 @@
 "use client";
 import React, { useCallback } from 'react';
 import { useColorModeValue } from '@chakra-ui/react';
-import styles from './index.module.css';
 import profilePic from '@/assets/images/bot_icon_2.png';
 import crossPic from '@/assets/images/cross.png';
 import { useRouter } from 'next/navigation';
@@ -20,9 +19,6 @@ interface chatItemProps {
 
 const StarredChatItem: React.FC<chatItemProps> = ({ active, name, phoneNumber, user, isBlank }) => {
 	const history = useRouter();
-
-	const fontColorToggle = useColorModeValue(styles.darkFontColor, styles.lightFontColor);
-
 	const onChangingCurrentUserHandler = useCallback(() => {
 		history.push(`/starred-chat/${user?.id}`);
 	}, [history, user]);

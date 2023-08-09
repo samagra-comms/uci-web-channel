@@ -1,5 +1,6 @@
 import { botImage, profilePic } from "@/assets";
 import { faChevronLeft, faComment, faPaperPlane, faSearch } from "@fortawesome/free-solid-svg-icons";
+import { theme } from "./theme";
 
 export const config = {
     socket: {
@@ -17,9 +18,9 @@ export const config = {
     },
     heading: {
         text: "Welcome to UCI",
-        color: "teal.500",
+        color: `${theme.theme1.headingColor}`,
         size: "md",
-        bgcolor: "black",
+        bgcolor: `${theme.theme1.innerBackground}`,
         margin: "0px 0px 0px 0px",
         width:"100%"
     },
@@ -64,7 +65,7 @@ export const config = {
     },
 
     chatList: {
-        background: "#f0f0f0",
+        background: `${theme.theme1.background}`,
     },
 
     chatItem :{
@@ -72,10 +73,13 @@ export const config = {
         height : "100%",
         fontSize : "1vw",
         fontColor : "black",
+        expiredColor : "black",
         fontWeight : "bold",
         background : "white",
         padding : "1vw",
         margin : "0 0 0 2vw",
+        opacity : "0.6",
+
     },
 
     message: {
@@ -108,16 +112,16 @@ export const config = {
             fontSize: "md",
             image: profilePic,
             height: "70px",
-            background: "gray.700",
-            iconBorer: "3px solid #25d366",
+            background: `${theme.theme1.innerBackground}`,
+            iconBorder: "3px solid #25d366",
         },
         window: {
             padding: "1.5vw",
             width: "100%",
-            background: "gray.700",
             height: "100%",
+            background: `${theme.theme1.innerBackground}`,
         },
-        innerwindow: {
+        innerWindow: {
             borderRadius: "1.3vw",
             input: {
                 icon: faPaperPlane,
