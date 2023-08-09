@@ -4,10 +4,13 @@ import { CacheProvider } from '@chakra-ui/next-js'
 import { ChakraProvider } from '@chakra-ui/react'
 import { CookiesProvider } from 'react-cookie';
 import SSRProvider from './SSRProvider';
+import {store} from '../store/index';
+import {Provider as Pro} from 'react-redux';
 
 
 export const Provider = ({ children }: { children: React.ReactNode }) => {
     return <>
+    <Pro store={store}>
         <CacheProvider>
             <ChakraProvider>
                 <CookiesProvider>
@@ -17,6 +20,7 @@ export const Provider = ({ children }: { children: React.ReactNode }) => {
                 </CookiesProvider>
             </ChakraProvider>
         </CacheProvider>
+      </Pro>
     </>;
 }
 

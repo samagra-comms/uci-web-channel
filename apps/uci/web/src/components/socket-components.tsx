@@ -13,7 +13,6 @@ interface SocketConnectionProps {
 // const [isMobileAvailable, setIsMobileAvailable] = useState(false)
 
 
-
 const SocketConnection: React.FC<SocketConnectionProps> = ({ isMobileAvailable, setSocket,setNewSocket,onMessageReceived ,newSocket}) => {
  
 
