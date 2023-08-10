@@ -18,7 +18,7 @@ export const SendButton = ({ disabled, onClick }: SendButtonProps) => {
         disabled={disabled}
         onClick={onClick}
       >
-        <FontAwesomeIcon icon={config.ChatWindow.innerWindow.input.icon} />
+        <FontAwesomeIcon icon={config?.ChatWindow?.innerWindow?.input?.icon} />
       </button>
     </div>
   );

@@ -126,9 +126,10 @@ export default function Home() {
             background={config.search.background}
             outline={config.search.outline}
             paddingLeft="50px"
+            border="none"
           />
-          <InputLeftElement justifyContent="center" padding={config.search.iconPadding}>
-            <FontAwesomeIcon icon={config.search.icon} />
+          <InputLeftElement justifyContent="center" padding={config.search.iconPadding} >
+            <FontAwesomeIcon icon={config.search.icon} color='gray'/>
           </InputLeftElement>
         </InputGroup>
       </Box>
@@ -142,7 +143,7 @@ export default function Home() {
                   _focus={{ outline: 'none' }}
                   fontWeight="bold"
                   textAlign="center"
-                  fontSize={{ base: config.tab.bots.fontsize, md: config.tab.bots.fontsize }}
+                  fontSize={{ base: config?.tab?.bots?.fontSize, md: config?.tab?.bots?.fontSize }}
                   px="0rem"
                   py="0.5rem"
                   borderBottomWidth="2px"
@@ -151,18 +152,18 @@ export default function Home() {
                   {config.tab.bots.text}
                 </Tab>
                 <Tab
-                  _selected={{ color: config.tab.Starredchat.color, bg: config.tab.Starredchat.background }}
+                  _selected={{ color: config?.tab?.Starredchat?.color, bg: config?.tab?.Starredchat?.background }}
                   _focus={{ outline: 'none' }}
                   fontWeight="bold"
                   textAlign="center"
-                  fontSize={{ base: config.tab.Starredchat.fontsize, md: config.tab.Starredchat.fontsize }}
+                  fontSize={{ base: config?.tab?.Starredchat?.fontSize, md: config?.tab?.Starredchat?.fontSize }}
                   px="0rem"
                   py="0.5rem"
                   flex="1"
                   borderBottomWidth="2px"
                   borderRadius={config?.tab?.Starredchat?.borderRadius}
                 >
-                  {config.tab.Starredchat.text}
+                  {config?.tab?.Starredchat?.text}
                 </Tab>
               </TabList>
               <TabPanels>

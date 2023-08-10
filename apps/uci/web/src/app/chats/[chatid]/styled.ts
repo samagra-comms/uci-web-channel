@@ -5,6 +5,7 @@ export const Span = styled.span`
     color: ${config.ChatWindow.topbar.color};
     margin: ${config.ChatWindow.topbar.textMargin};
     font-size: ${config.ChatWindow.topbar.fontSize};
+    color: ${config.ChatWindow.topbar.color};
 `;
 
 export const StyledBox = styled.div`

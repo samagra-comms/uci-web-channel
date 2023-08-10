@@ -78,7 +78,7 @@ const Chats = ({ params }: chatProps) => {
                                             <Box className={`${styles.avatarContainer} `} style={{ width: '100%' }}>
                                                 {
                                                     <>
-                                                        <Box className={styles.innerRing} border={config.ChatWindow.topbar.iconBorder}>
+                                                        <Box className={styles.innerRing} border={config?.ChatWindow?.topbar?.iconBorder}>
                                                             <img src={userImage} alt="profile pic" width={300} height={300} />
                                                         </Box>
                                                         <StyledBox>

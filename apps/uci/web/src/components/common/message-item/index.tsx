@@ -130,7 +130,7 @@ export const MessageItem: React.FC<any> = ({
           <ListItem
             key={`${index}_${choice?.key}`}
             className={`${styles.onHover} ${styles.listItem}`}
-            style={{ backgroundColor: choice?.active ? config.message.listItem.background : "white" }}
+            style={{ background: choice?.active ? config.message.listItem.background : config.chatItem.background }}
             onClick={(e: any): void => {
               e.preventDefault();
               if (isDisabled) {
@@ -141,7 +141,7 @@ export const MessageItem: React.FC<any> = ({
             }}
             children={
               <div>
-                <span>
+                <span style={{color:`${theme.dark_theme.color}`}}>
                   {choice.key} {choice.text}
                 </span>
               </div>
@@ -358,7 +358,7 @@ export const MessageItem: React.FC<any> = ({
           <ContentDiv>
             <Image src={botImage} alt="userImage" style={{ borderRadius: "50%" }} />
           </ContentDiv>
-          <Box background={config.message.botMsg.background} borderRadius={config.message.botMsg.borderRadius} padding={config.message.botMsg.padding} margin={config.message.botMsg.margin}>
+          <Box background={config?.message?.botMsg?.background} borderRadius={config.message.botMsg.borderRadius} padding={config.message.botMsg.padding} margin={config?.message?.botMsg?.margin} color={config?.message?.botMsg?.color}>
             <Box marginBottom="1vw">
               <Span>
                 {content.text}
@@ -384,7 +384,7 @@ export const MessageItem: React.FC<any> = ({
                   <FontAwesomeIcon
                     icon={faStar}
                     onClick={(): void => onLongPress(content)}
-                    color={isStarred ? config.message.botMsg.starredColor : "var(--grey)"}
+                    color={isStarred ? config?.message?.botMsg?.starredColor : "var(--grey)"}
                   />
                 )}
               </span>

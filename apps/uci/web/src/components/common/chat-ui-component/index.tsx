@@ -22,7 +22,7 @@ import { normalizedChat } from "../../../utils/normalize-chats";
 import { AppContext } from "../../../context";
 import {FullScreenLoader} from "../fullscreen-loader";
 import { MessageItem } from "../message-item";
-import { Box, Flex } from "@chakra-ui/react";
+import { Box, Container, Flex } from "@chakra-ui/react";
 
 type ChatUiMsgType = {
     type: "image" | "text" | "audio" | "file" | "video";
@@ -159,7 +159,7 @@ export const ChatUiComponent: FC<{
                  placeholder={
                      isSendDisabled ? "Please select from options" : "Ask Your Question"
                  }
-             />      
+             />  
         </>
     );
 };

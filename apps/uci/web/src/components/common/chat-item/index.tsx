@@ -1,5 +1,5 @@
 import React, { useCallback, useContext, useEffect, useMemo, useState } from 'react';
-import { useBreakpointValue } from '@chakra-ui/react';
+import { Box, useBreakpointValue } from '@chakra-ui/react';
 import { useRouter } from 'next/navigation';
 import { profilePic } from '@/assets';
 import { User } from '@/types';
@@ -55,14 +55,14 @@ const ChatItem: React.FC<chatItemProps> = ({ active, name, phoneNumber, user, is
   return (
     <React.Fragment>
       <Container onClick={onChangeUser} disabled={isBlank} active={active}>
-        <AvatarContainer>
-          <AvatarImage src={userImage} alt="profile pic" />
-        </AvatarContainer>
-        <ChatItemText>
-          <UserName isBot={phoneNumber == null}>
-            <Paragraph expired={expiredItem}>{name}</Paragraph>
-          </UserName>
-        </ChatItemText>
+          <AvatarContainer>
+            <AvatarImage src={userImage} alt="profile pic" />
+          </AvatarContainer>
+          <ChatItemText>
+            <UserName isBot={phoneNumber == null}>
+              <Paragraph expired={expiredItem}>{name}</Paragraph>
+            </UserName>
+          </ChatItemText>
       </Container>
     </React.Fragment>
   );

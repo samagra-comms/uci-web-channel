@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { config, theme } from '@/config';
 
 export const Span = styled.span`
-  font-size: ${config.message.botMsg.fontsize};
+  font-size: ${config?.message?.botMsg?.fontSize};
 `;
 
 export const BubbleDiv = styled.div`
@@ -13,15 +13,15 @@ export const BubbleDiv = styled.div`
 
 export const BubbleSpan = styled.span`
   color: var(--grey);
-  font-size: ${theme.textStyles.small.fontSize};
+  font-size: ${theme?.textStyles?.small?.fontSize};
 `;
 
 export const Div = styled.div`
-  padding: ${theme.padding.medium};
+  padding: ${theme?.padding?.medium};
 `;
 
 export const ContentDiv = styled.div`
-  width: ${theme.width.medium};
-  margin-right: ${theme.margin.small};
+  width: ${theme?.width?.medium};
+  margin-right: ${theme?.margin?.small};
   text-align: center;
 `;

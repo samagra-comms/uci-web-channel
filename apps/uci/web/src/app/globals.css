@@ -79,6 +79,10 @@ body {
   font-size: 15px;
 }
 
+.ChatApp{
+  background-color: red;
+}
+
 .ChatFooter {
   background-color: var(--white) !important;
 }

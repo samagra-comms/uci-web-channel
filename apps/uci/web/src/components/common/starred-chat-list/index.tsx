@@ -87,7 +87,7 @@ export const StarredChatList: FC<{ user: User }> = ({ user }) => {
                     <StyledBubbleImage type="image">
                         <div>
                             <Video
-                                cover={config.starredlist.video_cover}
+                                cover={config?.starredlist?.video_cover}
                                 src={vidUrl}
                             />
                             <div>

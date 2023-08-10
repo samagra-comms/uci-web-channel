@@ -43,15 +43,16 @@ export const theme= {
         width: 290,
         height: 200,
     },
-    theme1 : {
+    dark_theme : {
         innerBackground: "gray.700",
-        color: "black",
-        fontSize: "1vw",
+        color: "white",
+        fontSize: "1.3vw",
         fontWeight: "bold", 
         headingColor:"teal.300" ,
-        background: "#f0f0f0"     
+        background: "black",
+        list: "#2D3748"    
     },
-    theme2 : {
+    light_theme : {
         innerbackground: "black",
         color: "white",
         fontSize: "1vw",

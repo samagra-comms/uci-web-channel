@@ -1,6 +1,5 @@
 import { BaseUrls } from "@/types";
 
-// urlsConfig.ts
 const environment = process.env.NEXT_PUBLIC_ENVIRONMENT || 'development';
 
 const baseUrls: BaseUrls = {

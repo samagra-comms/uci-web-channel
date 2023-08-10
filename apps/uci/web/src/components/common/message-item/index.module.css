@@ -25,7 +25,7 @@
 	
 }
 .listItem {
-	border: 2px solid var(--lightgrey) !important;
+	border: 1px solid var(--lightgrey) !important;
 	border-radius: 5px;
 	margin-bottom: 5px;
 	/* background-color: aqua; */

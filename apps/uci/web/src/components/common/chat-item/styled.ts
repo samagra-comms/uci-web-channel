@@ -1,30 +1,31 @@
 import styled, { css } from "styled-components";
-import { config } from "@/config";
+import { config, theme } from "@/config";
 
 export const Container = styled.button<{ active: boolean }>`
   display: flex;
   align-items: center;
-  border: none;
+  border-bottom: 0px solid #eee;
   background-color: transparent;
   cursor: pointer;
+  margin-bottom: 0.5vw;
+  background-color: ${config?.chatItem?.background};
 
   ${(props) =>
-        props.active
-            ? css`
-     height: 72px;
+  props.active
+  ? css`
+  height: 72px;
   width: 100%;
   display: flex;
   align-items: center;
-  background-color: #f3f3f3;
   font-weight: 600;
   padding: 0 16px;
   border-radius: 8px;
   &:hover {
-    background-color: #e5e5e5;
+    background-color:${config?.chatItem?.background};
   transform: translateY(-2px);
     }
         `
-            : css`
+  : css`
   height: 72px;
   width: 100%;
   display: flex;
@@ -35,7 +36,7 @@ export const Container = styled.button<{ active: boolean }>`
   animation: fadeIn 0.5s ease-in-out;
   border-radius: 8px; 
   &:hover {
-    background-color: white;
+  background-color: ${config?.chatItem?.background};
   transform: translateY(-2px);
     }
         `}
