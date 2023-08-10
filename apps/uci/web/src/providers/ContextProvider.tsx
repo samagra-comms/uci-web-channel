@@ -280,7 +280,7 @@ export const ContextProvider: FC<{ children: React.ReactNode }> = ({ children })
           newSocket={newSocket}
           onMessageReceived={onMessageReceived}
         />
-       <GetBotList/>
+        <GetBotList setUsers={setUsers} setCurrentUser={setCurrentUser} setLoading={setLoading} />
         {children}
 
         <Toaster
