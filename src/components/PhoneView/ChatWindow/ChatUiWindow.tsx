@@ -102,12 +102,14 @@ const ChatUiWindow: FC<{
     const phone = localStorage.getItem("mobile");
     if (phone === "") toast.error("Mobile Number required");
     if (navigator.onLine) {
+     
       if (conversationHistoryUrl)
         axios
           .get(conversationHistoryUrl)
           .then((res) => {
             setLoading(false);
-
+            if(currentUser?.isExpired)
+            toast.error('यह फॉर्म समाप्त हो गया है !')
             if (res?.data?.result?.records?.length > 0) {
               const normalizedChats = normalizedChat(res.data.result.records);
               window &&
@@ -115,6 +117,7 @@ const ChatUiWindow: FC<{
               localStorage.setItem("userMsgs", JSON.stringify(normalizedChats));
               setMessages(normalizedChats);
             } else {
+              if(!currentUser?.isExpired)
               sendMessage();
             }
           })
@@ -186,10 +189,13 @@ const ChatUiWindow: FC<{
     [context, currentUser]
   );
 
+  const disableSend=useMemo(()=>currentUser?.isExpired || false,[currentUser?.isExpired])
+
   return (
     <>
       <FullScreenLoader loading={loading} />
       <Chat
+       disableSend={disableSend}
         messages={msgToRender}
         renderMessageContent={(props): ReactElement => (
           <RenderComp

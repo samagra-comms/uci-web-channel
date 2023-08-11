@@ -78,7 +78,7 @@ const App: FC = () => {
   const updateMsgState = useCallback(({ user, msg, media }) => {
     const newMsg = {
       username: user?.name,
-      text: msg.content.title,
+      text: msg.content.title === 'This conversation has expired now. Please contact your state admin to seek help with this.' ? "यह फॉर्म समाप्त हो गया है !": msg.content.title,
       choices: msg.content.choices,
       caption: msg.content.caption,
       position: "left",

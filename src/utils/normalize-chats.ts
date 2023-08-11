@@ -8,7 +8,8 @@ export const normalizedChat = (chats: any): any => {
 			chats?.map((chat: any) => {console.log(chat); return {
 				...chat,
 				disabled: true,
-				text: chat?.payload?.text,
+				text: chat?.payload?.text === 'This conversation has expired now. Please contact your state admin to seek help with this.' ? "यह फॉर्म समाप्त हो गया है !": chat?.payload?.text,
+				//msg.content.title === 'This conversation has expired now. Please contact your state admin to seek help with this.' ? "यह फॉर्म समाप्त हो गया है !": msg.content.title,
 				username: chat?.userId,
 				position: chat?.messageState === 'SENT' ? 'left' : 'right',
 				isIgnore:

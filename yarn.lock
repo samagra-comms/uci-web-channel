@@ -15066,10 +15066,10 @@
   "resolved" "https://registry.npmjs.org/safer-buffer/-/safer-buffer-2.1.2.tgz"
   "version" "2.1.2"
 
-"samagra-chatui@2.0.0":
-  "integrity" "sha512-lxGXR7NnMzsyc/DJACJsQssqFi1uxzd1K5bON8Oco7noo9v1mLyWJxMgj7nth4Owr3ku9J1pf4choGjSRLlKWQ=="
-  "resolved" "https://registry.npmjs.org/samagra-chatui/-/samagra-chatui-2.0.0.tgz"
-  "version" "2.0.0"
+"samagra-chatui@^1.0.3":
+  "integrity" "sha512-TPr9PMGthSBa5rscyGxt43gHn798Pxmp7RCkys/gChtcxxCLkq35ryD1YZHwRoP3Z8p3u0GvmyX/t5kL11z8xA=="
+  "resolved" "https://registry.npmjs.org/samagra-chatui/-/samagra-chatui-1.0.3.tgz"
+  "version" "1.0.3"
   dependencies:
     "@babel/runtime" "^7.18.3"
     "@babel/runtime-corejs3" "^7.18.3"
