@@ -1,13 +1,10 @@
-
-
-
-
-
 type SendType={
 	text:string;
 	socketSession:{userID:string;socketID:string},
 	socket: any;
   }
+  
+  
   
   export const send = ({text, socketSession,  socket}:SendType) => {
 	console.log("socket:",{text,socketSession,socket})
@@ -26,3 +23,10 @@ type SendType={
     });
 	
   }
+
+
+
+
+
+
+

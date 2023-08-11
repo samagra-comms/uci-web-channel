@@ -1,4 +1,4 @@
-import React, { useCallback, useContext } from 'react';
+import React, { useCallback, useContext, useMemo } from 'react';
 import { Box, useColorModeValue } from '@chakra-ui/react';
 import styles from './index.module.css';
 import profilePic from '../../../assets/images/bot_icon_2.png';
@@ -7,6 +7,7 @@ import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import { User } from '@/types';
 import { AppContext } from '@/context';
+import moment from 'moment';
 
 interface chatItemProps {
 	active: boolean;
@@ -16,22 +17,30 @@ interface chatItemProps {
 	isBlank?: boolean;
 }
 
+
 const ChatItem: React.FC<chatItemProps> = ({ active, name, phoneNumber, user, isBlank }) => {
 	const history = useRouter();
 	const context = useContext(AppContext);
 
 	const fontColorToggle = useColorModeValue(styles.darkFontColor, styles.lightFontColor);
 
-	const onChangingCurrentUserHandler = useCallback(() => {
+	const expiredItem = useMemo(() => {
+		return user?.endDate !== undefined && user.endDate < moment().format() && user?.status === 'ENABLED';
+	  }, [user]);
+
+
+	const onChangeUser = useCallback(() => {
 		localStorage.setItem('currentUser', JSON.stringify(user));
 		context?.toChangeCurrentUser(user);
+		// console.log('user Date', user?.endDate);
+		// console.log('user Status', user?.status);
 		history.push(`/chats/${user?.id}`);
 	}, [context, history, user]);
 
 	return (
 		<React.Fragment>
 			<button
-				onClick={onChangingCurrentUserHandler}
+				onClick={onChangeUser}
 				disabled={isBlank}
 				className={` ${active ? styles.activeContainer : styles.container}`}
 			>
@@ -53,7 +62,8 @@ const ChatItem: React.FC<chatItemProps> = ({ active, name, phoneNumber, user, is
 								maxWidth: '70vw',
 								overflow: 'hidden',
 								whiteSpace: 'nowrap',
-								marginBottom: '0'
+								marginBottom: '0',
+								color: expiredItem ? 'lightgrey' : 'black'
 							}}
 						>
 							{name}
@@ -62,7 +72,9 @@ const ChatItem: React.FC<chatItemProps> = ({ active, name, phoneNumber, user, is
 				</Box>
 			</button>
 		</React.Fragment>
+						
 	);
+
 };
 
 export default ChatItem;

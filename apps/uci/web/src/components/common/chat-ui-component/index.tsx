@@ -73,10 +73,10 @@ export const ChatUiComponent: FC<{
     useEffect(() => {
         const phone = localStorage.getItem("mobile");
         if (phone === "") toast.error("Mobile Number required");
-
+console.log({context})
         if (navigator.onLine) {
             console.log("chatUi=>:",{navigator:navigator.onLine,conversationHistoryUrl})
-            if (conversationHistoryUrl && context?.socket?.connected) {
+            if (conversationHistoryUrl && context?.newSocket?.socket?.connected) {
                 axios
                     .get(conversationHistoryUrl)
                     .then((res) => {
@@ -85,8 +85,6 @@ export const ChatUiComponent: FC<{
                         if (res?.data?.result?.records?.length > 0) {
                             const normalizedChats = normalizedChat(res.data.result.records);
                             console.log("debug:", { normalizedChats });
-                            window &&
-                                window?.androidInteract?.log(JSON.stringify(normalizedChats));
                             localStorage.setItem("userMsgs", JSON.stringify(normalizedChats));
                             setMessages(normalizedChats);
                         } else {
@@ -97,14 +95,9 @@ export const ChatUiComponent: FC<{
                         console.log("chatUi=>:",{err})
                         setLoading(false);
                         toast.error(JSON.stringify(err?.message));
-                        window &&
-                            window?.androidInteract?.log(
-                                `error in fetching chat history(online):${JSON.stringify(err)}`
-                            );
                     });
             } else {
                 setLoading(false);
-                try {
                     if (localStorage.getItem("chatHistory")) {
                         const offlineMsgs = filter(
                             // @ts-ignore
@@ -113,40 +106,16 @@ export const ChatUiComponent: FC<{
                             // @ts-ignore
                             { botUuid: JSON.parse(localStorage.getItem("currentUser"))?.id }
                         );
-                        window &&
-                            window?.androidInteract?.log(localStorage.getItem("chatHistory"));
+                       
 
                         setMessages(offlineMsgs);
                     }
-                } catch (err) {
-                    
-                    window &&
-                        window?.androidInteract?.log(
-                            `error in getting chat history(offline):${JSON.stringify(err)}`
-                        );
-                }
             }
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [conversationHistoryUrl, context?.socket?.connected
     ]);
 
-    useEffect(() => {
-        try {
-            window &&
-                window?.androidInteract?.onChatCompleted?.(
-                    String(currentUser?.id),
-                    JSON.stringify(context?.state?.messages)
-                );
-            window &&
-                window?.androidInteract?.log(JSON.stringify(context?.state?.messages));
-        } catch (err) {
-            window &&
-                window?.androidInteract?.log(
-                    `error in onChatCompleted func:${JSON.stringify(err)}`
-                );
-        }
-    }, [context?.state?.messages, currentUser?.id]);
 
     const handleSend = useCallback(
         (type: string, val: any) => {
