@@ -10,9 +10,19 @@ import { toast } from "react-hot-toast";
 import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
 import styles from "./index.module.css";
 import ChatItem from "@/components/common/chat-item";
+import { useSelector } from "react-redux";
 
 export default function Home() {
   const { currentUser, allUsers, setMessages } = useContext(AppContext);
+  const usersData = useSelector((state: any) => state.userList.users);
+  
+
+  useEffect(() => {
+    if(usersData.length > 0)
+    {
+      console.log("Users data: ", usersData);
+    }
+  }, [usersData]);
 
   useEffect(() => {
     try {
@@ -101,9 +111,9 @@ export default function Home() {
             Starred Messages
           </button>
           <Box className={styles.chatList}>
-            {allUsers?.length > 0 ? (
+            {usersData?.length > 0 ? (
               <>
-                {(allUsers ?? [])?.map((user:any, index:string) => (
+                {(usersData ?? [])?.map((user:any, index:string) => (
                   <div key={user?.id}
                   >
                     <ChatItem
