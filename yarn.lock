@@ -8008,7 +8008,7 @@
 
 "socketclass@*", "socketclass@file:C:\\Users\\KIIT\\Desktop\\uci-web-channel\\packages\\socket":
   "resolved" "file:packages/socket"
-  "version" "0.0.1"
+  "version" "0.1.0"
 
 "source-map-js@^1.0.2":
   "integrity" "sha512-R0XvVJ9WusLiqTCEiGCmICCMplcCkIwwR11mOSD9CR5u+IXYdiseeEuXCVAjS54zqwkLcPNnmU4OeJ6tUrWhDw=="

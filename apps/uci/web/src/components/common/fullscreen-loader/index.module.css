@@ -10,6 +10,11 @@
   position: relative;
   margin: auto;
  }
+
+ .modalContent{
+        box-shadow: none;
+        border: none;
+ }
  
  .spinner::after,.spinner::before {
   -webkit-box-sizing: border-box;

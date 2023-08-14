@@ -11,6 +11,9 @@ const nextConfig = {
         locales: ['en-US', 'hi'],
         defaultLocale: 'en-US',
       },
+      images: {
+        domains: ['cdn.samagra.io'],
+      },
 }
 
 module.exports = nextConfig

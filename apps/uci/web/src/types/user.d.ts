@@ -1,4 +1,5 @@
 export type User = {
+  botImage: any;
 	name: string;
 	number: string;
 	active: boolean;

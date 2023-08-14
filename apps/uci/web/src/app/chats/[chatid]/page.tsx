@@ -1,177 +1,122 @@
 'use client'
 import React, { useContext, useEffect, useState } from 'react';
-import { Box, Flex, Button } from '@chakra-ui/react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
-import profilePic from '../../../assets/images/bot_icon_2.png';
+import { Box, Button, Flex, useBreakpointValue } from '@chakra-ui/react';
+import profilePic from '@/assets/images/bot_icon_2.png';
 import styles from './page.module.css';
-// import 'mdb-react-ui-kit/dist/css/mdb.min.css';
 import '@fortawesome/fontawesome-free/css/all.min.css';
-
-import Image from 'next/image';
-import { useRouter } from 'next/navigation';
+import { useRouter, usePathname } from 'next/navigation';
 import { AppContext } from '@/context';
-import { NextPage } from 'next';
-import { Suspense } from "react";
- import { ChatUiComponent } from '@/components';
+import { ChatUiComponent } from '@/components';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { config } from '@/config';
+import { Span, StyledBox } from './styled';
+import { useTheme } from '@/providers/ThemeProvider';
 
+interface chatProps {
+    params?: { chatid: string };
+}
 
-const Chats: NextPage<{ params: { chatid: string } }> = ({ params }) => {
-
+const Chats = ({ params }: chatProps) => {
+    const {theme} = useTheme();
+    console.log(theme);
     const router = useRouter();
     const context = useContext(AppContext);
-   
+    const pathname = usePathname();
+    const isHomepage = pathname === '/';
+    const isMobile = useBreakpointValue({ base: true, md: false });
+    const mainFlexWidth = isMobile ? '100vw' : '186vw';
+    const [userImage, setUserImage] = useState(profilePic);
+
+    useEffect(() => {
+        if (context?.currentUser?.botImage) {
+            fetch(context?.currentUser?.botImage)
+                .then((res) => {
+                    if (res.status === 403) {
+                        setUserImage(profilePic);
+                    } else {
+                        setUserImage(context?.currentUser?.botImage);
+                    }
+                })
+                .catch((err) => {
+                    setUserImage(profilePic);
+                });
+        } else {
+            setUserImage(profilePic);
+        }
+    }, [context?.currentUser?.botImage]);
+    
     useEffect(() => {
         if (!params?.chatid) router.push('/');
     }, [router, params?.chatid]);
 
+    console.log({ context });
 
+    if (typeof window === undefined || typeof window === 'undefined')
+        return <>
+            <div>hi</div>
+        </>
 
-
-    const [showNavExternal3, setShowNavExternal3] = useState(false);
-    const [active, setActive] = useState(false);
-
-    const handleClick = (msg: string): void => {
-        setShowNavExternal3(!showNavExternal3);
-
-        // @ts-ignore
-        context?.sendMessage(msg, null, true, currentUser);
-    };
-    if(typeof window=== undefined || typeof window=== 'undefined' )
-    return <></>
-    return <>
-        <Flex bgColor="var(--primarydarkblue)" flexDirection="column" height="100vh" width="100%">
-            {/* Top Section */}
-            <Box className={`${styles.top_section}`}>
-                {/* For the back button */}
-                <Box flex="1.5">
-                    <Button
-                        style={{
-                            border: 'none',
-                            padding: '0.75rem 1rem',
-                            borderRadius: '50%',
-                            fontSize: '14px'
-                        }}
-                        onClick={(): void => {
-                            localStorage.removeItem('userMsgs');
-                            context?.setMessages([]);
-                            router.push('/');
-                        }}
-                        size="sm"
-                        variant="ghost"
-                    >
-                        <FontAwesomeIcon icon={faChevronLeft} />
-                    </Button>
-                </Box>
-                {/* Name and Icon  */}
-                <Flex flex="9" justifyContent="space-between" alignItems="center">
-                    <Flex justifyContent="center" alignItems="center" width={'100%'}>
-                        <Box className={`${styles.avatarContainer} `} style={{ width: '100%' }}>
-                            {
-                                <>
-                                    <div className={styles.innerRing}>
-                                        <Image src={profilePic} alt="profile pic" />
-                                    </div>
-                                    <Box
-                                        style={{
-                                            display: 'flex',
-                                            justifyContent: 'space-between',
-                                            verticalAlign: 'center',
-                                            width: '100%'
+    return (<>
+        <Flex width={mainFlexWidth} display={{ base: isHomepage ? 'none' : 'flex', md: 'flex' }}>
+            <Flex bgColor="var(--primarydarkblue)" flexDirection="column" height="100vh" width="100%">
+                {
+                    context?.currentUser ?
+                        (<>
+                            <Box className={`${styles.top_section}`} height={config?.ChatWindow?.topbar?.height} background={theme?.innerBackground}>
+                                <Box flex="1.5" display={{ base: 'block', md: 'none' }}>
+                                    <Button
+                                        onClick={(): void => {
+                                            localStorage.removeItem('userMsgs');
+                                            context?.setMessages([]);
+                                            router.push('/');
                                         }}
-                                    >
-                                        <p
-                                            style={{
-                                                textOverflow: 'ellipsis',
-                                                maxWidth: '45vw',
-                                                overflow: 'hidden',
-                                                whiteSpace: 'nowrap',
-                                                textAlign: 'left',
-                                                marginBottom: 'auto',
-                                                marginTop: 'auto'
-                                            }}
-                                        >
-                                            {context?.currentUser?.name}
-                                        </p>
-                                        {/* <MDBNavbar>
-											<MDBContainer fluid>
-												<MDBNavbarToggler
-													className="ms-auto"
-													type="span"
-													style={{
-														backgroundColor: active ? 'white' : '#2d3594',
-														boxShadow: 'none'
-													}}
-													data-target="#navbarToggleExternalContent"
-													aria-controls="navbarToggleExternalContent"
-													aria-expanded="false"
-													aria-label="Toggle navigation"
-													onClick={(): void => {
-														setActive((prev) => !prev);
-														setShowNavExternal3(!showNavExternal3);
-													}}
-												>
-													<MDBIcon icon="bars" style={{ color: active ? 'black' : 'white' }} fas />
-												</MDBNavbarToggler>
-											</MDBContainer>
-										</MDBNavbar>
-
-										<MDBCollapse
-											show={showNavExternal3}
-											style={{
-												position: 'absolute',
-												zIndex: 10,
-												top: '9vh',
-												right: 0,
-												width: '60vw'
-											}}
-										>
-											<div className="bg-light shadow-3 p-1">
-												<MDBBtn
-													block
-													className="border-bottom m-0 fs-6"
-													color="link"
-													onClick={(): void => {
-														setActive((prev) => !prev);
-														handleClick('*');
-													}}
-												>
-													सर्वे फिर से शुरू करें
-												</MDBBtn>
-												<MDBBtn
-													block
-													className="border-bottom m-0 fs-6"
-													color="link"
-													onClick={(): void => {
-														setActive((prev) => !prev);
-														handleClick('#');
-													}}
-												>
-													पिछली प्रतिक्रिया संपादित करें
-												</MDBBtn>
-											</div>
-										</MDBCollapse> */}
+                                        variant="ghost">
+                                        <FontAwesomeIcon icon={config?.ChatWindow?.topbar?.icon} />
+                                    </Button>
+                                </Box>
+                                <Flex flex='9' justifyContent="space-between" alignItems="center" >
+                                    <Flex justifyContent="center" alignItems="center" width={'100%'}>
+                                        {
+                                            context?.currentUser &&
+                                            <Box className={`${styles.avatarContainer} `} style={{ width: '100%' }}>
+                                                {
+                                                    <>
+                                                        <Box className={styles.innerRing} border={config?.ChatWindow?.topbar?.iconBorder}>
+                                                            <img src={userImage} alt="profile pic" width={300} height={300} />
+                                                        </Box>
+                                                        <StyledBox>
+                                                            <Span theme={theme}>
+                                                                {context?.currentUser?.name}
+                                                            </Span>
+                                                        </StyledBox>
+                                                    </>
+                                                }
+                                            </Box>
+                                        }
+                                    </Flex>
+                                </Flex>
+                            </Box>
+                            {/* Chat Window */}
+                            <Box className={`${styles.chatWindow}`} padding={config.ChatWindow.window.padding} width={config.ChatWindow.window.width} background={theme?.innerBackground} paddingTop="0.6vw" >
+                                {/* NeoMorphism Box */}
+                                <Box className={`${styles.BackBox}`} borderRadius={config.ChatWindow.innerWindow.borderRadius}>
+                                    {/* Chat Area */}
+                                    <Box height={config.ChatWindow.window.height}>
+                                        <ChatUiComponent currentUser={context?.currentUser} />
                                     </Box>
-                                </>
-                            }
-                        </Box>
-                    </Flex>
-                </Flex>
-            </Box>
-
-            {/* Chat Window */}
-            <Box className={`${styles.chatWindow}`}>
-                {/* NeoMorphism Box */}
-                <Box className={`${styles.BackBox}`} style={{ borderRadius: '0px' }}>
-                    {/* Chat Area */}
-                    <Box style={{ height: '100%' }}>
-                    <ChatUiComponent currentUser={context?.currentUser} />
-                        
-                    </Box>
-                </Box>
-            </Box>
+                                </Box>
+                            </Box>
+                        </>)
+                        :
+                        <Flex justifyContent="center" alignItems="center" height="100vh">
+                            <Box fontSize="24px" fontWeight="bold" color="gray.500">
+                                No bot is selected
+                            </Box>
+                        </Flex>
+                }
+            </Flex>
         </Flex>
-    </>;
+    </>)
 };
 
 export default Chats;

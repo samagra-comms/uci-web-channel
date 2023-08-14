@@ -1,4 +1,3 @@
-import io, { Socket } from 'socket.io-client';
 import React, { useEffect, useState } from 'react';
 import { UCI } from 'socket-package';
 interface SocketConnectionProps {
@@ -60,6 +59,5 @@ const SocketConnection: React.FC<SocketConnectionProps> = ({ isMobileAvailable, 
   }, [isMobileAvailable, setNewSocket,onMessageReceived]);
   return null;
 }
-
 
 export default SocketConnection;

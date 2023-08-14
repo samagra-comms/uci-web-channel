@@ -1,5 +1,8 @@
-
 'use client';
+
+import { Flex } from '@chakra-ui/react';
+import Chats from './chats/[chatid]/page';
+import Home from './home/page';
 import { AppContext } from "@/context";
 import { Box, Button, Flex } from "@chakra-ui/react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -78,7 +81,11 @@ export default function Home() {
   }, [context]);
 
 
+const ParentComponent = () => {
   return (
+    <Flex >
+      <Home/>
+      <Chats/>
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
      <Flex flexDirection="column" height="100vh" width="100vw">
       {/* Top Section */}
@@ -139,6 +146,8 @@ export default function Home() {
         </Box>
       </Box>
     </Flex>
-    </main>
-  )
-}
+  );
+};
+
+export default ParentComponent;
+

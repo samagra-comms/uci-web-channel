@@ -16,7 +16,6 @@ import { getBotDetailsList } from "@/utils/api-handler";
 import SocketConnection from "@/components/socket-components";
 import GetBotList from "@/components/get-bot-list";
 
-
 export const ContextProvider: FC<{ children: React.ReactNode }> = ({ children }) => {
 
   const [users, setUsers] = useState<User[]>([]);
@@ -30,6 +29,7 @@ export const ContextProvider: FC<{ children: React.ReactNode }> = ({ children })
 
   const [loading, setLoading] = useState<boolean>(true);
   const [starredMsgs, setStarredMsgs] = useState<object>({});
+
 
   // const authToken = useLocalStorage('auth', '');
   // const currentUserLocal = useLocalStorage('currentUser', '', true);
@@ -79,6 +79,12 @@ export const ContextProvider: FC<{ children: React.ReactNode }> = ({ children })
       setIsSendDisabled(true);
   }, []);
 
+  useEffect(() => {
+    return () => {
+      localStorage.removeItem('currentUser');
+    }
+  }, []);
+
   const onMessageReceived = useCallback(
     (msg: SocketResponse): void => {
       console.log("socket: BotResponse", { msg });
@@ -125,6 +131,13 @@ export const ContextProvider: FC<{ children: React.ReactNode }> = ({ children })
 
   // useEffect(() => {
   //   const hasLocalStorageBeenSet = localStorage.getItem('localStorageSet');
+
+
+  //   if(!hasLocalStorageBeenSet) {     
+  //     setLocalStorage();
+  //     localStorage.setItem('localStorageSet', 'true');
+  //   }
+  // }, []);
 
   //   if(!hasLocalStorageBeenSet) {     
   //     setLocalStorage();
@@ -187,6 +200,7 @@ export const ContextProvider: FC<{ children: React.ReactNode }> = ({ children })
 
   const sendMessage = useCallback(
     (text: string, media: any, isVisibile = true): void => {
+
       console.log({newSocket})
       //@ts-ignore
      newSocket?.sendMessage({text,optional:{ appId:JSON.parse(localStorage.getItem('currentUser') || '')?.id,
@@ -264,7 +278,8 @@ export const ContextProvider: FC<{ children: React.ReactNode }> = ({ children })
       loading,
       setLoading,
       botStartingMsgs,
-      isSendDisabled, setIsSendDisabled
+      isSendDisabled, setIsSendDisabled,
+      // isSelected
     ]
   );
 

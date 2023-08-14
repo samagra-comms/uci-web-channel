@@ -12,13 +12,10 @@ import { useRouter } from 'next/navigation';
 import { NextPage } from 'next';
 import { StarredChatList } from '@/components';
 
-
 const StarredChat: NextPage<{ params: { chatId: string } }> = ({ params }) => {
 	const context = useContext(AppContext);
-
 	const history = useRouter();
 	const user = useMemo(() => find(context?.allUsers, { id: params?.chatId }), [context?.allUsers, params?.chatId]);
-
 
 	return (
 		<Flex bgColor="var(--primarydarkblue)" flexDirection="column" height="100vh" width="100%">
@@ -71,7 +68,6 @@ const StarredChat: NextPage<{ params: { chatId: string } }> = ({ params }) => {
 					</Flex>
 				</Flex>
 			</Box>
-
 			{/* Chat Window */}
 			<Box className={`${styles.chatWindow}`}>
 				{/* NeoMorphism Box */}
