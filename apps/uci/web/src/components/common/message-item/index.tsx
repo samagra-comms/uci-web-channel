@@ -154,7 +154,6 @@ export const MessageItem: React.FC<any> = ({
     ),
     [handleSend]
   );
-
   const { content, type } = msg;
 
   switch (type) {

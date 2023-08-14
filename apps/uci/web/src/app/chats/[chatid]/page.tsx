@@ -44,7 +44,7 @@ const Chats = ({ params }: chatProps) => {
             setUserImage(profilePic);
         }
     }, [context?.currentUser?.botImage]);
-
+    
     useEffect(() => {
         if (!params?.chatid) router.push('/');
     }, [router, params?.chatid]);

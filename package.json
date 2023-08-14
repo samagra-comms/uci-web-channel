@@ -13,6 +13,7 @@
     "format": "prettier --write \"**/*.{ts,tsx,md}\""
   },
   "devDependencies": {
+    "@types/redux-logger": "^3.0.9",
     "prettier": "latest",
     "turbo": "latest"
   },
@@ -21,6 +22,11 @@
   },
   "packageManager": "yarn@1.22.19",
   "dependencies": {
-    "cross-env": "^7.0.3"
+    "@reduxjs/toolkit": "^1.9.5",
+    "axios": "^1.4.0",
+    "cross-env": "^7.0.3",
+    "react-redux": "^8.1.2",
+    "redux-logger": "^3.0.6",
+    "socket-package": "^0.4.0"
   }
 }
