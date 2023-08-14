@@ -1,6 +1,6 @@
 
 import { toChangeCurrentUser, User } from '@/types';
-import { createContext, useState } from 'react';
+import { createContext } from 'react';
 
 type AppContextType =
 	| {

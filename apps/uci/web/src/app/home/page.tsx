@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useMemo, useState } from 'react';
-import { Box, Flex, useBreakpointValue, Tabs, TabList, TabPanels, Tab, TabPanel, Text, Tooltip, IconButton, Heading, Input, InputGroup, InputRightElement, InputLeftElement } from '@chakra-ui/react';
+import { Box, Flex, useBreakpointValue, Tabs, TabList, TabPanels, Tab, TabPanel, Text, Tooltip, IconButton, Heading, Input, InputGroup, InputLeftElement } from '@chakra-ui/react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { filter, forEach } from 'lodash';
 import { useRouter } from 'next/navigation';
@@ -11,10 +11,13 @@ import StarredChatItem from '@/components/common/starred-chat-item';
 import { User } from '@/types';
 import { AppContext } from '@/context';
 import { config } from '@/config';
+import ThemeToggle from '@/components/common/Toggle-switch';
+import { useTheme } from '@/providers/ThemeProvider';
 
 export default function Home() {
   const { currentUser, allUsers, setMessages } = useContext(AppContext);
   const [searchTerm, setSearchTerm] = useState('');
+  const {theme } = useTheme();
 
   useEffect(() => {
     try {
@@ -93,57 +96,60 @@ export default function Home() {
 
   return (
     <Flex flexDirection="column" height="100vh" width="100vw">
-      <Box className={`${styles.top_section}`} backgroundColor={config.heading.bgcolor} width={config?.heading?.width}>
+      <Box className={`${styles.top_section}`} backgroundColor={theme?.innerBackground} width={config?.heading?.width}>
         <Box flex="1.5">
-          <Tooltip label={config.icon.chat.label}>
+          <Tooltip label={config?.icon?.chat?.label}>
             <IconButton
-              icon={<FontAwesomeIcon icon={config.icon.chat.icon} />}
+              icon={<FontAwesomeIcon icon={config?.icon?.chat?.icon} />}
               aria-label="Chats"
-              size={config.icon.chat.size}
-              colorScheme={config.icon.chat.colorScheme}
-              variant={config.icon.chat.variant}
-              margin={config.icon.chat.margin}
+              size={config?.icon?.chat?.size}
+              colorScheme={config?.icon?.chat?.colorScheme}
+              variant={config?.icon?.chat?.variant}
+              margin={config?.icon?.chat?.margin}
             />
           </Tooltip>
         </Box>
+        <ThemeToggle/>
         <Flex flex="9" justifyContent="space-between" alignItems="center">
           <Flex justifyContent="center" alignItems="center">
-            <Heading as="h1" size={config.heading.size} color={config.heading.color} margin={config.heading.margin}>
-              {config.heading.text}
+            <Heading as="h1" size={config?.heading?.size} color={theme?.headingColor} margin={config?.heading?.margin}>
+              {config?.heading?.text}
             </Heading>
           </Flex>
         </Flex>
       </Box>
       <Box height="75px" />
-      <Box margin={config.search.margin} className={`${styles.search}`}>
-        <InputGroup>
+      <Box margin={config?.search?.margin} className={`${styles.search}`}>
+        <InputGroup padding={"0.5"}>
           <Input
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            placeholder={config.search.placeholder}
-            size={config.search.size}
-            borderRadius={config.search.borderRadius}
-            background={config.search.background}
-            outline={config.search.outline}
+            placeholder={config?.search?.placeholder}
+            size={config?.search?.size}
+            borderRadius={config?.search?.borderRadius}
+            background={theme?.innerBackground}
+            outline={config?.search?.outline}
             paddingLeft="50px"
             border="none"
+            color={theme?.color}
           />
-          <InputLeftElement justifyContent="center" padding={config.search.iconPadding} >
-            <FontAwesomeIcon icon={config.search.icon} color='gray'/>
+          <InputLeftElement justifyContent="center" alignItems="center" padding={config?.search?.iconPadding} >
+            <FontAwesomeIcon icon={config?.search?.icon} color='gray'/>
           </InputLeftElement>
         </InputGroup>
       </Box>
       <Box flex="1" overflow="hidden" overflowY="hidden">
         <Box className={`${styles.mainContainer}`} width={isMobile ? '100%' : '35%'}>
-          <Box className={`${styles.backBox}`} background={config?.chatList?.background}>
+          <Box className={`${styles.backBox}`} background={theme.background}>
             <Tabs isFitted variant="unstyled" colorScheme="teal" onChange={onTabChange} marginTop="5">
               <TabList display="flex" pl="1rem" pr="1rem" pt="1rem" mb="1rem" justifyContent="center" borderRadius="lg" overflow="hidden">
-                <Tab
-                  _selected={{ color: config.tab.bots.color, bg: config.tab.bots.background }}
+                <Tab        
+                  color={theme?.color}
+                  _selected={{ color: theme?.color, bg: theme.innerBackground }}
                   _focus={{ outline: 'none' }}
                   fontWeight="bold"
                   textAlign="center"
-                  fontSize={{ base: config?.tab?.bots?.fontSize, md: config?.tab?.bots?.fontSize }}
+                  fontSize={{ base: theme?.fontSize, md: theme.fontSize }}
                   px="0rem"
                   py="0.5rem"
                   borderBottomWidth="2px"
@@ -152,11 +158,12 @@ export default function Home() {
                   {config.tab.bots.text}
                 </Tab>
                 <Tab
-                  _selected={{ color: config?.tab?.Starredchat?.color, bg: config?.tab?.Starredchat?.background }}
+                   color={theme?.color}
+                  _selected={{ color: theme?.color, bg: theme?.innerBackground }}
                   _focus={{ outline: 'none' }}
                   fontWeight="bold"
                   textAlign="center"
-                  fontSize={{ base: config?.tab?.Starredchat?.fontSize, md: config?.tab?.Starredchat?.fontSize }}
+                  fontSize={{ base: theme?.fontSize, md: theme?.fontSize }}
                   px="0rem"
                   py="0.5rem"
                   flex="1"

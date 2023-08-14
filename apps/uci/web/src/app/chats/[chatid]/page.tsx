@@ -10,12 +10,15 @@ import { ChatUiComponent } from '@/components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { config } from '@/config';
 import { Span, StyledBox } from './styled';
+import { useTheme } from '@/providers/ThemeProvider';
 
 interface chatProps {
     params?: { chatid: string };
 }
 
 const Chats = ({ params }: chatProps) => {
+    const {theme} = useTheme();
+    console.log(theme);
     const router = useRouter();
     const context = useContext(AppContext);
     const pathname = usePathname();
@@ -59,7 +62,7 @@ const Chats = ({ params }: chatProps) => {
                 {
                     context?.currentUser ?
                         (<>
-                            <Box className={`${styles.top_section}`} height={config?.ChatWindow?.topbar?.height} background={config?.ChatWindow?.topbar?.background}>
+                            <Box className={`${styles.top_section}`} height={config?.ChatWindow?.topbar?.height} background={theme?.innerBackground}>
                                 <Box flex="1.5" display={{ base: 'block', md: 'none' }}>
                                     <Button
                                         onClick={(): void => {
@@ -82,7 +85,7 @@ const Chats = ({ params }: chatProps) => {
                                                             <img src={userImage} alt="profile pic" width={300} height={300} />
                                                         </Box>
                                                         <StyledBox>
-                                                            <Span>
+                                                            <Span theme={theme}>
                                                                 {context?.currentUser?.name}
                                                             </Span>
                                                         </StyledBox>
@@ -94,7 +97,7 @@ const Chats = ({ params }: chatProps) => {
                                 </Flex>
                             </Box>
                             {/* Chat Window */}
-                            <Box className={`${styles.chatWindow}`} padding={config.ChatWindow.window.padding} width={config.ChatWindow.window.width} background={config.ChatWindow.window.background} paddingTop="0.6vw" >
+                            <Box className={`${styles.chatWindow}`} padding={config.ChatWindow.window.padding} width={config.ChatWindow.window.width} background={theme?.innerBackground} paddingTop="0.6vw" >
                                 {/* NeoMorphism Box */}
                                 <Box className={`${styles.BackBox}`} borderRadius={config.ChatWindow.innerWindow.borderRadius}>
                                     {/* Chat Area */}

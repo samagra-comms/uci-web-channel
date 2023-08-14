@@ -1,16 +1,16 @@
+//@ts-ignore
 import styled, { css } from "styled-components";
-import { config, theme } from "@/config";
 
 export const Container = styled.button<{ active: boolean }>`
+
   display: flex;
   align-items: center;
   border-bottom: 0px solid #eee;
-  background-color: transparent;
   cursor: pointer;
   margin-bottom: 0.5vw;
-  background-color: ${config?.chatItem?.background};
+  background: ${(props: { theme: { innerBackground: any } })=>props.theme.innerBackground};
 
-  ${(props) =>
+  ${(props: { active: any }) =>
   props.active
   ? css`
   height: 72px;
@@ -21,7 +21,7 @@ export const Container = styled.button<{ active: boolean }>`
   padding: 0 16px;
   border-radius: 8px;
   &:hover {
-    background-color:${config?.chatItem?.background};
+    background-color:${(props: { theme: { innerBackground: any } })=>props.theme.innerBackground};
   transform: translateY(-2px);
     }
         `
@@ -36,7 +36,7 @@ export const Container = styled.button<{ active: boolean }>`
   animation: fadeIn 0.5s ease-in-out;
   border-radius: 8px; 
   &:hover {
-  background-color: ${config?.chatItem?.background};
+  background-color: ${(props: { theme: { innerBackground: any } })=>props.theme.innerBackground};
   transform: translateY(-2px);
     }
         `}
@@ -64,22 +64,21 @@ export const ChatItemText = styled.div`
   padding: 4px 8px;
   display: flex;
   flex-direction: column;
-  color: #333; 
+  color: ${(props: { theme: { color: any } })=>props.theme.color}; 
 `;
 
 export const UserName = styled.div<{ isBot: boolean }>`
-  ${(props) =>
+  ${(props: { isBot: any; }) =>
         props.isBot ? css`
     flex: 8;
   display: flex;
   align-items: center;
-  font-size: 16px;
   font-weight: 600;
+  font-size: ${(props: { theme: { fontSize: any } })=>props.theme.fontSize};
     ` : css`
     flex: 1;
   display: flex;
   align-items: center;
-  font-size: 14px;
   color: #888; 
     `}
 `;
@@ -87,23 +86,22 @@ export const UserName = styled.div<{ isBot: boolean }>`
 export const Paragraph = styled.p<{ expired: boolean }>`
 
 text-overflow: ellipsis;
-  max-width: calc(100% - 48px); /* Adjust based on avatar width */
+  max-width: calc(100% - 48px); 
   overflow: hidden;
   white-space: nowrap;
   margin-bottom: 0;
-  font-size: 16px;
 
-  ${(props) =>
+  ${(props: { expired: any }) =>
         props.expired
             ? css`
-  color: ${config?.chatItem?.expiredColor};
+  color: ${(props: { theme: { color: any } })=>props.theme.color};
   text-decoration: line-through;
-  font-size:  ${config?.chatItem?.fontSize};
-  opacity: ${config?.chatItem?.opacity};
+  font-size:  ${(props: { theme: { fontSize: any } })=>props.theme.fontSize};
+  opacity: ${(props: { theme: { opacity: any } })=>props.theme.opacity};
         `
             : css`
-      font-size: ${config?.chatItem?.fontSize};
+  font-size: ${(props: { theme: { fontSize: any } })=>props.theme.fontSize};
   font-weight: 600;
-  color: ${config?.chatItem?.fontColor};
+  color: ${(props: { theme: { color: any } })=>props.theme.color};
         `}
 `;

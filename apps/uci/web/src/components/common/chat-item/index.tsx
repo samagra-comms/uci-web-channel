@@ -6,6 +6,7 @@ import { User } from '@/types';
 import { AppContext } from '@/context';
 import moment from 'moment';
 import { AvatarContainer, AvatarImage, ChatItemText, Container, Paragraph, UserName } from './styled';
+import { useTheme } from '@/providers/ThemeProvider';
 
 interface chatItemProps {
   active: boolean;
@@ -19,6 +20,7 @@ const ChatItem: React.FC<chatItemProps> = ({ active, name, phoneNumber, user, is
   const history = useRouter();
   const context = useContext(AppContext);
   const [userImage, setBotImage] = useState(profilePic);
+  const { theme } = useTheme();
 
   const isMobile = useBreakpointValue({ base: true, md: false });
 
@@ -54,13 +56,13 @@ const ChatItem: React.FC<chatItemProps> = ({ active, name, phoneNumber, user, is
 
   return (
     <React.Fragment>
-      <Container onClick={onChangeUser} disabled={isBlank} active={active}>
+      <Container onClick={onChangeUser} disabled={isBlank} active={active} theme={theme}>
           <AvatarContainer>
             <AvatarImage src={userImage} alt="profile pic" />
           </AvatarContainer>
-          <ChatItemText>
+          <ChatItemText theme={theme}>
             <UserName isBot={phoneNumber == null}>
-              <Paragraph expired={expiredItem}>{name}</Paragraph>
+              <Paragraph expired={expiredItem} theme={theme}>{name}</Paragraph>
             </UserName>
           </ChatItemText>
       </Container>

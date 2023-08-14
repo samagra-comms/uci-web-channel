@@ -5,7 +5,6 @@ import Chat, { FileCard, List, ListItem, Video } from 'chatui';
 import "chatui/dist/index.css";
 import { map } from 'lodash';
 import moment from 'moment';
-import styles from './index.module.css';
 import { botImage } from '@/assets';
 import Image from 'next/image';
 import { AppContext } from '@/context';
@@ -30,10 +29,9 @@ export const StarredChatList: FC<{ user: User }> = ({ user }) => {
 
     const getLists = useCallback(
         ({ choices, isDisabled }: { choices: any; isDisabled: boolean }) => (
-            <List className={`${styles.list}`}>
+            <List>
                 {map(choices ?? [], (choice, index) => (
                     <ListItem
-                        className={`${styles.onHover} ${styles.listItem}`}
                         children={<Span>{choice.text || choice.key}</Span>}
                     />
                 ))}
@@ -112,7 +110,7 @@ export const StarredChatList: FC<{ user: User }> = ({ user }) => {
                         extension="pdf" >
                         <a target="_blank"
                             href={content?.data?.payload?.media?.url || content?.data?.fileUrl}
-                            className={`${styles.file}`} download>
+                            download>
                             Download
                         </a>
                     </FileCard>
@@ -140,7 +138,6 @@ export const StarredChatList: FC<{ user: User }> = ({ user }) => {
     }
     return (
         <Chat
-            className={styles.chat}
             navbar={{ title: 'Starred Messages' }}
             messages={msgs}
             renderMessageContent={renderMessageContent}

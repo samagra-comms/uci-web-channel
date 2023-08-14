@@ -1,6 +1,5 @@
 import { botImage, profilePic } from "@/assets";
 import { faChevronLeft, faComment, faPaperPlane, faSearch } from "@fortawesome/free-solid-svg-icons";
-import { theme } from "./theme";
 
 export const config = {
     socket: {
@@ -18,25 +17,17 @@ export const config = {
     },
     heading: {
         text: "Welcome to UCI",
-        color: `${theme.dark_theme.headingColor}`,
         size: "md",
-        bgcolor: `${theme.dark_theme.innerBackground}`,
         margin: "0px 0px 0px 0px",
         width:"100%"
     },
     tab: {
         bots: {
             text: "Bots",
-            color: `${theme.dark_theme.color}`,
-            background: `${theme.dark_theme.innerBackground}`,
-            fontSize:  `${theme.dark_theme.fontSize}`,
             borderRadius: "md"
         },
         Starredchat: {
             text: "Starred Chat",
-            color:  `${theme.dark_theme.color}`,
-            background: `${theme.dark_theme.innerBackground}`,
-            fontSize: `${theme.dark_theme.fontSize}`,
             borderRadius: "md"
         },
     },
@@ -55,27 +46,22 @@ export const config = {
     search: {
         placeholder: "Search",
         size: "lg",
-        variant: "outline",
-        margin: "1.5vw 2vw 0vw 2vw",
+        variant: "none",
+        margin: "2vw 3vw 3vw 3vw",
         borderRadius: "6vw",
-        background: `${theme.dark_theme.innerBackground}`,
         icon: faSearch,
         iconPadding: "10px 0 0px 20px",
         outline: "none",
     },
 
     chatList: {
-        background: `${theme.dark_theme.background}`,
     },
 
     chatItem :{
         windth : "100%",
         height : "100%",
-        fontSize : `${theme.dark_theme.fontSize}`,
-        fontColor : `${theme.dark_theme.color}`,
         expiredColor : "white",
         fontWeight : "bold",
-        background : `${theme.dark_theme.list}`,
         padding : "1vw",
         margin : "0 0 0 2vw",
         opacity : "0.6",
@@ -95,32 +81,26 @@ export const config = {
            fontSize:"lg",
            starredColor:"red",
            borderRadius : "1vw",
-           background: `${theme.dark_theme.background}`,
            padding : "1vw",
            margin:"0 2vw 0 1vw",
-           color: `${theme.dark_theme.color}`,
         },
         listItem: {
-            background:`${theme.dark_theme.innerBackground}`,
         },
     },
     ChatWindow: {
         topbar: {
             icon: faChevronLeft,
             iconSize: "sm",
-            color: `${theme.dark_theme.color}`,
             textMargin: "0 0 0 10px",
             fontSize: "md",
             image: profilePic,
             height: "70px",
-            background: `${theme.dark_theme.innerBackground}`,
             iconBorder: "3px solid #25d366",
         },
         window: {
             padding: "1.5vw",
             width: "100%",
             height: "100%",
-            background: `${theme.dark_theme.innerBackground}`,
         },
         innerWindow: {
             borderRadius: "1.3vw",

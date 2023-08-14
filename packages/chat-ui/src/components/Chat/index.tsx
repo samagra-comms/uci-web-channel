@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { LocaleProvider } from '../LocaleProvider';
-import { Navbar, NavbarProps } from '../Navbar';
+import { Navbar } from '../Navbar';
 import {
   MessageContainer,
   MessageContainerProps,
@@ -9,12 +9,11 @@ import {
 import { QuickReplies, QuickReplyItemProps } from '../QuickReplies';
 import { Composer as DComposer, ComposerProps, ComposerHandle } from '../Composer';
 import { isSafari, getIOSMajorVersion } from '../../utils/ua';
-import { theme } from '../../../../../apps/uci/web/src/config/theme';
 
 export type ChatProps = Omit<ComposerProps, 'onFocus' | 'onChange' | 'onBlur'> &
   MessageContainerProps & {
     locale?: string;
-    locales?: any; // FIXME
+    locales?: any; 
 
     renderNavbar?: () => React.ReactNode;
 
@@ -43,6 +42,7 @@ export type ChatProps = Omit<ComposerProps, 'onFocus' | 'onChange' | 'onBlur'> &
   };
 
 export const Chat = React.forwardRef<HTMLDivElement, ChatProps>((props, ref) => {
+  // const {theme} = useTheme();
   const {
     wideBreakpoint,
     locale = 'zh-CN',
@@ -100,7 +100,6 @@ export const Chat = React.forwardRef<HTMLDivElement, ChatProps>((props, ref) => 
     }
 
     const v = getIOSMajorVersion();
-    // iOS 9、10 不支持按钮使用 flex
     if (v && v < 11) {
       rootEl.dataset.oldIos = '';
     }
@@ -108,7 +107,9 @@ export const Chat = React.forwardRef<HTMLDivElement, ChatProps>((props, ref) => 
 
   return (
     <LocaleProvider locale={locale} locales={locales}>
-      <div className="ChatApp" ref={ref} style={{background:`${theme.dark_theme.background}`}}>
+      <div className="ChatApp" ref={ref}
+      //  style={{background:`${theme.background}`}}
+      > 
         {renderNavbar ? renderNavbar() : navbar && <Navbar {...navbar} />}
         <MessageContainer
           ref={messagesRef}

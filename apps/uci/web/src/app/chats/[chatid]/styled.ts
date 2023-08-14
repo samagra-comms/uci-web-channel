@@ -1,11 +1,11 @@
+// @ts-ignore
 import styled from "styled-components";
-import { config } from "@/config";
 
 export const Span = styled.span`
-    color: ${config.ChatWindow.topbar.color};
-    margin: ${config.ChatWindow.topbar.textMargin};
-    font-size: ${config.ChatWindow.topbar.fontSize};
-    color: ${config.ChatWindow.topbar.color};
+    color: ${(props: { theme: { color: any; }; })=>props.theme.color};
+    margin: ${(props: { theme: { margin: any; }; })=>props.theme.margin};
+    font-size: ${(props: { theme: { fontSize: any; }; })=>props.theme.fontSize};
+    color: ${(props: { theme: { color: any; }; })=>props.theme.color};
 `;
 
 export const StyledBox = styled.div`

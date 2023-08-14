@@ -1,4 +1,4 @@
-export const theme= {
+export const theme_styles = {
     textStyles: {
         small: {
             fontSize: "10px",
@@ -25,39 +25,40 @@ export const theme= {
         medium: "7px",
         large: "10px",
     },
-    width:{
+    width: {
         none: "0px",
         small: "40px",
         medium: "95px",
         large: "299px",
     },
-    modal:{
+    modal: {
         bgColor: 'blackAlpha.300',
         backdropFilter: 'blur(10px) hue-rotate(90deg)',
     },
-    image:{
+    image: {
         width: 220,
         height: 220,
     },
-    case_image:{
+    case_image: {
         width: 290,
         height: 200,
     },
-    dark_theme : {
-        innerBackground: "gray.700",
-        color: "white",
-        fontSize: "1.3vw",
-        fontWeight: "bold", 
-        headingColor:"teal.300" ,
-        background: "black",
-        list: "#2D3748"    
-    },
-    light_theme : {
-        innerbackground: "black",
-        color: "white",
-        fontSize: "1vw",
-        fontWeight: "bold",
-        headingColor:"white",
-        background : "#f0f0f0",
-    },
+};
+
+export const dark_theme = {
+    innerBackground: "#2D3748",
+    color: "white",
+    fontSize: "17px",
+    headingColor: "teal.300",
+    background: "black",
+    list:"#6B728E",
+};
+
+export const light_theme = {
+    innerBackground: "white",
+    color: "black",
+    fontSize: "17px",
+    background: "#f0f0f0",
+    headingColor: "teal.300",
+    list:"#6B728E",
 };

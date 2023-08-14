@@ -14,15 +14,12 @@ import React, {
 } from "react";
 import { filter, find, last } from "lodash";
 import { toast } from "react-hot-toast";
-
-
 import { getConvHistoryUrl } from "../../../utils/urls";
 import { getMsgType } from "../../../utils/get-msg-type";
 import { normalizedChat } from "../../../utils/normalize-chats";
 import { AppContext } from "../../../context";
 import {FullScreenLoader} from "../fullscreen-loader";
 import { MessageItem } from "../message-item";
-import { Box, Container, Flex } from "@chakra-ui/react";
 
 type ChatUiMsgType = {
     type: "image" | "text" | "audio" | "file" | "video";
