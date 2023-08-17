@@ -12,16 +12,13 @@ import React, {
     useMemo,
     useState,
 } from "react";
-
 import { filter, find, last } from "lodash";
 import { toast } from "react-hot-toast";
-
-
 import { getConvHistoryUrl } from "../../../utils/urls";
 import { getMsgType } from "../../../utils/get-msg-type";
 import { normalizedChat } from "../../../utils/normalize-chats";
 import { AppContext } from "../../../context";
-import FullScreenLoader from "../fullscreen-loader";
+import {FullScreenLoader} from "../fullscreen-loader";
 import { MessageItem } from "../message-item";
 
 type ChatUiMsgType = {
@@ -33,6 +30,7 @@ export const ChatUiComponent: FC<{
     currentUser: any;
 }> = ({ currentUser }) => {
     const [loading, setLoading] = useState(true);
+
     const context = useContext(AppContext);
 
     const chatUIMsg = useMemo<ChatUiMsgType>(
@@ -44,8 +42,6 @@ export const ChatUiComponent: FC<{
             })),
         [context?.messages]
     );
-
-
 
     const sendMessage = useCallback(() => {
         context?.sendMessage(
@@ -73,10 +69,10 @@ export const ChatUiComponent: FC<{
     useEffect(() => {
         const phone = localStorage.getItem("mobile");
         if (phone === "") toast.error("Mobile Number required");
-
+console.log({context})
         if (navigator.onLine) {
             console.log("chatUi=>:",{navigator:navigator.onLine,conversationHistoryUrl})
-            if (conversationHistoryUrl && context?.socket?.connected) {
+            if (conversationHistoryUrl && context?.newSocket?.socket?.connected) {
                 axios
                     .get(conversationHistoryUrl)
                     .then((res) => {
@@ -116,7 +112,6 @@ export const ChatUiComponent: FC<{
     }, [conversationHistoryUrl, context?.socket?.connected
     ]);
 
-
     const handleSend = useCallback(
         (type: string, val: any) => {
             if (type === "text" && val.trim()) {
@@ -140,27 +135,28 @@ export const ChatUiComponent: FC<{
         [chatUIMsg]
     );
 
+      
     return (
         <>
-            <FullScreenLoader loading={loading} />
-            <Chat
-                disableSend={isSendDisabled}
-                messages={chatUIMsg}
-                renderMessageContent={(props: any): ReactElement => (
-                    <MessageItem
-                        key={props}
-                        msg={props}
-                        chatUIMsg={chatUIMsg}
-                        currentUser={currentUser}
-                        onSend={context?.sendMessage}
-                    />
-                )}
-                onSend={handleSend}
-                locale="en-US"
-                placeholder={
-                    isSendDisabled ? "Please select from options" : "Ask Your Question"
-                }
-            />
+        <FullScreenLoader loading={loading} />
+                 <Chat
+                 disableSend={isSendDisabled}
+                 messages={chatUIMsg}
+                 renderMessageContent={(props: any): ReactElement => (
+                     <MessageItem
+                         key={props}
+                         msg={props}
+                         chatUIMsg={chatUIMsg}
+                         currentUser={currentUser}
+                         onSend={context?.sendMessage}
+                     />
+                 )}
+                 onSend={handleSend}
+                 locale="en-US"
+                 placeholder={
+                     isSendDisabled ? "Please select from options" : "Ask Your Question"
+                 }
+             />  
         </>
     );
 };

@@ -1,46 +1,39 @@
 //@ts-ignore
-import { Bubble, ScrollView, List, ListItem, FileCard, Video } from "chatui";
+import { ScrollView, List, ListItem, FileCard, Video } from "chatui";
 import { faStar, faDownload } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { includes, map, find, filter, omit } from "lodash";
 import moment from "moment";
-import React, {
-  FC,
-  ReactElement,
-  useCallback,
-  useContext,
-  useEffect,
-  useMemo,
-  useState,
-} from "react";
-
+import * as React from "react";
 import { toast } from "react-hot-toast";
-
-// @ts-ignore
 import styles from "./index.module.css";
-import botImage from "../../../assets/images/bot_icon_2.png";
+import { botImage } from "@/assets";
 import Image from "next/image";
-import { AppContext } from "../../../context";
+import { AppContext } from "@/context";
 import { useLocalStorage } from "@/hooks";
-import { Button } from "@chakra-ui/react";
+import { Box, Button } from "@chakra-ui/react";
+import { config, theme_styles } from "@/config";
+import { Span,BubbleSpan,ContentDiv,Div,BubbleDiv, ContentImage } from './styled'
+import { useTheme } from "@/providers/ThemeProvider";
 
-export const MessageItem: FC<any> = ({
+export const MessageItem: React.FC<any> = ({
   currentUser,
   msg,
   chatUIMsg,
   onSend,
 }) => {
-  const context = useContext(AppContext);
+  const context = React.useContext(AppContext);
 
-  const [isInLocal, setIsInLocal] = useState(false);
-  const [msgToStarred, setMsgToStarred] = useState<{
+  const [isInLocal, setIsInLocal] = React.useState(false);
+  const {theme} =useTheme();
+  const [msgToStarred, setMsgToStarred] = React.useState<{
     botUuid?: string;
     messageId?: string;
   }>({});
   //@ts-ignore
   const [starredFromLocal] = useLocalStorage("starredChats", null, true);
 
-  useEffect(() => {
+  React.useEffect(() => {
     if (starredFromLocal) {
       if (
         Object.keys(starredFromLocal)?.includes(msg?.content?.data?.botUuid)
@@ -58,22 +51,21 @@ export const MessageItem: FC<any> = ({
     }
   }, [msg?.content?.data, starredFromLocal]);
 
-  const isStarred = useMemo(
+  const isStarred = React.useMemo(
     () =>
       Object.keys(msgToStarred)?.length > 0
         ? !!chatUIMsg?.find(
-            (item: any) =>
-              item?.content?.data?.botUuid === msgToStarred?.botUuid
-          ) && isInLocal
+          (item: any) =>
+            item?.content?.data?.botUuid === msgToStarred?.botUuid
+        ) && isInLocal
         : false,
     [msgToStarred, chatUIMsg, isInLocal]
   );
 
-  const onLongPress = useCallback(
+  const onLongPress = React.useCallback(
     (content: any) => {
 
       if (msgToStarred?.botUuid) {
-        
         const prevStarredMsgs = { ...context?.starredMsgs };
         const newStarredMsgs = {
           ...prevStarredMsgs,
@@ -82,7 +74,7 @@ export const MessageItem: FC<any> = ({
             (item) => item?.messageId !== msgToStarred?.messageId
           ),
         };
-       
+
         if (newStarredMsgs[msgToStarred?.botUuid]?.length === 0) {
           const t = omit(newStarredMsgs, [msgToStarred?.botUuid]);
           context?.setStarredMsgs(t);
@@ -93,7 +85,7 @@ export const MessageItem: FC<any> = ({
         }
         setMsgToStarred({});
         setIsInLocal(false);
-        
+
       } else {
         setMsgToStarred(content?.data);
         setIsInLocal(true);
@@ -115,7 +107,6 @@ export const MessageItem: FC<any> = ({
               [content?.data?.botUuid]: [content?.data],
             };
           }
-
           localStorage.setItem("starredChats", JSON.stringify(valueToReturn));
           return valueToReturn;
         });
@@ -124,7 +115,7 @@ export const MessageItem: FC<any> = ({
     [context, msgToStarred]
   );
 
-  const handleSend = useCallback(
+  const handleSend = React.useCallback(
     (type: string, val: any) => {
       if (type === "text" && val.trim()) {
         // @ts-ignore
@@ -134,15 +125,14 @@ export const MessageItem: FC<any> = ({
     [onSend, currentUser]
   );
 
-  const getLists = useCallback(
+  const getLists = React.useCallback(
     ({ choices, isDisabled }: { choices: any; isDisabled: boolean }) => (
       <List className={`${styles.list}`}>
         {map(choices ?? [], (choice, index) => (
           <ListItem
             key={`${index}_${choice?.key}`}
-            className={`${styles.onHover} ${styles.listItem} ${
-              choice?.active ? styles.active : ""
-            }`}
+            className={`${styles.onHover} ${styles.listItem}`}
+            style={{ background: choice?.active ? theme.list : theme.innerBackground }}
             onClick={(e: any): void => {
               e.preventDefault();
               if (isDisabled) {
@@ -153,7 +143,7 @@ export const MessageItem: FC<any> = ({
             }}
             children={
               <div>
-                <span>
+                <span style={{color:`${theme.color}`}}>
                   {choice.key} {choice.text}
                 </span>
               </div>
@@ -164,56 +154,50 @@ export const MessageItem: FC<any> = ({
     ),
     [handleSend]
   );
-
-
   const { content, type } = msg;
-  
+
   switch (type) {
     case "text":
       return (
         <>
-          {content?.data?.position === "left" && (
-            <div
-              style={{ width: "40px", marginRight: "4px", textAlign: "center" }}
-            >
+          {content?.data?.position === config.message.userInput.position && (
+            <div className={styles.botImageDiv}>
               <Image
                 src={botImage}
-                style={{ borderRadius: "50%" }}
+                className={styles.botImage}
                 alt="botImage"
               />
             </div>
           )}
-          <Bubble type="text">
-            <span className="onHover" style={{ fontSize: "16px" }}>
+          <Box background={config.message.userInput.background} padding={config.message.userInput.padding} borderRadius={config.message.userInput.borderRadius} margin={config.message.botMsg.margin}>
+          {/* <Bubble type="text"> */}
+            <Box>
+            <Span className="onHover">
               {content.text}
-            </span>
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "space-between",
-                alignItems: "self-end",
-              }}
-            >
-              <span style={{ color: "var(--grey)", fontSize: "10px" }}>
+            </Span>
+            <BubbleDiv>
+              <BubbleSpan>
                 {moment
                   .utc(
                     content?.data?.sentTimestamp ||
-                      content?.data?.repliedTimestamp
+                    content?.data?.repliedTimestamp
                   )
                   .local()
                   .format("DD/MM/YYYY : hh:mm")}
-              </span>
+              </BubbleSpan>
               <span>
                 {content?.data?.position === "left" && (
                   <FontAwesomeIcon
                     icon={faStar}
                     onClick={(): void => onLongPress(content)}
-                    color={isStarred ? "var(--primaryyellow)" : "var(--grey)"}
+                    color={isStarred ? config.message.botMsg.starredColor : "var(--grey)"}
                   />
                 )}
               </span>
-            </div>
-          </Bubble>
+            </BubbleDiv>
+            </Box>    
+          {/* </Bubble>         */}
+          </Box>          
         </>
       );
 
@@ -223,60 +207,54 @@ export const MessageItem: FC<any> = ({
       return (
         <>
           {content?.data?.position === "left" && (
-            <div
-              style={{ width: "40px", marginRight: "4px", textAlign: "center" }}
-            >
+            <ContentDiv>
               <Image
-                src={botImage}
-                style={{ borderRadius: "50%" }}
+                src={config.message.icon}
                 alt="botImage"
+                height={config.message.iconSize}
+                width={config.message.iconSize}
               />
-            </div>
+            </ContentDiv>
           )}
-          <Bubble type="image">
-            <div style={{ padding: "7px" }}>
+          <Box background={theme.background} padding={config.message.botMsg.padding} borderRadius={config.message.botMsg.borderRadius} margin={config.message.botMsg.margin}>
+          {/* <Bubble type="image"> */}
+            <Div>
               <Image
                 src={url}
-                width="299"
-                height="200"
-                style={{ borderRadius: "50%" }}
+                width={theme_styles.case_image.width}
+                height={theme_styles.case_image.height}
                 alt="botImage"
+                className={styles.botImage}
               />
-
-              <div
-                style={{
-                  display: "flex",
-                  justifyContent: "space-between",
-                  alignItems: "self-end",
-                }}
-              >
-                <span style={{ color: "var(--grey)", fontSize: "10px" }}>
+              <BubbleDiv>
+                <BubbleSpan >
                   {moment
                     .utc(
                       content?.data?.sentTimestamp ||
-                        content?.data?.repliedTimestamp
+                      content?.data?.repliedTimestamp
                     )
                     .local()
                     .format("DD/MM/YYYY : hh:mm")}
-                </span>
+                </BubbleSpan>
                 <span>
                   {content?.data?.position === "left" && (
                     <FontAwesomeIcon
                       icon={faStar}
                       onClick={(): void => onLongPress(content)}
-                      color={isStarred ? "var(--primaryyellow)" : "var(--grey)"}
+                      color={isStarred ?config.message.botMsg.starredColor : "var(--grey)"}
                     />
                   )}
                   <FontAwesomeIcon
                     icon={faDownload}
                     onClick={(): void => download(url)}
-                    style={{ marginLeft: "10px" }}
+                    style={{ marginLeft: theme_styles.margin.medium }}
                     color={"var(--grey)"}
                   />
                 </span>
-              </div>
-            </div>
-          </Bubble>
+              </BubbleDiv>
+            </Div>
+          {/* </Bubble> */}
+          </Box>
         </>
       );
     }
@@ -286,42 +264,33 @@ export const MessageItem: FC<any> = ({
       return (
         <>
           {content?.data?.position === "left" && (
-            <div
-              style={{ width: "40px", marginRight: "4px", textAlign: "center" }}
-            >
+            <ContentDiv>
               <Image
                 src={botImage}
-                style={{ borderRadius: "50%" }}
                 alt="botImage"
+                className={styles.botImage}
               />
-            </div>
+            </ContentDiv>
           )}
-          <Bubble type="image">
-            <div style={{ padding: "7px" }}>
-              {/* <Image src={url} width="299" height="200" alt="image" lazy fluid /> */}
+           <Box background={theme.background} padding={config.message.botMsg.padding} borderRadius={config.message.botMsg.borderRadius} margin={config.message.botMsg.margin}>
+            <Div>
               <FileCard file={url} extension="pdf" />
-              <div
-                style={{
-                  display: "flex",
-                  justifyContent: "space-between",
-                  alignItems: "self-end",
-                }}
-              >
-                <span style={{ color: "var(--grey)", fontSize: "10px" }}>
+              <BubbleDiv>
+                <BubbleSpan>
                   {moment
                     .utc(
                       content?.data?.sentTimestamp ||
-                        content?.data?.repliedTimestamp
+                      content?.data?.repliedTimestamp
                     )
                     .local()
                     .format("DD/MM/YYYY : hh:mm")}
-                </span>
+                </BubbleSpan>
                 <span>
                   {content?.data?.position === "left" && (
                     <FontAwesomeIcon
                       icon={faStar}
                       onClick={(): void => onLongPress(content)}
-                      color={isStarred ? "var(--primaryyellow)" : "var(--grey)"}
+                      color={isStarred ? config.message.botMsg.starredColor : "var(--grey)"}
                     />
                   )}
                   <FontAwesomeIcon
@@ -331,9 +300,9 @@ export const MessageItem: FC<any> = ({
                     color={"var(--grey)"}
                   />
                 </span>
-              </div>
-            </div>
-          </Bubble>
+              </BubbleDiv>
+            </Div>
+          </Box>
         </>
       );
     }
@@ -343,31 +312,22 @@ export const MessageItem: FC<any> = ({
       return (
         <>
           {content?.data?.position === "left" && (
-            <div
-              style={{ width: "40px", marginRight: "4px", textAlign: "center" }}
-            >
-              <Image src={botImage} alt="botImage" style={{ borderRadius: "50%" }} />
-            </div>
+            <ContentDiv>
+              <Image src={botImage} alt="botImage" className={styles.botImage} />
+            </ContentDiv>
           )}
-          <Bubble type="image">
-            <div style={{ padding: "7px" }}>
+          <Box background={theme.background} padding={config.message.botMsg.padding} borderRadius={config.message.botMsg.borderRadius} margin={config.message.botMsg.margin}>
+            <Div>
               <Video
                 cover="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAPcAAADMCAMAAACY78UPAAAAeFBMVEUyMjL///8vLy/Q0NBJSUlAQEA8Oz85OD0tLS0qKio1Nzs5OTz6+vo5OTnZ2dkzMzPw8PBkZGRGRkaAgIDo6OioqKgkJCR6enqurq5SUlLMzMyFhYXh4eHW1ta7u7tHR0dcXFybm5twcHC/v7+UlJRXWFeVlZVsbGwZSzceAAAD0UlEQVR4nO3ca3OiMBiGYYOoPUQNihVBrQfc/v9/uEntslRBwmFk3jfPNbOf2tlyT0oCgTp4m0wm75Mb46tRkfH40Vf/f7nczQ97L/aW0d8xLfxJ1+N+n4wnFcejvzH//+l/AwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgOfw+j6AfswXcxfLvcUqnb70fRTP5/lDebx8ODfkuluI3Xrg2pB/dwu137y4NeTXbjPkI6eG/F+3CKPPj74P5omybiGGiefO73quW6jo8Nr38TxLvlvI3dJz5Cz/1a2H/Oi7sZbfdAsxWzpx+XbXrSd2F9by+24h4yX/ib2g20zs01fm5YXdQsQJ87O8pFuo1YH15VtZt17LT6+Mh7y02ww544n9Qbdey08jruEPu8U2+mK6pD3uFnK2HLC8V6no1uX7A8et5spuIXapz2/ILbr15duG3Vlu0y3kMJkzG3KrbnOWB7zOcstuPbEnrNZy225zXx4w2oqx79aXb4z22Ot0C7UPuDw8rdWtJ/Z0xGNir9fN5yatbrc+y9Mpg/D63fryjcFZ3qBbyF1CfmJv0m3WcuqPVZp165u0ZEF6yJt267Wc9H15425zkzalu5Y37zZr+YXsWt6mW4htQnUtb9ctwlVAcyumZbdey9dzihN7225z+XYhOOTtu82LUAtyE3sX3WbDldpa3km3eUWC2GOVbrq/330jdZZ31W2epC3mfdfY66xbX8Ss3ezebwj9onfWHdPaZO6oOzwHtN786qY7PC36Dqmpi24VnWgN9qCLbrlNPFrXLEbrbhldKN6Dt+0eHmm+BNKuW54X5M7sq1bdwyXNwR606g7PJ7Lbii26VTLt++BbaNqtjgHdwR407ZbbP4SfGRjNuvcHimt2XpPuYeqT/h036nereEP8GbBRu3u2pLS9UKpmtzqfSG0flqrXHSb032y5qtMtjwH1aTxj3y1nK+Jrdp5995n8mp1n222e/THKtuxWMad3sA2r7nDp932cXbPoVvs1+cvSO9V/PxamBLdLK1V1y4jPmp1X0b1b+aym8czj7pjfH8z9eNS9S8hul1Yq71aUt0srlXarZETo9YXaSrpVxOQ+u0xhtwyPjG69ChV273mu2XkF3bPjhueanXfXLYfU/2TGym33LNlQei2psd/dKl478oF7v7pVSvkRZy25brn6Yj+NZ7JuuY24r9l5Wfc5YPX5DVV+umepA2t23ne3ir9cWLPzTHeYbPo+jKfz/HPszIfk5nifJ24fQWRn6s6aDQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAbPwFoto0lZUp3cEAAAAASUVORK5CYII="
                 src={url}
               />
-
-              <div
-                style={{
-                  display: "flex",
-                  justifyContent: "space-between",
-                  alignItems: "self-end",
-                }}
-              >
-                <span style={{ color: "var(--grey)", fontSize: "10px" }}>
+              <div>
+                <span style={{ color: "var(--grey)", fontSize: theme.textStyles.small.fontSize }}>
                   {moment
                     .utc(
                       content?.data?.sentTimestamp ||
-                        content?.data?.repliedTimestamp
+                      content?.data?.repliedTimestamp
                     )
                     .local()
                     .format("DD/MM/YYYY : hh:mm")}
@@ -377,13 +337,13 @@ export const MessageItem: FC<any> = ({
                     <FontAwesomeIcon
                       icon={faStar}
                       onClick={(): void => onLongPress(content)}
-                      color={isStarred ? "var(--primaryyellow)" : "var(--grey)"}
+                      color={isStarred ? config.message.botMsg.starredColor : "var(--grey)"}
                     />
                   )}
                 </span>
               </div>
-            </div>
-          </Bubble>
+            </Div>
+          </Box>
         </>
       );
     }
@@ -391,58 +351,50 @@ export const MessageItem: FC<any> = ({
       console.log("qwe12:", { content });
       return (
         <>
-          <div
-            style={{ width: "95px", marginRight: "4px", textAlign: "center" }}
-          >
-            <Image src={botImage} alt="userImage"style={{ borderRadius: "50%" }} />
-          </div>
-          <Bubble type="text">
-            <div style={{ display: "flex" }}>
-              <span style={{ fontSize: "16px" }}>{content.text}</span>
-            </div>
-            <div style={{ marginTop: "10px" }} />
+          <ContentDiv>
+            <ContentImage src={botImage} alt='bot-image'/>
+          </ContentDiv>
+          <Box background={theme.background} borderRadius={config.message.botMsg.borderRadius} padding={config.message.botMsg.padding} margin={config?.message?.botMsg?.margin} color={theme.color}>
+            <Box marginBottom="1vw">
+              <Span>
+                {content.text}
+              </Span>
+            </Box>
             {getLists({
               choices:
                 content?.data?.payload?.buttonChoices ?? content?.data?.choices,
               isDisabled: content?.data?.disabled,
             })}
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "space-between",
-                alignItems: "self-end",
-              }}
-            >
-              <span style={{ color: "var(--grey)", fontSize: "10px" }}>
+            <BubbleDiv>
+              <BubbleSpan>
                 {moment
                   .utc(
                     content?.data?.sentTimestamp ||
-                      content?.data?.repliedTimestamp
+                    content?.data?.repliedTimestamp
                   )
                   .local()
                   .format("DD/MM/YYYY : hh:mm")}
-              </span>
+              </BubbleSpan>
               <span>
                 {content?.data?.position === "left" && (
                   <FontAwesomeIcon
                     icon={faStar}
                     onClick={(): void => onLongPress(content)}
-                    color={isStarred ? "var(--primaryyellow)" : "var(--grey)"}
+                    color={isStarred ? config?.message?.botMsg?.starredColor : "var(--grey)"}
                   />
                 )}
               </span>
-            </div>
-          </Bubble>
+            </BubbleDiv>
+          </Box>
         </>
       );
     }
     default:
       return (
-        // @ts-ignore
         <ScrollView
           data={[]}
           //@ts-ignore
-          renderItem={(item:any): ReactElement => <Button label={item.text} />}
+          renderItem={(item: any): ReactElement => <Button label={item.text} />}
         />
       );
   }

@@ -16,19 +16,20 @@ import { getBotDetailsList } from "@/utils/api-handler";
 import SocketConnection from "@/components/socket-components";
 import GetBotList from "@/components/get-bot-list";
 
-
 export const ContextProvider: FC<{ children: React.ReactNode }> = ({ children }) => {
 
   const [users, setUsers] = useState<User[]>([]);
   const [messages, setMessages] = useState<Array<any>>([]);
   const [socketSession, setSocketSession] = useState<any>();
   const [socket, setSocket] = useState<Socket>();
+  const [newSocket, setNewSocket] = useState<Socket>();
   const [isConnected, setIsConnected] = useState(false);
   const [isMobileAvailable, setIsMobileAvailable] = useState(false)
   const [currentUser, setCurrentUser] = useState<User>();
 
   const [loading, setLoading] = useState<boolean>(true);
   const [starredMsgs, setStarredMsgs] = useState<object>({});
+
 
   // const authToken = useLocalStorage('auth', '');
   // const currentUserLocal = useLocalStorage('currentUser', '', true);
@@ -78,6 +79,12 @@ export const ContextProvider: FC<{ children: React.ReactNode }> = ({ children })
       setIsSendDisabled(true);
   }, []);
 
+  useEffect(() => {
+    return () => {
+      localStorage.removeItem('currentUser');
+    }
+  }, []);
+
   const onMessageReceived = useCallback(
     (msg: SocketResponse): void => {
       console.log("socket: BotResponse", { msg });
@@ -125,6 +132,13 @@ export const ContextProvider: FC<{ children: React.ReactNode }> = ({ children })
   // useEffect(() => {
   //   const hasLocalStorageBeenSet = localStorage.getItem('localStorageSet');
 
+
+  //   if(!hasLocalStorageBeenSet) {     
+  //     setLocalStorage();
+  //     localStorage.setItem('localStorageSet', 'true');
+  //   }
+  // }, []);
+
   //   if(!hasLocalStorageBeenSet) {     
   //     setLocalStorage();
   //     localStorage.setItem('localStorageSet', 'true');
@@ -133,7 +147,7 @@ export const ContextProvider: FC<{ children: React.ReactNode }> = ({ children })
 
 
 
-  console.log(socket);
+  console.log(socket); 
 
   useEffect(() => {
 
@@ -187,7 +201,11 @@ export const ContextProvider: FC<{ children: React.ReactNode }> = ({ children })
   const sendMessage = useCallback(
     (text: string, media: any, isVisibile = true): void => {
 
-      send({ text, socketSession, socket });
+      console.log({newSocket})
+      //@ts-ignore
+     newSocket?.sendMessage({text,optional:{ appId:JSON.parse(localStorage.getItem('currentUser') || '')?.id,
+     channel: 'NL App'}})
+    //  send({ text, socketSession, socket });
       if (isVisibile)
         if (media) {
           if (media.mimeType.slice(0, 5) === 'image') {
@@ -225,7 +243,7 @@ export const ContextProvider: FC<{ children: React.ReactNode }> = ({ children })
 
         }
     },
-    [currentUser, socketSession]
+    [currentUser, socketSession,socket]
   );
 
   const values = useMemo(
@@ -243,6 +261,7 @@ export const ContextProvider: FC<{ children: React.ReactNode }> = ({ children })
       loading,
       setLoading,
       socket,
+      newSocket,
       botStartingMsgs, isSendDisabled, setIsSendDisabled
     }),
     [
@@ -251,6 +270,7 @@ export const ContextProvider: FC<{ children: React.ReactNode }> = ({ children })
       onChangeCurrentUser,
       state,
       socket,
+      newSocket,
       sendMessage,
       messages,
       starredMsgs,
@@ -258,7 +278,8 @@ export const ContextProvider: FC<{ children: React.ReactNode }> = ({ children })
       loading,
       setLoading,
       botStartingMsgs,
-      isSendDisabled, setIsSendDisabled
+      isSendDisabled, setIsSendDisabled,
+      // isSelected
     ]
   );
 
@@ -268,10 +289,13 @@ export const ContextProvider: FC<{ children: React.ReactNode }> = ({ children })
     <AppContext.Provider value={values}>
       <>
         <SocketConnection
+         setNewSocket={setNewSocket}
           isMobileAvailable={isMobileAvailable}
           setSocket={setSocket}
+          newSocket={newSocket}
+          onMessageReceived={onMessageReceived}
         />
-       <GetBotList setUsers={setUsers} setCurrentUser={setCurrentUser} setLoading={setLoading} />
+        <GetBotList setUsers={setUsers} setCurrentUser={setCurrentUser} setLoading={setLoading} />
         {children}
 
         <Toaster

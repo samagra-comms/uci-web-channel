@@ -3,10 +3,11 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev -p 3003",
+    "dev": "NEXT_PUBLIC_ENVIRONMENT=development next dev -p 3003",
+    "dev:prod": "NEXT_PUBLIC_ENVIRONMENT=production next dev -p 3003",
     "build": "npm run i18n && next build",
     "start": "next start",
-    "lint": "next lint",
+    "lint": "eslint .",
     "extract:i18n": "formatjs extract '{pages,components,sections}/**/*.{js,ts,tsx}' --format simple --id-interpolation-pattern '[sha512:contenthash:base64:6]' --out-file content/locales/en.json",
     "compile:i18n": "formatjs compile-folder --ast --format simple content/locales content/compiled-locales",
     "i18n": "npm run extract:i18n && npm run compile:i18n"
@@ -26,6 +27,7 @@
     "autoprefixer": "10.4.14",
     "axios": "^1.4.0",
     "chatui": "*",
+    "socketclass": "*",
     "framer-motion": "^10.12.10",
     "lodash": "^4.17.21",
     "moment": "^2.29.4",
@@ -43,6 +45,7 @@
   },
   "devDependencies": {
     "@formatjs/cli": "^6.1.1",
+    "@types/styled-components": "^5.1.26",
     "@typescript-eslint/eslint-plugin": "^5.59.5",
     "babel-plugin-formatjs": "^10.5.1",
     "eslint": "^8.40.0",
@@ -52,6 +55,7 @@
     "eslint-plugin-prettier": "^4.2.1",
     "eslint-plugin-react": "^7.32.2",
     "eslint-plugin-react-hooks": "^4.6.0",
-    "prettier": "^2.8.8"
+    "prettier": "^2.8.8",
+    "eslint-config-custom": "*"
   }
 }
