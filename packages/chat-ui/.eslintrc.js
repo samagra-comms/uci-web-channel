@@ -8,6 +8,7 @@ module.exports = {
     'airbnb/hooks',
     'airbnb-typescript',
     'prettier',
+    'custom'
   ],
   env: {
     browser: true,

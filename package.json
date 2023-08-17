@@ -4,22 +4,33 @@
   "private": true,
   "workspaces": [
     "apps/uci/*",
-    "packages/*"
+    "packages/*",
+    "tsdx/*"
   ],
   "scripts": {
     "build": "turbo run build",
     "dev": "turbo run dev",
     "lint": "turbo run lint",
-    "format": "prettier --write \"**/*.{ts,tsx,md}\""
+    "format": "prettier --write \"**/*.{ts,tsx,md}\"",
+    "prepare": "husky install"
   },
   "devDependencies": {
     "@types/redux-logger": "^3.0.9",
+    "eslint": "^8.47.0",
+    "eslint-config-custom": "^0.0.0",
+    "husky": "^8.0.3",
+    "lint-staged": "^14.0.0",
     "prettier": "latest",
     "turbo": "latest"
   },
   "engines": {
     "node": ">=14.0.0"
   },
+  "lint-staged": {
+    "*.{md,ts,tsx}": [
+      "prettier --write"
+    ]
+  }, 
   "packageManager": "yarn@1.22.19",
   "dependencies": {
     "@reduxjs/toolkit": "^1.9.5",
