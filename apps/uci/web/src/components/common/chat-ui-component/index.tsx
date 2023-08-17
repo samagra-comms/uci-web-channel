@@ -1,8 +1,8 @@
-"use client";
+'use client';
 //@ts-ignore
-import Chat from "chatui";
-import "chatui/dist/index.css";
-import axios from "axios";
+import Chat from 'chatui';
+import 'chatui/dist/index.css';
+import axios from 'axios';
 import React, {
     FC,
     ReactElement,
@@ -11,20 +11,20 @@ import React, {
     useEffect,
     useMemo,
     useState,
-} from "react";
-import { filter, find, last } from "lodash";
-import { toast } from "react-hot-toast";
-import { getConvHistoryUrl } from "../../../utils/urls";
-import { getMsgType } from "../../../utils/get-msg-type";
-import { normalizedChat } from "../../../utils/normalize-chats";
-import { AppContext } from "../../../context";
-import {FullScreenLoader} from "../fullscreen-loader";
-import { MessageItem } from "../message-item";
+} from 'react';
+import { filter, find, last } from 'lodash';
+import { toast } from 'react-hot-toast';
+import { getConvHistoryUrl } from '../../../utils/urls';
+import { getMsgType } from '../../../utils/get-msg-type';
+import { normalizedChat } from '../../../utils/normalize-chats';
+import { AppContext } from '../../../context';
+import { FullScreenLoader } from '../fullscreen-loader';
+import { MessageItem } from '../message-item';
 
 type ChatUiMsgType = {
-    type: "image" | "text" | "audio" | "file" | "video";
+    type: 'image' | 'text' | 'audio' | 'file' | 'video';
     content: { text: string; data: any };
-    position: "right" | "left";
+    position: 'right' | 'left';
 };
 export const ChatUiComponent: FC<{
     currentUser: any;
@@ -38,9 +38,9 @@ export const ChatUiComponent: FC<{
             context?.messages?.map((msg: any) => ({
                 type: getMsgType(msg),
                 content: { text: msg?.text, data: { ...msg } },
-                position: msg?.position ?? "right",
+                position: msg?.position ?? 'right',
             })),
-        [context?.messages]
+        [context?.messages],
     );
 
     const sendMessage = useCallback(() => {
@@ -48,7 +48,7 @@ export const ChatUiComponent: FC<{
             currentUser?.startingMessage,
             null,
             false,
-            currentUser
+            currentUser,
         );
     }, [context, currentUser]);
 
@@ -56,109 +56,119 @@ export const ChatUiComponent: FC<{
         (msgs: Array<any>) => {
             context?.setMessages(msgs);
         },
-        [context]
+        [context],
     );
 
     const conversationHistoryUrl = useMemo(
         () =>
-            context?.currentUser ? getConvHistoryUrl(context?.currentUser) : null,
-        [context?.currentUser]
+            context?.currentUser
+                ? getConvHistoryUrl(context?.currentUser)
+                : null,
+        [context?.currentUser],
     );
 
-
     useEffect(() => {
-        const phone = localStorage.getItem("mobile");
-        if (phone === "") toast.error("Mobile Number required");
-console.log({context})
+        const phone = localStorage.getItem('mobile');
+        if (phone === '') toast.error('Mobile Number required');
+
         if (navigator.onLine) {
-            console.log("chatUi=>:",{navigator:navigator.onLine,conversationHistoryUrl})
-            if (conversationHistoryUrl && context?.newSocket?.socket?.connected) {
+            console.log('chatUi=>:', {
+                navigator: navigator.onLine,
+                conversationHistoryUrl,
+            });
+            if (conversationHistoryUrl && context?.socket?.connected) {
                 axios
                     .get(conversationHistoryUrl)
-                    .then((res) => {
-                        console.log("chatUi=>:",{res})
+                    .then(res => {
+                        console.log('chatUi=>:', { res });
                         setLoading(false);
                         if (res?.data?.result?.records?.length > 0) {
-                            const normalizedChats = normalizedChat(res.data.result.records);
-                            console.log("debug:", { normalizedChats });
-                            localStorage.setItem("userMsgs", JSON.stringify(normalizedChats));
+                            const normalizedChats = normalizedChat(
+                                res.data.result.records,
+                            );
+                            console.log('debug:', { normalizedChats });
+                            localStorage.setItem(
+                                'userMsgs',
+                                JSON.stringify(normalizedChats),
+                            );
                             setMessages(normalizedChats);
                         } else {
                             sendMessage();
                         }
                     })
-                    .catch((err) => {
-                        console.log("chatUi=>:",{err})
+                    .catch(err => {
+                        console.log('chatUi=>:', { err });
                         setLoading(false);
                         toast.error(JSON.stringify(err?.message));
                     });
             } else {
                 setLoading(false);
-                    if (localStorage.getItem("chatHistory")) {
-                        const offlineMsgs = filter(
-                            // @ts-ignore
-                            JSON.parse(localStorage.getItem("chatHistory")),
+                if (localStorage.getItem('chatHistory')) {
+                    const offlineMsgs = filter(
+                        // @ts-ignore
+                        JSON.parse(localStorage.getItem('chatHistory')),
 
-                            // @ts-ignore
-                            { botUuid: JSON.parse(localStorage.getItem("currentUser"))?.id }
-                        );
-                       
+                        // @ts-ignore
+                        {
+                            botUuid: JSON.parse(
+                                localStorage.getItem('currentUser'),
+                            )?.id,
+                        },
+                    );
 
-                        setMessages(offlineMsgs);
-                    }
+                    setMessages(offlineMsgs);
+                }
             }
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [conversationHistoryUrl, context?.socket?.connected
-    ]);
+    }, [conversationHistoryUrl, context?.socket?.connected]);
 
     const handleSend = useCallback(
         (type: string, val: any) => {
-            if (type === "text" && val.trim()) {
+            if (type === 'text' && val.trim()) {
                 if (
                     find(context?.botStartingMsgs, { msg: val.trim() }) &&
                     find(context?.botStartingMsgs, { msg: val.trim() })?.id !==
-                    currentUser?.botUuid
+                        currentUser?.botUuid
                 ) {
-                    toast.error("action not allowed");
+                    toast.error('action not allowed');
                 } else {
                     context?.sendMessage(val, null, true, currentUser);
                 }
             }
         },
-        [context, currentUser]
+        [context, currentUser],
     );
 
     const isSendDisabled = useMemo(
         //@ts-ignore
-        () => last(chatUIMsg)?.type === "options",
-        [chatUIMsg]
+        () => last(chatUIMsg)?.type === 'options',
+        [chatUIMsg],
     );
 
-      
     return (
         <>
-        <FullScreenLoader loading={loading} />
-                 <Chat
-                 disableSend={isSendDisabled}
-                 messages={chatUIMsg}
-                 renderMessageContent={(props: any): ReactElement => (
-                     <MessageItem
-                         key={props}
-                         msg={props}
-                         chatUIMsg={chatUIMsg}
-                         currentUser={currentUser}
-                         onSend={context?.sendMessage}
-                     />
-                 )}
-                 onSend={handleSend}
-                 locale="en-US"
-                 placeholder={
-                     isSendDisabled ? "Please select from options" : "Ask Your Question"
-                 }
-             />  
+            <FullScreenLoader loading={loading} />
+            <Chat
+                disableSend={isSendDisabled}
+                messages={chatUIMsg}
+                renderMessageContent={(props: any): ReactElement => (
+                    <MessageItem
+                        key={props}
+                        msg={props}
+                        chatUIMsg={chatUIMsg}
+                        currentUser={currentUser}
+                        onSend={context?.sendMessage}
+                    />
+                )}
+                onSend={handleSend}
+                locale="en-US"
+                placeholder={
+                    isSendDisabled
+                        ? 'Please select from options'
+                        : 'Ask Your Question'
+                }
+            />
         </>
     );
 };
-
-
