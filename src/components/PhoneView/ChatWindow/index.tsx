@@ -26,6 +26,7 @@ import "mdb-react-ui-kit/dist/css/mdb.min.css";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import { AppContext } from "../../../utils/app-context";
 import { User } from "../../../types";
+import moment from "moment";
 
 interface chatWindowProps {
   currentUser: User;
@@ -43,6 +44,29 @@ const ChatWindow: React.FC<chatWindowProps> = ({ currentUser }) => {
     // @ts-ignore
     context?.sendMessage(msg, null, true, currentUser);
   };
+
+  useEffect(()=>{
+    const telemetryData={botId:currentUser?.id,state:currentUser?.isExpired ? 'expired':'open',timestamp:moment().valueOf()}  
+    try {
+      window &&
+        window?.androidInteract?.onEvent(
+          "nl-chatbotscreen-chatbot-interactions",
+          JSON.stringify(telemetryData)
+        );
+      window &&
+        window?.androidInteract?.log(
+          `nl-chatbotscreen-chatbot-interactions event: ${JSON.stringify(
+            telemetryData
+          )}`
+        );
+    } catch (err) {
+      window &&
+        window?.androidInteract?.log(
+          `error in opening the bot:${JSON.stringify(err)}`
+        );
+    }
+    
+  },[currentUser]);
 
   useEffect(() => {
     if (currentUser?.botImage) {

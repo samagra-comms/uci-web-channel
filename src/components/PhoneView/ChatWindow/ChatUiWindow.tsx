@@ -190,7 +190,7 @@ const ChatUiWindow: FC<{
   );
 
   const disableSend=useMemo(()=>currentUser?.isExpired || false,[currentUser?.isExpired])
-
+  const placeholder=useMemo(()=> currentUser?.isExpired ? 'यह फॉर्म समाप्त हो गया है !' :' text',[currentUser?.isExpired])
   return (
     <>
       <FullScreenLoader loading={loading} />
@@ -208,7 +208,7 @@ const ChatUiWindow: FC<{
         )}
         onSend={handleSend}
         locale="en-US"
-        placeholder="Ask Your Question"
+        placeholder={placeholder}
       />
     </>
   );

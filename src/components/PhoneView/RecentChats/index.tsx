@@ -93,27 +93,27 @@ const RecentChats: React.FC<recentChatsProps> = ({ allUsers }) => {
 
   const onBotClick=useCallback((user)=>()=> {
     context?.setBotToScroll(user)
-              try {
-                window &&
-                  window?.androidInteract?.onEvent(
-                    "nl-chatbotscreen-chatbot-interactions",
-                    JSON.stringify({
-                      botId: user.id,
-                      timestamp: moment().valueOf(),
-                    })
-                  );
-                window &&
-                  window?.androidInteract?.log(
-                    `nl-chatbotscreen-chatbot-interactions event: ${JSON.stringify(
-                      { botId: user.id, timestamp: moment().valueOf() }
-                    )}`
-                  );
-              } catch (err) {
-                window &&
-                  window?.androidInteract?.log(
-                    `error in opening the bot:${JSON.stringify(err)}`
-                  );
-              }
+              // try {
+              //   window &&
+              //     window?.androidInteract?.onEvent(
+              //       "nl-chatbotscreen-chatbot-interactions",
+              //       JSON.stringify({
+              //         botId: user.id,
+              //         timestamp: moment().valueOf(),
+              //       })
+              //     );
+              //   window &&
+              //     window?.androidInteract?.log(
+              //       `nl-chatbotscreen-chatbot-interactions event: ${JSON.stringify(
+              //         { botId: user.id, timestamp: moment().valueOf() }
+              //       )}`
+              //     );
+              // } catch (err) {
+              //   window &&
+              //     window?.androidInteract?.log(
+              //       `error in opening the bot:${JSON.stringify(err)}`
+              //     );
+              // }
             },[context])
 
   return (

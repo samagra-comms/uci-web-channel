@@ -35,10 +35,11 @@ export const send = (
 				appId: toUser.id,
 				channel: 'NL App',
 				from: session.socketID,
+				//from: 'nlpwa:8767447416',
 				context: null,
 				accessToken
 			},
-			to: `nlpwa:${localStorage.getItem('mobile')}`
+			to: `nlpwa:8767447416`
 		});
 	}
 };
