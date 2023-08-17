@@ -27,7 +27,7 @@
     "node": ">=14.0.0"
   },
   "lint-staged": {
-    "*.{md,ts,tsx}": [
+    "*.{md,ts,tsx,js}": [
       "prettier --write"
     ]
   }, 
