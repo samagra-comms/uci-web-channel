@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice } from '@reduxjs/toolkit';
 
 const userMessagesSlice = createSlice({
     name: 'userMessages',
@@ -8,6 +8,7 @@ const userMessagesSlice = createSlice({
         loading: false,
         error: null,
     },
+
     reducers: {
         setMessages: (state, action) => {
             state.messages = action.payload;
@@ -25,4 +26,5 @@ const userMessagesSlice = createSlice({
 });
 
 export { userMessagesSlice };
-export const { setMessages, setActiveUserMessage, setLoading, setError } = userMessagesSlice.actions;
+export const { setMessages, setActiveUserMessage, setLoading, setError } =
+    userMessagesSlice.actions;

@@ -44,7 +44,7 @@ export default function Home() {
     const usersData = useSelector((state: any) => state.userList.users);
 
     useEffect(() => {
-        if (usersData.length > 0) {
+        if (usersData?.length > 0) {
             console.log('Users data: ', usersData);
         }
     }, [usersData]);
@@ -305,11 +305,8 @@ export default function Home() {
                                     >
                                         {usersData?.length > 0 ? (
                                             <>
-                                                {(usersData ?? [])?.map(
-                                                    (
-                                                        user: any,
-                                                        index: string,
-                                                    ) => (
+                                                {usersData.map(
+                                                    (user: any, index: any) => (
                                                         <div key={user?.id}>
                                                             <ChatItem
                                                                 key={index}
@@ -330,7 +327,7 @@ export default function Home() {
                                             <ChatItem
                                                 key={0}
                                                 active={false}
-                                                name={'No Chats Available'}
+                                                name={'No Bots Available'}
                                                 phoneNumber={''}
                                                 isBlank
                                             />

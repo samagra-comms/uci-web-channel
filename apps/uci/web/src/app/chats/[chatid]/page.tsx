@@ -1,4 +1,4 @@
-'use client'
+'use client';
 import React, { useContext, useEffect, useState } from 'react';
 import { Box, Button, Flex, useBreakpointValue } from '@chakra-ui/react';
 import profilePic from '@/assets/images/bot_icon_2.png';
@@ -6,18 +6,20 @@ import styles from './page.module.css';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import { useRouter, usePathname } from 'next/navigation';
 import { AppContext } from '@/context';
-import { ChatUiComponent } from '@/components';
+import { ChatUiComponent, FullScreenLoader } from '@/components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { config } from '@/config';
 import { Span, StyledBox } from './styled';
 import { useTheme } from '@/providers/ThemeProvider';
+import { useSelector } from 'react-redux';
 
 interface chatProps {
     params?: { chatid: string };
 }
 
 const Chats = ({ params }: chatProps) => {
-    const {theme} = useTheme();
+    const loading = useSelector((state: any) => state.userList.loading);
+    const { theme } = useTheme();
     console.log(theme);
     const router = useRouter();
     const context = useContext(AppContext);
@@ -30,21 +32,21 @@ const Chats = ({ params }: chatProps) => {
     useEffect(() => {
         if (context?.currentUser?.botImage) {
             fetch(context?.currentUser?.botImage)
-                .then((res) => {
+                .then(res => {
                     if (res.status === 403) {
                         setUserImage(profilePic);
                     } else {
                         setUserImage(context?.currentUser?.botImage);
                     }
                 })
-                .catch((err) => {
+                .catch(err => {
                     setUserImage(profilePic);
                 });
         } else {
             setUserImage(profilePic);
         }
     }, [context?.currentUser?.botImage]);
-    
+
     useEffect(() => {
         if (!params?.chatid) router.push('/');
     }, [router, params?.chatid]);
@@ -52,71 +54,150 @@ const Chats = ({ params }: chatProps) => {
     console.log({ context });
 
     if (typeof window === undefined || typeof window === 'undefined')
-        return <>
-            <div>hi</div>
-        </>
+        return (
+            <>
+                <div>hi</div>
+            </>
+        );
 
-    return (<>
-        <Flex width={mainFlexWidth} display={{ base: isHomepage ? 'none' : 'flex', md: 'flex' }}>
-            <Flex bgColor="var(--primarydarkblue)" flexDirection="column" height="100vh" width="100%">
-                {
-                    context?.currentUser ?
-                        (<>
-                            <Box className={`${styles.top_section}`} height={config?.ChatWindow?.topbar?.height} background={theme?.innerBackground}>
-                                <Box flex="1.5" display={{ base: 'block', md: 'none' }}>
+    return (
+        <>
+            <Flex
+                width={mainFlexWidth}
+                display={{ base: isHomepage ? 'none' : 'flex', md: 'flex' }}
+            >
+                <Flex
+                    bgColor="var(--primarydarkblue)"
+                    flexDirection="column"
+                    height="100vh"
+                    width="100%"
+                >
+                    {context?.currentUser ? (
+                        <>
+                            <Box
+                                className={`${styles.top_section}`}
+                                height={config?.ChatWindow?.topbar?.height}
+                                background={theme?.innerBackground}
+                            >
+                                <Box
+                                    flex="1.5"
+                                    display={{ base: 'block', md: 'none' }}
+                                >
                                     <Button
                                         onClick={(): void => {
                                             localStorage.removeItem('userMsgs');
                                             context?.setMessages([]);
                                             router.push('/');
                                         }}
-                                        variant="ghost">
-                                        <FontAwesomeIcon icon={config?.ChatWindow?.topbar?.icon} />
+                                        variant="ghost"
+                                    >
+                                        <FontAwesomeIcon
+                                            icon={
+                                                config?.ChatWindow?.topbar?.icon
+                                            }
+                                        />
                                     </Button>
                                 </Box>
-                                <Flex flex='9' justifyContent="space-between" alignItems="center" >
-                                    <Flex justifyContent="center" alignItems="center" width={'100%'}>
-                                        {
-                                            context?.currentUser &&
-                                            <Box className={`${styles.avatarContainer} `} style={{ width: '100%' }}>
+                                <Flex
+                                    flex="9"
+                                    justifyContent="space-between"
+                                    alignItems="center"
+                                >
+                                    <Flex
+                                        justifyContent="center"
+                                        alignItems="center"
+                                        width={'100%'}
+                                    >
+                                        {context?.currentUser && (
+                                            <Box
+                                                className={`${styles.avatarContainer} `}
+                                                style={{ width: '100%' }}
+                                            >
                                                 {
                                                     <>
-                                                        <Box className={styles.innerRing} border={config?.ChatWindow?.topbar?.iconBorder}>
-                                                            <img src={userImage} alt="profile pic" width={300} height={300} />
+                                                        <Box
+                                                            className={
+                                                                styles.innerRing
+                                                            }
+                                                            border={
+                                                                config
+                                                                    ?.ChatWindow
+                                                                    ?.topbar
+                                                                    ?.iconBorder
+                                                            }
+                                                        >
+                                                            <img
+                                                                src={userImage}
+                                                                alt="profile pic"
+                                                                width={300}
+                                                                height={300}
+                                                            />
                                                         </Box>
                                                         <StyledBox>
                                                             <Span theme={theme}>
-                                                                {context?.currentUser?.name}
+                                                                {
+                                                                    context
+                                                                        ?.currentUser
+                                                                        ?.name
+                                                                }
                                                             </Span>
                                                         </StyledBox>
                                                     </>
                                                 }
                                             </Box>
-                                        }
+                                        )}
                                     </Flex>
                                 </Flex>
                             </Box>
                             {/* Chat Window */}
-                            <Box className={`${styles.chatWindow}`} padding={config.ChatWindow.window.padding} width={config.ChatWindow.window.width} background={theme?.innerBackground} paddingTop="0.6vw" >
+                            <Box
+                                className={`${styles.chatWindow}`}
+                                padding={config.ChatWindow.window.padding}
+                                width={config.ChatWindow.window.width}
+                                background={theme?.innerBackground}
+                                paddingTop="0.6vw"
+                            >
                                 {/* NeoMorphism Box */}
-                                <Box className={`${styles.BackBox}`} borderRadius={config.ChatWindow.innerWindow.borderRadius}>
+                                <Box
+                                    className={`${styles.BackBox}`}
+                                    borderRadius={
+                                        config.ChatWindow.innerWindow
+                                            .borderRadius
+                                    }
+                                >
                                     {/* Chat Area */}
-                                    <Box height={config.ChatWindow.window.height}>
-                                        <ChatUiComponent currentUser={context?.currentUser} />
+                                    <Box
+                                        height={config.ChatWindow.window.height}
+                                    >
+                                        <ChatUiComponent
+                                            currentUser={context?.currentUser}
+                                        />
                                     </Box>
                                 </Box>
                             </Box>
-                        </>)
-                        :
-                        <Flex justifyContent="center" alignItems="center" height="100vh">
-                            <Box fontSize="24px" fontWeight="bold" color="gray.500">
+                        </>
+                    ) : (
+                        <Flex
+                            justifyContent="center"
+                            alignItems="center"
+                            height="100vh"
+                        >
+                            <FullScreenLoader loading={loading}>
+                                {' '}
+                            </FullScreenLoader>
+                            <Box
+                                fontSize="24px"
+                                fontWeight="bold"
+                                color="gray.500"
+                            >
                                 No bot is selected
                             </Box>
                         </Flex>
-                }
+                    )}
+                </Flex>
             </Flex>
-        </Flex>
-    </>)
+        </>
+    );
 };
 
 export default Chats;

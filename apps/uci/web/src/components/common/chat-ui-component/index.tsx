@@ -20,6 +20,8 @@ import { normalizedChat } from '../../../utils/normalize-chats';
 import { AppContext } from '../../../context';
 import { FullScreenLoader } from '../fullscreen-loader';
 import { MessageItem } from '../message-item';
+import { useDispatch } from 'react-redux';
+import { setMessages as sm } from '@/store/slices/userMessageSlice';
 
 type ChatUiMsgType = {
     type: 'image' | 'text' | 'audio' | 'file' | 'video';
@@ -29,6 +31,7 @@ type ChatUiMsgType = {
 export const ChatUiComponent: FC<{
     currentUser: any;
 }> = ({ currentUser }) => {
+    const dispatch = useDispatch();
     const [loading, setLoading] = useState(true);
 
     const context = useContext(AppContext);
@@ -54,7 +57,7 @@ export const ChatUiComponent: FC<{
 
     const setMessages = useCallback(
         (msgs: Array<any>) => {
-            context?.setMessages(msgs);
+            dispatch(sm(msgs));
         },
         [context],
     );

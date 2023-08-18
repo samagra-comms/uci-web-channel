@@ -144,6 +144,7 @@ export const ContextProvider: FC<{ children: React.ReactNode }> = ({
     //   }
     // }, []);
 
+    console.log(messages);
     console.log(socket);
 
     useEffect(() => {
@@ -306,11 +307,7 @@ export const ContextProvider: FC<{ children: React.ReactNode }> = ({
                     newSocket={newSocket}
                     onMessageReceived={onMessageReceived}
                 />
-                <GetBotList
-                    setUsers={setUsers}
-                    setCurrentUser={setCurrentUser}
-                    setLoading={setLoading}
-                />
+                <GetBotList />
                 {children}
 
                 <Toaster position="top-right" reverseOrder={false} />

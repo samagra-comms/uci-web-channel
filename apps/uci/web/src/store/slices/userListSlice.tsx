@@ -5,7 +5,9 @@ import axios from 'axios';
 //! USER MESSAGES (MESSAGE SLICE)
 
 export const fetchUsers = createAsyncThunk('userlist/fetchUsers', async () => {
-    const response = await axios.get(process.env.NEXT_PUBLIC_UCI_BASE_URL??'');
+    const response = await axios.get(
+        process.env.NEXT_PUBLIC_UCI_BASE_URL ?? '',
+    );
     const data = await response.data;
     return data;
 });
@@ -16,7 +18,8 @@ const userListSlice = createSlice({
         users: [],
         currentUser: {},
         loading: false,
-        error: null,
+        error: '',
+        expiredBot: false,
     },
     reducers: {
         setUsers: (state, action) => {
@@ -42,7 +45,11 @@ const userListSlice = createSlice({
         });
         builder.addCase(fetchUsers.rejected, (state, action) => {
             state.loading = false;
-            state.error = null;
+            if (action.error) {
+                state.error = action.error.message || 'Unknown Error Occured';
+            } else {
+                state.error = 'Unknown Error Occured';
+            }
         });
     },
 });

@@ -30,7 +30,7 @@
     "*.{md,ts,tsx,js}": [
       "prettier --write"
     ]
-  }, 
+  },
   "packageManager": "yarn@1.22.19",
   "dependencies": {
     "@reduxjs/toolkit": "^1.9.5",
@@ -38,6 +38,7 @@
     "cross-env": "^7.0.3",
     "react-redux": "^8.1.2",
     "redux-logger": "^3.0.6",
-    "socket-package": "^0.4.0"
+    "socket-package": "^0.4.0",
+    "styled-components": "^6.0.7"
   }
 }

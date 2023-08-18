@@ -3,8 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "NEXT_PUBLIC_ENVIRONMENT=development next dev -p 3003",
-    "dev:prod": "NEXT_PUBLIC_ENVIRONMENT=production next dev -p 3003",
+    "dev": "cross-env NEXT_PUBLIC_ENVIRONMENT=development next dev -p 3003",
+    "dev:prod": "cross-env NEXT_PUBLIC_ENVIRONMENT=production next dev -p 3003",
     "build": "npm run i18n && next build",
     "start": "next start",
     "lint": "eslint .",
