@@ -9,7 +9,22 @@ import { AppContext } from '@/context';
 import { ChatUiComponent, FullScreenLoader } from '@/components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { config } from '@/config';
-import { Span, StyledBox } from './styled';
+import {
+    AvatarImage,
+    BackBox,
+    CenteredFlex,
+    ChatWindow,
+    FlexContainer,
+    InnerRing,
+    MainFlex,
+    Span,
+    StyledAvatarContainer,
+    StyledBox,
+    StyledCenteredFlex,
+    StyledFlex,
+    StyledText,
+    TopSection,
+} from './styled';
 import { useTheme } from '@/providers/ThemeProvider';
 import { useSelector } from 'react-redux';
 
@@ -62,23 +77,14 @@ const Chats = ({ params }: chatProps) => {
 
     return (
         <>
-            <Flex
-                width={mainFlexWidth}
-                display={{ base: isHomepage ? 'none' : 'flex', md: 'flex' }}
+            <FlexContainer
+                mainFlexWidth={mainFlexWidth}
+                isHomepage={isHomepage}
             >
-                <Flex
-                    bgColor="var(--primarydarkblue)"
-                    flexDirection="column"
-                    height="100vh"
-                    width="100%"
-                >
+                <MainFlex>
                     {context?.currentUser ? (
                         <>
-                            <Box
-                                className={`${styles.top_section}`}
-                                height={config?.ChatWindow?.topbar?.height}
-                                background={theme?.innerBackground}
-                            >
+                            <TopSection theme={theme} config={config}>
                                 <Box
                                     flex="1.5"
                                     display={{ base: 'block', md: 'none' }}
@@ -93,46 +99,27 @@ const Chats = ({ params }: chatProps) => {
                                     >
                                         <FontAwesomeIcon
                                             icon={
-                                                config?.ChatWindow?.topbar?.icon
+                                                config?.chatWindow?.topbar?.icon
                                             }
                                         />
                                     </Button>
                                 </Box>
-                                <Flex
-                                    flex="9"
-                                    justifyContent="space-between"
-                                    alignItems="center"
-                                >
-                                    <Flex
-                                        justifyContent="center"
-                                        alignItems="center"
-                                        width={'100%'}
-                                    >
+                                <StyledFlex>
+                                    <StyledCenteredFlex>
                                         {context?.currentUser && (
-                                            <Box
-                                                className={`${styles.avatarContainer} `}
-                                                style={{ width: '100%' }}
+                                            <StyledAvatarContainer
+                                                config={config}
                                             >
                                                 {
                                                     <>
-                                                        <Box
-                                                            className={
-                                                                styles.innerRing
-                                                            }
-                                                            border={
-                                                                config
-                                                                    ?.ChatWindow
-                                                                    ?.topbar
-                                                                    ?.iconBorder
-                                                            }
+                                                        <InnerRing
+                                                            config={config}
                                                         >
-                                                            <img
+                                                            <AvatarImage
                                                                 src={userImage}
                                                                 alt="profile pic"
-                                                                width={300}
-                                                                height={300}
                                                             />
-                                                        </Box>
+                                                        </InnerRing>
                                                         <StyledBox>
                                                             <Span theme={theme}>
                                                                 {
@@ -144,58 +131,38 @@ const Chats = ({ params }: chatProps) => {
                                                         </StyledBox>
                                                     </>
                                                 }
-                                            </Box>
+                                            </StyledAvatarContainer>
                                         )}
-                                    </Flex>
-                                </Flex>
-                            </Box>
+                                    </StyledCenteredFlex>
+                                </StyledFlex>
+                            </TopSection>
                             {/* Chat Window */}
-                            <Box
-                                className={`${styles.chatWindow}`}
-                                padding={config.ChatWindow.window.padding}
-                                width={config.ChatWindow.window.width}
-                                background={theme?.innerBackground}
-                                paddingTop="0.6vw"
-                            >
+                            <ChatWindow config={config} theme={theme}>
                                 {/* NeoMorphism Box */}
-                                <Box
-                                    className={`${styles.BackBox}`}
-                                    borderRadius={
-                                        config.ChatWindow.innerWindow
-                                            .borderRadius
-                                    }
-                                >
+                                <BackBox config={config}>
                                     {/* Chat Area */}
                                     <Box
-                                        height={config.ChatWindow.window.height}
+                                        height={
+                                            config?.chatWindow?.window?.height
+                                        }
                                     >
                                         <ChatUiComponent
                                             currentUser={context?.currentUser}
                                         />
                                     </Box>
-                                </Box>
-                            </Box>
+                                </BackBox>
+                            </ChatWindow>
                         </>
                     ) : (
-                        <Flex
-                            justifyContent="center"
-                            alignItems="center"
-                            height="100vh"
-                        >
+                        <CenteredFlex>
                             <FullScreenLoader loading={loading}>
                                 {' '}
                             </FullScreenLoader>
-                            <Box
-                                fontSize="24px"
-                                fontWeight="bold"
-                                color="gray.500"
-                            >
-                                No bot is selected
-                            </Box>
-                        </Flex>
+                            <StyledText>No bot is selected</StyledText>
+                        </CenteredFlex>
                     )}
-                </Flex>
-            </Flex>
+                </MainFlex>
+            </FlexContainer>
         </>
     );
 };
