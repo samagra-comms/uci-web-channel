@@ -30,7 +30,7 @@ export const config = {
     tab: {
         bots: {
             text: 'Bots',
-            borderRadius: 'md',
+            borderRadius: '0.5vw',
         },
         Starredchat: {
             text: 'Starred Chat',
@@ -53,7 +53,7 @@ export const config = {
         placeholder: 'Search',
         size: 'lg',
         variant: 'none',
-        margin: '2vw 3vw 3vw 3vw',
+        margin: '2vw 3vw 1vw 3vw',
         borderRadius: '6vw',
         icon: faSearch,
         iconPadding: '10px 0 0px 20px',

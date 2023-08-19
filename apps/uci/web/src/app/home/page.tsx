@@ -28,7 +28,6 @@ import { useRouter } from 'next/navigation';
 import { toast } from 'react-hot-toast';
 import styles from './index.module.css';
 import ChatItem from '@/components/common/chat-item';
-import moment from 'moment';
 import StarredChatItem from '@/components/common/starred-chat-item';
 import { User } from '@/types';
 import { AppContext } from '@/context';
@@ -36,6 +35,19 @@ import { config } from '@/config';
 import ThemeToggle from '@/components/common/Toggle-switch';
 import { useTheme } from '@/providers/ThemeProvider';
 import { useSelector } from 'react-redux';
+import {
+    StyledBackBox,
+    StyledBox,
+    StyledChatList,
+    StyledFlex,
+    StyledInput,
+    StyledMainContainer,
+    StyledSearchBox,
+    StyledTab,
+    StyledTabList,
+    StyledInputLeftElement,
+    StyledTopSection,
+} from './styled';
 
 export default function Home() {
     const { currentUser, allUsers, setMessages } = useContext(AppContext);
@@ -108,27 +120,6 @@ export default function Home() {
 
     const isMobile = useBreakpointValue({ base: true, md: false });
 
-    const sortedUsers = useMemo(() => {
-        return [...allUsers].sort((user1, user2) => {
-            const user1Expired =
-                (user1?.endDate !== undefined &&
-                    user1.endDate < moment().format()) ||
-                user1?.status !== 'ENABLED';
-            const user2Expired =
-                (user2?.endDate !== undefined &&
-                    user2.endDate < moment().format()) ||
-                user2?.status !== 'ENABLED';
-
-            if (user1Expired && !user2Expired) {
-                return 1;
-            } else if (!user1Expired && user2Expired) {
-                return -1;
-            } else {
-                return 0;
-            }
-        });
-    }, [allUsers]);
-
     // Create a state to track the active tab
     const [activeTab, setActiveTab] = useState('bots');
 
@@ -145,24 +136,9 @@ export default function Home() {
         return bots;
     }, [context?.allUsers, context?.starredMsgs]);
 
-    const filteredUsers = useMemo(() => {
-        if (searchTerm.trim() === '') {
-            return sortedUsers;
-        } else {
-            const lowerCasedSearchTerm = searchTerm.trim().toLowerCase();
-            return sortedUsers.filter(user =>
-                user.name.toLowerCase().includes(lowerCasedSearchTerm),
-            );
-        }
-    }, [searchTerm, sortedUsers]);
-
     return (
-        <Flex flexDirection="column" height="100vh" width="100vw">
-            <Box
-                className={`${styles.top_section}`}
-                backgroundColor={theme?.innerBackground}
-                width={config?.heading?.width}
-            >
+        <StyledFlex>
+            <StyledTopSection theme={theme} config={config}>
                 <Box flex="1.5">
                     <Tooltip label={config?.icon?.chat?.label}>
                         <IconButton
@@ -196,43 +172,28 @@ export default function Home() {
                         </Heading>
                     </Flex>
                 </Flex>
-            </Box>
+            </StyledTopSection>
             <Box height="75px" />
-            <Box margin={config?.search?.margin} className={`${styles.search}`}>
+            <StyledSearchBox config={config}>
                 <InputGroup padding={'0.5'}>
-                    <Input
+                    <StyledInput
+                        theme={theme}
+                        config={config}
                         value={searchTerm}
                         onChange={e => setSearchTerm(e.target.value)}
                         placeholder={config?.search?.placeholder}
-                        size={config?.search?.size}
-                        borderRadius={config?.search?.borderRadius}
-                        background={theme?.innerBackground}
-                        outline={config?.search?.outline}
-                        paddingLeft="50px"
-                        border="none"
-                        color={theme?.color}
                     />
-                    <InputLeftElement
-                        justifyContent="center"
-                        alignItems="center"
-                        padding={config?.search?.iconPadding}
-                    >
+                    <StyledInputLeftElement config={config}>
                         <FontAwesomeIcon
                             icon={config?.search?.icon}
                             color="gray"
                         />
-                    </InputLeftElement>
+                    </StyledInputLeftElement>
                 </InputGroup>
-            </Box>
-            <Box flex="1" overflow="hidden" overflowY="hidden">
-                <Box
-                    className={`${styles.mainContainer}`}
-                    width={isMobile ? '100%' : '35%'}
-                >
-                    <Box
-                        className={`${styles.backBox}`}
-                        background={theme.background}
-                    >
+            </StyledSearchBox>
+            <StyledBox>
+                <StyledMainContainer isMobile={isMobile}>
+                    <StyledBackBox theme={theme}>
                         <Tabs
                             isFitted
                             variant="unstyled"
@@ -240,69 +201,31 @@ export default function Home() {
                             onChange={onTabChange}
                             marginTop="5"
                         >
-                            <TabList
-                                display="flex"
-                                pl="1rem"
-                                pr="1rem"
-                                pt="1rem"
-                                mb="1rem"
-                                justifyContent="center"
-                                borderRadius="lg"
-                                overflow="hidden"
-                            >
-                                <Tab
-                                    color={theme?.color}
-                                    _selected={{
-                                        color: theme?.color,
-                                        bg: theme.innerBackground,
-                                    }}
-                                    _focus={{ outline: 'none' }}
-                                    fontWeight="bold"
-                                    textAlign="center"
-                                    fontSize={{
-                                        base: theme?.fontSize,
-                                        md: theme.fontSize,
-                                    }}
-                                    px="0rem"
-                                    py="0.5rem"
-                                    borderBottomWidth="2px"
-                                    borderRadius={
-                                        config?.tab?.bots?.borderRadius
-                                    }
-                                >
-                                    {config.tab.bots.text}
-                                </Tab>
-                                <Tab
-                                    color={theme?.color}
+                            <StyledTabList>
+                                <StyledTab
+                                    config={config}
+                                    theme={theme}
                                     _selected={{
                                         color: theme?.color,
                                         bg: theme?.innerBackground,
                                     }}
-                                    _focus={{ outline: 'none' }}
-                                    fontWeight="bold"
-                                    textAlign="center"
-                                    fontSize={{
-                                        base: theme?.fontSize,
-                                        md: theme?.fontSize,
+                                >
+                                    {config?.tab?.bots?.text}
+                                </StyledTab>
+                                <StyledTab
+                                    theme={theme}
+                                    config={config}
+                                    _selected={{
+                                        color: theme?.color,
+                                        bg: theme?.innerBackground,
                                     }}
-                                    px="0rem"
-                                    py="0.5rem"
-                                    flex="1"
-                                    borderBottomWidth="2px"
-                                    borderRadius={
-                                        config?.tab?.Starredchat?.borderRadius
-                                    }
                                 >
                                     {config?.tab?.Starredchat?.text}
-                                </Tab>
-                            </TabList>
+                                </StyledTab>
+                            </StyledTabList>
                             <TabPanels>
                                 <TabPanel>
-                                    <Box
-                                        className={`${styles.chatList}`}
-                                        maxHeight="85vh"
-                                        overflowY="auto"
-                                    >
+                                    <StyledChatList>
                                         {usersData?.length > 0 ? (
                                             <>
                                                 {usersData.map(
@@ -332,14 +255,10 @@ export default function Home() {
                                                 isBlank
                                             />
                                         )}
-                                    </Box>
+                                    </StyledChatList>
                                 </TabPanel>
                                 <TabPanel>
-                                    <Box
-                                        className={`${styles.chatList}`}
-                                        maxHeight="60vh"
-                                        overflowY="auto"
-                                    >
+                                    <StyledChatList>
                                         {starredBots.length > 0 ? (
                                             <>
                                                 {(starredBots ?? [])?.map(
@@ -370,13 +289,13 @@ export default function Home() {
                                                 isBlank
                                             />
                                         )}
-                                    </Box>
+                                    </StyledChatList>
                                 </TabPanel>
                             </TabPanels>
                         </Tabs>
-                    </Box>
-                </Box>
-            </Box>
-        </Flex>
+                    </StyledBackBox>
+                </StyledMainContainer>
+            </StyledBox>
+        </StyledFlex>
     );
 }
