@@ -10,23 +10,17 @@ import {
     Flex,
     useBreakpointValue,
     Tabs,
-    TabList,
     TabPanels,
-    Tab,
     TabPanel,
-    Text,
     Tooltip,
     IconButton,
     Heading,
-    Input,
     InputGroup,
-    InputLeftElement,
 } from '@chakra-ui/react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { filter, find, forEach } from 'lodash';
 import { useRouter } from 'next/navigation';
 import { toast } from 'react-hot-toast';
-import styles from './index.module.css';
 import ChatItem from '@/components/common/chat-item';
 import StarredChatItem from '@/components/common/starred-chat-item';
 import { User } from '@/types';

@@ -1,8 +1,7 @@
 'use client';
 import React, { useContext, useEffect, useState } from 'react';
-import { Box, Button, Flex, useBreakpointValue } from '@chakra-ui/react';
+import { Box, Button, useBreakpointValue } from '@chakra-ui/react';
 import profilePic from '@/assets/images/bot_icon_2.png';
-import styles from './page.module.css';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import { useRouter, usePathname } from 'next/navigation';
 import { AppContext } from '@/context';
