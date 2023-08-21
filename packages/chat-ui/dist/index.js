@@ -14981,7 +14981,7 @@
     },
     heading: { text: 'Welcome to UCI', size: 'md', margin: '0px 0px 0px 0px', width: '100%' },
     tab: {
-      bots: { text: 'Bots', borderRadius: 'md' },
+      bots: { text: 'Bots', borderRadius: '0.5vw' },
       Starredchat: { text: 'Starred Chat', borderRadius: 'md' },
     },
     icon: {
@@ -15008,7 +15008,7 @@
       placeholder: 'Search',
       size: 'lg',
       variant: 'none',
-      margin: '2vw 3vw 3vw 3vw',
+      margin: '2vw 3vw 1vw 3vw',
       borderRadius: '6vw',
       icon: RW,
       iconPadding: '10px 0 0px 20px',
