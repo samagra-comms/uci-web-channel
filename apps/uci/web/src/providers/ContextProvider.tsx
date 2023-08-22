@@ -196,13 +196,12 @@ export const ContextProvider: FC<{ children: React.ReactNode }> = ({
 
     const sendMessage = useCallback(
         (text: string, media: any, isVisibile = true): void => {
-            console.log({ newSocket });
+            console.log('happy:', { dd: newSocket });
             //@ts-ignore
             newSocket?.sendMessage({
                 text,
                 optional: {
-                    appId: JSON.parse(localStorage.getItem('currentUser') || '')
-                        ?.id,
+                    appId: 'f3acc237-2987-4f36-b52b-cf8cf74902fb',
                     channel: 'NL App',
                 },
             });
@@ -270,7 +269,7 @@ export const ContextProvider: FC<{ children: React.ReactNode }> = ({
             setStarredMsgs,
             loading,
             setLoading,
-            socket,
+            socket: newSocket,
             newSocket,
             botStartingMsgs,
             isSendDisabled,
@@ -281,7 +280,6 @@ export const ContextProvider: FC<{ children: React.ReactNode }> = ({
             users,
             onChangeCurrentUser,
             state,
-            socket,
             newSocket,
             sendMessage,
             messages,

@@ -59,7 +59,7 @@ export const ChatUiComponent: FC<{
         (msgs: Array<any>) => {
             dispatch(sm(msgs));
         },
-        [context],
+        [dispatch],
     );
 
     const conversationHistoryUrl = useMemo(
@@ -72,14 +72,18 @@ export const ChatUiComponent: FC<{
 
     useEffect(() => {
         const phone = localStorage.getItem('mobile');
-        if (phone === '') toast.error('Mobile Number required');
+        if (phone === '') {
+            toast.error('Mobile Number required');
+        }
 
-        if (navigator.onLine) {
-            console.log('chatUi=>:', {
+        if (true) {
+            console.log('happy chatUi=>:', {
                 navigator: navigator.onLine,
                 conversationHistoryUrl,
+                context,
             });
-            if (conversationHistoryUrl && context?.socket?.connected) {
+            if (conversationHistoryUrl && context?.socket?.socket?.connected) {
+                console.log('happy');
                 axios
                     .get(conversationHistoryUrl)
                     .then(res => {
