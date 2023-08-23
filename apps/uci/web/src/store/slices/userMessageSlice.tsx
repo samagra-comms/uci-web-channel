@@ -7,6 +7,7 @@ const userMessagesSlice = createSlice({
         activeUserMessage: {},
         loading: false,
         error: null,
+        starMessage: [],
     },
 
     reducers: {
@@ -15,6 +16,9 @@ const userMessagesSlice = createSlice({
         },
         setActiveUserMessage: (state, action) => {
             state.activeUserMessage = action.payload;
+        },
+        setStarMessage: (state, action) => {
+            state.starMessage = action.payload;
         },
         setLoading: (state, action) => {
             state.loading = action.payload;
@@ -26,5 +30,10 @@ const userMessagesSlice = createSlice({
 });
 
 export { userMessagesSlice };
-export const { setMessages, setActiveUserMessage, setLoading, setError } =
-    userMessagesSlice.actions;
+export const {
+    setMessages,
+    setActiveUserMessage,
+    setLoading,
+    setError,
+    setStarMessage,
+} = userMessagesSlice.actions;

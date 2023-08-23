@@ -18,7 +18,7 @@ import {
     InputGroup,
 } from '@chakra-ui/react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { filter, find, forEach } from 'lodash';
+import { filter, find, forEach, reverse } from 'lodash';
 import { useRouter } from 'next/navigation';
 import { toast } from 'react-hot-toast';
 import ChatItem from '@/components/common/chat-item';
@@ -42,18 +42,34 @@ import {
     StyledInputLeftElement,
     StyledTopSection,
 } from './styled';
+import moment from 'moment';
 
 export default function Home() {
     const { currentUser, allUsers, setMessages } = useContext(AppContext);
     const [searchTerm, setSearchTerm] = useState('');
     const { theme } = useTheme();
     const usersData = useSelector((state: any) => state.userList.users);
+    const starredMessage = useSelector(
+        (state: any) => state.userMessages.starMessage,
+    );
 
     useEffect(() => {
         if (usersData?.length > 0) {
             console.log('Users data: ', usersData);
         }
     }, [usersData]);
+
+    const sortedUsersData = [...usersData].sort((a: any, b: any) => {
+        // If both are either active or inactive, then sort by endDate using moment
+        const endDateA = moment(a.endDate);
+        const endDateB = moment(b.endDate);
+        return endDateA.isBefore(endDateB)
+            ? -1
+            : endDateA.isAfter(endDateB)
+            ? 1
+            : 0;
+    });
+    reverse(sortedUsersData);
 
     useEffect(() => {
         try {
@@ -122,13 +138,13 @@ export default function Home() {
     };
 
     const starredBots = useMemo(() => {
-        const botIds = Object.keys(context?.starredMsgs);
+        const botIds = Object.keys(starredMessage);
         const bots: Array<User> = [];
-        forEach(context?.allUsers, user => {
+        forEach(usersData, user => {
             if (botIds.includes(user?.id)) bots.push(user);
         });
         return bots;
-    }, [context?.allUsers, context?.starredMsgs]);
+    }, [usersData, starredMessage]);
 
     return (
         <StyledFlex>
@@ -220,9 +236,9 @@ export default function Home() {
                             <TabPanels>
                                 <TabPanel>
                                     <StyledChatList>
-                                        {usersData?.length > 0 ? (
+                                        {sortedUsersData?.length > 0 ? (
                                             <>
-                                                {usersData.map(
+                                                {sortedUsersData.map(
                                                     (user: any, index: any) => (
                                                         <div key={user?.id}>
                                                             <ChatItem

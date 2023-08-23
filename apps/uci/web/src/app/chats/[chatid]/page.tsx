@@ -34,7 +34,6 @@ interface chatProps {
 const Chats = ({ params }: chatProps) => {
     const loading = useSelector((state: any) => state.userList.loading);
     const { theme } = useTheme();
-    console.log(theme);
     const router = useRouter();
     const context = useContext(AppContext);
     const pathname = usePathname();
