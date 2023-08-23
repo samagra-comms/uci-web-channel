@@ -6,6 +6,7 @@ import {
     Tab,
     TabList,
 } from '@chakra-ui/react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { styled } from 'styled-components';
 
 interface FlexContainerProps {
@@ -87,7 +88,11 @@ export const StyledChatList = styled(Box)`
     width: 120%;
     height: 90.5vh;
     overflow-y: scroll;
-    margin-left: -1.5vw;
+    margin-left: -18px;
+
+    @media screen and (max-width: 768px) {
+        width: 110%;
+    }
 `;
 
 export const StyledSearchBox = styled(Box)<FlexContainerProps>`
@@ -102,7 +107,6 @@ export const StyledSearchBox = styled(Box)<FlexContainerProps>`
 export const StyledInput = styled(Input)<IStyledProps>`
     background: ${props => props.theme?.mainBackground};
     border: none;
-    /* border-radius: ${props => props.config?.search?.borderRadius}; */
     outline: ${props => props.config?.search?.outline};
     color: ${props => props.theme?.color};
     padding: 25px 0px 20px 0px;
@@ -113,4 +117,32 @@ export const StyledInputLeftElement = styled(InputLeftElement)<IStyledProps>`
     justify-content: center;
     align-items: center;
     padding: ${props => props.config?.search?.iconPadding};
+`;
+
+export const LoadMoreButton = styled.div`
+    position: fixed;
+    bottom: 40px;
+    left: 13%;
+    transform: translateX(-50%);
+    z-index: 1;
+    cursor: pointer;
+
+    @media screen and (max-width: 768px) {
+        left: 50%;
+    }
+
+    > div {
+        background-color: blue;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+`;
+
+export const LoadMoreIcon = styled(FontAwesomeIcon)`
+    font-size: 2em;
+    color: white;
 `;

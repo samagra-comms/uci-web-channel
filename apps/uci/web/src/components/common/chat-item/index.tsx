@@ -41,6 +41,7 @@ const ChatItem: React.FC<chatItemProps> = ({
     const context = useContext(AppContext);
     const [userImage, setBotImage] = useState(profilePic);
     const { theme } = useTheme();
+    const { setShowStarredChat } = useContext(AppContext);
 
     const isMobile = useBreakpointValue({ base: true, md: false });
 
@@ -72,6 +73,7 @@ const ChatItem: React.FC<chatItemProps> = ({
     const onChangeUser = useCallback(() => {
         localStorage.setItem('currentUser', JSON.stringify(user));
         context?.toChangeCurrentUser(user);
+        setShowStarredChat(false);
         if (isMobile) {
             history.push(`/chats/${user?.id}`);
         }

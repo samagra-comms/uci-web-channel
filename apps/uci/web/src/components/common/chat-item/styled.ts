@@ -22,13 +22,8 @@ export const Container = styled.button<{ active: boolean }>`
     width: 100%;
     height: 72px;
     padding: 16px 16px;
-
     font-weight: 600;
     transition: background-color 0.3s ease-in-out, transform 0.3s ease-in-out;
-
-    /* @media screen and (max-width: 768px) {
-        margin: 0 0px;
-    } */
 
     &:hover {
         transform: translateY(-2px);
@@ -48,7 +43,6 @@ export const Container = styled.button<{ active: boolean }>`
             height: 72px;
 
             &:hover {
-                /* background-color: ${props => props.theme.mainBackground}; */
                 transform: translateY(-2px);
                 background-image: -webkit-gradient(
                     linear,
@@ -62,16 +56,12 @@ export const Container = styled.button<{ active: boolean }>`
 `;
 
 export const AvatarContainer = styled.div<Props>`
-    height: ${props => props.config.chatItem.avatar.height};
-    width: ${props => props.config.chatItem.avatar.width};
-    border-radius: ${props => props.config.chatItem.avatar.borderRadius};
+    height: ${props => props.config?.chatItem?.avatar?.height};
+    width: ${props => props.config?.chatItem?.avatar?.width};
+    border-radius: ${props => props.config?.chatItem?.avatar?.borderRadius};
     overflow: hidden;
     margin: ${props => props.config?.chatItem?.margin};
     box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);
-
-    @media screen and (max-width: 768px) {
-        margin: 0px 0px;
-    }
 `;
 
 export const AvatarImage = styled.img`

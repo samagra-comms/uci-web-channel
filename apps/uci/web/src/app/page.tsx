@@ -1,5 +1,5 @@
 'use client';
-import React from 'react';
+import React, { useContext } from 'react';
 import {
     Flex,
     Box,
@@ -21,10 +21,12 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import StarredChat from './starred-chat/[chatId]/page';
+import { AppContext } from '@/context';
 
 const ParentComponent = () => {
     const { theme, toggleTheme } = useTheme();
     const isMobile = useBreakpointValue({ base: false, md: true });
+    const { showStarredChat } = useContext(AppContext);
 
     return (
         <Flex background={theme?.mainBackground} h="100vh">
@@ -73,11 +75,10 @@ const ParentComponent = () => {
                     </VStack>
                 )
             } */}
-            {/* <Flex overflow="auto"> */}
             <Home />
-            <Chats />
+            {/* <Chats /> */}
+            {showStarredChat ? <StarredChat /> : <Chats />}
             {/* <StarredChat /> */}
-            {/* </Flex> */}
         </Flex>
     );
 };

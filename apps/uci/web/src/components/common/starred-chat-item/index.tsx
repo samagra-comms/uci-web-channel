@@ -37,8 +37,10 @@ const StarredChatItem: React.FC<chatItemProps> = ({
     const context = useContext(AppContext);
     const [userImage, setBotImage] = useState(profilePic);
     const isMobile = useBreakpointValue({ base: true, md: false });
+    const { setShowStarredChat } = useContext(AppContext);
 
     const onChangingCurrentUserHandler = useCallback(() => {
+        setShowStarredChat(true);
         if (isMobile) {
             history.push(`/starred-chat/${user?.id}`);
         }

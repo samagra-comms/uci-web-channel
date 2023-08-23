@@ -26,7 +26,6 @@ export const Span = styled.span`
 
     @media (max-width: 768px) {
         margin-left: 20px;
-        max-height: 73px;
     }
 `;
 
@@ -39,7 +38,9 @@ export const StyledBox = styled.div`
 export const FlexContainer = styled(Flex)<FlexContainerProps>`
     width: ${props => props.mainFlexWidth};
     display: flex;
+    flex-direction: column;
     background: ${props => props.theme?.innerBackground};
+    border-left: 1px solid #cdcdcd;
 
     @media (max-width: 767px) {
         display: ${props => (props.isHomepage ? 'none' : 'flex')};
@@ -59,7 +60,7 @@ export const MainFlex = styled(Flex)<IStyledProps>`
 export const TopSection = styled(Box)<IStyledProps>`
     font-weight: 700;
     display: flex;
-    padding: 0 0 5px 20px;
+    padding: 10px 0 5px 20px;
     border-bottom: 1px solid #cdcdcd;
 
     @media (max-width: 767px) {
@@ -118,11 +119,6 @@ export const InnerRing = styled(Box)`
 export const AvatarImage = styled.img`
     width: 100%;
     height: 100%;
-
-    @media screen and (max-width: 768px) {
-        max-width: 100%;
-        max-height: 85%;
-    }
 `;
 
 export const CenteredFlex = styled.div`

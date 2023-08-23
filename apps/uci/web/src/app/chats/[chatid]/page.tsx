@@ -103,6 +103,7 @@ const Chats = ({ params }: chatProps) => {
                                     display={{ base: 'block', md: 'none' }}
                                 >
                                     <Button
+                                        marginTop="20px"
                                         onClick={(): void => {
                                             localStorage.removeItem('userMsgs');
                                             context?.setMessages([]);

@@ -37,6 +37,7 @@ export const ContextProvider: FC<{ children: React.ReactNode }> = ({
     // const botList = useLocalStorage('botList', '', true);
 
     const [isSendDisabled, setIsSendDisabled] = useState<boolean>(false);
+    const [showStarredChat, setShowStarredChat] = useState(false);
 
     const botStartingMsgs = useMemo(
         () =>
@@ -274,6 +275,8 @@ export const ContextProvider: FC<{ children: React.ReactNode }> = ({
             botStartingMsgs,
             isSendDisabled,
             setIsSendDisabled,
+            showStarredChat,
+            setShowStarredChat,
         }),
         [
             currentUser,
@@ -290,6 +293,7 @@ export const ContextProvider: FC<{ children: React.ReactNode }> = ({
             botStartingMsgs,
             isSendDisabled,
             setIsSendDisabled,
+            showStarredChat,
             // isSelected
         ],
     );
@@ -307,8 +311,6 @@ export const ContextProvider: FC<{ children: React.ReactNode }> = ({
                 />
                 <GetBotList />
                 {children}
-
-                {/* <Toaster position="top-right" reverseOrder={false} /> */}
             </>
         </AppContext.Provider>
     );

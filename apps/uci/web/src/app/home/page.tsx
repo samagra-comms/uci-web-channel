@@ -39,6 +39,8 @@ import {
     StyledTab,
     StyledTabList,
     StyledInputLeftElement,
+    LoadMoreButton,
+    LoadMoreIcon,
 } from './styled';
 import moment from 'moment';
 import { faAngleDown } from '@fortawesome/free-solid-svg-icons';
@@ -310,35 +312,11 @@ export default function Home() {
                                     </TabPanels>
                                 </Tabs>
                             </Box>
-                            <div
-                                style={{
-                                    position: 'fixed',
-                                    bottom: '40px', // Adjust the distance from the bottom
-                                    left: '23%',
-                                    transform: 'translateX(-50%)',
-                                    zIndex: 1, // Ensure the icon is above the content
-                                    cursor: 'pointer',
-                                }}
-                                onClick={onLoadMoreClick}
-                            >
-                                <div
-                                    style={{
-                                        backgroundColor: 'blue',
-                                        width: '60px',
-                                        height: '60px',
-                                        borderRadius: '50%',
-                                        display: 'flex',
-                                        justifyContent: 'center',
-                                        alignItems: 'center',
-                                    }}
-                                >
-                                    <FontAwesomeIcon
-                                        icon={faAngleDown}
-                                        size="2x"
-                                        color="white"
-                                    />
+                            <LoadMoreButton onClick={onLoadMoreClick}>
+                                <div>
+                                    <LoadMoreIcon icon={faAngleDown} />
                                 </div>
-                            </div>
+                            </LoadMoreButton>
                         </StyledBackBox>
                     </StyledMainContainer>
                 </StyledBox>

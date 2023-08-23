@@ -181,11 +181,5 @@ export const StarredChatList: FC<{ user: User }> = ({ user }) => {
                 return <></>;
         }
     }
-    return (
-        <Chat
-            navbar={{ title: 'Starred Messages' }}
-            messages={msgs}
-            renderMessageContent={renderMessageContent}
-        />
-    );
+    return <Chat messages={msgs} renderMessageContent={renderMessageContent} />;
 };
