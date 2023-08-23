@@ -28,7 +28,7 @@
   },
   "lint-staged": {
     "*.{md,ts,tsx,js}": [
-      "prettier --write"
+      "prettier --check"
     ]
   },
   "packageManager": "yarn@1.22.19",

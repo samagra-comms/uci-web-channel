@@ -6,7 +6,6 @@ import { VisuallyHidden } from '..';
 afterEach(cleanup);
 
 describe('<VisuallyHidden />', () => {
-
   it('should render correctly', () => {
     const { container } = render(<VisuallyHidden />);
     expect(container).toMatchSnapshot();

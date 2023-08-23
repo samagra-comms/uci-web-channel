@@ -20,6 +20,19 @@ export const ThemeProvider = ({ children }: { children: React.ReactNode }) => {
     useEffect(() => {
         // Update local storage with the current theme preference
         localStorage.setItem('theme', isDarkMode ? 'dark' : 'light');
+        const root = document.documentElement;
+        root.style.setProperty(
+            '--chat-bg-color',
+            isDarkMode ? dark_theme.background : light_theme.background,
+        );
+        root.style.setProperty(
+            '--chat-box-shadow',
+            isDarkMode ? dark_theme.boxShadow : light_theme.boxShadow,
+        );
+        root.style.setProperty(
+            '--chat-footer-color',
+            isDarkMode ? dark_theme.mainBackground : light_theme.mainBackground,
+        );
     }, [isDarkMode]);
 
     const toggleTheme = () => {

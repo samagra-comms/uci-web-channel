@@ -20,6 +20,10 @@ import {
     Div,
     BubbleDiv,
     ContentImage,
+    ChatContainer,
+    ChatItem,
+    ChatAvatar,
+    ChatText,
 } from './styled';
 import { useTheme } from '@/providers/ThemeProvider';
 
@@ -181,26 +185,19 @@ export const MessageItem: React.FC<any> = ({
     switch (type) {
         case 'text':
             return (
-                <>
-                    {content?.data?.position ===
-                        config.message.userInput.position && (
-                        <div className={styles.botImageDiv}>
-                            <Image
-                                src={botImage}
-                                className={styles.botImage}
-                                alt="botImage"
-                            />
-                        </div>
-                    )}
-                    <Box
-                        background={config.message.userInput.background}
-                        padding={config.message.userInput.padding}
-                        borderRadius={config.message.userInput.borderRadius}
-                        margin={config.message.botMsg.margin}
-                    >
-                        {/* <Bubble type="text"> */}
-                        <Box>
-                            <Span className="onHover">{content.text}</Span>
+                <ChatContainer>
+                    <ChatItem className={`chat-${content.data.position}`}>
+                        {content?.data?.position ===
+                            config.message.userInput.position && (
+                            <ChatAvatar className="chat-avatar">
+                                <div>
+                                    <Image src={botImage} alt="botImage" />
+                                </div>
+                                <div className="chat-name">Bot</div>
+                            </ChatAvatar>
+                        )}
+                        <ChatText className={`chat-${content.data.position}`}>
+                            {content.text}
                             <BubbleDiv>
                                 <BubbleSpan>
                                     {moment
@@ -211,27 +208,22 @@ export const MessageItem: React.FC<any> = ({
                                         .local()
                                         .format('DD/MM/YYYY : hh:mm')}
                                 </BubbleSpan>
-                                <span>
-                                    {content?.data?.position === 'left' && (
-                                        <FontAwesomeIcon
-                                            icon={faStar}
-                                            onClick={(): void =>
-                                                onLongPress(content)
-                                            }
-                                            color={
-                                                isStarred
-                                                    ? config.message.botMsg
-                                                          .starredColor
-                                                    : 'var(--grey)'
-                                            }
-                                        />
-                                    )}
-                                </span>
+                                {content?.data?.position === 'left' && (
+                                    <FontAwesomeIcon
+                                        icon={faStar}
+                                        onClick={() => onLongPress(content)}
+                                        color={
+                                            isStarred
+                                                ? config.message.botMsg
+                                                      .starredColor
+                                                : 'var(--grey)'
+                                        }
+                                    />
+                                )}
                             </BubbleDiv>
-                        </Box>
-                        {/* </Bubble>         */}
-                    </Box>
-                </>
+                        </ChatText>
+                    </ChatItem>
+                </ChatContainer>
             );
 
         case 'image': {
@@ -240,30 +232,33 @@ export const MessageItem: React.FC<any> = ({
                 content?.data?.payload?.media?.url || content?.data?.imageUrl;
             return (
                 <>
-                    {content?.data?.position === 'left' && (
-                        <ContentDiv>
-                            <Image
-                                src={config.message.icon}
-                                alt="botImage"
-                                height={config.message.iconSize}
-                                width={config.message.iconSize}
-                            />
-                        </ContentDiv>
-                    )}
-                    <Box
-                        background={theme.background}
-                        padding={config.message.botMsg.padding}
-                        borderRadius={config.message.botMsg.borderRadius}
-                        margin={config.message.botMsg.margin}
-                    >
-                        {/* <Bubble type="image"> */}
+                    <ChatContainer>
+                        <ChatItem className={`chat-${content.data.position}`}>
+                            <ChatAvatar>
+                                {content?.data?.position ===
+                                    config.message.userInput.position && (
+                                    <>
+                                        <div>
+                                            <Image
+                                                src={botImage}
+                                                alt="botImage"
+                                                height={150}
+                                                width={150}
+                                            />
+                                        </div>
+                                        <div className="chat-name">Bot</div>
+                                    </>
+                                )}
+                            </ChatAvatar>
+                        </ChatItem>
+                    </ChatContainer>
+                    <Box>
                         <Div>
                             <Image
                                 src={url}
                                 width={theme_styles.case_image.width}
                                 height={theme_styles.case_image.height}
                                 alt="botImage"
-                                className={styles.botImage}
                             />
                             <BubbleDiv>
                                 <BubbleSpan>
@@ -313,15 +308,26 @@ export const MessageItem: React.FC<any> = ({
                 content?.data?.payload?.media?.url || content?.data?.fileUrl;
             return (
                 <>
-                    {content?.data?.position === 'left' && (
-                        <ContentDiv>
-                            <Image
-                                src={botImage}
-                                alt="botImage"
-                                className={styles.botImage}
-                            />
-                        </ContentDiv>
-                    )}
+                    <ChatContainer>
+                        <ChatItem className={`chat-${content.data.position}`}>
+                            <ChatAvatar>
+                                {content?.data?.position ===
+                                    config.message.userInput.position && (
+                                    <>
+                                        <div>
+                                            <Image
+                                                src={botImage}
+                                                alt="botImage"
+                                                height={150}
+                                                width={150}
+                                            />
+                                        </div>
+                                        <div className="chat-name">Bot</div>
+                                    </>
+                                )}
+                            </ChatAvatar>
+                        </ChatItem>
+                    </ChatContainer>
                     <Box
                         background={theme.background}
                         padding={config.message.botMsg.padding}
@@ -374,15 +380,26 @@ export const MessageItem: React.FC<any> = ({
                 content?.data?.payload?.media?.url || content?.data?.videoUrl;
             return (
                 <>
-                    {content?.data?.position === 'left' && (
-                        <ContentDiv>
-                            <Image
-                                src={botImage}
-                                alt="botImage"
-                                className={styles.botImage}
-                            />
-                        </ContentDiv>
-                    )}
+                    <ChatContainer>
+                        <ChatItem className={`chat-${content.data.position}`}>
+                            <ChatAvatar>
+                                {content?.data?.position ===
+                                    config.message.userInput.position && (
+                                    <>
+                                        <div>
+                                            <Image
+                                                src={botImage}
+                                                alt="botImage"
+                                                height={150}
+                                                width={150}
+                                            />
+                                        </div>
+                                        <div className="chat-name">Bot</div>
+                                    </>
+                                )}
+                            </ChatAvatar>
+                        </ChatItem>
+                    </ChatContainer>
                     <Box
                         background={theme.background}
                         padding={config.message.botMsg.padding}
@@ -436,9 +453,26 @@ export const MessageItem: React.FC<any> = ({
             console.log('qwe12:', { content });
             return (
                 <>
-                    <ContentDiv>
-                        <ContentImage src={botImage} alt="bot-image" />
-                    </ContentDiv>
+                    <ChatContainer>
+                        <ChatItem className={`chat-${content.data.position}`}>
+                            <ChatAvatar>
+                                {content?.data?.position ===
+                                    config.message.userInput.position && (
+                                    <>
+                                        <div>
+                                            <Image
+                                                src={botImage}
+                                                alt="botImage"
+                                                height={150}
+                                                width={150}
+                                            />
+                                        </div>
+                                        <div className="chat-name">Bot</div>
+                                    </>
+                                )}
+                            </ChatAvatar>
+                        </ChatItem>
+                    </ChatContainer>
                     <Box
                         background={theme.background}
                         borderRadius={config.message.botMsg.borderRadius}

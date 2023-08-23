@@ -5,7 +5,7 @@ import React, {
     useMemo,
     useState,
 } from 'react';
-import { Box, useBreakpointValue } from '@chakra-ui/react';
+import { useBreakpointValue } from '@chakra-ui/react';
 import { useRouter } from 'next/navigation';
 import { profilePic } from '@/assets';
 import { User } from '@/types';
@@ -20,6 +20,7 @@ import {
     UserName,
 } from './styled';
 import { useTheme } from '@/providers/ThemeProvider';
+import { config } from '@/config';
 
 interface chatItemProps {
     active: boolean;
@@ -84,10 +85,10 @@ const ChatItem: React.FC<chatItemProps> = ({
                 active={active}
                 theme={theme}
             >
-                <AvatarContainer>
+                <AvatarContainer config={config}>
                     <AvatarImage src={userImage} alt="profile pic" />
                 </AvatarContainer>
-                <ChatItemText theme={theme}>
+                <ChatItemText theme={theme} config={config}>
                     <UserName isBot={phoneNumber == null}>
                         <Paragraph expired={expiredItem} theme={theme}>
                             {name}

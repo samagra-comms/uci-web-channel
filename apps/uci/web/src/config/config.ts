@@ -53,7 +53,7 @@ export const config = {
         placeholder: 'Search',
         size: 'lg',
         variant: 'none',
-        margin: '2vw 3vw 1vw 3vw',
+        margin: '0vw 0vw 4vw 3vw',
         borderRadius: '6vw',
         icon: faSearch,
         iconPadding: '10px 0 0px 20px',
@@ -63,13 +63,18 @@ export const config = {
     chatList: {},
 
     chatItem: {
-        windth: '100%',
+        width: '100%',
         height: '100%',
         expiredColor: 'white',
         fontWeight: 'bold',
         padding: '1vw',
-        margin: '0 0 0 2vw',
         opacity: '0.6',
+        margin: '0 0 0 20px',
+        avatar: {
+            borderRadius: '50%',
+            height: '48px',
+            width: '48px',
+        },
     },
 
     message: {
@@ -91,23 +96,24 @@ export const config = {
         listItem: {},
     },
     chatWindow: {
+        margin: '0vw',
+        borderRadius: '0vw',
         topbar: {
             icon: faChevronLeft,
             iconSize: 'sm',
             textMargin: '0 0 0 10px',
             fontSize: 'md',
             image: profilePic,
-            height: '70px',
-            iconBorder: '3px solid #25d366',
-            margin: '15px 0 0 0',
+            height: '200px',
+            padding: '10px 0 10px 20px',
         },
         window: {
-            padding: '1.5vw',
+            padding: '0vw',
             width: '100%',
             height: '100%',
         },
         innerWindow: {
-            borderRadius: '1.3vw',
+            borderRadius: '2vw',
             input: {
                 icon: faPaperPlane,
             },

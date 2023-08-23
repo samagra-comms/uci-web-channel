@@ -11284,15 +11284,15 @@
   var TB = ['inputRef', 'invisible', 'onImageSend', 'disabled'],
     CB = zP('touch'),
     AB = function (e) {
-      var n = e.inputRef,
-        r = e.invisible,
-        a = e.onImageSend,
-        i = e.disabled,
-        c = WN(e, TB),
-        l = Nk(t.useState(null), 2),
-        s = l[0],
-        f = l[1],
-        d = t.useCallback(function (e) {
+      var n = e.inputRef;
+      e.invisible;
+      var r = e.onImageSend,
+        a = e.disabled,
+        i = WN(e, TB),
+        c = Nk(t.useState(null), 2),
+        u = c[0],
+        l = c[1],
+        s = t.useCallback(function (e) {
           !(function (e, t) {
             var n = e.clipboardData.items;
             if (n && n.length)
@@ -11305,20 +11305,20 @@
                   break;
                 }
               }
-          })(e, f);
+          })(e, l);
         }, []),
-        m = t.useCallback(function () {
-          f(null);
+        f = t.useCallback(function () {
+          l(null);
         }, []),
-        p = t.useCallback(
+        d = t.useCallback(
           function () {
-            a &&
-              s &&
-              $d.resolve(a(s)).then(function () {
-                f(null);
+            r &&
+              u &&
+              $d.resolve(r(u)).then(function () {
+                l(null);
               });
           },
-          [a, s],
+          [r, u],
         );
       return (
         t.useEffect(
@@ -11353,7 +11353,7 @@
         ),
         o.default.createElement(
           'div',
-          { className: u({ 'S--invisible': r }) },
+          { className: "clsx({ 'S--invisible': invisible }) main-input" },
           o.default.createElement(
             iD,
             wN(
@@ -11362,14 +11362,14 @@
                 rows: 1,
                 autoSize: !0,
                 enterKeyHint: 'send',
-                onPaste: a ? d : void 0,
+                onPaste: r ? s : void 0,
                 ref: n,
-                disabled: i,
+                disabled: a,
               },
-              c,
+              i,
             ),
           ),
-          s && o.default.createElement(fB, { file: s, onCancel: m, onSend: p }),
+          u && o.default.createElement(fB, { file: u, onCancel: f, onSend: d }),
         )
       );
     };
@@ -15008,7 +15008,7 @@
       placeholder: 'Search',
       size: 'lg',
       variant: 'none',
-      margin: '2vw 3vw 1vw 3vw',
+      margin: '0vw 0vw 4vw 3vw',
       borderRadius: '6vw',
       icon: RW,
       iconPadding: '10px 0 0px 20px',
@@ -15016,13 +15016,14 @@
     },
     chatList: {},
     chatItem: {
-      windth: '100%',
+      width: '100%',
       height: '100%',
       expiredColor: 'white',
       fontWeight: 'bold',
       padding: '1vw',
-      margin: '0 0 0 2vw',
       opacity: '0.6',
+      margin: '0 0 0 20px',
+      avatar: { borderRadius: '50%', height: '48px', width: '48px' },
     },
     message: {
       icon: r.botImage,
@@ -15038,6 +15039,8 @@
       listItem: {},
     },
     chatWindow: {
+      margin: '0vw',
+      borderRadius: '0vw',
       topbar: {
         icon: {
           prefix: 'fas',
@@ -15054,13 +15057,12 @@
         textMargin: '0 0 0 10px',
         fontSize: 'md',
         image: r.profilePic,
-        height: '70px',
-        iconBorder: '3px solid #25d366',
-        margin: '15px 0 0 0',
+        height: '200px',
+        padding: '10px 0 10px 20px',
       },
-      window: { padding: '1.5vw', width: '100%', height: '100%' },
+      window: { padding: '0vw', width: '100%', height: '100%' },
       innerWindow: {
-        borderRadius: '1.3vw',
+        borderRadius: '2vw',
         input: {
           icon: {
             prefix: 'fas',
@@ -15094,7 +15096,7 @@
           o.default.createElement(CW, {
             icon:
               null == jW ||
-              null === (t = jW.ChatWindow) ||
+              null === (t = jW.chatWindow) ||
               void 0 === t ||
               null === (n = t.innerWindow) ||
               void 0 === n ||

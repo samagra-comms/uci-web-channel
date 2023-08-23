@@ -1,91 +1,100 @@
 // @ts-ignore
-import styled, { css } from "styled-components";
-import { Box } from '@chakra-ui/react';
-import { config } from '@/config';
+import styled, { css } from 'styled-components';
 
-export const Text = styled(Box)`
-  flex: 1;
-  height: 100%;
-  margin-left: 2vw;
-  padding: 0 1vh;
-  display: flex;
-  flex-direction: column;
-`  ;
+interface Props {
+    config: {
+        chatItem: {
+            margin: string;
+            avatar: {
+                height: string;
+                width: string;
+                borderRadius: string;
+            };
+        };
+    };
+}
 
-export const ChatButton = styled.button<{ active: boolean }>`
-  ${(props: { active: any; }) =>
-    props.active ?
-      css`
-    height: 5rem;
-    width: 100%;
+export const Container = styled.button<{ active: boolean }>`
     display: flex;
     align-items: center;
-    background-color: white;
-    margin-bottom: 5px;
+    border: 0;
+    cursor: pointer;
+    width: 100%;
+    height: 72px;
+    padding: 16px 16px;
+
     font-weight: 600;
-    border-radius: 8px;
-    color : ${(props: { theme: { color: any; }; }) => props.theme.color};
-    background-color : ${(props: { theme: { innerBackground: any; }; }) => props.theme.innerBackground};
     transition: background-color 0.3s ease-in-out, transform 0.3s ease-in-out;
-    animation: fadeIn 0.5s ease-in-out;
-    &:hover{
-      background-color: ${(props: { theme: { innerBackground: any } }) => props.theme.innerBackground};
-      transform: translateY(-2px);
+
+    &:hover {
+        transform: translateY(-2px);
+        background-image: -webkit-gradient(
+            linear,
+            left top,
+            left bottom,
+            from(#e9eff5),
+            to(#ffffff)
+        );
     }
-    `
-      :
-      css`
-   height: 5rem;
-   width: 100%;
-   display: flex;
-   align-items: center;
-   margin-bottom: 5px;
-   background-color: white;
-   font-weight: 600;
-   border-radius: 8px;
-   transition: background-color 0.3s ease-in-out, transform 0.3s ease-in-out;
-   animation: fadeIn 0.5s ease-in-out;
-   color : ${(props: { theme: { color: any } }) => props.theme.color};
-    background-color : ${(props: { theme: { innerBackground: any; }; }) => props.theme.innerBackground};
-    &:hover{
-      background-color: ${(props: { theme: { innerBackground: any } }) => props.theme.innerBackground};
-      transform: translateY(-2px);
-    }
-  `}
+
+    ${props =>
+        props.active &&
+        css`
+            background-color: ${props => props.theme.innerBackground};
+            height: 72px;
+
+            &:hover {
+                transform: translateY(-2px);
+                background-image: -webkit-gradient(
+                    linear,
+                    left top,
+                    left bottom,
+                    from(#e9eff5),
+                    to(#ffffff)
+                );
+            }
+        `}
 `;
 
-export const AvatarImage = styled.div`
-  height: 8vh;
-  width: 8vh;
-  border-radius: 50%;
-  margin-left: 1vw;
-  margin-right: 0;
+export const AvatarContainer = styled.div<Props>`
+    height: ${props => props.config.chatItem.avatar.height};
+    width: ${props => props.config.chatItem.avatar.width};
+    border-radius: ${props => props.config.chatItem.avatar.borderRadius};
+    overflow: hidden;
+    margin: ${props => props.config?.chatItem?.margin};
+    box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);
 `;
 
-export const UserName = styled(Box) <{ active: boolean; phoneNumber: string | null }>`
-   color: ${(props: { theme: { color: any } }) => props.theme.color};
-   font-size: ${(props: { theme: { fontSize: any } }) => props.theme.fontSize};
-   align-items: center;
-   font-family: 'Mulish', sans-serif;
-   font-weight: ${config?.chatItem?.fontWeight};
+export const AvatarImage = styled.img`
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+`;
 
-  ${(props: { active: any; }) =>
-    props.active &&
-    css`
-    `}
-  
-  ${(props: { phoneNumber: any }) =>
-    !props.phoneNumber &&
-    css`
-  flex: 8;
-  display: flex;
-  font-weight: 700;
-    `}
-  
-  ${(props: { phoneNumber: any }) =>
-    props.phoneNumber &&
-    css`
-  flex: 1;
-  display: flex;
-    `}
+export const ChatItemText = styled.div<Props>`
+    flex: 1;
+    height: 100%;
+    margin: ${props => props.config.chatItem.margin};
+    display: flex;
+    flex-direction: column;
+    color: ${props => props.theme.color};
+    overflow: hidden;
+`;
+
+export const UserName = styled.div<{ isBot: boolean }>`
+    flex: 8;
+    display: flex;
+    align-items: center;
+    font-weight: 600;
+    font-size: ${props => props.theme.fontSize};
+`;
+
+export const Paragraph = styled.p`
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    margin-bottom: 0;
+    font-size: ${props => props.theme.fontSize};
+    font-weight: 600;
+    color: ${props => props.theme.color};
 `;

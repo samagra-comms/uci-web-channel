@@ -1,4 +1,4 @@
-import { BaseUrls } from "@/types";
+import { BaseUrls } from '@/types';
 
 const environment = process.env.NEXT_PUBLIC_ENVIRONMENT || 'development';
 
@@ -18,4 +18,3 @@ const baseUrls: BaseUrls = {
 export const urlsConfig = baseUrls[environment];
 console.log(urlsConfig);
 console.log(environment);
-

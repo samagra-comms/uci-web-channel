@@ -1,4 +1,4 @@
-# Unified Communication Interface 
+# Unified Communication Interface
 
 ## About UCI :open_book:
 
@@ -12,7 +12,6 @@ The Unified Communications Interface (UCI) aims to democratize the use of differ
 - Ability to connect to any database (local or federated) via services
 - Ability to include value added services in the bot interaction flow through Microservices (Internal or External)
 - Ability to create tools on top of UCI APIs to manage Bot configuration, conversations and visualization
-
 
 ## Requirements :scroll:
 
@@ -33,7 +32,7 @@ git clone https://github.com/Your_Username/uci-web-channel.git
 ```
 
 > This makes a local copy of the repository in your machine.
-Once you have cloned the `uci-web-channel` repository in GitHub, move to that folder first using the change directory command.
+> Once you have cloned the `uci-web-channel` repository in GitHub, move to that folder first using the change directory command.
 
 ```sh
 # This will change directory to a folder uci-web-channel
@@ -67,13 +66,14 @@ The websocket connection URL for the plaground can be used for testing - `wss://
 Run `npm run dev`
 
 ## Designs
+
 Below are the designs of how output screens will look like. For more detailed view you can checkout the [Figma](https://www.figma.com/file/d8JiwkYJqGYXQaflCyNVzl/UCI-web-channel?node-id=0%3A1) file.
 ![Designs](https://user-images.githubusercontent.com/77741561/171156677-0ee016dd-a240-4edc-b2e8-50b08ac06a58.png)
 
+## Docs Link
 
-## Docs Link 
-Follow for the [Docs](https://uci-web-channel-docs.vercel.app/) 
+Follow for the [Docs](https://uci-web-channel-docs.vercel.app/)
+
 ## Contributing
-
 
 We really like contributions in several forms, see [CONTRIBUTING.md](CONTRIBUTING.md)

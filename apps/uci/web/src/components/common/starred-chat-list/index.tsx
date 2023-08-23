@@ -1,8 +1,14 @@
-"use client";
-import React, { FC, ReactElement, useCallback, useContext, useMemo } from 'react';
+'use client';
+import React, {
+    FC,
+    ReactElement,
+    useCallback,
+    useContext,
+    useMemo,
+} from 'react';
 //@ts-ignore
 import Chat, { FileCard, List, ListItem, Video } from 'chatui';
-import "chatui/dist/index.css";
+import 'chatui/dist/index.css';
 import { map } from 'lodash';
 import moment from 'moment';
 import { botImage } from '@/assets';
@@ -11,7 +17,14 @@ import { AppContext } from '@/context';
 import { User } from '@/types';
 import { getMsgType } from '@/utils';
 import { config } from '@/config';
-import { StyledBubble, StyledBubbleImage, StyledBubbleOptions,StyledImage,ImageDiv,Span } from './styled';
+import {
+    StyledBubble,
+    StyledBubbleImage,
+    StyledBubbleOptions,
+    StyledImage,
+    ImageDiv,
+    Span,
+} from './styled';
 
 export const StarredChatList: FC<{ user: User }> = ({ user }) => {
     const context = useContext(AppContext);
@@ -22,9 +35,9 @@ export const StarredChatList: FC<{ user: User }> = ({ user }) => {
             context?.starredMsgs?.[user?.id]?.map((msg: any) => ({
                 type: getMsgType(msg),
                 content: { text: msg?.text, data: { ...msg } },
-                position: msg?.position ?? 'right'
+                position: msg?.position ?? 'right',
             })),
-        [context?.starredMsgs, user?.id]
+        [context?.starredMsgs, user?.id],
     );
 
     const getLists = useCallback(
@@ -37,10 +50,13 @@ export const StarredChatList: FC<{ user: User }> = ({ user }) => {
                 ))}
             </List>
         ),
-        []
+        [],
     );
 
-    function renderMessageContent(msg: { type: string; content: any }): ReactElement {
+    function renderMessageContent(msg: {
+        type: string;
+        content: any;
+    }): ReactElement {
         const { type, content } = msg;
         switch (type) {
             case 'text':
@@ -55,7 +71,10 @@ export const StarredChatList: FC<{ user: User }> = ({ user }) => {
                             <p>{content.text}</p>
                             <span>
                                 {moment
-                                    .utc(content?.data?.sentTimestamp || content?.data?.receivedTimeStamp)
+                                    .utc(
+                                        content?.data?.sentTimestamp ||
+                                            content?.data?.receivedTimeStamp,
+                                    )
                                     .local()
                                     .format('DD/MM/YYYY : hh:mm')}
                             </span>
@@ -63,15 +82,26 @@ export const StarredChatList: FC<{ user: User }> = ({ user }) => {
                     </>
                 );
             case 'image':
-                const url = content?.data?.payload?.media?.url || content?.data?.imageUrl;
+                const url =
+                    content?.data?.payload?.media?.url ||
+                    content?.data?.imageUrl;
                 return (
                     <StyledBubbleImage type="image">
                         <div>
-                            <Image src={url} width="299" height="200" alt="image" />
+                            <Image
+                                src={url}
+                                width="299"
+                                height="200"
+                                alt="image"
+                            />
                             <div>
                                 <span>
                                     {moment
-                                        .utc(content?.data?.sentTimestamp || content?.data?.receivedTimeStamp)
+                                        .utc(
+                                            content?.data?.sentTimestamp ||
+                                                content?.data
+                                                    ?.receivedTimeStamp,
+                                        )
                                         .local()
                                         .format('DD/MM/YYYY : hh:mm')}
                                 </span>
@@ -80,7 +110,9 @@ export const StarredChatList: FC<{ user: User }> = ({ user }) => {
                     </StyledBubbleImage>
                 );
             case 'video': {
-                const vidUrl = content?.data?.payload?.media?.url || content?.data?.videoUrl;
+                const vidUrl =
+                    content?.data?.payload?.media?.url ||
+                    content?.data?.videoUrl;
                 return (
                     <StyledBubbleImage type="image">
                         <div>
@@ -91,7 +123,11 @@ export const StarredChatList: FC<{ user: User }> = ({ user }) => {
                             <div>
                                 <span>
                                     {moment
-                                        .utc(content?.data?.sentTimestamp || content?.data?.receivedTimeStamp)
+                                        .utc(
+                                            content?.data?.sentTimestamp ||
+                                                content?.data
+                                                    ?.receivedTimeStamp,
+                                        )
                                         .local()
                                         .format('DD/MM/YYYY : hh:mm')}
                                 </span>
@@ -107,10 +143,16 @@ export const StarredChatList: FC<{ user: User }> = ({ user }) => {
                             name: 'sample',
                             size: 12345,
                         }}
-                        extension="pdf" >
-                        <a target="_blank"
-                            href={content?.data?.payload?.media?.url || content?.data?.fileUrl}
-                            download>
+                        extension="pdf"
+                    >
+                        <a
+                            target="_blank"
+                            href={
+                                content?.data?.payload?.media?.url ||
+                                content?.data?.fileUrl
+                            }
+                            download
+                        >
                             Download
                         </a>
                     </FileCard>
@@ -125,7 +167,10 @@ export const StarredChatList: FC<{ user: User }> = ({ user }) => {
                         <div>
                             <span>
                                 {moment
-                                    .utc(content?.data?.sentTimestamp || content?.data?.receivedTimeStamp)
+                                    .utc(
+                                        content?.data?.sentTimestamp ||
+                                            content?.data?.receivedTimeStamp,
+                                    )
                                     .local()
                                     .format('DD/MM/YYYY : hh:mm')}
                             </span>

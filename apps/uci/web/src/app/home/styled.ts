@@ -1,71 +1,61 @@
 import {
     Box,
     Flex,
-    Heading,
     Input,
     InputLeftElement,
     Tab,
     TabList,
-    Tabs,
 } from '@chakra-ui/react';
 import { styled } from 'styled-components';
 
+interface FlexContainerProps {
+    isMobile?: boolean;
+}
+
+interface IStyledProps {
+    isMobile?: boolean;
+
+    config: {
+        heading: {
+            width: string;
+        };
+        tab: {
+            bots: {
+                borderRadius: string;
+            };
+        };
+        search: {
+            margin: string;
+            borderRadius: string;
+            iconPadding: string;
+            outline: string;
+        };
+    };
+}
+
 export const StyledFlex = styled(Flex)`
-    flex-direction: column;
+    width: 85vw;
     height: 100vh;
-    width: 100vw;
+
+    @media (max-width: 768px) {
+        width: 100vw;
+    }
 `;
 
-export const StyledTopSection = styled.div`
-    background-color: ${props => props.theme?.innerBackground};
-    width: ${props => props.config?.heading?.width};
-    height: 60px;
-    font-family: 'Helvetica Neue', Arial, sans-serif;
-    font-weight: 700;
-    font-size: 1.4rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: white;
-    padding: 0px 20px;
-`;
-
-// export const StyledHeading = styled(Heading)`
-// color: ${props => props.theme?.headingColor};
-// margin: ${props => props.config?.heading?.margin};
-// size: ${props => props.config?.heading?.size};
-// `;
-
-// export const FlexText = styled(Flex)`
-//   flex: 9;
-//   display: flex;
-//   justify-content: space-between;
-//   align-items: center;
-// `;
-
-export const StyledBox = styled(Box)`
+export const StyledBox = styled(Box)<FlexContainerProps>`
     flex: 1;
-    overflow: hidden;
-    overflow-y: hidden;
 `;
 
-export const StyledMainContainer = styled(Box)`
+export const StyledMainContainer = styled(Box)<FlexContainerProps>`
     width: ${props => (props.isMobile ? '100%' : '35%')};
-    height: calc(100vh - 60px);
     display: flex;
-    flex-direction: row;
-    position: fixed;
-    justify-content: center;
-    align-items: flex-end;
-    bottom: 0;
+    height: 100%;
+    width: 100%;
 `;
 
-export const StyledBackBox = styled(Box)`
+export const StyledBackBox = styled(Box)<FlexContainerProps>`
     background: ${props => props.theme.background};
     width: 100%;
-    height: 100%;
-    left: 0;
-    right: 0;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
@@ -73,50 +63,53 @@ export const StyledBackBox = styled(Box)`
 
 export const StyledTabList = styled(TabList)`
     display: flex;
-    padding: 1rem 0;
     justify-content: center;
-    border-radius: lg;
     overflow: hidden;
 `;
 
-export const StyledTab = styled(Tab)`
+export const StyledTab = styled(Tab)<IStyledProps>`
     color: ${props => props.theme?.color};
-    _focus: {
-        outline: none;
-    }
+    margin-left: 1.5vw;
+    margin-right: 1.5vw;
     font-weight: bold;
     text-align: center;
     font-size: ${props => props.theme?.fontSize};
-    padding: 0.7vw;
-    border-bottom-width: 2px;
-    border-radius: ${props => props.config?.tab?.bots?.borderRadius};
+    padding: ${props => (props.isMobile ? '0.5vw' : '0.7vw')};
+    /* background-color: ${props => props.theme?.mainBackground}; */
+
+    @media screen and (max-width: 768px) {
+        margin: 0 4.5vw 0 4.5vw;
+        padding: 1.5vw;
+    }
 `;
 
 export const StyledChatList = styled(Box)`
-    max-height: 85vh;
-    overflow-y: auto;
-    margin-top: 70px;
-    padding: 0 10px;
-    overflow: auto;
-    flex: 1;
+    width: 120%;
+    height: 90.5vh;
+    overflow-y: scroll;
+    margin-left: -1.5vw;
 `;
 
-export const StyledSearchBox = styled(Box)`
-    margin: ${props => props.config?.search?.margin};
-    z-index: 200;
+export const StyledSearchBox = styled(Box)<FlexContainerProps>`
+    margin: ${props =>
+        props.isMobile ? '2vw 4vw 2vw 4vw' : '1vw 1.5vw 0vw 1.5vw'};
+    padding-bottom: 0.3vw;
+    @media screen and (max-width: 768px) {
+        padding-bottom: 1.5vw;
+    }
 `;
 
-export const StyledInput = styled(Input)`
-    background: ${props => props.theme?.innerBackground};
+export const StyledInput = styled(Input)<IStyledProps>`
+    background: ${props => props.theme?.mainBackground};
     border: none;
-    border-radius: ${props => props.config?.search?.borderRadius};
+    /* border-radius: ${props => props.config?.search?.borderRadius}; */
     outline: ${props => props.config?.search?.outline};
     color: ${props => props.theme?.color};
-    padding: 25px 50px 25px 0px;
+    padding: 25px 0px 20px 0px;
     padding-left: 50px;
 `;
 
-export const StyledInputLeftElement = styled(InputLeftElement)`
+export const StyledInputLeftElement = styled(InputLeftElement)<IStyledProps>`
     justify-content: center;
     align-items: center;
     padding: ${props => props.config?.search?.iconPadding};

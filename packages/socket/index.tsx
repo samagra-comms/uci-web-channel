@@ -1,5 +1,5 @@
-import { useEffect, useState } from 'react';
-import { io, Socket } from 'socket.io-client';
+import { useEffect, useState } from "react";
+import { io, Socket } from "socket.io-client";
 
 // const useSocket = (url: string, options?: any) => {
 //   const [socket, setSocket] = useState<Socket>();
@@ -16,7 +16,6 @@ import { io, Socket } from 'socket.io-client';
 
 //   return socket;
 // };
-
 
 class UCI {
   socket: Socket | undefined;
@@ -38,14 +37,13 @@ class UCI {
     this.msgReceiveCb(message);
   };
 
-  handleSocketSession = (session:any) => {
+  handleSocketSession = (session: any) => {
     this.session = session;
   };
 
   onDisconnect = () => {
-    this.socket?.disconnect()
-  }
-  
+    this.socket?.disconnect();
+  };
 
   sendMessage = ({ text, to, from, optional }: any) => {
     this.socket?.emit("botRequest", {
@@ -68,13 +66,10 @@ export { UCI };
 // const socket = new UCI({ url, socketOptions, callback });
 // socket.sendMessage({ text, to, from, callback, optional });
 
-
 // const socket = new UCI({url, socketOptions, callback});
 // socket.sendMessage({text, to, from, callback, optional});
-// socket.handleMessage();          
-
+// socket.handleMessage();
 
 //! Callback will have 'bot request, bot response'
 //! options will have connections and messages
-//$ Like this: options:{connection:{}, message: {}} 
-
+//$ Like this: options:{connection:{}, message: {}}

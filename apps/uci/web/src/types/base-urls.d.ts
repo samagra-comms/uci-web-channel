@@ -1,8 +1,7 @@
 export type BaseUrls = {
     [key: string]: {
-      chatHistoryUrl?: string;
-      botDetailsUrl?: string;
-      otpBaseUrl?: string;
+        chatHistoryUrl?: string;
+        botDetailsUrl?: string;
+        otpBaseUrl?: string;
     };
-  };
-  
+};

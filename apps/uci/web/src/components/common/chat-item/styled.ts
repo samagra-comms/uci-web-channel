@@ -1,107 +1,117 @@
 //@ts-ignore
-import styled, { css } from "styled-components";
+import styled, { css } from 'styled-components';
+
+interface Props {
+    config: {
+        chatItem: {
+            margin: string;
+            avatar: {
+                height: string;
+                width: string;
+                borderRadius: string;
+            };
+        };
+    };
+}
 
 export const Container = styled.button<{ active: boolean }>`
+    display: flex;
+    align-items: center;
+    border: 0;
+    cursor: pointer;
+    width: 100%;
+    height: 72px;
+    padding: 16px 16px;
 
-  display: flex;
-  align-items: center;
-  border-bottom: 0px solid #eee;
-  cursor: pointer;
-  margin-bottom: 0.5vw;
-  background: ${(props: { theme: { innerBackground: any } })=>props.theme.innerBackground};
+    font-weight: 600;
+    transition: background-color 0.3s ease-in-out, transform 0.3s ease-in-out;
 
-  ${(props: { active: any }) =>
-  props.active
-  ? css`
-  height: 72px;
-  width: 100%;
-  display: flex;
-  align-items: center;
-  font-weight: 600;
-  padding: 0 16px;
-  border-radius: 8px;
-  &:hover {
-    background-color:${(props: { theme: { innerBackground: any } })=>props.theme.innerBackground};
-  transform: translateY(-2px);
+    /* @media screen and (max-width: 768px) {
+        margin: 0 0px;
+    } */
+
+    &:hover {
+        transform: translateY(-2px);
+        background-image: -webkit-gradient(
+            linear,
+            left top,
+            left bottom,
+            from(#e9eff5),
+            to(#ffffff)
+        );
     }
-        `
-  : css`
-  height: 72px;
-  width: 100%;
-  display: flex;
-  align-items: center;
-  font-weight: 600;
-  padding: 0 16px;
-  transition: background-color 0.3s ease-in-out, transform 0.3s ease-in-out;
-  animation: fadeIn 0.5s ease-in-out;
-  border-radius: 8px; 
-  &:hover {
-  background-color: ${(props: { theme: { innerBackground: any } })=>props.theme.innerBackground};
-  transform: translateY(-2px);
-    }
+
+    ${props =>
+        props.active &&
+        css`
+            background-color: ${props => props.theme.innerBackground};
+            height: 72px;
+
+            &:hover {
+                /* background-color: ${props => props.theme.mainBackground}; */
+                transform: translateY(-2px);
+                background-image: -webkit-gradient(
+                    linear,
+                    left top,
+                    left bottom,
+                    from(#e9eff5),
+                    to(#ffffff)
+                );
+            }
         `}
 `;
 
-export const AvatarContainer = styled.div`
-    height: 48px;
-  width: 48px;
-  border-radius: 50%;
-  overflow: hidden;
-  margin-left: 16px;
-  box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);
+export const AvatarContainer = styled.div<Props>`
+    height: ${props => props.config.chatItem.avatar.height};
+    width: ${props => props.config.chatItem.avatar.width};
+    border-radius: ${props => props.config.chatItem.avatar.borderRadius};
+    overflow: hidden;
+    margin: ${props => props.config?.chatItem?.margin};
+    box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);
+
+    @media screen and (max-width: 768px) {
+        margin: 0px 0px;
+    }
 `;
 
 export const AvatarImage = styled.img`
-   width: 100%;
-   height: 100%;
-   object-fit: cover;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 `;
 
-export const ChatItemText = styled.div`
-  flex: 1;
-  height: 100%;
-  margin-left: 16px;
-  padding: 4px 8px;
-  display: flex;
-  flex-direction: column;
-  color: ${(props: { theme: { color: any } })=>props.theme.color}; 
+export const ChatItemText = styled.div<Props>`
+    flex: 1;
+    height: 100%;
+    margin: ${props => props.config.chatItem.margin};
+    display: flex;
+    flex-direction: column;
+    color: ${props => props.theme.color};
+    overflow: hidden;
 `;
 
 export const UserName = styled.div<{ isBot: boolean }>`
-  ${(props: { isBot: any; }) =>
-        props.isBot ? css`
     flex: 8;
-  display: flex;
-  align-items: center;
-  font-weight: 600;
-  font-size: ${(props: { theme: { fontSize: any } })=>props.theme.fontSize};
-    ` : css`
-    flex: 1;
-  display: flex;
-  align-items: center;
-  color: #888; 
-    `}
+    display: flex;
+    align-items: center;
+    font-weight: 600;
+    font-size: ${props => props.theme.fontSize};
 `;
 
 export const Paragraph = styled.p<{ expired: boolean }>`
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    margin-bottom: 0;
+    font-size: ${props => props.theme.fontSize};
+    font-weight: 600;
+    color: ${props => props.theme.color};
 
-text-overflow: ellipsis;
-  max-width: calc(100% - 48px); 
-  overflow: hidden;
-  white-space: nowrap;
-  margin-bottom: 0;
-
-  ${(props: { expired: any }) =>
-        props.expired
-            ? css`
-  color: ${(props: { theme: { color: any } })=>props.theme.color};
-  text-decoration: line-through;
-  font-size:  ${(props: { theme: { fontSize: any } })=>props.theme.fontSize};
-  opacity: ${(props: { theme: { opacity: any } })=>props.theme.opacity};
-        `
-            : css`
-  font-size: ${(props: { theme: { fontSize: any } })=>props.theme.fontSize};
-  font-weight: 600;
-  color: ${(props: { theme: { color: any } })=>props.theme.color};
+    ${props =>
+        props.expired &&
+        css`
+            color: ${props => props.theme.color};
+            text-decoration: line-through;
+            opacity: ${props => props.theme.opacity};
         `}
 `;

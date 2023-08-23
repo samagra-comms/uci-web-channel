@@ -1,13 +1,25 @@
 'use client';
 import React, { useContext, useEffect, useState } from 'react';
-import { Box, Button, useBreakpointValue } from '@chakra-ui/react';
+import {
+    Box,
+    Button,
+    Flex,
+    IconButton,
+    useBreakpointValue,
+} from '@chakra-ui/react';
 import profilePic from '@/assets/images/bot_icon_2.png';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import { useRouter, usePathname } from 'next/navigation';
 import { AppContext } from '@/context';
 import { ChatUiComponent, FullScreenLoader } from '@/components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { config } from '@/config';
+import {
+    faVideo,
+    faPhone,
+    faEllipsisV,
+    faLightbulb,
+    faMoon,
+} from '@fortawesome/free-solid-svg-icons';
 import {
     AvatarImage,
     BackBox,
@@ -26,6 +38,7 @@ import {
 } from './styled';
 import { useTheme } from '@/providers/ThemeProvider';
 import { useSelector } from 'react-redux';
+import { config } from '@/config';
 
 interface chatProps {
     params?: { chatid: string };
@@ -33,7 +46,8 @@ interface chatProps {
 
 const Chats = ({ params }: chatProps) => {
     const loading = useSelector((state: any) => state.userList.loading);
-    const { theme } = useTheme();
+    const { theme, toggleTheme } = useTheme();
+    console.log(theme);
     const router = useRouter();
     const context = useContext(AppContext);
     const pathname = usePathname();
@@ -78,8 +92,9 @@ const Chats = ({ params }: chatProps) => {
             <FlexContainer
                 mainFlexWidth={mainFlexWidth}
                 isHomepage={isHomepage}
+                theme={theme}
             >
-                <MainFlex>
+                <MainFlex config={config}>
                     {context?.currentUser ? (
                         <>
                             <TopSection theme={theme} config={config}>
@@ -111,6 +126,7 @@ const Chats = ({ params }: chatProps) => {
                                                 {
                                                     <>
                                                         <InnerRing
+                                                            theme={theme}
                                                             config={config}
                                                         >
                                                             <AvatarImage
@@ -118,6 +134,7 @@ const Chats = ({ params }: chatProps) => {
                                                                 alt="profile pic"
                                                             />
                                                         </InnerRing>
+
                                                         <StyledBox>
                                                             <Span theme={theme}>
                                                                 {
@@ -126,23 +143,106 @@ const Chats = ({ params }: chatProps) => {
                                                                         ?.name
                                                                 }
                                                             </Span>
+                                                            {!isMobile && (
+                                                                <Span
+                                                                    theme={
+                                                                        theme
+                                                                    }
+                                                                >
+                                                                    Total
+                                                                    Messages:{' '}
+                                                                    {
+                                                                        context
+                                                                            ?.messages
+                                                                            ?.length
+                                                                    }
+                                                                </Span>
+                                                            )}
                                                         </StyledBox>
                                                     </>
                                                 }
                                             </StyledAvatarContainer>
                                         )}
+
+                                        {!isMobile && (
+                                            <IconButton
+                                                icon={
+                                                    <FontAwesomeIcon
+                                                        icon={faVideo}
+                                                    />
+                                                }
+                                                aria-label="Toggle Theme"
+                                                background="none"
+                                                size="md"
+                                                _hover={{
+                                                    transform: 'scale(1.2)',
+                                                    transition:
+                                                        'transform 0.3s',
+                                                }}
+                                            />
+                                        )}
+
+                                        <IconButton
+                                            marginRight="40px"
+                                            icon={
+                                                theme.name == 'light' ? (
+                                                    <FontAwesomeIcon
+                                                        icon={faMoon}
+                                                    />
+                                                ) : (
+                                                    <FontAwesomeIcon
+                                                        icon={faLightbulb}
+                                                    />
+                                                )
+                                            }
+                                            aria-label="Toggle Theme"
+                                            size="lg"
+                                            variant="none"
+                                            color={theme.color}
+                                            onClick={toggleTheme}
+                                            _hover={{
+                                                transform: 'scale(1.2)',
+                                                transition: 'transform 0.3s',
+                                            }}
+                                        />
+                                        {/* Phone Call Icon */}
+                                        {/* <Button
+                                            variant="ghost"
+                                            marginTop="20px"
+                                            padding="5px"
+                                            marginRight="30px"
+                                        >
+                                            <FontAwesomeIcon
+                                                icon={faPhone}
+                                                size="xl"
+                                                color={theme?.color}
+                                            />
+                                        </Button> */}
+
+                                        {/* Triple Dot Icon */}
+                                        {/* <Button
+                                            variant="ghost"
+                                            marginTop="20px"
+                                            padding="5px"
+                                            marginRight="30px"
+                                        >
+                                            <FontAwesomeIcon
+                                                icon={faEllipsisV}
+                                                size="xl"
+                                                color={theme?.color}
+                                            />
+                                        </Button> */}
                                     </StyledCenteredFlex>
                                 </StyledFlex>
+                                {/* <ThemeToggle /> */}
                             </TopSection>
                             {/* Chat Window */}
-                            <ChatWindow config={config} theme={theme}>
+                            <ChatWindow theme={theme}>
                                 {/* NeoMorphism Box */}
                                 <BackBox config={config}>
-                                    {/* Chat Area */}
                                     <Box
-                                        height={
-                                            config?.chatWindow?.window?.height
-                                        }
+                                        height={['85vh', '100vh']}
+                                        overflowY="scroll"
                                     >
                                         <ChatUiComponent
                                             currentUser={context?.currentUser}

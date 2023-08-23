@@ -29,7 +29,7 @@
     "test": "jest",
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage",
-    "lint":"eslint ."
+    "lint": "eslint ."
   },
   "dependencies": {
     "@babel/runtime": "^7.18.3",
@@ -84,7 +84,7 @@
     "rollup-plugin-terser": "^7.0.2",
     "ts-jest": "^28.0.5",
     "typescript": "^4.7.3",
-    "eslint-config-custom":"*"
+    "eslint-config-custom": "*"
   },
   "peerDependencies": {
     "react": ">=16.8.0",

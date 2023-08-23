@@ -2,23 +2,43 @@
 import { Box, Flex } from '@chakra-ui/react';
 import styled from 'styled-components';
 
+interface FlexContainerProps {
+    mainFlexWidth: string;
+    isHomepage?: boolean;
+}
+
+interface IStyledProps {
+    config: {
+        chatWindow: {
+            margin: string;
+            borderRadius: string;
+            topbar: {
+                padding: string;
+            };
+        };
+    };
+}
+
 export const Span = styled.span`
-    color: ${(props: { theme: { color: any } }) => props.theme.color};
-    margin: ${(props: { theme: { margin: any } }) => props.theme.margin};
-    font-size: ${(props: { theme: { fontSize: any } }) => props.theme.fontSize};
-    color: ${(props: { theme: { color: any } }) => props.theme.color};
+    margin: ${props => props.theme.margin};
+    font-size: ${props => props.theme.fontSize};
+    color: ${props => props.theme.color};
+
+    @media (max-width: 768px) {
+        margin-left: 20px;
+    }
 `;
 
 export const StyledBox = styled.div`
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    width: 100%;
+    flex-direction: column;
 `;
 
-export const FlexContainer = styled(Flex)`
+export const FlexContainer = styled(Flex)<FlexContainerProps>`
     width: ${props => props.mainFlexWidth};
     display: flex;
+    background: ${props => props.theme?.innerBackground};
 
     @media (max-width: 767px) {
         display: ${props => (props.isHomepage ? 'none' : 'flex')};
@@ -29,36 +49,31 @@ export const FlexContainer = styled(Flex)`
     }
 `;
 
-export const MainFlex = styled(Flex)`
-    background-color: var(--primarydarkblue);
+export const MainFlex = styled(Flex)<IStyledProps>`
     flex-direction: column;
-    height: 100vh;
     width: 100%;
+    border-left: 1px solid #cdcdcd;
 `;
 
-export const TopSection = styled(Box)`
-    height: ${props => props.config?.ChatWindow?.topbar?.height};
-    background: ${props => props.theme?.innerBackground};
+export const TopSection = styled(Box)<IStyledProps>`
     font-weight: 700;
     display: flex;
-    padding: 0px 20px;
+    padding: 0 0 5px 20px;
+    border-bottom: 1px solid #cdcdcd;
+
+    @media (max-width: 767px) {
+        padding: 10px;
+    }
 `;
 
 export const ChatWindow = styled(Box)`
-    padding: ${props => props.config?.chatWindow?.window?.padding};
-    width: ${props => props.config?.chatWindow?.window?.width};
-    background: ${props => props.theme?.innerBackground};
-    padding-top: 0.6vw;
     flex: 1;
     display: flex;
     justify-content: center;
     align-items: flex-start;
-    z-index: 0;
 `;
 
 export const BackBox = styled(Box)`
-    border-radius: ${props =>
-        props.config?.chatWindow?.innerWindow?.borderRadius};
     width: 100%;
     height: 100%;
     display: flex;
@@ -80,22 +95,28 @@ export const StyledCenteredFlex = styled(Flex)`
 
 export const StyledAvatarContainer = styled(Box)`
     width: 100%;
-    margin: ${props => props.config?.chatWindow?.topbar?.margin};
     display: flex;
     align-items: center;
+    margin: 10px 0px 0 30px;
+
+    @media screen and (max-width: 768px) {
+        width: 100%;
+        height: 100%;
+        margin-left: -5px;
+    }
 `;
 
 export const InnerRing = styled(Box)`
-    border: ${props => props.config?.chatWindow?.topbar?.iconBorder};
-    width: 65px;
-    height: 55px;
+    border: ${props => props.theme?.iconColor};
+    width: 70px;
+    height: 70px;
     border-radius: 50%;
     margin-right: 10px;
 `;
 
 export const AvatarImage = styled.img`
-    width: 75px;
-    height: 55px;
+    width: 100%;
+    height: 100%;
 `;
 
 export const CenteredFlex = styled.div`

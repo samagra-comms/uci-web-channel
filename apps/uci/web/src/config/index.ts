@@ -1,3 +1,3 @@
-export * from './urls_config'
-export * from './theme'
-export * from './config'
+export * from './urls_config';
+export * from './theme';
+export * from './config';

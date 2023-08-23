@@ -6,7 +6,6 @@ import { Tag } from '..';
 afterEach(cleanup);
 
 describe('<Tag />', () => {
-
   it('should support className', () => {
     const { container } = render(<Tag className="test">ChatUI</Tag>);
     const tag = container.querySelectorAll('.Tag')[0];

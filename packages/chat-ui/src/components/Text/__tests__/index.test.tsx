@@ -6,7 +6,6 @@ import { Text } from '..';
 afterEach(cleanup);
 
 describe('<Text />', () => {
-
   it('should support align', () => {
     const { getByText } = render(<Text align="center">ChatUI</Text>);
     expect(getByText('ChatUI')).toHaveClass('Text--center');

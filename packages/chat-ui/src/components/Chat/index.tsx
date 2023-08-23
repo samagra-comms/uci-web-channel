@@ -13,7 +13,7 @@ import { isSafari, getIOSMajorVersion } from '../../utils/ua';
 export type ChatProps = Omit<ComposerProps, 'onFocus' | 'onChange' | 'onBlur'> &
   MessageContainerProps & {
     locale?: string;
-    locales?: any; 
+    locales?: any;
 
     renderNavbar?: () => React.ReactNode;
 
@@ -22,7 +22,7 @@ export type ChatProps = Omit<ComposerProps, 'onFocus' | 'onChange' | 'onBlur'> &
     quickReplies?: QuickReplyItemProps[];
 
     quickRepliesVisible?: boolean;
- 
+
     onQuickReplyClick?: (item: QuickReplyItemProps, index: number) => void;
 
     onQuickReplyScroll?: () => void;
@@ -34,11 +34,11 @@ export type ChatProps = Omit<ComposerProps, 'onFocus' | 'onChange' | 'onBlur'> &
     onInputFocus?: ComposerProps['onFocus'];
 
     onInputChange?: ComposerProps['onChange'];
- 
+
     onInputBlur?: ComposerProps['onBlur'];
 
-    Composer?: React.ElementType; 
-    disableSend?:boolean
+    Composer?: React.ElementType;
+    disableSend?: boolean;
   };
 
 export const Chat = React.forwardRef<HTMLDivElement, ChatProps>((props, ref) => {
@@ -70,7 +70,7 @@ export const Chat = React.forwardRef<HTMLDivElement, ChatProps>((props, ref) => 
     onInputChange,
     onInputBlur,
     onSend,
-    disableSend=false,
+    disableSend = false,
     onImageSend,
     inputOptions,
     composerRef,
@@ -107,9 +107,7 @@ export const Chat = React.forwardRef<HTMLDivElement, ChatProps>((props, ref) => 
 
   return (
     <LocaleProvider locale={locale} locales={locales}>
-      <div className="ChatApp" ref={ref}
-      //  style={{background:`${theme.background}`}}
-      > 
+      <div className="ChatApp" ref={ref}>
         {renderNavbar ? renderNavbar() : navbar && <Navbar {...navbar} />}
         <MessageContainer
           ref={messagesRef}
@@ -133,27 +131,29 @@ export const Chat = React.forwardRef<HTMLDivElement, ChatProps>((props, ref) => 
               onScroll={onQuickReplyScroll}
             />
           )}
-         {true && <Composer
-            wideBreakpoint={wideBreakpoint}
-            ref={composerRef}
-            inputType={inputType}
-            text={text}
-            textOnce={textOnce}
-            inputOptions={inputOptions}
-            placeholder={placeholder}
-            onAccessoryToggle={onAccessoryToggle}
-            recorder={recorder}
-            toolbar={toolbar}
-            onToolbarClick={onToolbarClick}
-            onInputTypeChange={onInputTypeChange}
-            onFocus={handleInputFocus}
-            onChange={onInputChange}
-            onBlur={onInputBlur}
-            onSend={onSend}
-            disableSend={disableSend}
-            onImageSend={onImageSend}
-            rightAction={rightAction}
-          />}
+          {true && (
+            <Composer
+              wideBreakpoint={wideBreakpoint}
+              ref={composerRef}
+              inputType={inputType}
+              text={text}
+              textOnce={textOnce}
+              inputOptions={inputOptions}
+              placeholder={placeholder}
+              onAccessoryToggle={onAccessoryToggle}
+              recorder={recorder}
+              toolbar={toolbar}
+              onToolbarClick={onToolbarClick}
+              onInputTypeChange={onInputTypeChange}
+              onFocus={handleInputFocus}
+              onChange={onInputChange}
+              onBlur={onInputBlur}
+              onSend={onSend}
+              disableSend={disableSend}
+              onImageSend={onImageSend}
+              rightAction={rightAction}
+            />
+          )}
         </div>
       </div>
     </LocaleProvider>

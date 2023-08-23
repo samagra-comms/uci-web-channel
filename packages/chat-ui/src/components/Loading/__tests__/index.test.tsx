@@ -11,5 +11,4 @@ describe('<Loading />', () => {
     const loading = getByText(content);
     expect(loading).toBeInTheDocument();
   });
-
 });

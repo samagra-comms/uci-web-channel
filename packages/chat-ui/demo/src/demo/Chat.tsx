@@ -309,7 +309,7 @@ export default () => {
     <DemoPage>
       <div style={{ height: 'calc(100vh - 48px)', marginTop: '-12px' }}>
         <Chat
-        disableSend
+          disableSend
           onRefresh={handleRefresh}
           navbar={{
             leftContent: {

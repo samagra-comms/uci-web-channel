@@ -38,7 +38,7 @@ export const Input = React.forwardRef<InputRef, InputProps>((props, ref) => {
     multiline,
     autoSize,
     onChange,
-    disabled=false,
+    disabled = false,
     ...other
   } = props;
 
@@ -119,7 +119,7 @@ export const Input = React.forwardRef<InputRef, InputProps>((props, ref) => {
     },
     [maxLength, onChange, updateRow],
   );
-console.log("debug:",{disabled})
+  console.log('debug:', { disabled });
   const input = (
     <Element
       className={clsx('Input', `Input--${variant}`, className)}
@@ -132,7 +132,6 @@ console.log("debug:",{disabled})
       onChange={handleChange}
       disabled={disabled}
       {...other}
-
     />
   );
 

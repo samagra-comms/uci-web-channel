@@ -82,7 +82,11 @@ body {
 }
 
 .ChatFooter {
-  background-color: var(--white) !important;
+  width: 90%;
+  background-color: var(--chat-footer-color) !important;
+  @media screen and (max-width: 768px) {
+    width: 95vw;
+  }
 }
 
 button{
@@ -90,5 +94,20 @@ button{
 }
 
 .ChatApp{
-  background-color: var(--black) !important;
+  background: var(--chat-bg-color);
+  @media screen and (max-width: 768px) {
+    padding-bottom: 1vw;
+  }
+ 
+    
+  /* margin-left: 10vw; */
+  /* box-shadow: var(--chat-box-shadow); */
 }
+
+/* .Composer-inputWrap{
+  margin-left: 2vw;
+} */
+
+/* .main-input{
+  margin-left: 10vw;
+} */

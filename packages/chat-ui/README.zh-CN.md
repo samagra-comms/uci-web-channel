@@ -10,11 +10,7 @@
 
 <div align="center">
 
-[![LICENSE](https://img.shields.io/npm/l/@chatui/core?style=flat-square)](https://github.com/alibaba/ChatUI/blob/master/LICENSE)
-[![NPM version](https://img.shields.io/npm/v/@chatui/core?style=flat-square)](https://www.npmjs.com/package/@chatui/core)
-[![NPM downloads](https://img.shields.io/npm/dm/@chatui/core?style=flat-square)](https://www.npmjs.com/package/@chatui/core)
-[![Gzip Size](https://img.badgesize.io/https://unpkg.com/@chatui/core@0.1.0/dist/index.js?compression=gzip)](https://unpkg.com/@chatui/core@0.1.0/dist/index.js)
-[![Jsdelivr Hits](https://img.shields.io/jsdelivr/npm/hm/@chatui/core?style=flat-square)](https://cdn.jsdelivr.net/npm/@chatui/core)
+[![LICENSE](https://img.shields.io/npm/l/@chatui/core?style=flat-square)](https://github.com/alibaba/ChatUI/blob/master/LICENSE) [![NPM version](https://img.shields.io/npm/v/@chatui/core?style=flat-square)](https://www.npmjs.com/package/@chatui/core) [![NPM downloads](https://img.shields.io/npm/dm/@chatui/core?style=flat-square)](https://www.npmjs.com/package/@chatui/core) [![Gzip Size](https://img.badgesize.io/https://unpkg.com/@chatui/core@0.1.0/dist/index.js?compression=gzip)](https://unpkg.com/@chatui/core@0.1.0/dist/index.js) [![Jsdelivr Hits](https://img.shields.io/jsdelivr/npm/hm/@chatui/core?style=flat-square)](https://cdn.jsdelivr.net/npm/@chatui/core)
 
 </div>
 
