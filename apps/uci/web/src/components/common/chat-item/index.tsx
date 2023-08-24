@@ -28,6 +28,7 @@ interface chatItemProps {
     phoneNumber: string | null;
     user?: User;
     isBlank?: boolean;
+    image?: string;
 }
 
 const ChatItem: React.FC<chatItemProps> = ({
@@ -36,6 +37,7 @@ const ChatItem: React.FC<chatItemProps> = ({
     phoneNumber,
     user,
     isBlank,
+    image,
 }) => {
     const history = useRouter();
     const context = useContext(AppContext);
@@ -88,7 +90,7 @@ const ChatItem: React.FC<chatItemProps> = ({
                 theme={theme}
             >
                 <AvatarContainer config={config}>
-                    <AvatarImage src={userImage} alt="profile pic" />
+                    <AvatarImage src={image} alt="profile pic" />
                 </AvatarContainer>
                 <ChatItemText theme={theme} config={config}>
                     <UserName isBot={phoneNumber == null}>

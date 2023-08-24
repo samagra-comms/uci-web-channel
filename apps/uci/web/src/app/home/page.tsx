@@ -246,6 +246,9 @@ export default function Home() {
                                                                             }
                                                                         >
                                                                             <ChatItem
+                                                                                image={
+                                                                                    user?.botImage
+                                                                                }
                                                                                 key={
                                                                                     index
                                                                                 }
