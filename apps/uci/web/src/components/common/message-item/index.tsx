@@ -252,7 +252,7 @@ export const MessageItem: React.FC<any> = ({
                             </ChatAvatar>
                         </ChatItem>
                     </ChatContainer>
-                    <Box>
+                    <Box marginLeft="-18px">
                         <Div>
                             <Image
                                 src={url}
@@ -474,7 +474,7 @@ export const MessageItem: React.FC<any> = ({
                         </ChatItem>
                     </ChatContainer>
                     <Box
-                        background={theme.background}
+                        background={theme?.mainBackground}
                         borderRadius={config.message.botMsg.borderRadius}
                         padding={config.message.botMsg.padding}
                         margin={config?.message?.botMsg?.margin}

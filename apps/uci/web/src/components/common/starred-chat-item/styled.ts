@@ -31,7 +31,7 @@ export const Container = styled.button<{ active: boolean }>`
             linear,
             left top,
             left bottom,
-            from(#e9eff5),
+            from(#ffffff),
             to(#ffffff)
         );
     }
@@ -48,7 +48,7 @@ export const Container = styled.button<{ active: boolean }>`
                     linear,
                     left top,
                     left bottom,
-                    from(#e9eff5),
+                    from(#ffffff),
                     to(#ffffff)
                 );
             }

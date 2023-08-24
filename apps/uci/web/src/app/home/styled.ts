@@ -76,7 +76,6 @@ export const StyledTab = styled(Tab)<IStyledProps>`
     text-align: center;
     font-size: ${props => props.theme?.fontSize};
     padding: ${props => (props.isMobile ? '0.5vw' : '0.7vw')};
-    /* background-color: ${props => props.theme?.mainBackground}; */
 
     @media screen and (max-width: 768px) {
         margin: 0 4.5vw 0 4.5vw;
@@ -132,7 +131,7 @@ export const LoadMoreButton = styled.div`
     }
 
     > div {
-        background-color: blue;
+        background-color: white;
         width: 40px;
         height: 40px;
         border-radius: 50%;
@@ -144,5 +143,5 @@ export const LoadMoreButton = styled.div`
 
 export const LoadMoreIcon = styled(FontAwesomeIcon)`
     font-size: 2em;
-    color: white;
+    color: darkgray;
 `;
