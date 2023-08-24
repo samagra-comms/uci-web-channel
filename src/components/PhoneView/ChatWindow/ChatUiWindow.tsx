@@ -1,6 +1,5 @@
 import Chat from "samagra-chatui";
 import "samagra-chatui/dist/index.css";
-import axios from "axios";
 import React, {
   FC,
   ReactElement,
@@ -17,54 +16,45 @@ import { AppContext } from "../../../utils/app-context";
 import { RenderComp } from "./Comps";
 
 import { getConvHistoryUrl } from "../../../utils/urls";
-import { getMsgType } from "../../../utils/get-msg-type";
-import { normalizedChat } from "../../../utils/normalize-chats";
 import FullScreenLoader from "../../FullScreenLoader";
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 import botImage from "../../../assets/images/bot_icon_2.png";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchHistory } from "../../../store/actions/fetchHistory";
+import { AppDispatch } from "../../../store";
+import { selectActiveUser } from "../../../store/slices/userSlice";
+import {
+  isMsgLoadingSelector,
+  selectNormalisedMessages,
+  setActiveMessages,
+} from "../../../store/slices/messageSlice";
+import { User } from "../../../types";
+import {
+  logToAndroid,
+  triggerEventInAndroid,
+} from "../../../utils/android-events";
 
-const ChatUiWindow: FC<{
-  currentUser: any;
-}> = ({ currentUser }) => {
-  const [loading, setLoading] = useState(true);
+const ChatUiWindow: FC = () => {
+  const dispatch: AppDispatch = useDispatch();
   const context = useContext(AppContext);
-  const [botIcon, setBotIcon] = useState(botImage);
+
+  //@ts-ignore
+  const currentUser: User = useSelector(selectActiveUser);
+  const loading = useSelector(isMsgLoadingSelector);
+  const [botIcon, setBotIcon] = useState(currentUser?.botImage || botImage);
+
   useEffect(() => {
-    if (currentUser?.botImage) {
-      fetch(currentUser?.botImage)
-        .then((res) => {
-          if (res.status === 403) {
-            setBotIcon(botImage);
-          } else {
-            setBotIcon(currentUser?.botImage);
-          }
-        })
-        .catch((err) => {
-          setBotIcon(botImage);
-        });
+    if (currentUser?.useIcon) {
+      setBotIcon(currentUser?.botImage);
     } else {
       setBotIcon(botImage);
     }
-  }, [currentUser?.botImage, setBotIcon]);
+  }, [currentUser, currentUser?.botImage, setBotIcon]);
 
-  const chatUIMsg = useMemo(
-    () =>
-      context?.messages?.map((msg: any) => ({
-        type: getMsgType(msg),
-        content: { text: msg?.text, data: { ...msg } },
-        position: msg?.position ?? "right",
-        user: {
-          style: { border: "2px solid lightgray" },
-          avatar: msg?.position === "left" ? botIcon : "",
-        },
-      })),
-    [botIcon, context?.messages]
-  );
-
-
+  const chatUIMsg = useSelector(selectNormalisedMessages(currentUser, botIcon));
   const msgToRender = useMemo(() => {
-    return context?.isMsgReceiving
+    return context?.isMsgReceiving && chatUIMsg
       ? [
           ...chatUIMsg,
           {
@@ -85,13 +75,6 @@ const ChatUiWindow: FC<{
     );
   }, [context, currentUser]);
 
-  const setMessages = useCallback(
-    (msgs: Array<any>) => {
-      context?.setMessages(msgs);
-    },
-    [context]
-  );
-
   const conversationHistoryUrl = useMemo(
     () =>
       context?.currentUser ? getConvHistoryUrl(context?.currentUser) : null,
@@ -102,54 +85,27 @@ const ChatUiWindow: FC<{
     const phone = localStorage.getItem("mobile");
     if (phone === "") toast.error("Mobile Number required");
     if (navigator.onLine) {
-     
-      if (conversationHistoryUrl)
-        axios
-          .get(conversationHistoryUrl)
-          .then((res) => {
-            setLoading(false);
-            if(currentUser?.isExpired)
-            toast.error('यह फॉर्म समाप्त हो गया है !')
-            if (res?.data?.result?.records?.length > 0) {
-              const normalizedChats = normalizedChat(res.data.result.records);
-              window &&
-                window?.androidInteract?.log(JSON.stringify(normalizedChats));
-              localStorage.setItem("userMsgs", JSON.stringify(normalizedChats));
-              setMessages(normalizedChats);
-            } else {
-              if(!currentUser?.isExpired)
-              sendMessage();
-            }
-          })
-          .catch((err) => {
-            setLoading(false);
-            toast.error(JSON.stringify(err?.message));
-            window &&
-              window?.androidInteract?.log(
-                `error in fetching chat history(online):${JSON.stringify(err)}`
-              );
-          });
+      dispatch(fetchHistory(currentUser)).then((res) => {
+        //@ts-ignore
+        if (res.type.includes("fulfilled") && res.payload.length === 0) {
+          sendMessage();
+        }
+      });
     } else {
-      setLoading(false);
       try {
         if (localStorage.getItem("chatHistory")) {
           const offlineMsgs = filter(
-            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-            // @ts-ignore
             JSON.parse(localStorage.getItem("chatHistory")),
-            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-            // @ts-ignore
             { botUuid: JSON.parse(localStorage.getItem("currentUser"))?.id }
           );
-          window &&
-            window?.androidInteract?.log(localStorage.getItem("chatHistory"));
-          setMessages(offlineMsgs);
+          logToAndroid(`chatHistory:${localStorage.getItem("chatHistory")}`);
+          dispatch(setActiveMessages(offlineMsgs));
         }
       } catch (err) {
-        window &&
-          window?.androidInteract?.log(
-            `error in getting chat history(offline):${JSON.stringify(err)}`
-          );
+        toast.error(err.message);
+        logToAndroid(
+          `error in getting chat history(offline):${JSON.stringify(err)}`
+        );
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -157,20 +113,16 @@ const ChatUiWindow: FC<{
 
   useEffect(() => {
     try {
-      window &&
-        window?.androidInteract?.onChatCompleted?.(
-          String(currentUser?.id),
-          JSON.stringify(context?.state?.messages)
-        );
-      window &&
-        window?.androidInteract?.log(JSON.stringify(context?.state?.messages));
+      triggerEventInAndroid("onChatCompleted", {
+        id: String(currentUser?.id),
+        msgs: JSON.stringify(context?.state?.messages),
+      });
+
+      logToAndroid(`currentMsgs:${JSON.stringify(chatUIMsg)}`);
     } catch (err) {
-      window &&
-        window?.androidInteract?.log(
-          `error in onChatCompleted func:${JSON.stringify(err)}`
-        );
+      logToAndroid(`error in onChatCompleted func:${JSON.stringify(err)}`);
     }
-  }, [context?.state?.messages, currentUser?.id]);
+  }, [chatUIMsg, context?.state?.messages, currentUser?.id]);
 
   const handleSend = useCallback(
     (type: string, val: any) => {
@@ -189,13 +141,19 @@ const ChatUiWindow: FC<{
     [context, currentUser]
   );
 
-  const disableSend=useMemo(()=>currentUser?.isExpired || false,[currentUser?.isExpired])
-  const placeholder=useMemo(()=> currentUser?.isExpired ? 'यह फॉर्म समाप्त हो गया है !' :' text',[currentUser?.isExpired])
+  const disableSend = useMemo(
+    () => currentUser?.isExpired || false,
+    [currentUser?.isExpired]
+  );
+  const placeholder = useMemo(
+    () => (currentUser?.isExpired ? "यह फॉर्म समाप्त हो गया है !" : " text"),
+    [currentUser?.isExpired]
+  );
   return (
     <>
       <FullScreenLoader loading={loading} />
       <Chat
-       disableSend={disableSend}
+        disableSend={disableSend}
         messages={msgToRender}
         renderMessageContent={(props): ReactElement => (
           <RenderComp

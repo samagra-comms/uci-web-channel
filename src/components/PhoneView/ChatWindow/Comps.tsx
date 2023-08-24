@@ -28,6 +28,11 @@ import { AppContext } from "../../../utils/app-context";
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 import styles from "./Comps.module.css";
+import {
+  logToAndroid,
+  sendEventToAndroid,
+  triggerEventInAndroid,
+} from "../../../utils/android-events";
 
 export const RenderComp: FC<any> = ({
   currentUser,
@@ -35,7 +40,6 @@ export const RenderComp: FC<any> = ({
   chatUIMsg,
   onSend,
 }) => {
- 
   const context = useContext(AppContext);
 
   const [isInLocal, setIsInLocal] = useState(false);
@@ -90,75 +94,64 @@ export const RenderComp: FC<any> = ({
           context?.setStarredMsgs(t);
           localStorage.setItem("starredChats", JSON.stringify(t));
           try {
-            window &&
-              window?.androidInteract?.onMsgSaveUpdate(JSON.stringify(t));
-            window &&
-              window?.androidInteract?.onEvent(
-                "nl-chatbotscreen-starmessage",
-                JSON.stringify({
+            triggerEventInAndroid("onMsgSaveUpdate", JSON.stringify(t));
+            sendEventToAndroid(
+              "nl-chatbotscreen-starmessage",
+              JSON.stringify({
+                starred: false,
+                botid: msgToStarred?.botUuid,
+                messageid: msgToStarred?.messageId,
+                timestamp: moment().valueOf(),
+              })
+            );
+            logToAndroid(
+              `nl-chatbotscreen-starmessage event:,
+                ${JSON.stringify({
                   starred: false,
                   botid: msgToStarred?.botUuid,
                   messageid: msgToStarred?.messageId,
                   timestamp: moment().valueOf(),
-                })
-              );
-            window &&
-              window?.androidInteract?.log(
-                "nl-chatbotscreen-starmessage event:",
-                JSON.stringify({
-                  starred: false,
-                  botid: msgToStarred?.botUuid,
-                  messageid: msgToStarred?.messageId,
-                  timestamp: moment().valueOf(),
-                })
-              );
-            window &&
-              window?.androidInteract?.log(
-                `new starred : ${JSON.stringify(t)}`
-              );
+                })}
+              `
+            );
+            logToAndroid(`new starred : ${JSON.stringify(t)}`);
           } catch (err) {
-            window &&
-              window?.androidInteract?.log(
-                `error in onMsgSaveUpdate func:${JSON.stringify(err)}`
-              );
+            logToAndroid(
+              `error in onMsgSaveUpdate func:${JSON.stringify(err)}`
+            );
           }
         } else {
           context?.setStarredMsgs(newStarredMsgs);
           localStorage.setItem("starredChats", JSON.stringify(newStarredMsgs));
           try {
-            window &&
-              window?.androidInteract?.onMsgSaveUpdate(
-                JSON.stringify(newStarredMsgs)
-              );
-            window &&
-              window?.androidInteract?.onEvent(
-                "nl-chatbotscreen-starmessage",
-                JSON.stringify({
+            triggerEventInAndroid(
+              "onMsgSaveUpdate",
+              JSON.stringify(newStarredMsgs)
+            );
+            sendEventToAndroid(
+              "nl-chatbotscreen-starmessage",
+              JSON.stringify({
+                starred: true,
+                botid: msgToStarred?.botUuid,
+                messageid: msgToStarred?.messageId,
+                timestamp: moment().valueOf(),
+              })
+            );
+            logToAndroid(
+              `nl-chatbotscreen-starmessage event:,
+                ${JSON.stringify({
                   starred: true,
                   botid: msgToStarred?.botUuid,
                   messageid: msgToStarred?.messageId,
                   timestamp: moment().valueOf(),
-                })
-              );
-            window &&
-              window?.androidInteract?.log(
-                "nl-chatbotscreen-starmessage event:",
-                JSON.stringify({
-                  starred: true,
-                  botid: msgToStarred?.botUuid,
-                  messageid: msgToStarred?.messageId,
-                  timestamp: moment().valueOf(),
-                })
-              );
-            window &&
-              window?.androidInteract?.log(
-                `new starred : ${JSON.stringify(newStarredMsgs)}`
-              );
+                })}
+              `
+            );
+            logToAndroid(`new starred : ${JSON.stringify(newStarredMsgs)}`);
           } catch (err) {
-            window &&
-              window?.androidInteract?.log(
-                `error in onMsgSaveUpdate func:${JSON.stringify(err)}`
-              );
+            logToAndroid(
+              `error in onMsgSaveUpdate func:${JSON.stringify(err)}`
+            );
           }
         }
         setMsgToStarred({});
@@ -185,19 +178,16 @@ export const RenderComp: FC<any> = ({
 
           localStorage.setItem("starredChats", JSON.stringify(valueToReturn));
           try {
-            window &&
-              window?.androidInteract?.onMsgSaveUpdate(
-                JSON.stringify(valueToReturn)
-              );
-            window &&
-              window?.androidInteract?.log(
-                `new starred : ${JSON.stringify(valueToReturn)}`
-              );
+            triggerEventInAndroid(
+              "onMsgSaveUpdate",
+              JSON.stringify(valueToReturn)
+            );
+
+            logToAndroid(`new starred : ${JSON.stringify(valueToReturn)}`);
           } catch (err) {
-            window &&
-              window?.androidInteract?.log(
-                `error in onMsgSaveUpdate func:${JSON.stringify(err)}`
-              );
+            logToAndroid(
+              `error in onMsgSaveUpdate func:${JSON.stringify(err)}`
+            );
           }
           return valueToReturn;
         });
@@ -219,7 +209,6 @@ export const RenderComp: FC<any> = ({
 
   const getLists = useCallback(
     ({ choices, isDisabled }: { choices: any; isDisabled: boolean }) => {
- 
       return (
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
@@ -256,27 +245,23 @@ export const RenderComp: FC<any> = ({
 
   const download = (url: string): void => {
     try {
-      window && window?.androidInteract?.onImageDownload(currentUser?.id, url);
+      triggerEventInAndroid('onImageDownload',{id:currentUser?.id,url});
     } catch (err) {
-      window &&
-        window?.androidInteract?.log(
-          `error in onImageDownload: ${JSON.stringify(err)}`
-        );
+      logToAndroid(`error in onImageDownload: ${JSON.stringify(err)}`);
     }
   };
 
   const onVideoDownload = (url: string): void => {
-    window && window?.androidInteract?.onVideoDownload(currentUser?.id, url);
+    triggerEventInAndroid('onVideoDownload',{id:currentUser?.id,url});
   };
 
   const onPdfDownload = (url: string): void => {
-    window && window?.androidInteract?.onPdfDownload(currentUser?.id, url);
+    triggerEventInAndroid('onPdfDownload',{id:currentUser?.id,url});
   };
-
 
   const { content, type } = msg;
   switch (type) {
-	case 'loader':
+    case "loader":
       return <Typing />;
     case "text":
       return (
@@ -536,8 +521,8 @@ export const RenderComp: FC<any> = ({
       return (
         <ScrollView
           data={[]}
-		  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-ignore
+          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+          // @ts-ignore
           renderItem={(item): ReactElement => <Button label={item.text} />}
         />
       );

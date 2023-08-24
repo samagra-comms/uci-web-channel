@@ -12,15 +12,15 @@ import { AppContext } from '../utils/app-context';
 import styles from './starred-chats.module.css';
 import StarredChatItem from '../components/StarredChatItem';
 import { User } from '../types';
+import { logToAndroid, triggerEventInAndroid } from '../utils/android-events';
 
 const StarredChats: React.FC = () => {
 	const history = useHistory();
 	const context = useContext(AppContext);
 
 	useEffect(() => {
-		window && window?.androidInteract?.onBotListingScreenFocused(false);
-		window &&
-			window?.androidInteract?.log(`On Home Page onBotListingScreenFocused:false triggered`);
+		triggerEventInAndroid('onBotListingScreenFocused',false)
+		logToAndroid(`On Home Page onBotListingScreenFocused:false triggered`);
 	}, []);
 
 	const starredBots = useMemo(() => {

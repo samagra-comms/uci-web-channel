@@ -1,10 +1,11 @@
 import { socket } from '../socket';
+import { User } from '../types';
 
 export const send = (
 	msg: any,
 	session: any,
 	accessToken: any,
-	toUser: { name: string; number: string | null },
+	toUser: any,
 	socketOld: any,
 	media: any
 ): void => {

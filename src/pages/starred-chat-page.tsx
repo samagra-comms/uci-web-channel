@@ -13,6 +13,7 @@ import profilePic from '../assets/images/bot_icon_2.png';
 // @ts-ignore
 import styles from './starred-chat-page.module.css';
 import StarredChatList from '../components/StarredChatList';
+import { logToAndroid, triggerEventInAndroid } from '../utils/android-events';
 
 const StarredChatsPage: FC = () => {
 	const context = useContext(AppContext);
@@ -21,9 +22,8 @@ const StarredChatsPage: FC = () => {
 	const user = useMemo(() => find(context?.allUsers, { id }), [context?.allUsers, id]);
 	const botIcon=useMemo(()=>context?.currentUser?.botImage || profilePic,[context?.currentUser?.botImage])
 	useEffect(() => {
-		window && window?.androidInteract?.onBotListingScreenFocused(false);
-		window &&
-			window?.androidInteract?.log(`On Home Page onBotListingScreenFocused:false triggered`);
+		triggerEventInAndroid('onBotListingScreenFocused',false);
+		logToAndroid(`On Home Page onBotListingScreenFocused:false triggered`);
 	}, []);
 
 	return (

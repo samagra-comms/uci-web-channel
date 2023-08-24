@@ -7,6 +7,7 @@ export const normalizeUsers = (user: User): User => ({
   ...user,
   id: user?.id,
   botUuid: user?.id,
+  useIcon:false,
   isExpired:
     user?.endDate !== undefined &&
     user.endDate < moment().format() &&

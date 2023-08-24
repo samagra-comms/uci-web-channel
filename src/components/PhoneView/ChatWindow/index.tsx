@@ -27,6 +27,7 @@ import "@fortawesome/fontawesome-free/css/all.min.css";
 import { AppContext } from "../../../utils/app-context";
 import { User } from "../../../types";
 import moment from "moment";
+import { logToAndroid, sendEventToAndroid } from "../../../utils/android-events";
 
 interface chatWindowProps {
   currentUser: User;
@@ -45,28 +46,27 @@ const ChatWindow: React.FC<chatWindowProps> = ({ currentUser }) => {
     context?.sendMessage(msg, null, true, currentUser);
   };
 
-  useEffect(()=>{
-    const telemetryData={botId:currentUser?.id,state:currentUser?.isExpired ? 'expired':'open',timestamp:moment().valueOf()}  
+  useEffect(() => {
+    const telemetryData = {
+      botId: currentUser?.id,
+      state: currentUser?.isExpired ? "expired" : "open",
+      timestamp: moment().valueOf(),
+    };
     try {
-      window &&
-        window?.androidInteract?.onEvent(
+      
+        sendEventToAndroid(
           "nl-chatbotscreen-chatbot-interactions",
           JSON.stringify(telemetryData)
         );
-      window &&
-        window?.androidInteract?.log(
-          `nl-chatbotscreen-chatbot-interactions event: ${JSON.stringify(
-            telemetryData
-          )}`
-        );
+      logToAndroid(
+        `nl-chatbotscreen-chatbot-interactions event: ${JSON.stringify(
+          telemetryData
+        )}`
+      );
     } catch (err) {
-      window &&
-        window?.androidInteract?.log(
-          `error in opening the bot:${JSON.stringify(err)}`
-        );
+      logToAndroid(`error in opening the bot:${JSON.stringify(err)}`);
     }
-    
-  },[currentUser]);
+  }, [currentUser]);
 
   useEffect(() => {
     if (currentUser?.botImage) {
@@ -85,7 +85,7 @@ const ChatWindow: React.FC<chatWindowProps> = ({ currentUser }) => {
       setBotIcon(profilePic);
     }
   }, [currentUser?.botImage]);
-  
+
   return (
     <Flex
       bgColor="var(--primarydarkblue)"
@@ -149,7 +149,9 @@ const ChatWindow: React.FC<chatWindowProps> = ({ currentUser }) => {
                         textAlign: "left",
                         marginBottom: "auto",
                         marginTop: "auto",
-                        textDecoration:currentUser?.isExpired ? 'line-through':'none'
+                        textDecoration: currentUser?.isExpired
+                          ? "line-through"
+                          : "none",
                       }}
                     >
                       {currentUser?.name}
@@ -230,7 +232,7 @@ const ChatWindow: React.FC<chatWindowProps> = ({ currentUser }) => {
         <Box className={`${styles.BackBox}`} style={{ borderRadius: "0px" }}>
           {/* Chat Area */}
           <Box style={{ height: "100%" }}>
-            <ChatUiWindow currentUser={currentUser} />
+            <ChatUiWindow />
           </Box>
         </Box>
       </Box>

@@ -1,6 +1,7 @@
 import React, { FC, useContext, useEffect } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import ChatWindow from '../components/PhoneView/ChatWindow';
+import { logToAndroid, triggerEventInAndroid } from '../utils/android-events';
 import { AppContext } from '../utils/app-context';
 
 const Chats: FC = () => {
@@ -13,9 +14,8 @@ const Chats: FC = () => {
 	}, [history, id]);
 
 	useEffect(() => {
-		window && window?.androidInteract?.onBotListingScreenFocused(false);
-		window &&
-			window?.androidInteract?.log(`On Home Page onBotListingScreenFocused:false triggered`);
+		triggerEventInAndroid('onBotListingScreenFocused',false);
+		logToAndroid(`On Home Page onBotListingScreenFocused:false triggered`);
 	}, []);
 
 	return <ChatWindow currentUser={context?.currentUser} />;

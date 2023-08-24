@@ -1,18 +1,18 @@
 import { FC, useContext, useEffect } from 'react';
-import App from '../components/App';
+import ChatList from '../components/ChatList';
+import { logToAndroid, triggerEventInAndroid } from '../utils/android-events';
 import { AppContext } from '../utils/app-context';
 
 const Home: FC = () => {
 	const { currentUser, allUsers, toChangeCurrentUser } = useContext(AppContext);
 
 	useEffect(() => {
-		window && window?.androidInteract?.onBotListingScreenFocused(true);
-		window &&
-			window?.androidInteract?.log(`On Home Page onBotListingScreenFocused:true triggered`);
+		triggerEventInAndroid('onBotListingScreenFocused',true);
+		logToAndroid (`On Home Page onBotListingScreenFocused:true triggered`);
 	}, []);
 
 	return (
-		<App currentUser={currentUser} allUsers={allUsers} toChangeCurrentUser={toChangeCurrentUser} />
+		<ChatList currentUser={currentUser} allUsers={allUsers} toChangeCurrentUser={toChangeCurrentUser} />
 	);
 };
 export default Home;

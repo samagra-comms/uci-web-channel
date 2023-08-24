@@ -1,9 +1,4 @@
-import React, {
-  useCallback,
-  useContext,
-  useEffect,
-  useState,
-} from "react";
+import React, { useCallback, useContext, useEffect, useState } from "react";
 import { Box, useColorModeValue } from "@chakra-ui/react";
 import { useHistory } from "react-router-dom";
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -18,6 +13,10 @@ import crossPic from "../../../../assets/images/cross.png";
 import { AppContext } from "../../../../utils/app-context";
 import { User } from "../../../../types";
 
+import { useDispatch } from "react-redux";
+import  {
+  setBotImage,
+} from "../../../../store/slices/userSlice";
 
 interface chatItemProps {
   active: boolean;
@@ -34,9 +33,11 @@ const ChatItem: React.FC<chatItemProps> = ({
   user,
   isBlank,
 }) => {
+  const dispatch = useDispatch();
   const history = useHistory();
   const context = useContext(AppContext);
-  const [botIcon, setBotIcon] = useState(profilePic);
+  const [botIcon, setBotIcon] = useState(user?.botImage);
+  const [isUnread, setIsUnread] = useState(false);
   const fontColorToggle = useColorModeValue(
     styles.darkFontColor,
     styles.lightFontColor
@@ -50,23 +51,42 @@ const ChatItem: React.FC<chatItemProps> = ({
 
   useEffect(() => {
     if (user?.botImage) {
-      fetch(user?.botImage)
-        .then((res) => {
-          if (res.status === 403) {
+      if (!user?.useIcon) {
+        console.log("--ram ram: here--", { user });
+        fetch(user?.botImage)
+          .then((res) => {
+            if (res.status === 403) {
+              setBotIcon(profilePic);
+            } else {
+              setBotIcon(user?.botImage);
+              dispatch(setBotImage(user));
+            }
+          })
+          .catch((err) => {
             setBotIcon(profilePic);
-          } else {
-            setBotIcon(user?.botImage);
-          }
-        })
-        .catch((err) => {
-          setBotIcon(profilePic);
-        });
+          });
+      }
     } else {
       setBotIcon(profilePic);
     }
-  }, [user?.botImage]);
+  }, [dispatch, user, user?.botImage]);
 
- 
+  //  useEffect(()=>{
+  //   if(user && !user.isExpired){
+  //     console.log("ram ram :",{user})
+  //    let endpoint = getConvHistoryUrl(user);
+
+  //    axios.get(endpoint).then(
+  //       (response) => {
+  //         if(Number(response.data.result.total) === 0){
+  //           setIsUnread(true)
+  //         }
+  //       },
+  //     ).catch(err=>{
+  //       console.log("error in fetching botHistory",{err})
+  //     });
+  //   }
+  //  },[user])
 
   return (
     <React.Fragment>
@@ -75,7 +95,15 @@ const ChatItem: React.FC<chatItemProps> = ({
         disabled={isBlank}
         className={styles.container}
       >
-        <div className={`${styles.avatar} ${user?.isExpired  ? styles.disabled : null}`}>
+        <div
+          className={`${styles.avatar} ${
+            user?.isExpired
+              ? styles.disabled
+              : isUnread
+              ? styles.unread_border
+              : null
+          }`}
+        >
           <img
             src={!isBlank ? botIcon : crossPic}
             height={"100%"}
@@ -94,18 +122,19 @@ const ChatItem: React.FC<chatItemProps> = ({
             <p
               style={{
                 textOverflow: "ellipsis",
-                maxWidth: "70vw",
+                maxWidth: "68vw",
                 overflow: "hidden",
                 whiteSpace: "nowrap",
                 marginBottom: "0",
-                color: user?.isExpired ? 'lightgrey' : 'black',
-                textDecoration:user?.isExpired ? 'line-through':'none'
+                color: user?.isExpired ? "lightgrey" : "black",
+                textDecoration: user?.isExpired ? "line-through" : "none",
               }}
             >
               {name}
             </p>
           </Box>
         </Box>
+        {isUnread && <span className={styles.unread}></span>}
       </button>
     </React.Fragment>
   );

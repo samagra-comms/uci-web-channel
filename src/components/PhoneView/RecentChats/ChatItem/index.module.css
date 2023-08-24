@@ -16,6 +16,16 @@
   background-color: lightgray;
   color: white;
 }
+
+.unread {
+  border: 5px solid blue;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+}
+.unread_border {
+  border-color: green !important;
+}
 /* .lightContainer {
     background-color: var(--primarygreen);
 }
@@ -51,6 +61,7 @@
   /* padding: 10px; */
   border-radius: 50%;
   background: white;  
+  padding: 3px;
 }
 
 .disabled  {

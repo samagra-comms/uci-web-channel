@@ -1,4 +1,9 @@
-import React, { useCallback, useContext, useEffect, useMemo, useState } from "react";
+import React, {
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+} from "react";
 import { Box, Flex, Button } from "@chakra-ui/react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
@@ -15,6 +20,7 @@ import styles from "./index.module.css";
 import { User } from "../../../types/index";
 import moment from "moment";
 import FullScreenLoader from "../../FullScreenLoader";
+import { logToAndroid, sendEventToAndroid, triggerEventInAndroid } from "../../../utils/android-events";
 
 interface recentChatsProps {
   allUsers: Array<User>;
@@ -27,29 +33,27 @@ const RecentChats: React.FC<recentChatsProps> = ({ allUsers }) => {
 
   const StarredViewHandler = (): void => {
     history.push("/starredChats");
-    window &&
-      window?.androidInteract?.onEvent(
+    
+      sendEventToAndroid(
         "nl-chatbotscreen-chatbot_starmessagesearch",
         JSON.stringify({ timestamp: moment().valueOf() })
       );
-    window &&
-      window?.androidInteract?.log(
-        `nl-chatbotscreen-chatbot_starmessagesearch event: ${JSON.stringify({
-          timestamp: moment().valueOf(),
-        })}`
-      );
+    logToAndroid(
+      `nl-chatbotscreen-chatbot_starmessagesearch event: ${JSON.stringify({
+        timestamp: moment().valueOf(),
+      })}`
+    );
   };
 
   // toChangeCurrentUser
-  window && window?.androidInteract?.log(`botToFocus:${botToFocus}`);
+  logToAndroid(`botToFocus:${botToFocus}`);
   useEffect(() => {
     try {
       if (botToFocus) {
         const bot = find(allUsers, { id: botToFocus });
         if (bot) {
           localStorage.removeItem("botToFocus");
-          window &&
-            window?.androidInteract?.log(`removing botToFocus:${botToFocus}`);
+          logToAndroid(`removing botToFocus:${botToFocus}`);
 
           context?.toChangeCurrentUser(bot);
           setTimeout(() => {
@@ -76,10 +80,14 @@ const RecentChats: React.FC<recentChatsProps> = ({ allUsers }) => {
     }, 60000);
   }, [context]);
 
-  const refs = useMemo(()=>allUsers.reduce((acc, value) => {
-    acc[value.id] = React.createRef();
-    return acc;
-  }, {}),[allUsers]);
+  const refs = useMemo(
+    () =>
+      allUsers.reduce((acc, value) => {
+        acc[value.id] = React.createRef();
+        return acc;
+      }, {}),
+    [allUsers]
+  );
 
   useEffect(() => {
     if (context?.botToScroll) {
@@ -89,32 +97,14 @@ const RecentChats: React.FC<recentChatsProps> = ({ allUsers }) => {
         block: "start",
       });
     }
-  }, [refs,context?.botToScroll]);
+  }, [refs, context?.botToScroll]);
 
-  const onBotClick=useCallback((user)=>()=> {
-    context?.setBotToScroll(user)
-              // try {
-              //   window &&
-              //     window?.androidInteract?.onEvent(
-              //       "nl-chatbotscreen-chatbot-interactions",
-              //       JSON.stringify({
-              //         botId: user.id,
-              //         timestamp: moment().valueOf(),
-              //       })
-              //     );
-              //   window &&
-              //     window?.androidInteract?.log(
-              //       `nl-chatbotscreen-chatbot-interactions event: ${JSON.stringify(
-              //         { botId: user.id, timestamp: moment().valueOf() }
-              //       )}`
-              //     );
-              // } catch (err) {
-              //   window &&
-              //     window?.androidInteract?.log(
-              //       `error in opening the bot:${JSON.stringify(err)}`
-              //     );
-              // }
-            },[context])
+  const onBotClick = useCallback(
+    (user) => () => {
+      context?.setBotToScroll(user);
+    },
+    [context]
+  );
 
   return (
     <Flex flexDirection="column" height="100vh">
@@ -132,12 +122,11 @@ const RecentChats: React.FC<recentChatsProps> = ({ allUsers }) => {
             }}
             onClick={(): void => {
               try {
-                window && window?.androidInteract?.onDestroyScreen();
+                 triggerEventInAndroid('onDestroyScreen');
               } catch (err) {
-                window &&
-                  window?.androidInteract?.log(
-                    `error in destroying screen:${JSON.stringify(err)}`
-                  );
+                logToAndroid(
+                  `error in destroying screen:${JSON.stringify(err)}`
+                );
               }
             }}
             size="sm"
@@ -163,7 +152,7 @@ const RecentChats: React.FC<recentChatsProps> = ({ allUsers }) => {
               <>
                 {(allUsers ?? [])?.map((user, index) => (
                   <div
-                  key={user?.id}
+                    key={user?.id}
                     ref={refs[user.id]}
                     onClick={onBotClick(user)}
                   >

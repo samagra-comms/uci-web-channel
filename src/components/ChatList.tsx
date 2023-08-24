@@ -3,6 +3,7 @@ import '../styles/globals.css';
 import { filter } from 'lodash';
 import { AppContext } from '../utils/app-context';
 import RecentChats from './PhoneView/RecentChats';
+import { logToAndroid } from '../utils/android-events';
 
 interface appProps {
 	currentUser: { name: string; number: string | null };
@@ -26,10 +27,10 @@ const App: React.FC<appProps> = () => {
 				// setMessages(retrievedMessages);
 				setMessages(userMsgs);
 			}
-			window && window?.androidInteract?.log(localStorage.getItem('allMessages') || '');
+			logToAndroid(`allMessage: ${localStorage.getItem('allMessages')}`)
+			
 		} catch (err) {
-			window &&
-				window?.androidInteract?.log(`error in fetching allMessages:${JSON.stringify(err)}`);
+			logToAndroid(`error in fetching allMessages:${JSON.stringify(err)}`)
 		}
 	}, [setMessages, currentUser?.id]);
 

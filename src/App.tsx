@@ -5,59 +5,51 @@ import Home from "./pages/home";
 import Chats from "./pages/chats";
 import StarredChats from "./pages/starred-chats";
 import StarredChatsPage from "./pages/starred-chat-page";
-import axios from "axios";
+
 import { AppContext } from "./utils/app-context";
 import { CookiesProvider } from "react-cookie";
 import { send } from "./components/websocket";
 import moment from "moment";
 import { toast, Toaster } from "react-hot-toast";
-import { normalizeUsers } from "./utils/normalize-user";
+
 import { socket } from "./socket";
-import {
-  includes,
-  without,
-  map,
-  sortBy,
-  reverse,
-  filter,
-  concat,
-} from "lodash";
-import { getBotDetailsUrl } from "./utils/urls";
-// import { setLocalStorage } from "./utils/set-local-storage";
+import { map } from "lodash";
+
 import { initialState } from "./utils/initial-states";
 import { UserInput } from "./components/UserInput";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  isLoadingSelector,
+  selectUser,
+  setActiveUser,
+  setLoading,
+} from "./store/slices/userSlice";
+import { fetchUsers } from "./store/actions/fetchUsers";
+import { AppDispatch } from "./store";
+import { appendMessage, selectActiveMessages, setActiveMessages } from "./store/slices/messageSlice";
+import { logToAndroid, triggerEventInAndroid } from "./utils/android-events";
 
 const App: FC = () => {
-  // All Users
-  const [users, setUsers] = useState<User[]>([]);
-  const [currentUser, setCurrentUser] = useState<User>();
   const [botToScroll, setBotToScroll] = useState(null);
   const [isMsgReceiving, setIsMsgReceiving] = useState(false);
-  const [loading, setLoading] = useState(true);
   const [starredMsgs, setStarredMsgs] = useState({});
-  const [messages, setMessages] = useState([]);
+  const dispatch: AppDispatch = useDispatch();
+  const { all, active } = useSelector(selectUser);
+  const activeMessages =useSelector(selectActiveMessages(active));
 
   const botStartingMsgs = useMemo(
     () =>
-      map(users, (user) => ({ id: user?.botUuid, msg: user?.startingMessage })),
-    [users]
+      map(all, (user) => ({ id: user?.botUuid, msg: user?.startingMessage })),
+    [all]
   );
 
-  // useEffect(() => {
-  //   setLocalStorage();
-  // }, []);
-
+  const loading = useSelector(isLoadingSelector);
   const [isConnected, setIsConnected] = useState(socket.connected);
 
   const connect = useCallback(() => {
-    window && window?.androidInteract?.log("socket: connect triggered");
+    logToAndroid("socket: connect triggered")
     socket.connect();
   }, []);
-
-  // useEffect(()=>{
-  //   if((!localStorage.getItem('mobile') || !(localStorage.getItem('auth')) || !localStorage.getItem('botList')))
-  //     history.push('/auth')
-  // },[history])
 
   useEffect(() => {
     if (!isConnected) connect();
@@ -78,7 +70,11 @@ const App: FC = () => {
   const updateMsgState = useCallback(({ user, msg, media }) => {
     const newMsg = {
       username: user?.name,
-      text: msg.content.title === 'This conversation has expired now. Please contact your state admin to seek help with this.' ? "यह फॉर्म समाप्त हो गया है !": msg.content.title,
+      text:
+        msg.content.title ===
+        "This conversation has expired now. Please contact your state admin to seek help with this."
+          ? "यह फॉर्म समाप्त हो गया है !"
+          : msg.content.title,
       choices: msg.content.choices,
       caption: msg.content.caption,
       position: "left",
@@ -87,24 +83,18 @@ const App: FC = () => {
       messageId: msg?.messageId,
       ...media,
     };
-    setMessages((prev: any) => [...prev, newMsg]);
-  }, []);
+    dispatch(appendMessage(newMsg));
+  }, [dispatch]);
 
   const onMediaReceived = useCallback((botId, msgId) => {
-    window && window?.androidInteract?.onMediaReceived(botId, msgId);
-    window &&
-      window?.androidInteract?.log(
-        `onMediaReceived: ${JSON.stringify({ bot: botId, msgId })}`
-      );
+      triggerEventInAndroid('onMediaReceived',{botId,msgId});
+      logToAndroid(`onMediaReceived: ${JSON.stringify({ bot: botId, msgId })}`)
   }, []);
 
   const onMessageReceived = useCallback(
     (msg: any): void => {
       setIsMsgReceiving(false);
-      window &&
-        window?.androidInteract?.log(`socket: receiving bot response -${msg}`);
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
+      logToAndroid(`socket: receiving bot response -${msg}`)
       const user = JSON.parse(localStorage.getItem("currentUser"));
       if (msg.content.msg_type === "IMAGE") {
         updateMsgState({
@@ -140,21 +130,8 @@ const App: FC = () => {
       } else if (msg.content.msg_type === "TEXT") {
         updateMsgState({ user, msg, media: {} });
       }
-
-      localStorage.setItem(
-        "userMsgs",
-        JSON.stringify([
-          ...messages,
-          {
-            username: user?.name,
-            text: msg.content.title,
-            choices: msg.content.choices,
-            position: "left",
-          },
-        ])
-      );
     },
-    [messages, onMediaReceived, updateMsgState]
+    [onMediaReceived, updateMsgState]
   );
 
   const onSessionCreated = useCallback((session: { session: any }): void => {
@@ -166,17 +143,18 @@ const App: FC = () => {
 
   const onException = useCallback((exception: any) => {
     toast.error(exception?.message);
-    window && window?.androidInteract?.onTriggerLogout();
+    triggerEventInAndroid('onTriggerLogout');
+
   }, []);
 
   useEffect(() => {
     function onConnect(): void {
-      window && window?.androidInteract?.log(`socket: onConnectCallback`);
+      logToAndroid(`socket: onConnectCallback`)
       setIsConnected(true);
     }
 
     function onDisconnect(): void {
-      window && window?.androidInteract?.log(`socket: onDisconnectCallback`);
+      logToAndroid(`socket: onDisconnectCallback`)
       setIsConnected(false);
     }
 
@@ -188,10 +166,7 @@ const App: FC = () => {
     socket.on("session", onSessionCreated);
 
     return () => {
-      window &&
-        window?.androidInteract?.log(
-          `socket: turning off everything on return`
-        );
+        logToAndroid(`socket: turning off everything on return`)
       socket.disconnect();
       socket.off("connect", onConnect);
       socket.off("disconnect", onDisconnect);
@@ -206,218 +181,102 @@ const App: FC = () => {
     }
   }, []);
 
-  // getting botList from android and fetching bot details
-  const filterList = useMemo(() => {
-    if (
-      localStorage.getItem("filterList") ||
-      process.env.REACT_APP_FILTER_LIST
-    ) {
-      return (
-        localStorage.getItem("filterList") ||
-        process.env.REACT_APP_FILTER_LIST === "True"
-      );
-    }
-    return true;
-  }, []);
-
+ 
   useEffect(() => {
-    try {
-      const checkOnline = async (): Promise<void> => {
-        if (window.navigator.onLine) {
-          const botIds = JSON.parse(localStorage.getItem("botList"));
-          window &&
-            window?.androidInteract?.log(
-              "debug: botList " + JSON.stringify(botIds)
-            );
-          const config = {
-            headers: {
-              "Content-Type": "application/json",
-              ownerID: process.env.REACT_APP_OWNER_ID,
-              ownerOrgID: process.env.REACT_APP_OwnerOrgId,
-              "admin-token": process.env.REACT_APP_Admin_Token,
-            },
-          };
-          const url = getBotDetailsUrl();
-          window && window?.androidInteract?.log("debug: url" + url);
-          axios
-            .get(url, config)
-            .then((response): any => {
-              setLoading(false);
-              window &&
-                window?.androidInteract?.log(
-                  "debug: allBots" + JSON.stringify(response?.data?.result)
-                );
-              const botDetailsList = without(
-                reverse(
-                  sortBy(
-                    response?.data?.result?.map((bot: any, index: number) => {
-                      if (
-                        filterList
-                          ? bot?.logicIDs?.[0]?.transformers?.[0]?.meta
-                              ?.type !== "broadcast" &&
-                            bot?.status === "ENABLED" &&
-                            includes(botIds, bot?.id)
-                          : true
-                      ) {
-                        if (index === 0)
-                          return normalizeUsers({
-                            ...bot,
-                            botUuid: bot?.id,
-                            active: true,
-                            createTime: moment(bot?.createdAt).valueOf(),
-                          });
-                        return normalizeUsers({
-                          ...bot,
-                          active: false,
-                          botUuid: bot?.id,
-                          createTime: moment(bot?.createdAt).valueOf(),
-                        });
-                      }
-                      return null;
-                    }),
-                    ["createTime"]
-                  )
-                ),
-                null
-              );
+    dispatch(fetchUsers());
+  }, [dispatch]);
 
-              const activeBots = filter(botDetailsList, { isExpired: false });
-              const expiredBots = filter(botDetailsList, { isExpired: true });
-              const botList = concat(activeBots, expiredBots);
-              window &&
-                window?.androidInteract?.log(JSON.stringify(botDetailsList));
+  const setLoader = useCallback(
+    (value) => {
+      dispatch(setLoading(value));
+    },
+    [dispatch]
+  );
 
-              // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-              // @ts-ignore
-              setUsers(botList);
-
-              window?.androidInteract?.onBotDetailsLoaded(
-                JSON.stringify(botList)
-              );
-              if (localStorage.getItem("currentUser")) {
-                // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-                // @ts-ignore
-                setCurrentUser(JSON.parse(localStorage.getItem("currentUser")));
-                // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-                // @ts-ignore
-              } else setCurrentUser(botList?.[0]);
-            })
-            .catch((err) => {
-              setLoading(false);
-              window &&
-                window?.androidInteract?.log(
-                  "debug: getContext Error" + JSON.stringify(err)
-                );
-            });
-        } else {
-          window && window?.androidInteract?.log("debug: in ofline mode");
-          setLoading(false);
-          if (localStorage.getItem("botDetails")) {
-            setUsers(JSON.parse(localStorage.getItem("botDetails")));
-            setCurrentUser(JSON.parse(localStorage.getItem("botDetails"))?.[0]);
-          }
-        }
-      };
-      checkOnline();
-    } catch (err: any) {
-      toast.error(err?.message);
-      window &&
-        window?.androidInteract?.log(
-          `error in fetching botList:${JSON.stringify(err)}`
-        );
-    }
-  }, [filterList]);
-
-  const onChangeCurrentUser = useCallback((newUser: User) => {
-    setCurrentUser({ ...newUser, active: true });
-    localStorage.removeItem("userMsgs");
-    setMessages([]);
-  }, []);
+  
+  const onChangeCurrentUser = useCallback(
+    (newUser: User) => {
+      dispatch(setActiveUser({ ...newUser, active: true }));
+      localStorage.removeItem("userMsgs");
+    },
+    [dispatch]
+  );
 
   const sendMessage = useCallback(
     (text: string, media: any, isVisibile = true): void => {
       setIsMsgReceiving(true);
-      send(text, state.session, null, currentUser, socket, null);
+      send(text, state.session, null, active, socket, null);
       if (isVisibile)
         if (media) {
-          if (media.mimeType.slice(0, 5) === "image") {
-            setState((prev) => ({
-              ...prev,
-              messages: prev.messages.concat({
-                username: prev.username,
-                image: media.url,
-                position: "right",
-              }),
-            }));
-          } else if (media.mimeType.slice(0, 5) === "audio" && isVisibile) {
-            setState((prev) => ({
-              ...prev,
-              messages: prev.messages.concat({
-                username: prev.username,
-                audio: media.url,
-                position: "right",
-              }),
-            }));
-          } else if (media.mimeType.slice(0, 5) === "video") {
-            setState((prev) => ({
-              ...prev,
-              messages: prev.messages.concat({
-                username: prev.username,
-                video: media.url,
-                position: "right",
-              }),
-            }));
-          } else if (media.mimeType.slice(0, 11) === "application") {
-            setState((prev) => ({
-              ...prev,
-              messages: prev.messages.concat({
-                username: prev.username,
-                doc: media.url,
-                position: "right",
-              }),
-            }));
-          } else {
-            setState((prev) => ({
-              ...prev,
-              messages: prev.messages.concat({
-                username: prev.username,
-                text: text,
-                doc: media.url,
-                position: "right",
-              }),
-            }));
-          }
+          //<----------Media Management is not implemented yet---------->
+          // if (media.mimeType.slice(0, 5) === "image") {
+          //   setState((prev) => ({
+          //     ...prev,
+          //     messages: prev.messages.concat({
+          //       username: prev.username,
+          //       image: media.url,
+          //       position: "right",
+          //     }),
+          //   }));
+          // } else if (media.mimeType.slice(0, 5) === "audio" && isVisibile) {
+          //   setState((prev) => ({
+          //     ...prev,
+          //     messages: prev.messages.concat({
+          //       username: prev.username,
+          //       audio: media.url,
+          //       position: "right",
+          //     }),
+          //   }));
+          // } else if (media.mimeType.slice(0, 5) === "video") {
+          //   setState((prev) => ({
+          //     ...prev,
+          //     messages: prev.messages.concat({
+          //       username: prev.username,
+          //       video: media.url,
+          //       position: "right",
+          //     }),
+          //   }));
+          // } else if (media.mimeType.slice(0, 11) === "application") {
+          //   setState((prev) => ({
+          //     ...prev,
+          //     messages: prev.messages.concat({
+          //       username: prev.username,
+          //       doc: media.url,
+          //       position: "right",
+          //     }),
+          //   }));
+          // } else {
+          //   setState((prev) => ({
+          //     ...prev,
+          //     messages: prev.messages.concat({
+          //       username: prev.username,
+          //       text: text,
+          //       doc: media.url,
+          //       position: "right",
+          //     }),
+          //   }));
+          // }
         } else {
-          localStorage.setItem(
-            "userMsgs",
-            JSON.stringify([
-              ...messages,
-              {
-                username: state.username,
-                text: text,
-                position: "right",
-                botUuid: currentUser?.id,
-                disabled: true,
-              },
-            ])
-          );
-
-          //@ts-ignore
-          setMessages((prev) => [
-            ...map(prev, (prevMsg) => ({ ...prevMsg, disabled: true })),
+          
+          const newMsgState=[ 
+            ...map(activeMessages, (prevMsg) => ({ ...prevMsg, disabled: true })),
             {
               username: state.username,
               text: text,
               position: "right",
-              botUuid: currentUser?.id,
+              //@ts-ignore
+              botUuid: active?.id,
               payload: { text },
               time: moment().valueOf(),
               disabled: true,
             },
-          ]);
+          ];
+       
+          dispatch(setActiveMessages(newMsgState))
+
         }
     },
-    [state.session, state.username, currentUser, messages]
+    [state.session, state.username, active, activeMessages, dispatch]
   );
 
   useEffect(() => {
@@ -437,22 +296,21 @@ const App: FC = () => {
       clearTimeout(timer);
       clearTimeout(secondTimer);
     };
-  }, [isMsgReceiving, loading]);
+    //}, [isMsgReceiving, loading]);
+  }, [isMsgReceiving]);
 
   const values = useMemo(
     () => ({
-      currentUser,
-      allUsers: users,
+      currentUser: active,
+      allUsers: all,
       toChangeCurrentUser: onChangeCurrentUser,
       state,
       setState,
       sendMessage,
-      messages,
-      setMessages,
       starredMsgs,
       setStarredMsgs,
       loading,
-      setLoading,
+      setLoading: setLoader,
       botStartingMsgs,
       isMsgReceiving,
       setIsMsgReceiving,
@@ -460,16 +318,15 @@ const App: FC = () => {
       setBotToScroll,
     }),
     [
-      currentUser,
-      users,
+      active,
+      all,
       onChangeCurrentUser,
       state,
       sendMessage,
-      messages,
       starredMsgs,
       setStarredMsgs,
       loading,
-      setLoading,
+      setLoader,
       botStartingMsgs,
       isMsgReceiving,
       setIsMsgReceiving,
