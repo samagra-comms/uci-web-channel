@@ -6,13 +6,13 @@ import { includes, map, find, filter, omit } from 'lodash';
 import moment from 'moment';
 import * as React from 'react';
 import { toast } from 'react-hot-toast';
-import styles from './index.module.css';
 import { botImage } from '@/assets';
 import Image from 'next/image';
 import { AppContext } from '@/context';
 import { useLocalStorage } from '@/hooks';
 import { Box, Button } from '@chakra-ui/react';
 import { config, theme_styles } from '@/config';
+import './index.css';
 import {
     Span,
     BubbleSpan,
@@ -148,11 +148,10 @@ export const MessageItem: React.FC<any> = ({
 
     const getLists = React.useCallback(
         ({ choices, isDisabled }: { choices: any; isDisabled: boolean }) => (
-            <List className={`${styles.list}`}>
+            <List>
                 {map(choices ?? [], (choice, index) => (
                     <ListItem
                         key={`${index}_${choice?.key}`}
-                        className={`${styles.onHover} ${styles.listItem}`}
                         style={{
                             background: choice?.active
                                 ? theme.list
@@ -185,45 +184,107 @@ export const MessageItem: React.FC<any> = ({
     switch (type) {
         case 'text':
             return (
-                <ChatContainer>
-                    <ChatItem className={`chat-${content.data.position}`}>
-                        {content?.data?.position ===
-                            config.message.userInput.position && (
-                            <ChatAvatar className="chat-avatar">
-                                <div>
-                                    <Image src={botImage} alt="botImage" />
-                                </div>
-                                <div className="chat-name">Bot</div>
-                            </ChatAvatar>
-                        )}
-                        <ChatText className={`chat-${content.data.position}`}>
-                            {content.text}
-                            <BubbleDiv>
-                                <BubbleSpan>
-                                    {moment
-                                        .utc(
-                                            content?.data?.sentTimestamp ||
-                                                content?.data?.repliedTimestamp,
-                                        )
-                                        .local()
-                                        .format('DD/MM/YYYY : hh:mm')}
-                                </BubbleSpan>
-                                {content?.data?.position === 'left' && (
-                                    <FontAwesomeIcon
-                                        icon={faStar}
-                                        onClick={() => onLongPress(content)}
-                                        color={
-                                            isStarred
-                                                ? config.message.botMsg
-                                                      .starredColor
-                                                : 'var(--grey)'
-                                        }
-                                    />
-                                )}
-                            </BubbleDiv>
-                        </ChatText>
-                    </ChatItem>
-                </ChatContainer>
+                // <ChatContainer>
+                //     <ChatItem className={`chat-${content.data.position}`}>
+                //         {content?.data?.position ===
+                //             config.message.userInput.position && (
+                //             <ChatAvatar className="chat-avatar">
+                //                 <div>
+                //                     <Image src={botImage} alt="botImage" />
+                //                 </div>
+                //                 <div className="chat-name">Bot</div>
+                //             </ChatAvatar>
+                //         )}
+                //         <ChatText className={`chat-${content.data.position}`}>
+                //             {content.text}
+                //             <BubbleDiv>
+                //                 <BubbleSpan>
+                //                     {moment
+                //                         .utc(
+                //                             content?.data?.sentTimestamp ||
+                //                                 content?.data?.repliedTimestamp,
+                //                         )
+                //                         .local()
+                //                         .format('DD/MM/YYYY : hh:mm')}
+                //                 </BubbleSpan>
+                //                 {content?.data?.position === 'left' && (
+                //                     <FontAwesomeIcon
+                //                         icon={faStar}
+                //                         onClick={() => onLongPress(content)}
+                //                         color={
+                //                             isStarred
+                //                                 ? config.message.botMsg
+                //                                       .starredColor
+                //                                 : 'var(--grey)'
+                //                         }
+                //                     />
+                //                 )}
+                //             </BubbleDiv>
+                //         </ChatText>
+                //     </ChatItem>
+                // </ChatContainer>
+                <div>
+                    <div className="chat-container">
+                        <ul className="chat-box chatContainerScroll">
+                            {content?.data.position === 'left' ? (
+                                <li className="chat-left">
+                                    <div className="chat-avatar">
+                                        <Image src={botImage} alt="botImage" />
+                                        <div className="chat-name">Bot</div>
+                                    </div>
+                                    <div className="chat-text">
+                                        {content?.text}
+                                        <FontAwesomeIcon
+                                            icon={faStar}
+                                            onClick={() => onLongPress(content)}
+                                            color={
+                                                isStarred
+                                                    ? config.message.botMsg
+                                                          .starredColor
+                                                    : 'var(--grey)'
+                                            }
+                                        />
+                                    </div>
+                                    <div className="chat-hour">
+                                        {moment
+                                            .utc(
+                                                content?.data?.sentTimestamp ||
+                                                    content?.data
+                                                        ?.repliedTimestamp,
+                                            )
+                                            .local()
+                                            .format('hh:mm')}
+                                        <span className="fa fa-check-circle"></span>
+                                    </div>
+                                </li>
+                            ) : (
+                                <li className="chat-right">
+                                    <div className="chat-hour">
+                                        {moment
+                                            .utc(
+                                                content?.data?.sentTimestamp ||
+                                                    content?.data
+                                                        ?.repliedTimestamp,
+                                            )
+                                            .local()
+                                            .format('hh:mm')}{' '}
+                                        <span className="fa fa-check-circle"></span>
+                                    </div>
+                                    <div className="chat-text-right">
+                                        {content?.text}
+                                    </div>
+                                    <div className="chat-avatar">
+                                        <img
+                                            src="https://www.bootdey.com/img/Content/avatar/avatar5.png"
+                                            alt="Retail Admin"
+                                        />
+                                        <div className="chat-name">User</div>
+                                    </div>
+                                </li>
+                            )}
+                        </ul>
+                    </div>
+                </div>
             );
 
         case 'image': {
@@ -252,7 +313,7 @@ export const MessageItem: React.FC<any> = ({
                             </ChatAvatar>
                         </ChatItem>
                     </ChatContainer>
-                    <Box marginLeft="-18px">
+                    <Box marginLeft="-30px">
                         <Div>
                             <Image
                                 src={url}
