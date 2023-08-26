@@ -12,18 +12,14 @@ import { AppContext } from '@/context';
 import { useLocalStorage } from '@/hooks';
 import { Box, Button } from '@chakra-ui/react';
 import { config, theme_styles } from '@/config';
-import './index.css';
 import {
     Span,
     BubbleSpan,
-    ContentDiv,
     Div,
     BubbleDiv,
-    ContentImage,
     ChatContainer,
     ChatItem,
     ChatAvatar,
-    ChatText,
     StyledChatItem,
     ChatBox,
     StyledChatContainer,
