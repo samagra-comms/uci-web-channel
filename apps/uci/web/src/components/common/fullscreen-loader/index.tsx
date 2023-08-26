@@ -1,6 +1,6 @@
 import React, { FC, useEffect, useState } from 'react';
-import './index.css';
 import { Modal, ModalContent, ModalOverlay } from '@chakra-ui/react';
+import { Spinner, Wrapper } from './styled';
 
 export const FullScreenLoader: FC<{ loading: boolean }> = ({ loading }) => {
     const [isLoading, setIsLoading] = useState(true);
@@ -16,9 +16,9 @@ export const FullScreenLoader: FC<{ loading: boolean }> = ({ loading }) => {
     return (
         <Modal isCentered isOpen={isLoading || loading} onClose={() => null}>
             <ModalOverlay />
-            <ModalContent>
-                <section className="wrapper">
-                    <div className="spinner">
+            <ModalContent className="modalContent">
+                <Wrapper className="wrapper">
+                    <Spinner className="spinner">
                         <i></i>
                         <i></i>
                         <i></i>
@@ -26,8 +26,8 @@ export const FullScreenLoader: FC<{ loading: boolean }> = ({ loading }) => {
                         <i></i>
                         <i></i>
                         <i></i>
-                    </div>
-                </section>
+                    </Spinner>
+                </Wrapper>
             </ModalContent>
         </Modal>
     );

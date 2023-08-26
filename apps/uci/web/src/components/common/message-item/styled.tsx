@@ -131,3 +131,63 @@ export const BubbleSpan = styled.span`
     font-size: 0.75rem;
     color: #999999;
 `;
+
+export const StyledChatContainer = styled.div`
+    position: relative;
+    padding: 1rem;
+`;
+
+export const StyledChatItem = styled.li`
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    img {
+        width: 60px;
+        height: 60px;
+        border-radius: 30px;
+    }
+
+    .chat-avatar {
+        margin-right: 10px;
+        margin-left: 10px;
+    }
+
+    .chat-name {
+        font-size: 0.75rem;
+        color: #999999;
+        text-align: center;
+    }
+
+    .chat-text,
+    .chat-text-right {
+        padding: 0.8rem 1rem;
+        border-radius: 4px;
+        background: #ffffff;
+        font-weight: 300;
+        line-height: 150%;
+        position: relative;
+        font-size: 0.9rem;
+    }
+
+    .chat-hour {
+        padding: 0;
+        font-size: 0.75rem;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        margin: 0 10px 0 10px;
+
+        > span {
+            font-size: 16px;
+            color: #9ec94a;
+        }
+    }
+`;
+
+export const ChatBox = styled.ul`
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+`;

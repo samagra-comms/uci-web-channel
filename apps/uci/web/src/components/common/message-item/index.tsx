@@ -24,6 +24,9 @@ import {
     ChatItem,
     ChatAvatar,
     ChatText,
+    StyledChatItem,
+    ChatBox,
+    StyledChatContainer,
 } from './styled';
 import { useTheme } from '@/providers/ThemeProvider';
 
@@ -184,52 +187,18 @@ export const MessageItem: React.FC<any> = ({
     switch (type) {
         case 'text':
             return (
-                // <ChatContainer>
-                //     <ChatItem className={`chat-${content.data.position}`}>
-                //         {content?.data?.position ===
-                //             config.message.userInput.position && (
-                //             <ChatAvatar className="chat-avatar">
-                //                 <div>
-                //                     <Image src={botImage} alt="botImage" />
-                //                 </div>
-                //                 <div className="chat-name">Bot</div>
-                //             </ChatAvatar>
-                //         )}
-                //         <ChatText className={`chat-${content.data.position}`}>
-                //             {content.text}
-                //             <BubbleDiv>
-                //                 <BubbleSpan>
-                //                     {moment
-                //                         .utc(
-                //                             content?.data?.sentTimestamp ||
-                //                                 content?.data?.repliedTimestamp,
-                //                         )
-                //                         .local()
-                //                         .format('DD/MM/YYYY : hh:mm')}
-                //                 </BubbleSpan>
-                //                 {content?.data?.position === 'left' && (
-                //                     <FontAwesomeIcon
-                //                         icon={faStar}
-                //                         onClick={() => onLongPress(content)}
-                //                         color={
-                //                             isStarred
-                //                                 ? config.message.botMsg
-                //                                       .starredColor
-                //                                 : 'var(--grey)'
-                //                         }
-                //                     />
-                //                 )}
-                //             </BubbleDiv>
-                //         </ChatText>
-                //     </ChatItem>
-                // </ChatContainer>
                 <div>
-                    <div className="chat-container">
-                        <ul className="chat-box chatContainerScroll">
+                    <StyledChatContainer>
+                        <ChatBox className="chat-box chatContainerScroll">
                             {content?.data.position === 'left' ? (
-                                <li className="chat-left">
-                                    <div className="chat-avatar">
-                                        <Image src={botImage} alt="botImage" />
+                                <StyledChatItem className="chat-left">
+                                    <div className="chat-avatar chat-avatar-left">
+                                        <Image
+                                            src={botImage}
+                                            alt="botImage"
+                                            height={150}
+                                            width={150}
+                                        />
                                         <div className="chat-name">Bot</div>
                                     </div>
                                     <div className="chat-text">
@@ -256,9 +225,9 @@ export const MessageItem: React.FC<any> = ({
                                             .format('hh:mm')}
                                         <span className="fa fa-check-circle"></span>
                                     </div>
-                                </li>
+                                </StyledChatItem>
                             ) : (
-                                <li className="chat-right">
+                                <StyledChatItem className="chat-right">
                                     <div className="chat-hour">
                                         {moment
                                             .utc(
@@ -273,17 +242,17 @@ export const MessageItem: React.FC<any> = ({
                                     <div className="chat-text-right">
                                         {content?.text}
                                     </div>
-                                    <div className="chat-avatar">
+                                    <div className="chat-avatar chat-avatar-right">
                                         <img
                                             src="https://www.bootdey.com/img/Content/avatar/avatar5.png"
                                             alt="Retail Admin"
                                         />
                                         <div className="chat-name">User</div>
                                     </div>
-                                </li>
+                                </StyledChatItem>
                             )}
-                        </ul>
-                    </div>
+                        </ChatBox>
+                    </StyledChatContainer>
                 </div>
             );
 
