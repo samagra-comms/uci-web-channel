@@ -37,3 +37,6 @@ apps/nl_react/.env
 # chatui
 es
 lib
+/test-results/
+/playwright-report/
+/playwright/.cache/

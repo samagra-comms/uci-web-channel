@@ -49,6 +49,7 @@ export default function Home() {
     const { currentUser, allUsers, setMessages } = useContext(AppContext);
     const [searchTerm, setSearchTerm] = useState('');
     const [showStarredtab, setShowStarredTab] = useState(false);
+
     const { theme } = useTheme();
     const usersData = useSelector((state: any) => state.userList.users);
     const starredMessage = useSelector(
@@ -61,6 +62,17 @@ export default function Home() {
         }
     }, [usersData]);
 
+    const starredBots = useMemo(() => {
+        const botIds = Object.keys(starredMessage);
+        const bots: Array<User> = [];
+        forEach(usersData, user => {
+            if (botIds.includes(user?.id)) bots.push(user);
+        });
+        return bots.filter(user =>
+            user.name.toLowerCase().includes(searchTerm.toLowerCase()),
+        );
+    }, [usersData, starredMessage, searchTerm]);
+
     const sortedUsersData = [...usersData].sort((a: any, b: any) => {
         // If both are either active or inactive, then sort by endDate using moment
         const endDateA = moment(a.endDate);
@@ -72,6 +84,15 @@ export default function Home() {
             : 0;
     });
     reverse(sortedUsersData);
+
+    const [filteredBots, setFilteredBots] = useState(sortedUsersData);
+
+    useEffect(() => {
+        const results = sortedUsersData.filter(user =>
+            user.name.toLowerCase().includes(searchTerm.toLowerCase()),
+        );
+        setFilteredBots(results);
+    }, [searchTerm, sortedUsersData]);
 
     useEffect(() => {
         try {
@@ -144,15 +165,6 @@ export default function Home() {
     const onTabChange = (tab: string) => {
         setActiveTab(tab);
     };
-
-    const starredBots = useMemo(() => {
-        const botIds = Object.keys(starredMessage);
-        const bots: Array<User> = [];
-        forEach(usersData, user => {
-            if (botIds.includes(user?.id)) bots.push(user);
-        });
-        return bots;
-    }, [usersData, starredMessage]);
 
     return (
         <>
@@ -227,10 +239,10 @@ export default function Home() {
                                         {!showStarredtab ? (
                                             <TabPanel>
                                                 <StyledChatList>
-                                                    {sortedUsersData?.length >
+                                                    {filteredBots?.length >
                                                     0 ? (
                                                         <>
-                                                            {sortedUsersData
+                                                            {filteredBots
                                                                 .slice(
                                                                     0,
                                                                     visibleBots,

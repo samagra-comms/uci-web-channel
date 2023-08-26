@@ -2866,6 +2866,16 @@
     "picocolors" "^1.0.0"
     "tslib" "^2.5.0"
 
+"@playwright/test@^1.37.1":
+  "integrity" "sha512-bq9zTli3vWJo8S3LwB91U0qDNQDpEXnw7knhxLM0nwDvexQAwx9tO8iKDZSqqneVq+URd/WIoz+BALMqUTgdSg=="
+  "resolved" "https://registry.npmjs.org/@playwright/test/-/test-1.37.1.tgz"
+  "version" "1.37.1"
+  dependencies:
+    "@types/node" "*"
+    "playwright-core" "1.37.1"
+  optionalDependencies:
+    "fsevents" "2.3.2"
+
 "@popperjs/core@^2.9.3":
   "integrity" "sha512-Cr4OjIkipTtcXKjAsm8agyleBuDHvxzeBoa1v543lbv1YaIwQjESsVcmjiWiPEbC1FIeHOG/Op9kdCmAmiS3Kw=="
   "resolved" "https://registry.npmjs.org/@popperjs/core/-/core-2.11.7.tgz"
@@ -9688,6 +9698,11 @@
   "version" "4.2.0"
   dependencies:
     "find-up" "^4.0.0"
+
+"playwright-core@1.37.1":
+  "integrity" "sha512-17EuQxlSIYCmEMwzMqusJ2ztDgJePjrbttaefgdsiqeLWidjYz9BxXaTaZWxH1J95SHGk6tjE+dwgWILJoUZfA=="
+  "resolved" "https://registry.npmjs.org/playwright-core/-/playwright-core-1.37.1.tgz"
+  "version" "1.37.1"
 
 "pn@^1.1.0":
   "integrity" "sha512-2qHaIQr2VLRFoxe2nASzsV6ef4yOOH+Fi9FBOVH6cqeSgUnoyySPZkxzLuzd+RYOQTRpROA0ztTMqxROKSb/nA=="
