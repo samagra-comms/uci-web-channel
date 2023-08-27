@@ -12,7 +12,7 @@ import { AppContext } from '@/context';
 import { useLocalStorage } from '@/hooks';
 import { Box, Button } from '@chakra-ui/react';
 import { config, theme_styles } from '@/config';
-import './index.css';
+// import './index.css';
 import {
     Span,
     BubbleSpan,

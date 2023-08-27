@@ -13,6 +13,8 @@ import { AppContext } from '@/context';
 import { Socket } from 'socket.io-client';
 import SocketConnection from '@/components/socket-components';
 import GetBotList from '@/components/get-bot-list';
+import { useDispatch, useSelector } from 'react-redux';
+import { setCurrentUser } from '@/store/slices/userListSlice';
 
 export const ContextProvider: FC<{ children: React.ReactNode }> = ({
     children,
@@ -24,7 +26,7 @@ export const ContextProvider: FC<{ children: React.ReactNode }> = ({
     const [newSocket, setNewSocket] = useState<Socket>();
     const [isConnected, setIsConnected] = useState(false);
     const [isMobileAvailable, setIsMobileAvailable] = useState(false);
-    const [currentUser, setCurrentUser] = useState<User>();
+    // const [currentUser, setCurrentUser] = useState<User>();
 
     const [loading, setLoading] = useState<boolean>(true);
     const [starredMsgs, setStarredMsgs] = useState<object>({});
@@ -38,6 +40,8 @@ export const ContextProvider: FC<{ children: React.ReactNode }> = ({
 
     const [isSendDisabled, setIsSendDisabled] = useState<boolean>(false);
     const [showStarredChat, setShowStarredChat] = useState(false);
+    const dispatch = useDispatch();
+    const currentUser = useSelector((state: any) => state.userList.currentUser);
 
     const botStartingMsgs = useMemo(
         () =>
@@ -190,7 +194,7 @@ export const ContextProvider: FC<{ children: React.ReactNode }> = ({
     }, []);
 
     const onChangeCurrentUser = useCallback((newUser: User) => {
-        setCurrentUser({ ...newUser, active: true });
+        dispatch(setCurrentUser({ ...newUser, active: true }));
         localStorage.removeItem('userMsgs');
         setMessages([]);
     }, []);
