@@ -82,12 +82,17 @@ body {
 }
 
 .ChatFooter {
-  width: 90%;
+  width: 80%;
+  border-radius: var(--text-input-border-radius);
+  margin: var(--text-input-margin);
+  padding: var(--text-input-padding);
   background-color: var(--chat-footer-color) !important;
   @media screen and (max-width: 768px) {
     width: 95vw;
   }
 }
+
+.send-
 
 button{
   border: none;
@@ -98,16 +103,4 @@ button{
   @media screen and (max-width: 768px) {
     padding-bottom: 1vw;
   }
- 
-    
-  /* margin-left: 10vw; */
-  /* box-shadow: var(--chat-box-shadow); */
 }
-
-/* .Composer-inputWrap{
-  margin-left: 2vw;
-} */
-
-/* .main-input{
-  margin-left: 10vw;
-} */

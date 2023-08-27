@@ -1,12 +1,6 @@
 'use client';
 import React, { useContext, useEffect, useState } from 'react';
-import {
-    Box,
-    Button,
-    Flex,
-    IconButton,
-    useBreakpointValue,
-} from '@chakra-ui/react';
+import { Box, Button, IconButton, useBreakpointValue } from '@chakra-ui/react';
 import profilePic from '@/assets/images/bot_icon_2.png';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import { useRouter, usePathname } from 'next/navigation';
@@ -164,7 +158,7 @@ const Chats = ({ params }: chatProps) => {
                                             </StyledAvatarContainer>
                                         )}
 
-                                        {!isMobile && (
+                                        {/* {!isMobile && (
                                             <IconButton
                                                 icon={
                                                     <FontAwesomeIcon
@@ -180,7 +174,7 @@ const Chats = ({ params }: chatProps) => {
                                                         'transform 0.3s',
                                                 }}
                                             />
-                                        )}
+                                        )} */}
 
                                         <IconButton
                                             marginRight="40px"

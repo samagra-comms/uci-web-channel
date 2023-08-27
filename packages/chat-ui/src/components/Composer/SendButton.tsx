@@ -14,7 +14,7 @@ export const SendButton = ({ disabled, onClick }: SendButtonProps) => {
     <div className="Composer-actions">
       {/* Use the send icon from Font Awesome */}
       <button className="Composer-sendBtn" disabled={disabled} onClick={onClick}>
-        <FontAwesomeIcon icon={config?.chatWindow?.innerWindow?.input?.icon} />
+        <FontAwesomeIcon icon={config?.textInput?.icon} />
       </button>
     </div>
   );

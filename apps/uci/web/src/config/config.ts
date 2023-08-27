@@ -116,9 +116,12 @@ export const config = {
         },
         innerWindow: {
             borderRadius: '2vw',
-            input: {
-                icon: faPaperPlane,
-            },
         },
+    },
+    textInput: {
+        borderRadius: '7px',
+        padding: '0.2vw',
+        margin: '2vw 6vw',
+        icon: faPaperPlane,
     },
 };

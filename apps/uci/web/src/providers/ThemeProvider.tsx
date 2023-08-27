@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import { light_theme, dark_theme } from '@/config/theme';
+import { config } from '@/config';
 
 interface ThemeContextType {
     theme: any;
@@ -26,12 +27,20 @@ export const ThemeProvider = ({ children }: { children: React.ReactNode }) => {
             isDarkMode ? dark_theme.background : light_theme.background,
         );
         root.style.setProperty(
-            '--chat-box-shadow',
-            isDarkMode ? dark_theme.boxShadow : light_theme.boxShadow,
-        );
-        root.style.setProperty(
             '--chat-footer-color',
             isDarkMode ? dark_theme.mainBackground : light_theme.mainBackground,
+        );
+        root.style.setProperty(
+            '--text-input-border-radius',
+            config?.textInput?.borderRadius,
+        );
+        root.style.setProperty(
+            '--text-input-margin',
+            config?.textInput?.margin,
+        );
+        root.style.setProperty(
+            '--text-input-padding',
+            config?.textInput?.padding,
         );
     }, [isDarkMode]);
 
