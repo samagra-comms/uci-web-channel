@@ -7,14 +7,10 @@ import React, {
 } from 'react';
 import {
     Box,
-    Flex,
     useBreakpointValue,
     Tabs,
     TabPanels,
     TabPanel,
-    Tooltip,
-    IconButton,
-    Heading,
     InputGroup,
 } from '@chakra-ui/react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -49,7 +45,6 @@ export default function Home() {
     const { currentUser, allUsers, setMessages } = useContext(AppContext);
     const [searchTerm, setSearchTerm] = useState('');
     const [showStarredtab, setShowStarredTab] = useState(false);
-
     const { theme } = useTheme();
     const usersData = useSelector((state: any) => state.userList.users);
     const starredMessage = useSelector(
@@ -200,7 +195,6 @@ export default function Home() {
                                 <Tabs
                                     isFitted
                                     variant="unstyled"
-                                    colorScheme="teal"
                                     onChange={onTabChange}
                                     marginTop="5"
                                 >
@@ -238,7 +232,7 @@ export default function Home() {
                                     <TabPanels>
                                         {!showStarredtab ? (
                                             <TabPanel>
-                                                <StyledChatList>
+                                                <StyledChatList config={config}>
                                                     {filteredBots?.length >
                                                     0 ? (
                                                         <>
@@ -296,7 +290,7 @@ export default function Home() {
                                             </TabPanel>
                                         ) : (
                                             <TabPanel>
-                                                <StyledChatList>
+                                                <StyledChatList config={config}>
                                                     {starredBots.length > 0 ? (
                                                         <>
                                                             {(

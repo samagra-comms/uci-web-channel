@@ -76,6 +76,7 @@ const ChatItem: React.FC<chatItemProps> = ({
         localStorage.setItem('currentUser', JSON.stringify(user));
         context?.toChangeCurrentUser(user);
         setShowStarredChat(false);
+        console.log('hi');
         if (isMobile) {
             history.push(`/chats/${user?.id}`);
         }

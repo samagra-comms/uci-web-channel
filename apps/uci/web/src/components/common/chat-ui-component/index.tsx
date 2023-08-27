@@ -118,7 +118,7 @@ export const ChatUiComponent: FC<{
                         // @ts-ignore
                         {
                             botUuid: JSON.parse(
-                                localStorage.getItem('currentUser'),
+                                localStorage.getItem('currentUser') as string,
                             )?.id,
                         },
                     );

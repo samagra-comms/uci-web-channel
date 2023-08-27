@@ -16,20 +16,24 @@ interface FlexContainerProps {
 interface IStyledProps {
     isMobile?: boolean;
 
-    config: {
-        heading: {
-            width: string;
-        };
+    config?: {
         tab: {
             bots: {
                 borderRadius: string;
             };
         };
         search: {
-            margin: string;
+            padding: string;
             borderRadius: string;
             iconPadding: string;
             outline: string;
+            border: string;
+        };
+        chatList: {
+            width: string;
+            height: string;
+            overflow: string;
+            margin: string;
         };
     };
 }
@@ -83,11 +87,11 @@ export const StyledTab = styled(Tab)<IStyledProps>`
     }
 `;
 
-export const StyledChatList = styled(Box)`
-    width: 120%;
-    height: 90.5vh;
-    overflow-y: scroll;
-    margin-left: -18px;
+export const StyledChatList = styled(Box)<IStyledProps>`
+    width: ${props => props.config?.chatList?.width};
+    height: ${props => props.config?.chatList?.height};
+    overflow-y: ${props => props.config?.chatList?.overflow};
+    margin: ${props => props.config?.chatList?.margin};
 
     @media screen and (max-width: 768px) {
         width: 110%;
@@ -105,16 +109,14 @@ export const StyledSearchBox = styled(Box)<FlexContainerProps>`
 
 export const StyledInput = styled(Input)<IStyledProps>`
     background: ${props => props.theme?.mainBackground};
-    border: none;
+    border: ${props => props.config?.search?.border};
     outline: ${props => props.config?.search?.outline};
     color: ${props => props.theme?.color};
-    padding: 25px 0px 20px 0px;
-    padding-left: 50px;
+    padding: ${props => props.config?.search?.padding};
+    border-radius: ${props => props.config?.search?.borderRadius};
 `;
 
 export const StyledInputLeftElement = styled(InputLeftElement)<IStyledProps>`
-    justify-content: center;
-    align-items: center;
     padding: ${props => props.config?.search?.iconPadding};
 `;
 

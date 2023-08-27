@@ -47,14 +47,13 @@ export const theme_styles = {
 
 export const dark_theme = {
     name: 'dark',
-    innerBackground: '#1A202C',
+    // innerBackground: '#1A202C',
     background: '#2D3748',
     color: '#E5E7EB',
     fontSize: '18px',
     mainBackground:
         'radial-gradient(at left bottom, #374151, #111827, #000000)',
     iconColor: 'white',
-    boxShadow: 'none',
 };
 
 export const light_theme = {
@@ -65,5 +64,4 @@ export const light_theme = {
     background: '#e6ecf3',
     mainBackground: 'white',
     iconColor: '#121212',
-    boxShadow: 'inset 0px 0px 10px 10px #D3D3D3',
 };
