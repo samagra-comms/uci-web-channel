@@ -104,3 +104,14 @@ button{
     padding-bottom: 1vw;
   }
 }
+
+.main-input{
+  display: flex;
+  flex-direction: row;
+  gap: 1vw;
+}
+
+.voice-mic{
+  padding: 5px;
+  margin-left: 0px;
+}

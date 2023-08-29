@@ -175,6 +175,7 @@ export const ChatUiComponent: FC<{
                         ? 'Please select from options'
                         : 'Ask Your Question'
                 }
+                // messageInput={voiceInput}
             />
         </>
     );

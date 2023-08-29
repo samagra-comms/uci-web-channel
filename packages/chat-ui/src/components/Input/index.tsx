@@ -2,6 +2,8 @@ import React, { useState, useEffect, useContext, useCallback } from 'react';
 import clsx from 'clsx';
 import { ThemeContext } from '../Form';
 import useForwardRef from '../../hooks/useForwardRef';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faUpload, faMicrophone } from '@fortawesome/free-solid-svg-icons';
 
 function getCount(value: InputProps['value'], maxLength?: number) {
   return `${`${value}`.length}${maxLength ? `/${maxLength}` : ''}`;
@@ -56,6 +58,41 @@ export const Input = React.forwardRef<InputRef, InputProps>((props, ref) => {
   const variant = oVariant || (theme === 'light' ? 'flushed' : 'outline');
   const isMultiline = multiline || autoSize || oRows > 1;
   const Element = isMultiline ? 'textarea' : 'input';
+  const [isVoiceInput, setIsVoiceInput] = useState(false);
+
+  const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+  const recognition = new SpeechRecognition();
+  recognition.continuous = true;
+
+  const handleVoiceInput = useCallback(
+    (transcript: string) => {
+      if (onChange) {
+        const shouldTrim = maxLength && transcript.length > maxLength;
+        const val = shouldTrim ? transcript.substr(0, maxLength) : transcript;
+        onChange(val, null); // Pass null for the event since it's not a user input event
+      }
+    },
+    [maxLength, onChange],
+  );
+
+  recognition.onresult = (event) => {
+    const transcript = event.results[event.results.length - 1][0].transcript;
+    handleVoiceInput(transcript);
+  };
+
+  recognition.onerror = (event) => {
+    console.error('Speech recognition error:', event.error);
+  };
+
+  const startVoiceRecognition = () => {
+    if (isVoiceInput) {
+      recognition.stop();
+      recognition.onresult = null;
+    } else {
+      recognition.start();
+    }
+    setIsVoiceInput(!isVoiceInput);
+  };
 
   useEffect(() => {
     if (!inputRef.current) return;
@@ -121,18 +158,25 @@ export const Input = React.forwardRef<InputRef, InputProps>((props, ref) => {
   );
   console.log('debug:', { disabled });
   const input = (
-    <Element
-      className={clsx('Input', `Input--${variant}`, className)}
-      type={type}
-      value={value}
-      placeholder={placeholder}
-      maxLength={maxLength}
-      ref={inputRef}
-      rows={rows}
-      onChange={handleChange}
-      disabled={disabled}
-      {...other}
-    />
+    <div className="main-input">
+      <div className="FooterIcons">
+        <div className="voice-mic" onClick={startVoiceRecognition}>
+          <FontAwesomeIcon icon={faMicrophone} color={isVoiceInput ? 'blue' : 'black'} />
+        </div>
+      </div>
+      <Element
+        className={clsx('Input', `Input--${variant}`, className)}
+        type={type}
+        value={value}
+        placeholder={placeholder}
+        maxLength={maxLength}
+        ref={inputRef}
+        rows={rows}
+        onChange={handleChange}
+        disabled={disabled}
+        {...other}
+      />
+    </div>
   );
 
   if (showCount) {
@@ -143,5 +187,5 @@ export const Input = React.forwardRef<InputRef, InputProps>((props, ref) => {
       </div>
     );
   }
-  return input;
+  return <>{input}</>;
 });
