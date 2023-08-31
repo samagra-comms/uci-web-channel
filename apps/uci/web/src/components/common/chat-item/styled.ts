@@ -2,9 +2,14 @@
 import styled, { css } from 'styled-components';
 
 interface Props {
-    config: {
+    active?: boolean;
+    config?: {
         chatItem: {
             margin: string;
+            textMargin: string;
+            height: string;
+            width: string;
+            padding: string;
             avatar: {
                 height: string;
                 width: string;
@@ -14,15 +19,14 @@ interface Props {
     };
 }
 
-export const Container = styled.button<{ active: boolean }>`
+export const Container = styled.button<Props>`
     display: flex;
     align-items: center;
     border: 0;
     cursor: pointer;
-    width: 100%;
-    height: 72px;
-    padding: 16px 16px;
-    font-weight: 600;
+    width: ${props => props.config?.chatItem?.width};
+    height: ${props => props.config?.chatItem?.height};
+    padding: ${props => props.config?.chatItem?.padding};
     transition: background-color 0.3s ease-in-out, transform 0.3s ease-in-out;
 
     &:hover {
@@ -39,7 +43,7 @@ export const Container = styled.button<{ active: boolean }>`
     ${props =>
         props.active &&
         css`
-            background-color: ${props => props.theme.innerBackground};
+            background-color: ${props => props.theme?.innerBackground};
             height: 72px;
 
             &:hover {
@@ -73,10 +77,10 @@ export const AvatarImage = styled.img`
 export const ChatItemText = styled.div<Props>`
     flex: 1;
     height: 100%;
-    margin: ${props => props.config.chatItem.margin};
+    margin: ${props => props.config?.chatItem?.textMargin};
     display: flex;
     flex-direction: column;
-    color: ${props => props.theme.color};
+    color: ${props => props.theme?.color};
     overflow: hidden;
 `;
 

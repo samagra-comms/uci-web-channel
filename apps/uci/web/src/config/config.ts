@@ -1,7 +1,6 @@
 import { botImage, profilePic } from '@/assets';
 import {
     faChevronLeft,
-    faComment,
     faPaperPlane,
     faSearch,
 } from '@fortawesome/free-solid-svg-icons';
@@ -23,28 +22,7 @@ export const config = {
     },
 
     sideBar: {
-        present: 'no',
-    },
-    tab: {
-        bots: {
-            text: 'Bots',
-            borderRadius: '0.5vw',
-        },
-        Starredchat: {
-            text: 'Starred Chat',
-            borderRadius: 'md',
-        },
-    },
-
-    icon: {
-        chat: {
-            colorScheme: 'teal.500',
-            size: 'xl',
-            variant: 'solid',
-            label: 'Chat',
-            margin: '0 0 0 20px',
-            icon: faComment,
-        },
+        visible: 'false',
     },
 
     search: {
@@ -57,6 +35,17 @@ export const config = {
         borderRadius: '0px',
     },
 
+    tab: {
+        margin: '0 1.5vw',
+        borderRadius: '0vw',
+        bots: {
+            text: 'Bots',
+        },
+        Starredchat: {
+            text: 'Starred Chat',
+        },
+    },
+
     chatList: {
         width: '120%',
         height: '90.5vh',
@@ -65,13 +54,11 @@ export const config = {
     },
 
     chatItem: {
-        width: '100%',
-        height: '100%',
-        expiredColor: 'white',
-        fontWeight: 'bold',
-        padding: '1vw',
-        opacity: '0.6',
         margin: '0 0 0 20px',
+        textMargin: '0 0 0 20px',
+        height: '72px',
+        width: '100%',
+        padding: '16px',
         avatar: {
             borderRadius: '50%',
             height: '48px',
@@ -106,8 +93,9 @@ export const config = {
             textMargin: '0 0 0 10px',
             fontSize: 'md',
             image: profilePic,
-            height: '200px',
+            height: '100px',
             padding: '10px 0 10px 20px',
+            iconBorder: '2px solid #D3D3D3',
         },
         window: {
             padding: '0vw',
@@ -122,6 +110,6 @@ export const config = {
         borderRadius: '7px',
         padding: '0.2vw',
         margin: '2vw 6vw',
-        icon: faPaperPlane,
+        sendIcon: faPaperPlane,
     },
 };

@@ -12,9 +12,8 @@ export const SendButton = ({ disabled, onClick }: SendButtonProps) => {
   const { trans } = useLocale('Composer');
   return (
     <div className="Composer-actions">
-      {/* Use the send icon from Font Awesome */}
       <button className="Composer-sendBtn" disabled={disabled} onClick={onClick}>
-        <FontAwesomeIcon icon={config?.textInput?.icon} />
+        <FontAwesomeIcon icon={config?.textInput?.sendIcon} />
       </button>
     </div>
   );

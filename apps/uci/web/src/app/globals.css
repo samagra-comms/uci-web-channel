@@ -108,10 +108,63 @@ button{
 .main-input{
   display: flex;
   flex-direction: row;
-  gap: 1vw;
+  gap: 0.5vw;
+  width: 100%;
 }
 
-.voice-mic{
-  padding: 5px;
-  margin-left: 0px;
+.FooterIcons{
+  display: flex;
+}
+
+.voice-mic {
+  position: relative;
+  width: 35px;
+  height: 35px;
+  margin-left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+.voice-mic.active{
+  scale: 1.1;
+  margin: 2px;
+}
+
+.mic-icon {
+  color: black;
+  z-index: 1;
+}
+
+.text-input {
+  display: flex;
+  flex: 1;
+  width: 100%;
+}
+
+.voice-mic.active::before {
+  content: '';
+  position: absolute;
+  top: 10;
+  left: 10;
+  width: 80%;
+  height: 80%;
+  border: 2px solid red;
+  border-radius: 50%;
+  clip-path: polygon(0 0, 100% 0, 100% 75%, 0 100%);
+  transform-origin: center center;
+  animation: rotateBorder 3s linear infinite;
+  z-index: 0;
+}
+
+@keyframes rotateBorder {
+  from {
+    transform: rotate(0deg);
+    scale: 1.1;
+  }
+  to {
+    transform: rotate(360deg);
+    scale: 1.1;
+  }
 }

@@ -30,6 +30,6 @@
         ".next/types/**/*.ts",
         "src/components/SocketComponent.js",
         "src/store/index.tsx"
-    ],
+, "src/components/common/voice-input/index.tsx"    ],
     "exclude": ["node_modules"]
 }

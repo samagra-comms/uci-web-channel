@@ -6,12 +6,12 @@ import { includes, map, find, filter, omit } from 'lodash';
 import moment from 'moment';
 import * as React from 'react';
 import { toast } from 'react-hot-toast';
-import { botImage } from '@/assets';
+import { botImage, profilePic } from '@/assets';
 import Image from 'next/image';
 import { AppContext } from '@/context';
 import { useLocalStorage } from '@/hooks';
 import { Box, Button } from '@chakra-ui/react';
-import { config, theme_styles } from '@/config';
+import { config } from '@/config';
 // import './index.css';
 import {
     Span,
@@ -24,6 +24,7 @@ import {
     StyledChatItem,
     ChatBox,
     StyledChatContainer,
+    InnerRing,
 } from './styled';
 import { useTheme } from '@/providers/ThemeProvider';
 
@@ -36,6 +37,7 @@ export const MessageItem: React.FC<any> = ({
     const context = React.useContext(AppContext);
 
     const [isInLocal, setIsInLocal] = React.useState(false);
+    const [userImage, setBotImage] = React.useState(profilePic);
     const { theme } = useTheme();
     const [msgToStarred, setMsgToStarred] = React.useState<{
         botUuid?: string;
@@ -43,6 +45,24 @@ export const MessageItem: React.FC<any> = ({
     }>({});
     //@ts-ignore
     const [starredFromLocal] = useLocalStorage('starredChats', null, true);
+
+    React.useEffect(() => {
+        if (context?.currentUser?.botImage) {
+            fetch(context?.currentUser?.botImage)
+                .then(res => {
+                    if (res.status === 403) {
+                        setBotImage(profilePic);
+                    } else {
+                        setBotImage(context?.currentUser?.botImage);
+                    }
+                })
+                .catch(err => {
+                    setBotImage(profilePic);
+                });
+        } else {
+            setBotImage(profilePic);
+        }
+    }, [context?.currentUser?.botImage]);
 
     React.useEffect(() => {
         if (starredFromLocal) {
@@ -190,27 +210,54 @@ export const MessageItem: React.FC<any> = ({
                             {content?.data.position === 'left' ? (
                                 <StyledChatItem className="chat-left">
                                     <div className="chat-avatar chat-avatar-left">
-                                        <Image
-                                            src={botImage}
-                                            alt="botImage"
-                                            height={150}
-                                            width={150}
-                                        />
+                                        <InnerRing
+                                            theme={theme}
+                                            config={config}
+                                        >
+                                            <Image
+                                                src={userImage}
+                                                alt="botImage"
+                                                height={150}
+                                                width={150}
+                                            />
+                                        </InnerRing>
+
                                         <div className="chat-name">Bot</div>
                                     </div>
-                                    <div className="chat-text">
-                                        {content?.text}
-                                        <FontAwesomeIcon
-                                            icon={faStar}
-                                            onClick={() => onLongPress(content)}
-                                            color={
-                                                isStarred
-                                                    ? config.message.botMsg
-                                                          .starredColor
-                                                    : 'var(--grey)'
-                                            }
-                                        />
-                                    </div>
+                                    {content?.text! == null ? (
+                                        <div className="chat-text">
+                                            {content?.text}
+                                            <FontAwesomeIcon
+                                                icon={faStar}
+                                                onClick={() =>
+                                                    onLongPress(content)
+                                                }
+                                                color={
+                                                    isStarred
+                                                        ? config.message.botMsg
+                                                              .starredColor
+                                                        : 'var(--grey)'
+                                                }
+                                            />
+                                        </div>
+                                    ) : (
+                                        <div className="chat-text">
+                                            No response recieved from Bot!
+                                            <FontAwesomeIcon
+                                                icon={faStar}
+                                                onClick={() =>
+                                                    onLongPress(content)
+                                                }
+                                                color={
+                                                    isStarred
+                                                        ? config.message.botMsg
+                                                              .starredColor
+                                                        : 'var(--grey)'
+                                                }
+                                            />
+                                        </div>
+                                    )}
+
                                     <div className="chat-hour">
                                         {moment
                                             .utc(
@@ -241,7 +288,7 @@ export const MessageItem: React.FC<any> = ({
                                     </div>
                                     <div className="chat-avatar chat-avatar-right">
                                         <img
-                                            src="https://www.bootdey.com/img/Content/avatar/avatar5.png"
+                                            src="https://cdn-icons-png.flaticon.com/512/552/552721.png"
                                             alt="Retail Admin"
                                         />
                                         <div className="chat-name">User</div>
@@ -265,14 +312,17 @@ export const MessageItem: React.FC<any> = ({
                                 {content?.data?.position ===
                                     config.message.userInput.position && (
                                     <>
-                                        <div>
+                                        <InnerRing
+                                            theme={theme}
+                                            config={config}
+                                        >
                                             <Image
-                                                src={botImage}
+                                                src={userImage}
                                                 alt="botImage"
                                                 height={150}
                                                 width={150}
                                             />
-                                        </div>
+                                        </InnerRing>
                                         <div className="chat-name">Bot</div>
                                     </>
                                 )}
@@ -283,8 +333,8 @@ export const MessageItem: React.FC<any> = ({
                         <Div>
                             <Image
                                 src={url}
-                                width={theme_styles.case_image.width}
-                                height={theme_styles.case_image.height}
+                                width={300}
+                                height={300}
                                 alt="botImage"
                             />
                             <BubbleDiv>
@@ -306,19 +356,15 @@ export const MessageItem: React.FC<any> = ({
                                             }
                                             color={
                                                 isStarred
-                                                    ? config.message.botMsg
-                                                          .starredColor
-                                                    : 'var(--grey)'
+                                                    ? config?.message?.botMsg
+                                                          ?.starredColor
+                                                    : 'grey'
                                             }
                                         />
                                     )}
                                     <FontAwesomeIcon
                                         icon={faDownload}
                                         onClick={(): void => download(url)}
-                                        style={{
-                                            marginLeft:
-                                                theme_styles.margin.medium,
-                                        }}
                                         color={'var(--grey)'}
                                     />
                                 </span>

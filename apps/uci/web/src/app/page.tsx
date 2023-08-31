@@ -29,7 +29,7 @@ const ParentComponent = () => {
 
     return (
         <Flex background={theme?.mainBackground} h="100vh">
-            {config?.sideBar.present == 'yes' && (
+            {config?.sideBar.visible == 'true' && isMobile && (
                 <VStack spacing={60} p={0} align="center">
                     <Box>
                         <img src="./uci.png" alt="Logo" />

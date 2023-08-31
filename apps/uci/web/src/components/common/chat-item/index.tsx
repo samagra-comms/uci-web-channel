@@ -89,6 +89,7 @@ const ChatItem: React.FC<chatItemProps> = ({
                 disabled={isBlank}
                 active={active}
                 theme={theme}
+                config={config}
             >
                 <AvatarContainer config={config}>
                     <AvatarImage src={image} alt="profile pic" />

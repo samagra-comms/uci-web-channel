@@ -1,6 +1,6 @@
 .InputWrapper {
   position: relative;
-  
+
   &.has-counter {
     padding-bottom: 20px;
 
@@ -56,14 +56,4 @@
       box-shadow: var(--brand-1) 0px 1px 0px 0px;
     }
   }
-}
-
-.Input-counter {
-  // absolute 在iOS下有坑，在消息列表里的输入框，输入文字后，页面卡片下移
-  position: relative;
-  z-index: 1;
-  float: right;
-  margin-right: var(--gutter);
-  color: var(--gray-3);
-  font-size: @font-size-xs;
 }

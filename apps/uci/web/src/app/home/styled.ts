@@ -18,9 +18,8 @@ interface IStyledProps {
 
     config?: {
         tab: {
-            bots: {
-                borderRadius: string;
-            };
+            margin: string;
+            borderRadius: string;
         };
         search: {
             padding: string;
@@ -74,12 +73,12 @@ export const StyledTabList = styled(TabList)`
 
 export const StyledTab = styled(Tab)<IStyledProps>`
     color: ${props => props.theme?.color};
-    margin-left: 1.5vw;
-    margin-right: 1.5vw;
+    margin: ${props => props.config?.tab?.margin};
     font-weight: bold;
     text-align: center;
     font-size: ${props => props.theme?.fontSize};
     padding: ${props => (props.isMobile ? '0.5vw' : '0.7vw')};
+    border-radius: ${props => props.config?.tab?.borderRadius};
 
     @media screen and (max-width: 768px) {
         margin: 0 4.5vw 0 4.5vw;

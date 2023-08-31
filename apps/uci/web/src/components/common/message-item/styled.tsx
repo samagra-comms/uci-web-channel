@@ -2,21 +2,24 @@
 import styled from 'styled-components';
 import { config, theme_styles } from '@/config';
 import Image from 'next/image';
+import { Box } from '@chakra-ui/react';
+
+interface IStyledProps {
+    config: {
+        chatWindow: {
+            margin: string;
+            borderRadius: string;
+            topbar: {
+                padding: string;
+                iconBorder: string;
+            };
+        };
+    };
+}
 
 export const Span = styled.span`
     font-size: ${config?.message?.botMsg?.fontSize};
 `;
-
-// export const BubbleDiv = styled.div`
-//   display: flex;
-//   justify-content: space-between;
-//   align-items: self-end;
-// `;
-
-// export const BubbleSpan = styled.span`
-//   color: var(--grey);
-//   font-size: ${theme_styles?.textStyles?.small?.fontSize};
-// `;
 
 export const Div = styled.div`
     padding: ${theme_styles?.padding?.medium};
@@ -168,6 +171,10 @@ export const StyledChatItem = styled.li`
         line-height: 150%;
         position: relative;
         font-size: 0.9rem;
+        display: flex;
+        gap: 10px;
+        align-items: center;
+        justify-content: center;
     }
 
     .chat-hour {
@@ -190,4 +197,12 @@ export const ChatBox = styled.ul`
     list-style-type: none;
     margin: 0;
     padding: 0;
+`;
+
+export const InnerRing = styled(Box)<IStyledProps>`
+    border: ${props => props.config?.chatWindow?.topbar?.iconBorder};
+    width: 65px;
+    height: 65px;
+    border-radius: 50%;
+    margin-right: 10px;
 `;

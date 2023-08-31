@@ -14,6 +14,7 @@ interface IStyledProps {
             borderRadius: string;
             topbar: {
                 padding: string;
+                iconBorder: string;
             };
         };
     };
@@ -107,10 +108,10 @@ export const StyledAvatarContainer = styled(Box)`
     }
 `;
 
-export const InnerRing = styled(Box)`
-    border: ${props => props.theme?.iconColor};
-    width: 70px;
-    height: 70px;
+export const InnerRing = styled(Box)<IStyledProps>`
+    border: ${props => props.config?.chatWindow?.topbar?.iconBorder};
+    width: 55px;
+    height: 55px;
     border-radius: 50%;
     margin-right: 10px;
 `;
