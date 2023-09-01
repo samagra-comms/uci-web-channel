@@ -1,7 +1,7 @@
 import moment from 'moment';
 import { urlsConfig } from '@/config';
 
-const mobile = process.env.NEXT_PUBLIC_MOBILE || '8767447416';
+const mobile = urlsConfig?.mobile || '8767447416';
 console.log('happy:', { mobile });
 export const getConvHistoryUrl = (user: any): string =>
     `${

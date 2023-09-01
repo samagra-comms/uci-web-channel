@@ -9,10 +9,11 @@
   ],
   "scripts": {
     "build": "turbo run build",
-    "dev": "turbo run dev",
+    "dev": "concurrently \"yarn run watch\" \"turbo run dev\"",
     "lint": "turbo run lint",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "watch": "lerna run watch --parallel"
   },
   "devDependencies": {
     "@playwright/test": "^1.37.1",
@@ -21,6 +22,7 @@
     "eslint": "^8.47.0",
     "eslint-config-custom": "^0.0.0",
     "husky": "^8.0.3",
+    "lerna": "^7.2.0",
     "lint-staged": "^14.0.0",
     "prettier": "latest",
     "turbo": "latest"
@@ -37,6 +39,7 @@
   "dependencies": {
     "@reduxjs/toolkit": "^1.9.5",
     "axios": "^1.4.0",
+    "concurrently": "^8.2.1",
     "cross-env": "^7.0.3",
     "react-redux": "^8.1.2",
     "react-speech-recognition": "^3.10.0",

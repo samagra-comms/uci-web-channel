@@ -1,3 +1,4 @@
+import { urlsConfig } from '@/config';
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
 
@@ -5,9 +6,7 @@ import axios from 'axios';
 //! USER MESSAGES (MESSAGE SLICE)
 
 export const fetchUsers = createAsyncThunk('userlist/fetchUsers', async () => {
-    const response = await axios.get(
-        process.env.NEXT_PUBLIC_UCI_BASE_URL ?? '',
-    );
+    const response = await axios.get(urlsConfig?.baseUrl ?? '');
     const data = await response.data;
     return data;
 });

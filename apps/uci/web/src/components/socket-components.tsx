@@ -1,7 +1,7 @@
 import io, { Socket } from 'socket.io-client';
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
-//import { UCI } from 'socket-package';
 import { UCI } from './socket-package';
+import { urlsConfig } from '@/config';
 interface SocketConnectionProps {
     isMobileAvailable: boolean;
     setSocket: React.Dispatch<React.SetStateAction<Socket | undefined>>;
@@ -41,7 +41,7 @@ const SocketConnection: React.FC<SocketConnectionProps> = ({
 
     console.log('__happy__:', { options });
     useEffect(() => {
-        const URL = process.env.NEXT_PUBLIC_TRANSPORT_SOCKET_URL || '';
+        const URL = urlsConfig?.transportUrl || '';
         if (!newSocket) {
             setNewSocket(
                 new UCI(URL, options.socketOptions, options.onRecieveCallback),

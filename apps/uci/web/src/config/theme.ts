@@ -1,11 +1,10 @@
 export const dark_theme = {
     name: 'dark',
-    innerBackground: '#1A202C',
-    background: '#2D3748',
+    innerBackground: '#2D3748',
+    background: 'black',
     color: '#E5E7EB',
     fontSize: '18px',
-    mainBackground:
-        'radial-gradient(at left bottom, #374151, #111827, #000000)',
+    mainBackground: '#2D3748',
     iconColor: 'white',
 };
 

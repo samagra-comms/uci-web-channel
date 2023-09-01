@@ -81,27 +81,32 @@ body {
   font-size: 15px;
 }
 
-.ChatFooter {
-  width: 80%;
-  border-radius: var(--text-input-border-radius);
-  margin: var(--text-input-margin);
-  padding: var(--text-input-padding);
-  background-color: var(--chat-footer-color) !important;
-  @media screen and (max-width: 768px) {
-    width: 95vw;
-  }
-}
-
 .send-
 
 button{
   border: none;
 }
 
+.Input{
+  color: var(--input-color);
+}
+
 .ChatApp{
   background: var(--chat-bg-color);
+  color: var(--input-color);
   @media screen and (max-width: 768px) {
     padding-bottom: 1vw;
+  }
+}
+
+.ChatFooter {
+  width: 80%;
+  border-radius: var(--text-input-border-radius);
+  margin: var(--text-input-margin);
+  padding: var(--text-input-padding);
+  background: var(--chat-footer-color) !important;
+  @media screen and (max-width: 768px) {
+    width: 95vw;
   }
 }
 

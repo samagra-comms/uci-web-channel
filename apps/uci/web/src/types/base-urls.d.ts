@@ -3,5 +3,8 @@ export type BaseUrls = {
         chatHistoryUrl?: string;
         botDetailsUrl?: string;
         otpBaseUrl?: string;
+        transportUrl?: string;
+        baseUrl?: string;
+        mobile?: string;
     };
 };
