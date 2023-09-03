@@ -15,6 +15,7 @@ import {
 } from './styled';
 import { config } from '@/config';
 import { useBreakpointValue } from '@chakra-ui/react';
+import { ThemeProvider } from 'styled-components';
 
 interface chatItemProps {
     active: boolean;
@@ -65,23 +66,22 @@ const StarredChatItem: React.FC<chatItemProps> = ({
     }, [context?.currentUser?.botImage]);
 
     return (
-        <Fragment>
+        <ThemeProvider theme={theme}>
             <Container
                 disabled={isBlank}
                 onClick={onChangingCurrentUserHandler}
                 active={active}
-                theme={theme}
             >
-                <AvatarContainer config={config}>
+                <AvatarContainer>
                     <AvatarImage src={userImage} alt="profile pic" />
                 </AvatarContainer>
-                <ChatItemText theme={theme} config={config}>
+                <ChatItemText>
                     <UserName isBot={phoneNumber == null}>
-                        <Paragraph theme={theme}>{name}</Paragraph>
+                        <Paragraph>{name}</Paragraph>
                     </UserName>
                 </ChatItemText>
             </Container>
-        </Fragment>
+        </ThemeProvider>
     );
 };
 

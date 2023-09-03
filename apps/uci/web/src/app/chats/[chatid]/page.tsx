@@ -7,13 +7,7 @@ import { useRouter, usePathname } from 'next/navigation';
 import { AppContext } from '@/context';
 import { ChatUiComponent, FullScreenLoader } from '@/components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {
-    faVideo,
-    faPhone,
-    faEllipsisV,
-    faLightbulb,
-    faMoon,
-} from '@fortawesome/free-solid-svg-icons';
+import { faLightbulb, faMoon } from '@fortawesome/free-solid-svg-icons';
 import {
     AvatarImage,
     BackBox,
@@ -33,6 +27,7 @@ import {
 import { useTheme } from '@/providers/ThemeProvider';
 import { useSelector } from 'react-redux';
 import { config } from '@/config';
+import { ThemeProvider } from 'styled-components';
 
 interface chatProps {
     params?: { chatid: string };
@@ -82,179 +77,133 @@ const Chats = ({ params }: chatProps) => {
 
     return (
         <>
-            <FlexContainer
-                mainFlexWidth={mainFlexWidth}
-                isHomepage={isHomepage}
-                theme={theme}
-            >
-                <MainFlex config={config}>
-                    {context?.currentUser ? (
-                        <>
-                            <TopSection theme={theme} config={config}>
-                                <Box
-                                    flex="1.5"
-                                    display={{ base: 'block', md: 'none' }}
-                                >
-                                    <Button
-                                        marginTop="20px"
-                                        onClick={(): void => {
-                                            localStorage.removeItem('userMsgs');
-                                            context?.setMessages([]);
-                                            router.push('/');
-                                        }}
-                                        variant="ghost"
+            <ThemeProvider theme={theme}>
+                <FlexContainer
+                    mainFlexWidth={mainFlexWidth}
+                    isHomepage={isHomepage}
+                >
+                    <MainFlex>
+                        {context?.currentUser ? (
+                            <>
+                                <TopSection>
+                                    <Box
+                                        flex="1.5"
+                                        display={{ base: 'block', md: 'none' }}
                                     >
-                                        <FontAwesomeIcon
-                                            icon={
-                                                config?.chatWindow?.topbar?.icon
-                                            }
-                                        />
-                                    </Button>
-                                </Box>
-                                <StyledFlex>
-                                    <StyledCenteredFlex>
-                                        {context?.currentUser && (
-                                            <StyledAvatarContainer
-                                                config={config}
-                                            >
-                                                {
-                                                    <>
-                                                        <InnerRing
-                                                            theme={theme}
-                                                            config={config}
-                                                        >
-                                                            <AvatarImage
-                                                                src={userImage}
-                                                                alt="profile pic"
-                                                            />
-                                                        </InnerRing>
-
-                                                        <StyledBox>
-                                                            <Span theme={theme}>
-                                                                {
-                                                                    context
-                                                                        ?.currentUser
-                                                                        ?.name
-                                                                }
-                                                            </Span>
-                                                            {!isMobile && (
-                                                                <Span
-                                                                    theme={
-                                                                        theme
+                                        <Button
+                                            marginTop="20px"
+                                            onClick={(): void => {
+                                                localStorage.removeItem(
+                                                    'userMsgs',
+                                                );
+                                                context?.setMessages([]);
+                                                router.push('/');
+                                            }}
+                                            variant="ghost"
+                                        >
+                                            <FontAwesomeIcon
+                                                icon={
+                                                    config?.chatWindow?.topbar
+                                                        ?.icon
+                                                }
+                                            />
+                                        </Button>
+                                    </Box>
+                                    <StyledFlex>
+                                        <StyledCenteredFlex>
+                                            {context?.currentUser && (
+                                                <StyledAvatarContainer>
+                                                    {
+                                                        <>
+                                                            <InnerRing>
+                                                                <AvatarImage
+                                                                    src={
+                                                                        userImage
                                                                     }
-                                                                >
-                                                                    Total
-                                                                    Messages:{' '}
+                                                                    alt="profile pic"
+                                                                />
+                                                            </InnerRing>
+
+                                                            <StyledBox>
+                                                                <Span>
                                                                     {
                                                                         context
-                                                                            ?.messages
-                                                                            ?.length
+                                                                            ?.currentUser
+                                                                            ?.name
                                                                     }
                                                                 </Span>
-                                                            )}
-                                                        </StyledBox>
-                                                    </>
-                                                }
-                                            </StyledAvatarContainer>
-                                        )}
-
-                                        {/* {!isMobile && (
+                                                                {!isMobile && (
+                                                                    <Span>
+                                                                        Total
+                                                                        Messages:{' '}
+                                                                        {
+                                                                            context
+                                                                                ?.messages
+                                                                                ?.length
+                                                                        }
+                                                                    </Span>
+                                                                )}
+                                                            </StyledBox>
+                                                        </>
+                                                    }
+                                                </StyledAvatarContainer>
+                                            )}
                                             <IconButton
+                                                marginRight="40px"
                                                 icon={
-                                                    <FontAwesomeIcon
-                                                        icon={faVideo}
-                                                    />
+                                                    theme.name == 'light' ? (
+                                                        <FontAwesomeIcon
+                                                            icon={faMoon}
+                                                        />
+                                                    ) : (
+                                                        <FontAwesomeIcon
+                                                            icon={faLightbulb}
+                                                        />
+                                                    )
                                                 }
                                                 aria-label="Toggle Theme"
-                                                background="none"
-                                                size="md"
+                                                size="lg"
+                                                variant="none"
+                                                color={theme.color}
+                                                onClick={toggleTheme}
                                                 _hover={{
                                                     transform: 'scale(1.2)',
                                                     transition:
                                                         'transform 0.3s',
                                                 }}
                                             />
-                                        )} */}
-
-                                        <IconButton
-                                            marginRight="40px"
-                                            icon={
-                                                theme.name == 'light' ? (
-                                                    <FontAwesomeIcon
-                                                        icon={faMoon}
-                                                    />
-                                                ) : (
-                                                    <FontAwesomeIcon
-                                                        icon={faLightbulb}
-                                                    />
-                                                )
-                                            }
-                                            aria-label="Toggle Theme"
-                                            size="lg"
-                                            variant="none"
-                                            color={theme.color}
-                                            onClick={toggleTheme}
-                                            _hover={{
-                                                transform: 'scale(1.2)',
-                                                transition: 'transform 0.3s',
-                                            }}
-                                        />
-                                        {/* Phone Call Icon */}
-                                        {/* <Button
-                                            variant="ghost"
-                                            marginTop="20px"
-                                            padding="5px"
-                                            marginRight="30px"
+                                        </StyledCenteredFlex>
+                                    </StyledFlex>
+                                    {/* <ThemeToggle /> */}
+                                </TopSection>
+                                {/* Chat Window */}
+                                <ChatWindow>
+                                    {/* NeoMorphism Box */}
+                                    <BackBox>
+                                        <Box
+                                            height={['85vh', '100vh']}
+                                            overflowY="scroll"
                                         >
-                                            <FontAwesomeIcon
-                                                icon={faPhone}
-                                                size="xl"
-                                                color={theme?.color}
+                                            <ChatUiComponent
+                                                currentUser={
+                                                    context?.currentUser
+                                                }
                                             />
-                                        </Button> */}
-
-                                        {/* Triple Dot Icon */}
-                                        {/* <Button
-                                            variant="ghost"
-                                            marginTop="20px"
-                                            padding="5px"
-                                            marginRight="30px"
-                                        >
-                                            <FontAwesomeIcon
-                                                icon={faEllipsisV}
-                                                size="xl"
-                                                color={theme?.color}
-                                            />
-                                        </Button> */}
-                                    </StyledCenteredFlex>
-                                </StyledFlex>
-                                {/* <ThemeToggle /> */}
-                            </TopSection>
-                            {/* Chat Window */}
-                            <ChatWindow theme={theme}>
-                                {/* NeoMorphism Box */}
-                                <BackBox config={config}>
-                                    <Box
-                                        height={['85vh', '100vh']}
-                                        overflowY="scroll"
-                                    >
-                                        <ChatUiComponent
-                                            currentUser={context?.currentUser}
-                                        />
-                                    </Box>
-                                </BackBox>
-                            </ChatWindow>
-                        </>
-                    ) : (
-                        <CenteredFlex>
-                            <FullScreenLoader loading={loading}>
-                                {' '}
-                            </FullScreenLoader>
-                            <StyledText>No bot is selected</StyledText>
-                        </CenteredFlex>
-                    )}
-                </MainFlex>
-            </FlexContainer>
+                                        </Box>
+                                    </BackBox>
+                                </ChatWindow>
+                            </>
+                        ) : (
+                            <CenteredFlex>
+                                <FullScreenLoader loading={loading}>
+                                    {' '}
+                                </FullScreenLoader>
+                                <StyledText>No bot is selected</StyledText>
+                            </CenteredFlex>
+                        )}
+                    </MainFlex>
+                </FlexContainer>
+            </ThemeProvider>
         </>
     );
 };

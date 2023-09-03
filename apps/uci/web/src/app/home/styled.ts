@@ -1,3 +1,4 @@
+import { config } from '@/config';
 import {
     Box,
     Flex,
@@ -13,30 +14,6 @@ interface FlexContainerProps {
     isMobile?: boolean;
 }
 
-interface IStyledProps {
-    isMobile?: boolean;
-
-    config?: {
-        tab: {
-            margin: string;
-            borderRadius: string;
-        };
-        search: {
-            padding: string;
-            borderRadius: string;
-            iconPadding: string;
-            outline: string;
-            border: string;
-        };
-        chatList: {
-            width: string;
-            height: string;
-            overflow: string;
-            margin: string;
-        };
-    };
-}
-
 export const StyledFlex = styled(Flex)`
     width: 85vw;
     height: 100vh;
@@ -46,7 +23,7 @@ export const StyledFlex = styled(Flex)`
     }
 `;
 
-export const StyledBox = styled(Box)<FlexContainerProps>`
+export const StyledBox = styled(Box)`
     flex: 1;
 `;
 
@@ -57,8 +34,8 @@ export const StyledMainContainer = styled(Box)<FlexContainerProps>`
     width: 100%;
 `;
 
-export const StyledBackBox = styled(Box)<FlexContainerProps>`
-    background: ${props => props.theme.background};
+export const StyledBackBox = styled(Box)`
+    background: ${({ theme }) => theme?.background};
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -71,14 +48,14 @@ export const StyledTabList = styled(TabList)`
     overflow: hidden;
 `;
 
-export const StyledTab = styled(Tab)<IStyledProps>`
-    color: ${props => props.theme?.color};
-    margin: ${props => props.config?.tab?.margin};
+export const StyledTab = styled(Tab)<FlexContainerProps>`
+    color: ${({ theme }) => theme?.color};
+    margin: ${config?.tab?.margin};
     font-weight: bold;
     text-align: center;
-    font-size: ${props => props.theme?.fontSize};
+    font-size: ${({ theme }) => theme?.fontSize};
     padding: ${props => (props.isMobile ? '0.5vw' : '0.7vw')};
-    border-radius: ${props => props.config?.tab?.borderRadius};
+    border-radius: ${config?.tab?.borderRadius};
 
     @media screen and (max-width: 768px) {
         margin: 0 4.5vw 0 4.5vw;
@@ -86,11 +63,11 @@ export const StyledTab = styled(Tab)<IStyledProps>`
     }
 `;
 
-export const StyledChatList = styled(Box)<IStyledProps>`
-    width: ${props => props.config?.chatList?.width};
-    height: ${props => props.config?.chatList?.height};
-    overflow-y: ${props => props.config?.chatList?.overflow};
-    margin: ${props => props.config?.chatList?.margin};
+export const StyledChatList = styled(Box)`
+    width: ${config?.chatList?.width};
+    height: ${config?.chatList?.height};
+    overflow-y: ${config?.chatList?.overflow};
+    margin: ${config?.chatList?.margin};
 
     @media screen and (max-width: 768px) {
         width: 110%;
@@ -106,17 +83,17 @@ export const StyledSearchBox = styled(Box)<FlexContainerProps>`
     }
 `;
 
-export const StyledInput = styled(Input)<IStyledProps>`
-    background: ${props => props.theme?.mainBackground};
-    border: ${props => props.config?.search?.border};
-    outline: ${props => props.config?.search?.outline};
-    color: ${props => props.theme?.color};
-    padding: ${props => props.config?.search?.padding};
-    border-radius: ${props => props.config?.search?.borderRadius};
+export const StyledInput = styled(Input)`
+    background: ${({ theme }) => theme?.mainBackground};
+    border: ${config?.search?.border};
+    outline: ${config?.search?.outline};
+    color: ${({ theme }) => theme?.color};
+    padding: ${config?.search?.padding};
+    border-radius: ${config?.search?.borderRadius};
 `;
 
-export const StyledInputLeftElement = styled(InputLeftElement)<IStyledProps>`
-    padding: ${props => props.config?.search?.iconPadding};
+export const StyledInputLeftElement = styled(InputLeftElement)`
+    padding: ${config?.search?.iconPadding};
 `;
 
 export const LoadMoreButton = styled.div`

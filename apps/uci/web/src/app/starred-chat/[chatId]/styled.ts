@@ -7,22 +7,8 @@ interface FlexContainerProps {
     isHomepage?: boolean;
 }
 
-interface IStyledProps {
-    config: {
-        chatWindow: {
-            margin: string;
-            borderRadius: string;
-            topbar: {
-                padding: string;
-            };
-        };
-    };
-}
-
 export const Span = styled.span`
-    margin: ${props => props.theme.margin};
-    font-size: ${props => props.theme.fontSize};
-    color: ${props => props.theme.color};
+    color: ${({ theme }) => theme.color};
 
     @media (max-width: 768px) {
         margin-left: 20px;
@@ -39,7 +25,7 @@ export const FlexContainer = styled(Flex)<FlexContainerProps>`
     width: ${props => props.mainFlexWidth};
     display: flex;
     flex-direction: column;
-    background: ${props => props.theme?.innerBackground};
+    background: ${({ theme }) => theme?.innerBackground};
     border-left: 1px solid #cdcdcd;
 
     @media (max-width: 767px) {
@@ -51,13 +37,13 @@ export const FlexContainer = styled(Flex)<FlexContainerProps>`
     }
 `;
 
-export const MainFlex = styled(Flex)<IStyledProps>`
+export const MainFlex = styled(Flex)`
     flex-direction: column;
     width: 100%;
     border-left: 1px solid #cdcdcd;
 `;
 
-export const TopSection = styled(Box)<IStyledProps>`
+export const TopSection = styled(Box)`
     font-weight: 700;
     display: flex;
     padding: 10px 0 5px 20px;
@@ -109,7 +95,7 @@ export const StyledAvatarContainer = styled(Box)`
 `;
 
 export const InnerRing = styled(Box)`
-    border: ${props => props.theme?.iconColor};
+    border: ${({ theme }) => theme?.iconColor};
     width: 70px;
     height: 70px;
     border-radius: 50%;

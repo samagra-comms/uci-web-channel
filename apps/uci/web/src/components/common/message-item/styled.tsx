@@ -1,40 +1,21 @@
 // @ts-ignore
 import styled from 'styled-components';
-import { config, theme_styles } from '@/config';
+import { config } from '@/config';
 import Image from 'next/image';
 import { Box } from '@chakra-ui/react';
-
-interface IStyledProps {
-    config: {
-        chatWindow: {
-            margin: string;
-            borderRadius: string;
-            topbar: {
-                padding: string;
-                iconBorder: string;
-            };
-        };
-    };
-}
 
 export const Span = styled.span`
     font-size: ${config?.message?.botMsg?.fontSize};
 `;
 
-export const Div = styled.div`
-    padding: ${theme_styles?.padding?.medium};
-`;
+export const Div = styled.div``;
 
 export const ContentDiv = styled.div`
-    width: ${theme_styles?.width?.medium};
-    margin-right: ${theme_styles?.margin?.small};
     text-align: center;
     border-radius: '200px';
 `;
 
 export const ContentImage = styled(Image)`
-    width: ${theme_styles?.width?.medium};
-    height: ${theme_styles?.width?.medium};
     border-radius: '200px';
 `;
 
@@ -59,19 +40,14 @@ export const ChatItem = styled.li`
     }
 `;
 
-export const ChatAvatar = styled.div`
-    margin-right: 20px;
-    img {
-        width: 60px;
-        height: 60px;
-        border-radius: 30px;
-    }
+export const ChatAvatarDiv = styled.div`
+    margin: 0 10px 0 10px;
+    width: ${config?.message?.userImage?.width};
+    height: ${config?.message?.userImage?.height};
+`;
 
-    .chat-name {
-        font-size: 0.75rem;
-        color: #999999;
-        text-align: center;
-    }
+export const ChatAvatar = styled.img`
+    border-radius: 30px;
 `;
 
 export const ChatText = styled.div`
@@ -106,13 +82,13 @@ export const ChatText = styled.div`
 
 export const ChatHour = styled.div`
     padding: 0;
-    margin-bottom: 10px;
     font-size: 0.75rem;
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: center;
-    margin: 0 0 0 15px;
+    margin: 0 10px 0 10px;
+    color: ${({ theme }) => theme?.color};
 
     > span {
         font-size: 16px;
@@ -140,6 +116,20 @@ export const StyledChatContainer = styled.div`
     padding: 1rem;
 `;
 
+export const ChatTextRight = styled.div`
+    padding: 0.8rem 1rem;
+    border-radius: 4px;
+    background: #ffffff;
+    font-weight: 300;
+    line-height: 150%;
+    position: relative;
+    font-size: 0.9rem;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    justify-content: center;
+`;
+
 export const StyledChatItem = styled.li`
     display: flex;
     flex-direction: row;
@@ -149,17 +139,6 @@ export const StyledChatItem = styled.li`
         width: 60px;
         height: 60px;
         border-radius: 30px;
-    }
-
-    .chat-avatar {
-        margin-right: 10px;
-        margin-left: 10px;
-    }
-
-    .chat-name {
-        font-size: 0.75rem;
-        color: #999999;
-        text-align: center;
     }
 
     .chat-text,
@@ -176,21 +155,12 @@ export const StyledChatItem = styled.li`
         align-items: center;
         justify-content: center;
     }
+`;
 
-    .chat-hour {
-        padding: 0;
-        font-size: 0.75rem;
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        justify-content: center;
-        margin: 0 10px 0 10px;
-
-        > span {
-            font-size: 16px;
-            color: #9ec94a;
-        }
-    }
+export const ChatName = styled.div`
+    font-size: 0.75rem;
+    color: #999999;
+    text-align: center;
 `;
 
 export const ChatBox = styled.ul`
@@ -199,8 +169,8 @@ export const ChatBox = styled.ul`
     padding: 0;
 `;
 
-export const InnerRing = styled(Box)<IStyledProps>`
-    border: ${props => props.config?.chatWindow?.topbar?.iconBorder};
+export const InnerRing = styled(Box)`
+    border: ${config?.chatWindow?.topbar?.iconBorder};
     width: 65px;
     height: 65px;
     border-radius: 50%;

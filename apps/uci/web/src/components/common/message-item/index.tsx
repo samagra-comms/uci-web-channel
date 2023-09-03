@@ -25,6 +25,10 @@ import {
     ChatBox,
     StyledChatContainer,
     InnerRing,
+    ChatHour,
+    ChatTextRight,
+    ChatAvatarDiv,
+    ChatName,
 } from './styled';
 import { useTheme } from '@/providers/ThemeProvider';
 
@@ -210,10 +214,7 @@ export const MessageItem: React.FC<any> = ({
                             {content?.data.position === 'left' ? (
                                 <StyledChatItem className="chat-left">
                                     <div className="chat-avatar chat-avatar-left">
-                                        <InnerRing
-                                            theme={theme}
-                                            config={config}
-                                        >
+                                        <InnerRing>
                                             <Image
                                                 src={userImage}
                                                 alt="botImage"
@@ -221,8 +222,7 @@ export const MessageItem: React.FC<any> = ({
                                                 width={150}
                                             />
                                         </InnerRing>
-
-                                        <div className="chat-name">Bot</div>
+                                        <ChatName>Bot</ChatName>
                                     </div>
                                     {content?.text! == null ? (
                                         <div className="chat-text">
@@ -257,8 +257,7 @@ export const MessageItem: React.FC<any> = ({
                                             />
                                         </div>
                                     )}
-
-                                    <div className="chat-hour">
+                                    <ChatHour>
                                         {moment
                                             .utc(
                                                 content?.data?.sentTimestamp ||
@@ -268,11 +267,11 @@ export const MessageItem: React.FC<any> = ({
                                             .local()
                                             .format('hh:mm')}
                                         <span className="fa fa-check-circle"></span>
-                                    </div>
+                                    </ChatHour>
                                 </StyledChatItem>
                             ) : (
                                 <StyledChatItem className="chat-right">
-                                    <div className="chat-hour">
+                                    <ChatHour>
                                         {moment
                                             .utc(
                                                 content?.data?.sentTimestamp ||
@@ -282,17 +281,22 @@ export const MessageItem: React.FC<any> = ({
                                             .local()
                                             .format('hh:mm')}{' '}
                                         <span className="fa fa-check-circle"></span>
-                                    </div>
-                                    <div className="chat-text-right">
+                                    </ChatHour>
+                                    <ChatTextRight>
                                         {content?.text}
-                                    </div>
-                                    <div className="chat-avatar chat-avatar-right">
-                                        <img
-                                            src="https://cdn-icons-png.flaticon.com/512/552/552721.png"
-                                            alt="Retail Admin"
+                                    </ChatTextRight>
+                                    <ChatAvatarDiv>
+                                        <ChatAvatar
+                                            src={
+                                                config?.message?.userImage
+                                                    ?.image
+                                            }
+                                            alt="User"
                                         />
-                                        <div className="chat-name">User</div>
-                                    </div>
+                                        <ChatName>
+                                            {config?.message?.userInput?.name}
+                                        </ChatName>
+                                    </ChatAvatarDiv>
                                 </StyledChatItem>
                             )}
                         </ChatBox>
@@ -310,12 +314,9 @@ export const MessageItem: React.FC<any> = ({
                         <ChatItem className={`chat-${content.data.position}`}>
                             <ChatAvatar>
                                 {content?.data?.position ===
-                                    config.message.userInput.position && (
+                                    config?.message?.userInput?.position && (
                                     <>
-                                        <InnerRing
-                                            theme={theme}
-                                            config={config}
-                                        >
+                                        <InnerRing>
                                             <Image
                                                 src={userImage}
                                                 alt="botImage"
@@ -402,10 +403,10 @@ export const MessageItem: React.FC<any> = ({
                         </ChatItem>
                     </ChatContainer>
                     <Box
-                        background={theme.background}
-                        padding={config.message.botMsg.padding}
-                        borderRadius={config.message.botMsg.borderRadius}
-                        margin={config.message.botMsg.margin}
+                        background={theme?.background}
+                        padding={config?.message?.botMsg?.padding}
+                        borderRadius={config?.message?.botMsg?.borderRadius}
+                        margin={config?.message?.botMsg?.margin}
                     >
                         <Div>
                             <FileCard file={url} extension="pdf" />
@@ -428,9 +429,10 @@ export const MessageItem: React.FC<any> = ({
                                             }
                                             color={
                                                 isStarred
-                                                    ? config.message.botMsg
-                                                          .starredColor
-                                                    : 'var(--grey)'
+                                                    ? config?.message?.botMsg
+                                                          ?.starredColor
+                                                    : config?.message?.botMsg
+                                                          ?.unstarredColor
                                             }
                                         />
                                     )}
@@ -474,10 +476,10 @@ export const MessageItem: React.FC<any> = ({
                         </ChatItem>
                     </ChatContainer>
                     <Box
-                        background={theme.background}
-                        padding={config.message.botMsg.padding}
-                        borderRadius={config.message.botMsg.borderRadius}
-                        margin={config.message.botMsg.margin}
+                        background={theme?.background}
+                        padding={config?.message?.botMsg?.padding}
+                        borderRadius={config?.message?.botMsg?.borderRadius}
+                        margin={config?.message?.botMsg?.margin}
                     >
                         <Div>
                             <Video
@@ -488,8 +490,6 @@ export const MessageItem: React.FC<any> = ({
                                 <span
                                     style={{
                                         color: 'var(--grey)',
-                                        fontSize:
-                                            theme.textStyles.small.fontSize,
                                     }}
                                 >
                                     {moment
@@ -509,8 +509,8 @@ export const MessageItem: React.FC<any> = ({
                                             }
                                             color={
                                                 isStarred
-                                                    ? config.message.botMsg
-                                                          .starredColor
+                                                    ? config?.message?.botMsg
+                                                          ?.starredColor
                                                     : 'var(--grey)'
                                             }
                                         />
@@ -548,10 +548,10 @@ export const MessageItem: React.FC<any> = ({
                     </ChatContainer>
                     <Box
                         background={theme?.mainBackground}
-                        borderRadius={config.message.botMsg.borderRadius}
-                        padding={config.message.botMsg.padding}
+                        borderRadius={config?.message?.botMsg?.borderRadius}
+                        padding={config?.message?.botMsg?.padding}
                         margin={config?.message?.botMsg?.margin}
-                        color={theme.color}
+                        color={theme?.color}
                     >
                         <Box marginBottom="1vw">
                             <Span>{content.text}</Span>

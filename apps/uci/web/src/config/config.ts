@@ -3,6 +3,7 @@ import {
     faChevronLeft,
     faPaperPlane,
     faSearch,
+    faUser,
 } from '@fortawesome/free-solid-svg-icons';
 
 export const config = {
@@ -57,16 +58,24 @@ export const config = {
 
     message: {
         icon: botImage,
+        userImage: {
+            image: 'https://p1.hiclipart.com/preview/359/957/100/face-icon-user-profile-user-account-avatar-icon-design-head-silhouette-neck-png-clipart.jpg',
+            height: '75px',
+            width: '65px',
+            borderRadius: '30px',
+        },
         iconSize: 10,
         userInput: {
             position: 'left',
             background: 'white',
             padding: '1vw',
             borderRadius: '0.5vw',
+            name: 'User',
         },
         botMsg: {
             fontSize: 'lg',
             starredColor: 'red',
+            unstarredColor: 'grey',
             borderRadius: '1vw',
             padding: '1vw',
             margin: '0 2vw 0 1vw',
@@ -95,6 +104,7 @@ export const config = {
             borderRadius: '2vw',
         },
     },
+
     textInput: {
         borderRadius: '7px',
         padding: '0.2vw',

@@ -21,6 +21,7 @@ import {
 } from './styled';
 import { useTheme } from '@/providers/ThemeProvider';
 import { config } from '@/config';
+import { ThemeProvider } from 'styled-components';
 
 interface chatItemProps {
     active: boolean;
@@ -83,26 +84,22 @@ const ChatItem: React.FC<chatItemProps> = ({
     }, [context, history, user, isMobile]);
 
     return (
-        <React.Fragment>
+        <ThemeProvider theme={theme}>
             <Container
                 onClick={onChangeUser}
                 disabled={isBlank}
                 active={active}
-                theme={theme}
-                config={config}
             >
-                <AvatarContainer config={config}>
+                <AvatarContainer>
                     <AvatarImage src={image} alt="profile pic" />
                 </AvatarContainer>
-                <ChatItemText theme={theme} config={config}>
+                <ChatItemText>
                     <UserName isBot={phoneNumber == null}>
-                        <Paragraph expired={expiredItem} theme={theme}>
-                            {name}
-                        </Paragraph>
+                        <Paragraph expired={expiredItem}>{name}</Paragraph>
                     </UserName>
                 </ChatItemText>
             </Container>
-        </React.Fragment>
+        </ThemeProvider>
     );
 };
 
