@@ -42,6 +42,10 @@ export const ThemeProvider = ({ children }: { children: React.ReactNode }) => {
             '--text-input-padding',
             config?.textInput?.padding,
         );
+        root.style.setProperty(
+            '--text-input-send-icon-color',
+            isDarkMode ? 'black' : light_theme.color,
+        );
         root.style.setProperty('--input-color', theme?.color);
     }, [isDarkMode]);
 

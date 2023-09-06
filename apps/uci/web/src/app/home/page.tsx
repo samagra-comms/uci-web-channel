@@ -7,10 +7,14 @@ import React, {
 } from 'react';
 import {
     Box,
+    Flex,
     useBreakpointValue,
     Tabs,
     TabPanels,
     TabPanel,
+    Tooltip,
+    IconButton,
+    Heading,
     InputGroup,
 } from '@chakra-ui/react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -40,8 +44,6 @@ import {
 } from './styled';
 import moment from 'moment';
 import { faAngleDown } from '@fortawesome/free-solid-svg-icons';
-import { ThemeProvider } from 'styled-components';
-
 export default function Home() {
     const { currentUser, allUsers, setMessages } = useContext(AppContext);
     const [searchTerm, setSearchTerm] = useState('');
@@ -51,23 +53,11 @@ export default function Home() {
     const starredMessage = useSelector(
         (state: any) => state.userMessages.starMessage,
     );
-
     useEffect(() => {
         if (usersData?.length > 0) {
             console.log('Users data: ', usersData);
         }
     }, [usersData]);
-
-    const starredBots = useMemo(() => {
-        const botIds = Object.keys(starredMessage);
-        const bots: Array<User> = [];
-        forEach(usersData, user => {
-            if (botIds.includes(user?.id)) bots.push(user);
-        });
-        return bots.filter(user =>
-            user.name.toLowerCase().includes(searchTerm.toLowerCase()),
-        );
-    }, [usersData, starredMessage, searchTerm]);
 
     const sortedUsersData = [...usersData].sort((a: any, b: any) => {
         // If both are either active or inactive, then sort by endDate using moment
@@ -80,15 +70,6 @@ export default function Home() {
             : 0;
     });
     reverse(sortedUsersData);
-
-    const [filteredBots, setFilteredBots] = useState(sortedUsersData);
-
-    useEffect(() => {
-        const results = sortedUsersData.filter(user =>
-            user.name.toLowerCase().includes(searchTerm.toLowerCase()),
-        );
-        setFilteredBots(results);
-    }, [searchTerm, sortedUsersData]);
 
     useEffect(() => {
         try {
@@ -105,14 +86,11 @@ export default function Home() {
             toast.error(err?.message || err);
         }
     }, [setMessages, currentUser?.id]);
-
     const history = useRouter();
     const context = useContext(AppContext);
-
     const onStarredChatsClick = useCallback((): void => {
         history.push('/starred-chats');
     }, [history]);
-
     useEffect(() => {
         try {
             if (localStorage.getItem('botToFocus')) {
@@ -131,7 +109,6 @@ export default function Home() {
             toast.error(err.message);
         }
     }, [history, allUsers, context]);
-
     useEffect(() => {
         setTimeout(() => {
             context?.setLoading(false);
@@ -146,210 +123,219 @@ export default function Home() {
             }
         }, 60000);
     }, [context]);
-
     const [visibleBots, setVisibleBots] = useState(10);
     const botsPerPage = 20;
     const onLoadMoreClick = () => {
         setVisibleBots(prevVisibleBots => prevVisibleBots + botsPerPage);
     };
-
     const isMobile = useBreakpointValue({ base: true, md: false });
-
     // Create a state to track the active tab
     const [activeTab, setActiveTab] = useState('bots');
-
     const onTabChange = (tab: string) => {
         setActiveTab(tab);
     };
 
+    const starredBots = useMemo(() => {
+        const botIds = Object.keys(starredMessage);
+        const bots: Array<User> = [];
+        forEach(usersData, user => {
+            if (botIds.includes(user?.id)) bots.push(user);
+        });
+        return bots;
+    }, [usersData, starredMessage]);
+
     return (
         <>
-            <ThemeProvider theme={theme}>
-                <StyledFlex>
-                    <StyledBox isMobile={isMobile}>
-                        <StyledMainContainer isMobile={isMobile}>
-                            <StyledBackBox isMobile={isMobile}>
-                                <StyledSearchBox isMobile={isMobile}>
-                                    <InputGroup padding={'0.5'}>
-                                        <StyledInput
-                                            value={searchTerm}
-                                            onChange={e =>
-                                                setSearchTerm(e.target.value)
-                                            }
-                                            placeholder={
-                                                config?.search?.placeholder
-                                            }
+            <StyledFlex>
+                <StyledBox isMobile={isMobile}>
+                    <StyledMainContainer isMobile={isMobile}>
+                        <StyledBackBox theme={theme} isMobile={isMobile}>
+                            <StyledSearchBox
+                                config={config}
+                                isMobile={isMobile}
+                            >
+                                <InputGroup padding={'0.5'}>
+                                    <StyledInput
+                                        theme={theme}
+                                        config={config}
+                                        value={searchTerm}
+                                        onChange={e =>
+                                            setSearchTerm(e.target.value)
+                                        }
+                                        placeholder={
+                                            config?.search?.placeholder
+                                        }
+                                    />
+                                    <StyledInputLeftElement config={config}>
+                                        <FontAwesomeIcon
+                                            icon={config?.search?.icon}
+                                            color="gray"
                                         />
-                                        <StyledInputLeftElement>
-                                            <FontAwesomeIcon
-                                                icon={config?.search?.icon}
-                                                color="gray"
-                                            />
-                                        </StyledInputLeftElement>
-                                    </InputGroup>
-                                </StyledSearchBox>
-                                <Box>
-                                    <Tabs
-                                        isFitted
-                                        variant="unstyled"
-                                        onChange={onTabChange}
-                                        marginTop="5"
-                                    >
-                                        <StyledTabList>
-                                            {showStarredtab ? (
-                                                <StyledTab
-                                                    _selected={{
-                                                        color: theme?.color,
-                                                        bg: theme?.mainBackground,
-                                                    }}
-                                                    onClick={() =>
-                                                        setShowStarredTab(false)
-                                                    }
-                                                >
-                                                    {config?.tab?.bots?.text}
-                                                </StyledTab>
-                                            ) : (
-                                                <StyledTab
-                                                    _selected={{
-                                                        color: theme?.color,
-                                                        bg: theme?.mainBackground,
-                                                    }}
-                                                    onClick={() =>
-                                                        setShowStarredTab(true)
-                                                    }
-                                                >
-                                                    {
-                                                        config?.tab?.Starredchat
-                                                            ?.text
-                                                    }
-                                                </StyledTab>
-                                            )}
-                                        </StyledTabList>
-                                        <TabPanels>
-                                            {!showStarredtab ? (
-                                                <TabPanel>
-                                                    <StyledChatList>
-                                                        {filteredBots?.length >
-                                                        0 ? (
-                                                            <>
-                                                                {filteredBots
-                                                                    .slice(
-                                                                        0,
-                                                                        visibleBots,
-                                                                    )
-                                                                    .map(
-                                                                        (
-                                                                            user: any,
-                                                                            index: any,
-                                                                        ) => (
-                                                                            <div
-                                                                                key={
-                                                                                    user?.id
-                                                                                }
-                                                                            >
-                                                                                <ChatItem
-                                                                                    image={
-                                                                                        user?.botImage
-                                                                                    }
-                                                                                    key={
-                                                                                        index
-                                                                                    }
-                                                                                    active={
-                                                                                        user.active
-                                                                                    }
-                                                                                    name={
-                                                                                        user.name
-                                                                                    }
-                                                                                    phoneNumber={
-                                                                                        user.number
-                                                                                    }
-                                                                                    user={
-                                                                                        user
-                                                                                    }
-                                                                                />
-                                                                            </div>
-                                                                        ),
-                                                                    )}
-                                                            </>
-                                                        ) : (
-                                                            <ChatItem
-                                                                key={0}
-                                                                active={false}
-                                                                name={
-                                                                    'No Bots Available'
-                                                                }
-                                                                phoneNumber={''}
-                                                                isBlank
-                                                            />
-                                                        )}
-                                                    </StyledChatList>
-                                                </TabPanel>
-                                            ) : (
-                                                <TabPanel>
-                                                    <StyledChatList>
-                                                        {starredBots.length >
-                                                        0 ? (
-                                                            <>
-                                                                {(
-                                                                    starredBots ??
-                                                                    []
-                                                                )?.map(
+                                    </StyledInputLeftElement>
+                                </InputGroup>
+                            </StyledSearchBox>
+                            <Box>
+                                <Tabs
+                                    isFitted
+                                    variant="unstyled"
+                                    colorScheme="teal"
+                                    onChange={onTabChange}
+                                    marginTop="5"
+                                >
+                                    <StyledTabList>
+                                        {showStarredtab ? (
+                                            <StyledTab
+                                                config={config}
+                                                theme={theme}
+                                                _selected={{
+                                                    color: theme?.color,
+                                                    bg: theme?.mainBackground,
+                                                }}
+                                                onClick={() =>
+                                                    setShowStarredTab(false)
+                                                }
+                                            >
+                                                {config?.tab?.bots?.text}
+                                            </StyledTab>
+                                        ) : (
+                                            <StyledTab
+                                                theme={theme}
+                                                config={config}
+                                                _selected={{
+                                                    color: theme?.color,
+                                                    bg: theme?.mainBackground,
+                                                }}
+                                                onClick={() =>
+                                                    setShowStarredTab(true)
+                                                }
+                                            >
+                                                {config?.tab?.Starredchat?.text}
+                                            </StyledTab>
+                                        )}
+                                    </StyledTabList>
+                                    <TabPanels>
+                                        {!showStarredtab ? (
+                                            <TabPanel>
+                                                <StyledChatList>
+                                                    {sortedUsersData?.length >
+                                                    0 ? (
+                                                        <>
+                                                            {sortedUsersData
+                                                                .slice(
+                                                                    0,
+                                                                    visibleBots,
+                                                                )
+                                                                .map(
                                                                     (
-                                                                        user,
-                                                                        index,
+                                                                        user: any,
+                                                                        index: any,
                                                                     ) => (
-                                                                        <StarredChatItem
-                                                                            toChangeCurrentUser={(): null =>
-                                                                                null
-                                                                            }
+                                                                        <div
                                                                             key={
-                                                                                index
+                                                                                user?.id
                                                                             }
-                                                                            active={
-                                                                                user.active
-                                                                            }
-                                                                            name={
-                                                                                user.name
-                                                                            }
-                                                                            phoneNumber={
-                                                                                user.number
-                                                                            }
-                                                                            user={
-                                                                                user
-                                                                            }
-                                                                        />
+                                                                        >
+                                                                            <ChatItem
+                                                                                image={
+                                                                                    user?.botImage
+                                                                                }
+                                                                                key={
+                                                                                    index
+                                                                                }
+                                                                                active={
+                                                                                    user.active
+                                                                                }
+                                                                                name={
+                                                                                    user.name
+                                                                                }
+                                                                                phoneNumber={
+                                                                                    user.number
+                                                                                }
+                                                                                user={
+                                                                                    user
+                                                                                }
+                                                                            />
+                                                                        </div>
                                                                     ),
                                                                 )}
-                                                            </>
-                                                        ) : (
-                                                            <StarredChatItem
-                                                                toChangeCurrentUser={(): null =>
-                                                                    null
-                                                                }
-                                                                key={0}
-                                                                active={false}
-                                                                name={
-                                                                    'No Starred Messages'
-                                                                }
-                                                                isBlank
-                                                            />
-                                                        )}
-                                                    </StyledChatList>
-                                                </TabPanel>
-                                            )}
-                                        </TabPanels>
-                                    </Tabs>
-                                </Box>
-                                <LoadMoreButton onClick={onLoadMoreClick}>
-                                    <div>
-                                        <LoadMoreIcon icon={faAngleDown} />
-                                    </div>
-                                </LoadMoreButton>
-                            </StyledBackBox>
-                        </StyledMainContainer>
-                    </StyledBox>
-                </StyledFlex>
-            </ThemeProvider>
+                                                        </>
+                                                    ) : (
+                                                        <ChatItem
+                                                            key={0}
+                                                            active={false}
+                                                            name={
+                                                                'No Bots Available'
+                                                            }
+                                                            phoneNumber={''}
+                                                            isBlank
+                                                        />
+                                                    )}
+                                                </StyledChatList>
+                                            </TabPanel>
+                                        ) : (
+                                            <TabPanel>
+                                                <StyledChatList>
+                                                    {starredBots.length > 0 ? (
+                                                        <>
+                                                            {(
+                                                                starredBots ??
+                                                                []
+                                                            )?.map(
+                                                                (
+                                                                    user,
+                                                                    index,
+                                                                ) => (
+                                                                    <StarredChatItem
+                                                                        toChangeCurrentUser={(): null =>
+                                                                            null
+                                                                        }
+                                                                        key={
+                                                                            index
+                                                                        }
+                                                                        active={
+                                                                            user.active
+                                                                        }
+                                                                        name={
+                                                                            user.name
+                                                                        }
+                                                                        phoneNumber={
+                                                                            user.number
+                                                                        }
+                                                                        user={
+                                                                            user
+                                                                        }
+                                                                    />
+                                                                ),
+                                                            )}
+                                                        </>
+                                                    ) : (
+                                                        <StarredChatItem
+                                                            toChangeCurrentUser={(): null =>
+                                                                null
+                                                            }
+                                                            key={0}
+                                                            active={false}
+                                                            name={
+                                                                'No Starred Messages'
+                                                            }
+                                                            isBlank
+                                                        />
+                                                    )}
+                                                </StyledChatList>
+                                            </TabPanel>
+                                        )}
+                                    </TabPanels>
+                                </Tabs>
+                            </Box>
+                            <LoadMoreButton onClick={onLoadMoreClick}>
+                                <div>
+                                    <LoadMoreIcon icon={faAngleDown} />
+                                </div>
+                            </LoadMoreButton>
+                        </StyledBackBox>
+                    </StyledMainContainer>
+                </StyledBox>
+            </StyledFlex>
         </>
     );
 }

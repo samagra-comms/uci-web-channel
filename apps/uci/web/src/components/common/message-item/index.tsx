@@ -10,7 +10,7 @@ import { botImage, profilePic } from '@/assets';
 import Image from 'next/image';
 import { AppContext } from '@/context';
 import { useLocalStorage } from '@/hooks';
-import { Box, Button } from '@chakra-ui/react';
+import { Box, Button, Flex } from '@chakra-ui/react';
 import { config } from '@/config';
 // import './index.css';
 import {
@@ -29,6 +29,8 @@ import {
     ChatTextRight,
     ChatAvatarDiv,
     ChatName,
+    AvatarImage,
+    MainFlex,
 } from './styled';
 import { useTheme } from '@/providers/ThemeProvider';
 
@@ -43,6 +45,8 @@ export const MessageItem: React.FC<any> = ({
     const [isInLocal, setIsInLocal] = React.useState(false);
     const [userImage, setBotImage] = React.useState(profilePic);
     const { theme } = useTheme();
+    const [feedback, setFeedback] = React.useState(null); // 'thumbsUp' or 'thumbsDown'
+    const [hasGivenFeedback, setHasGivenFeedback] = React.useState(false);
     const [msgToStarred, setMsgToStarred] = React.useState<{
         botUuid?: string;
         messageId?: string;
@@ -170,6 +174,23 @@ export const MessageItem: React.FC<any> = ({
         [onSend, currentUser],
     );
 
+    const handleFeedback = feedbackType => {
+        if (!hasGivenFeedback) {
+            setFeedback(feedbackType);
+            setHasGivenFeedback(true);
+
+            // You can send the feedback data to your backend or handle it as needed
+            // Example: sendFeedbackToServer(msg, feedbackType);
+
+            // Optionally, provide some feedback to the user about their feedback
+            if (feedbackType === 'thumbsUp') {
+                toast.success('Thank you for your positive feedback!');
+            } else {
+                toast.error('Thank you for your feedback. We will improve!');
+            }
+        }
+    };
+
     const getLists = React.useCallback(
         ({ choices, isDisabled }: { choices: any; isDisabled: boolean }) => (
             <List>
@@ -212,63 +233,127 @@ export const MessageItem: React.FC<any> = ({
                     <StyledChatContainer>
                         <ChatBox className="chat-box chatContainerScroll">
                             {content?.data.position === 'left' ? (
-                                <StyledChatItem className="chat-left">
-                                    <div className="chat-avatar chat-avatar-left">
-                                        <InnerRing>
-                                            <Image
-                                                src={userImage}
-                                                alt="botImage"
-                                                height={150}
-                                                width={150}
-                                            />
-                                        </InnerRing>
-                                        <ChatName>Bot</ChatName>
-                                    </div>
-                                    {content?.text! == null ? (
-                                        <div className="chat-text">
-                                            {content?.text}
-                                            <FontAwesomeIcon
-                                                icon={faStar}
-                                                onClick={() =>
-                                                    onLongPress(content)
-                                                }
-                                                color={
-                                                    isStarred
-                                                        ? config.message.botMsg
-                                                              .starredColor
-                                                        : 'var(--grey)'
-                                                }
-                                            />
+                                <>
+                                    <StyledChatItem className="chat-left">
+                                        <div className="chat-avatar chat-avatar-left">
+                                            <InnerRing>
+                                                <AvatarImage
+                                                    src={userImage}
+                                                    alt="botImage"
+                                                    height={150}
+                                                    width={150}
+                                                ></AvatarImage>
+                                            </InnerRing>
+                                            <ChatName>
+                                                {config?.message?.botMsg?.text}
+                                            </ChatName>
                                         </div>
-                                    ) : (
-                                        <div className="chat-text">
-                                            No response recieved from Bot!
-                                            <FontAwesomeIcon
-                                                icon={faStar}
-                                                onClick={() =>
-                                                    onLongPress(content)
-                                                }
-                                                color={
-                                                    isStarred
-                                                        ? config.message.botMsg
-                                                              .starredColor
-                                                        : 'var(--grey)'
-                                                }
-                                            />
-                                        </div>
-                                    )}
-                                    <ChatHour>
-                                        {moment
-                                            .utc(
-                                                content?.data?.sentTimestamp ||
-                                                    content?.data
-                                                        ?.repliedTimestamp,
-                                            )
-                                            .local()
-                                            .format('hh:mm')}
-                                        <span className="fa fa-check-circle"></span>
-                                    </ChatHour>
-                                </StyledChatItem>
+                                        <MainFlex>
+                                            {content?.text! == null ? (
+                                                <div className="chat-text">
+                                                    {content?.text}
+                                                    <FontAwesomeIcon
+                                                        icon={faStar}
+                                                        onClick={() =>
+                                                            onLongPress(content)
+                                                        }
+                                                        color={
+                                                            isStarred
+                                                                ? config.message
+                                                                      .botMsg
+                                                                      .starredColor
+                                                                : 'var(--grey)'
+                                                        }
+                                                    />
+                                                </div>
+                                            ) : (
+                                                <Flex
+                                                    flexDirection={'column'}
+                                                    gap={'1vw'}
+                                                >
+                                                    <div className="chat-text">
+                                                        No response recieved
+                                                        from Bot!
+                                                        <FontAwesomeIcon
+                                                            icon={
+                                                                config
+                                                                    ?.starredlist
+                                                                    ?.icon
+                                                            }
+                                                            onClick={() =>
+                                                                onLongPress(
+                                                                    content,
+                                                                )
+                                                            }
+                                                            color={
+                                                                isStarred
+                                                                    ? config
+                                                                          .message
+                                                                          .botMsg
+                                                                          .starredColor
+                                                                    : 'var(--grey)'
+                                                            }
+                                                        />
+                                                    </div>
+                                                    <Flex>
+                                                        {feedback === null &&
+                                                            !hasGivenFeedback && (
+                                                                <Flex
+                                                                    gap={[
+                                                                        '4vw',
+                                                                        '0.5vw',
+                                                                    ]}
+                                                                >
+                                                                    <FontAwesomeIcon
+                                                                        icon={
+                                                                            config
+                                                                                ?.message
+                                                                                ?.feedback
+                                                                                ?.successIcon
+                                                                        }
+                                                                        onClick={() =>
+                                                                            handleFeedback(
+                                                                                'thumbsUp',
+                                                                            )
+                                                                        }
+                                                                        color="green"
+                                                                    />
+                                                                    <FontAwesomeIcon
+                                                                        icon={
+                                                                            config
+                                                                                ?.message
+                                                                                ?.feedback
+                                                                                ?.failureIcon
+                                                                        }
+                                                                        onClick={() =>
+                                                                            handleFeedback(
+                                                                                'thumbsDown',
+                                                                            )
+                                                                        }
+                                                                        color="red"
+                                                                    />
+                                                                </Flex>
+                                                            )}
+                                                    </Flex>
+                                                </Flex>
+                                            )}
+                                            <ChatHour
+                                                style={{ marginLeft: '45vw' }}
+                                            >
+                                                {moment
+                                                    .utc(
+                                                        content?.data
+                                                            ?.sentTimestamp ||
+                                                            content?.data
+                                                                ?.repliedTimestamp,
+                                                    )
+                                                    .local()
+                                                    .format('hh:mm')}
+                                                <span className="fa fa-check-circle"></span>
+                                            </ChatHour>
+                                        </MainFlex>
+                                    </StyledChatItem>
+                                </>
                             ) : (
                                 <StyledChatItem className="chat-right">
                                     <ChatHour>
@@ -324,55 +409,74 @@ export const MessageItem: React.FC<any> = ({
                                                 width={150}
                                             />
                                         </InnerRing>
-                                        <div className="chat-name">Bot</div>
+                                        <div className="chat-name">
+                                            {config?.message?.botMsg?.text}
+                                        </div>
                                     </>
                                 )}
                             </ChatAvatar>
                         </ChatItem>
                     </ChatContainer>
-                    <Box marginLeft="-30px">
-                        <Div>
-                            <Image
-                                src={url}
-                                width={300}
-                                height={300}
-                                alt="botImage"
-                            />
-                            <BubbleDiv>
-                                <BubbleSpan>
-                                    {moment
-                                        .utc(
-                                            content?.data?.sentTimestamp ||
-                                                content?.data?.repliedTimestamp,
-                                        )
-                                        .local()
-                                        .format('DD/MM/YYYY : hh:mm')}
-                                </BubbleSpan>
-                                <span>
-                                    {content?.data?.position === 'left' && (
+                    {url != null ? (
+                        <Box marginLeft="-30px">
+                            <Div>
+                                <Image
+                                    src={url}
+                                    width={300}
+                                    height={300}
+                                    alt="botImage"
+                                />
+                                <BubbleDiv>
+                                    <BubbleSpan>
+                                        {moment
+                                            .utc(
+                                                content?.data?.sentTimestamp ||
+                                                    content?.data
+                                                        ?.repliedTimestamp,
+                                            )
+                                            .local()
+                                            .format('DD/MM/YYYY : hh:mm')}
+                                    </BubbleSpan>
+                                    <span>
+                                        {content?.data?.position === 'left' && (
+                                            <FontAwesomeIcon
+                                                icon={faStar}
+                                                onClick={(): void =>
+                                                    onLongPress(content)
+                                                }
+                                                color={
+                                                    isStarred
+                                                        ? config?.message
+                                                              ?.botMsg
+                                                              ?.starredColor
+                                                        : 'grey'
+                                                }
+                                            />
+                                        )}
                                         <FontAwesomeIcon
-                                            icon={faStar}
-                                            onClick={(): void =>
-                                                onLongPress(content)
-                                            }
-                                            color={
-                                                isStarred
-                                                    ? config?.message?.botMsg
-                                                          ?.starredColor
-                                                    : 'grey'
-                                            }
+                                            icon={faDownload}
+                                            onClick={(): void => download(url)}
+                                            color={'var(--grey)'}
                                         />
-                                    )}
-                                    <FontAwesomeIcon
-                                        icon={faDownload}
-                                        onClick={(): void => download(url)}
-                                        color={'var(--grey)'}
-                                    />
-                                </span>
-                            </BubbleDiv>
-                        </Div>
-                        {/* </Bubble> */}
-                    </Box>
+                                    </span>
+                                </BubbleDiv>
+                            </Div>
+                            {/* </Bubble> */}
+                        </Box>
+                    ) : (
+                        <div className="chat-text">
+                            No response recieved from Bot!
+                            <FontAwesomeIcon
+                                icon={faStar}
+                                onClick={() => onLongPress(content)}
+                                color={
+                                    isStarred
+                                        ? config.message.botMsg.starredColor
+                                        : 'var(--grey)'
+                                }
+                            />
+                        </div>
+                    )}
                 </>
             );
         }

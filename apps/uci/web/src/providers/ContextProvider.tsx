@@ -90,6 +90,10 @@ export const ContextProvider: FC<{ children: React.ReactNode }> = ({
         };
     }, []);
 
+    useEffect(() => {
+        localStorage.setItem('currentUser', JSON.stringify(currentUser.name));
+    }, [currentUser]);
+
     const onMessageReceived = useCallback(
         (msg: SocketResponse): void => {
             console.log('socket: BotResponse', { msg });

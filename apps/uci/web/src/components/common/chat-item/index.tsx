@@ -91,7 +91,13 @@ const ChatItem: React.FC<chatItemProps> = ({
                 active={active}
             >
                 <AvatarContainer>
-                    <AvatarImage src={image} alt="profile pic" />
+                    <AvatarImage
+                        src={image}
+                        onError={e => {
+                            e.target.src = userImage; // Set the fallback icon URL if the image fails to load
+                        }}
+                        alt="profile pic"
+                    />
                 </AvatarContainer>
                 <ChatItemText>
                     <UserName isBot={phoneNumber == null}>

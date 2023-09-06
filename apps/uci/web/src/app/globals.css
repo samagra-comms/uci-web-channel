@@ -106,7 +106,7 @@ button{
   padding: var(--text-input-padding);
   background: var(--chat-footer-color) !important;
   @media screen and (max-width: 768px) {
-    width: 95vw;
+    width: 88vw;
   }
 }
 
@@ -146,7 +146,12 @@ button{
   display: flex;
   flex: 1;
   width: 100%;
-}
+
+  /* @media screen and (max-width: 768px) {
+    width: 10%;
+  } */
+    
+  }
 
 .voice-mic.active::before {
   content: '';
@@ -172,4 +177,8 @@ button{
     transform: rotate(360deg);
     scale: 1.1;
   }
+}
+
+.send-icon{
+  color: var(--text-input-send-icon-color);
 }

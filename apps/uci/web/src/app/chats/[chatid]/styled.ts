@@ -90,16 +90,22 @@ export const StyledAvatarContainer = styled(Box)`
     @media screen and (max-width: 768px) {
         width: 100%;
         height: 100%;
-        margin-left: -5px;
+        margin-left: 5px;
     }
 `;
 
 export const InnerRing = styled(Box)`
     border: ${config?.chatWindow?.topbar?.iconBorder};
-    width: 55px;
-    height: 55px;
+    width: ${config?.chatWindow?.topbar?.imageHeight};
+    height: ${config?.chatWindow?.topbar?.imageWidth};
     border-radius: 50%;
     margin-right: 10px;
+
+    @media screen and (max-width: 768px) {
+        width: ${config?.chatWindow?.topbar?.mobileImageWidth};
+        height: ${config?.chatWindow?.topbar?.mobileImageHeight};
+        margin-left: 0px;
+    }
 `;
 
 export const AvatarImage = styled.img`
@@ -108,7 +114,7 @@ export const AvatarImage = styled.img`
 
     @media screen and (max-width: 768px) {
         max-width: 100%;
-        max-height: 85%;
+        max-height: 100%;
     }
 `;
 
@@ -123,4 +129,13 @@ export const StyledText = styled.div`
     font-size: 24px;
     font-weight: bold;
     color: gray.500;
+`;
+
+export const MainBox = styled(Box)`
+    height: ${config?.chatWindow?.innerWindow?.height};
+    overflow-y: scroll;
+
+    @media (max-width: 767px) {
+        height: ${config?.chatWindow?.innerWindow?.mobileHeight};
+    }
 `;

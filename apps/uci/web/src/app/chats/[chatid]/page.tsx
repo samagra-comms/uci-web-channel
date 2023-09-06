@@ -15,6 +15,7 @@ import {
     ChatWindow,
     FlexContainer,
     InnerRing,
+    MainBox,
     MainFlex,
     Span,
     StyledAvatarContainer,
@@ -43,6 +44,10 @@ const Chats = ({ params }: chatProps) => {
     const isMobile = useBreakpointValue({ base: true, md: false });
     const mainFlexWidth = isMobile ? '100vw' : '186vw';
     const [userImage, setUserImage] = useState(profilePic);
+    const currentUser = useSelector(
+        (state: any) => state.userList.currentUser.name,
+    );
+    console.log(currentUser);
 
     useEffect(() => {
         if (context?.currentUser?.botImage) {
@@ -83,7 +88,7 @@ const Chats = ({ params }: chatProps) => {
                     isHomepage={isHomepage}
                 >
                     <MainFlex>
-                        {context?.currentUser ? (
+                        {currentUser ? (
                             <>
                                 <TopSection>
                                     <Box
@@ -153,11 +158,18 @@ const Chats = ({ params }: chatProps) => {
                                                 icon={
                                                     theme.name == 'light' ? (
                                                         <FontAwesomeIcon
-                                                            icon={faMoon}
+                                                            icon={
+                                                                config?.theme
+                                                                    ?.light
+                                                                    ?.icon
+                                                            }
                                                         />
                                                     ) : (
                                                         <FontAwesomeIcon
-                                                            icon={faLightbulb}
+                                                            icon={
+                                                                config?.theme
+                                                                    ?.dark?.icon
+                                                            }
                                                         />
                                                     )
                                                 }
@@ -180,16 +192,13 @@ const Chats = ({ params }: chatProps) => {
                                 <ChatWindow>
                                     {/* NeoMorphism Box */}
                                     <BackBox>
-                                        <Box
-                                            height={['85vh', '100vh']}
-                                            overflowY="scroll"
-                                        >
+                                        <MainBox>
                                             <ChatUiComponent
                                                 currentUser={
                                                     context?.currentUser
                                                 }
                                             />
-                                        </Box>
+                                        </MainBox>
                                     </BackBox>
                                 </ChatWindow>
                             </>
