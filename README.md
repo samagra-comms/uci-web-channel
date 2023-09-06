@@ -69,7 +69,7 @@ Run `npm run dev`
 
 Below are the designs of how output screens will look like.
 ![](https://i.postimg.cc/1tP22S2W/Screenshot-2023-09-06-102410.png)
-![](https://i.postimg.cc/K8MWY4yq/Screenshot-2023-09-06-102530.png)
+![](https://i.postimg.cc/fyv9CcX2/Screenshot-2023-09-06-102530.png)
 ![](https://i.postimg.cc/nVygs7Vf/Screenshot-2023-09-05-at-6-24-45-PM.png)
 ![](https://i.postimg.cc/rsF5ZNbn/Screenshot-2023-08-28-090003.png)
 ![](https://i.postimg.cc/NMrbYJH9/Screenshot-2023-09-05-at-6-24-02-PM.png)
