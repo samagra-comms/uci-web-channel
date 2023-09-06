@@ -67,14 +67,20 @@ Run `yarn run dev`
 
 ## Designs
 
-Below are the designs of how output screens will look like.
+Below are the designs of how output screens will look like on desktop/laptop
 ![](https://i.postimg.cc/1tP22S2W/Screenshot-2023-09-06-102410.png)
 ![](https://i.postimg.cc/fyv9CcX2/Screenshot-2023-09-06-102530.png)
 ![](https://i.postimg.cc/nVygs7Vf/Screenshot-2023-09-05-at-6-24-45-PM.png)
 ![](https://i.postimg.cc/rsF5ZNbn/Screenshot-2023-08-28-090003.png)
 ![](https://i.postimg.cc/NMrbYJH9/Screenshot-2023-09-05-at-6-24-02-PM.png)
 
+---- 
+Below are the screenshots of tablet/mobile view: 
 
+![](https://i.postimg.cc/TPgkqs7T/localhost-3003-i-Pad-Air-2.png)
+![](https://i.postimg.cc/8PYt8Gx1/localhost-3003-i-Pad-Air-3.png)
+![](https://i.postimg.cc/KYPNgMjz/localhost-3003-i-Pad-Air.png)
+![](https://i.postimg.cc/kGpFdN1j/localhost-3003-i-Pad-Air-1.png)
 ## Docs Link
 
 Follow for the [Docs](https://main--sage-syrniki-b31f4f.netlify.app/)
