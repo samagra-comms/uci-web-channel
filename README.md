@@ -37,8 +37,8 @@ git clone https://github.com/Your_Username/uci-web-channel.git
 ```sh
 # This will change directory to a folder uci-web-channel
 cd uci-web-channel
-npm i
-npm run dev
+npm install 
+yarn run dev 
 ```
 
 Move to this folder for all other commands.
@@ -67,12 +67,17 @@ Run `npm run dev`
 
 ## Designs
 
-Below are the designs of how output screens will look like. For more detailed view you can checkout the [Figma](https://www.figma.com/file/d8JiwkYJqGYXQaflCyNVzl/UCI-web-channel?node-id=0%3A1) file.
-![Designs](https://user-images.githubusercontent.com/77741561/171156677-0ee016dd-a240-4edc-b2e8-50b08ac06a58.png)
+Below are the designs of how output screens will look like.
+![](https://i.postimg.cc/1tP22S2W/Screenshot-2023-09-06-102410.png)
+![](https://i.postimg.cc/K8MWY4yq/Screenshot-2023-09-06-102530.png)
+![](https://i.postimg.cc/nVygs7Vf/Screenshot-2023-09-05-at-6-24-45-PM.png)
+![](https://i.postimg.cc/rsF5ZNbn/Screenshot-2023-08-28-090003.png)
+![](https://i.postimg.cc/NMrbYJH9/Screenshot-2023-09-05-at-6-24-02-PM.png)
+
 
 ## Docs Link
 
-Follow for the [Docs](https://uci-web-channel-docs.vercel.app/)
+Follow for the [Docs](https://main--sage-syrniki-b31f4f.netlify.app/)
 
 ## Contributing
 
