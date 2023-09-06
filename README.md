@@ -37,7 +37,7 @@ git clone https://github.com/Your_Username/uci-web-channel.git
 ```sh
 # This will change directory to a folder uci-web-channel
 cd uci-web-channel
-npm install 
+npm install or yarn install
 yarn run dev 
 ```
 
@@ -63,7 +63,7 @@ The websocket connection URL for the plaground can be used for testing - `wss://
 
 ### 5. Run it :checkered_flag:
 
-Run `npm run dev`
+Run `yarn run dev`
 
 ## Designs
 
