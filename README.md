@@ -38,7 +38,7 @@ git clone https://github.com/Your_Username/uci-web-channel.git
 # This will change directory to a folder uci-web-channel
 cd uci-web-channel
 npm install or yarn install
-yarn run dev 
+yarn run dev
 ```
 
 Move to this folder for all other commands.
@@ -69,8 +69,8 @@ Run `yarn run dev`
 
 ![image](https://github.com/samagra-comms/uci-web-channel/assets/74411873/bbfc838f-bc2e-4ce2-b7da-e36443b25ed3)
 
-
 ![image](https://github.com/samagra-comms/uci-web-channel/assets/74411873/eccda3f5-f013-48b8-b502-02fcfd6e0343)
+
 ## Docs Link
 
 Follow for the [Docs](https://main--sage-syrniki-b31f4f.netlify.app/)

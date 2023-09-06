@@ -4,7 +4,6 @@ import styles from './page.module.css';
 import Head from 'next/head';
 import { Box, HStack, PinInput, Link } from '@chakra-ui/react';
 import React, { useCallback, useMemo, useState } from 'react';
-import { useRouter } from 'next/navigation';
 import { useCookies } from 'react-cookie';
 import { useColorModeValue } from '@chakra-ui/react';
 import image1 from '../../assets/images/emptyOtp.png';
@@ -13,9 +12,9 @@ import { PinInputComponent } from '@/components/otp/pin-input';
 import Image from 'next/image';
 import { useGetQueryParam } from '../../hooks';
 import { toast } from 'react-hot-toast';
+import { useRouter } from 'next/navigation';
 
 const OTPPage: NextPage = () => {
-    const router = useRouter();
     const [input, setInput] = useState({
         value1: '',
         value2: '',
@@ -26,13 +25,14 @@ const OTPPage: NextPage = () => {
 
     const [cookies, setCookie, removeCookie] = useCookies(['access_token']);
 
+    const router = useRouter();
+    router.push(`/otp?state=${mobile}`);
     const handleOTPSubmit: React.FormEventHandler = (
         event: React.FormEvent,
     ) => {
         event.preventDefault();
         const inputOTP: string =
             input.value1 + input.value2 + input.value3 + input.value4;
-
         if (inputOTP.length === 4 && mobile?.length === 10) {
             verifyOTP(mobile, inputOTP)
                 .then(response => response.json())
@@ -59,6 +59,7 @@ const OTPPage: NextPage = () => {
                         toast.error('Incorrect OTP');
                     }
                 })
+
                 .catch(err => console.log(err));
         } else toast.error('Invalid OTP or Mobile');
     };

@@ -37,3 +37,6 @@ export const {
     setError,
     setStarMessage,
 } = userMessagesSlice.actions;
+
+export const starredMessageSelector = (state: any) =>
+    state?.userMessages?.starMessage;

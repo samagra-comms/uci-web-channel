@@ -1,6 +1,7 @@
 import { urlsConfig } from '@/config';
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
+import { RootState } from '..';
 
 //! USER LIST-> All,active/current ,loading,error ,setUser,setUsers
 //! USER MESSAGES (MESSAGE SLICE)
@@ -53,6 +54,11 @@ const userListSlice = createSlice({
     },
 });
 
+//@ts-ignore
+export const isLoadingSelector = (state: RootState) => state?.userList?.loading;
+export const usersDataSelector = (state: RootState) => state?.userList?.users;
+export const currentUserSelector = (state: RootState) =>
+    state?.userList?.currentUser;
 export { userListSlice };
 export const { setUsers, setCurrentUser, setLoading, setError } =
     userListSlice.actions;

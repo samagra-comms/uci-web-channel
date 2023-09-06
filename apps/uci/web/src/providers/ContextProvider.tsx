@@ -14,11 +14,15 @@ import { Socket } from 'socket.io-client';
 import SocketConnection from '@/components/socket-components';
 import GetBotList from '@/components/get-bot-list';
 import { useDispatch, useSelector } from 'react-redux';
-import { setCurrentUser } from '@/store/slices/userListSlice';
+import {
+    setCurrentUser,
+    currentUserSelector,
+} from '@/store/slices/userListSlice';
 
 export const ContextProvider: FC<{ children: React.ReactNode }> = ({
     children,
 }) => {
+    const currentUser = useSelector(currentUserSelector);
     const [users, setUsers] = useState<User[]>([]);
     const [messages, setMessages] = useState<Array<any>>([]);
     const [socketSession, setSocketSession] = useState<any>();
@@ -41,7 +45,6 @@ export const ContextProvider: FC<{ children: React.ReactNode }> = ({
     const [isSendDisabled, setIsSendDisabled] = useState<boolean>(false);
     const [showStarredChat, setShowStarredChat] = useState(false);
     const dispatch = useDispatch();
-    const currentUser = useSelector((state: any) => state.userList.currentUser);
 
     const botStartingMsgs = useMemo(
         () =>

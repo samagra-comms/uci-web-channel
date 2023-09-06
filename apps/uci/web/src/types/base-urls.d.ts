@@ -6,5 +6,6 @@ export type BaseUrls = {
         transportUrl?: string;
         baseUrl?: string;
         mobile?: string;
+        authUrl?: string;
     };
 };

@@ -44,23 +44,25 @@ import {
 } from './styled';
 import moment from 'moment';
 import { faAngleDown } from '@fortawesome/free-solid-svg-icons';
+import { ThemeProvider } from 'styled-components';
+import { usersDataSelector } from '@/store/slices/userListSlice';
+import { starredMessageSelector } from '@/store/slices/userMessageSlice';
+
 export default function Home() {
     const { currentUser, allUsers, setMessages } = useContext(AppContext);
     const [searchTerm, setSearchTerm] = useState('');
     const [showStarredtab, setShowStarredTab] = useState(false);
     const { theme } = useTheme();
-    const usersData = useSelector((state: any) => state.userList.users);
-    const starredMessage = useSelector(
-        (state: any) => state.userMessages.starMessage,
-    );
-    useEffect(() => {
-        if (usersData?.length > 0) {
-            console.log('Users data: ', usersData);
-        }
-    }, [usersData]);
+    const usersData = useSelector(usersDataSelector);
+    const starredMessage = useSelector(starredMessageSelector);
+
+    // useEffect(() => {
+    //     if (usersData?.length > 0) {
+    //         console.log('Users data: ', usersData);
+    //     }
+    // }, [usersData]);
 
     const sortedUsersData = [...usersData].sort((a: any, b: any) => {
-        // If both are either active or inactive, then sort by endDate using moment
         const endDateA = moment(a.endDate);
         const endDateB = moment(b.endDate);
         return endDateA.isBefore(endDateB)

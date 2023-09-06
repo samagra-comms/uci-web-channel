@@ -10,6 +10,7 @@ const baseUrls: BaseUrls = {
         botDetailsUrl: process.env.NEXT_PUBLIC_UCI_BOT_BASE_URL,
         otpBaseUrl: process.env.NEXT_PUBLIC_OTP_BASE_URL,
         mobile: process.env.NEXT_PUBLIC_MOBILE,
+        authUrl: process.env.NEXT_PUBLIC_AUTH,
     },
     production: {
         transportUrl: process.env.NEXT_PUBLIC_TRANSPORT_SOCKET_URL,
@@ -18,6 +19,7 @@ const baseUrls: BaseUrls = {
         botDetailsUrl: process.env.NEXT_PUBLIC_UCI_BOT_BASE_URL,
         otpBaseUrl: process.env.NEXT_PUBLIC_OTP_BASE_URL,
         mobile: process.env.NEXT_PUBLIC_MOBILE,
+        authUrl: process.env.NEXT_PUBLIC_AUTH,
     },
 };
 

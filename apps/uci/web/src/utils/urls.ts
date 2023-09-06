@@ -16,7 +16,7 @@ export const getBotDetailsUrl = (): string =>
     `${urlsConfig?.botDetailsUrl}/admin/bot/allContextual`;
 
 export const getOtpUrl = (mobile: string): string =>
-    `${urlsConfig?.otpBaseUrl}/uci/sendOTP?phone=${mobile}`;
+    `${urlsConfig?.otpBaseUrl}/api/sendOTP?phone=${mobile}`;
 
 export const getOtpVerifyUrl = (mobile: string, otp: string): string =>
     `${urlsConfig?.otpBaseUrl}/uci/loginOrRegister?phone=${mobile}&otp=${otp}`;
