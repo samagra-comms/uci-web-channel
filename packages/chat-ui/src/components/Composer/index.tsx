@@ -34,7 +34,7 @@ export type ComposerProps = {
   onToolbarClick?: (item: ToolbarItemProps, event: React.MouseEvent) => void;
   onAccessoryToggle?: (isAccessoryOpen: boolean) => void;
   rightAction?: IconButtonProps;
-  disableSend:boolean;
+  disableSend: boolean;
 };
 
 export interface ComposerHandle {
@@ -54,7 +54,7 @@ export const Composer = React.forwardRef<ComposerHandle, ComposerProps>((props, 
     onBlur,
     onChange,
     onSend,
-    disableSend=false,
+    disableSend = false,
     onImageSend,
     onAccessoryToggle,
     toolbar = [],
@@ -298,7 +298,7 @@ export const Composer = React.forwardRef<ComposerHandle, ComposerProps>((props, 
           />
         )}
         <div className="Composer-inputWrap">
-          <ComposerInput invisible={!isInputText} {...inputProps} disabled={disableSend}/>
+          <ComposerInput invisible={!isInputText} {...inputProps} disabled={disableSend} />
           {!isInputText && <Recorder {...recorder} />}
         </div>
         {!text && rightAction && <Action {...rightAction} />}

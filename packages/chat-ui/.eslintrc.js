@@ -4,11 +4,7 @@ module.exports = {
     ecmaVersion: 2020,
     project: './tsconfig.json',
   },
-  extends: [
-    'airbnb/hooks',
-    'airbnb-typescript',
-    'prettier',
-  ],
+  extends: ['airbnb/hooks', 'airbnb-typescript', 'prettier', 'custom'],
   env: {
     browser: true,
     jest: true,

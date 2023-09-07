@@ -18,11 +18,9 @@
   margin: @input-margin;
   padding: @input-padding;
   border: @input-border;
-  border-radius: @input-border-radius;
   font-family: @input-font-family;
   font-size: @input-font-size;
   line-height: @input-line-height;
-  color: @input-color;
   background: @input-bg;
   resize: @input-resize;
   -webkit-tap-highlight-color: transparent;
@@ -51,21 +49,10 @@
   &--flushed {
     padding: 2px var(--gutter);
     border-width: 0 0 1px;
-    border-radius: 0;
     background: none;
 
     &:focus {
       box-shadow: var(--brand-1) 0px 1px 0px 0px;
     }
   }
-}
-
-.Input-counter {
-  // absolute 在iOS下有坑，在消息列表里的输入框，输入文字后，页面卡片下移
-  position: relative;
-  z-index: 1;
-  float: right;
-  margin-right: var(--gutter);
-  color: var(--gray-3);
-  font-size: @font-size-xs;
 }

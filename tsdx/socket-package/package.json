@@ -1,0 +1,59 @@
+{
+  "version": "0.4.0",
+  "license": "MIT",
+  "main": "dist/index.js",
+  "typings": "dist/index.d.ts",
+  "files": [
+    "dist",
+    "src"
+  ],
+  "engines": {
+    "node": ">=10"
+  },
+  "scripts": {
+    "start": "tsdx watch",
+    "build": "tsdx build",
+    "test": "tsdx test",
+    "lint": "eslint .",
+    "prepare": "tsdx build",
+    "size": "size-limit",
+    "analyze": "size-limit --why"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "tsdx lint"
+    }
+  },
+  "prettier": {
+    "printWidth": 80,
+    "semi": true,
+    "singleQuote": true,
+    "trailingComma": "es5"
+  },
+  "name": "socket-package",
+  "author": "Rishit Gupta",
+  "module": "dist/socket-package.esm.js",
+  "size-limit": [
+    {
+      "path": "dist/socket-package.cjs.production.min.js",
+      "limit": "10 KB"
+    },
+    {
+      "path": "dist/socket-package.esm.js",
+      "limit": "10 KB"
+    }
+  ],
+  "devDependencies": {
+    "@size-limit/preset-small-lib": "^8.2.6",
+    "husky": "^8.0.3",
+    "size-limit": "^8.2.6",
+    "tsdx": "^0.14.1",
+    "tslib": "^2.6.1",
+    "typescript": "^5.1.6",
+    "eslint-config-custom": "*"
+  },
+  "dependencies": {
+    "socket.io": "^4.7.1",
+    "socket.io-client": "^4.7.1"
+  }
+}

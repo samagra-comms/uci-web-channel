@@ -1,70 +1,88 @@
-"use client";
-import React, { useCallback } from 'react';
-import { Box, useColorModeValue } from '@chakra-ui/react';
-import styles from './index.module.css';
-import profilePic from '../../../assets/images/bot_icon_2.png';
-import crossPic from '../../../assets/images/cross.png';
+'use client';
+import { Fragment, useCallback, useContext, useEffect, useState } from 'react';
+import profilePic from '@/assets/images/bot_icon_2.png';
 import { useRouter } from 'next/navigation';
-import Image from 'next/image';
 import { User } from '@/types';
+import { useTheme } from '@/providers/ThemeProvider';
+import { AppContext } from '@/context';
+import {
+    AvatarContainer,
+    AvatarImage,
+    ChatItemText,
+    Container,
+    Paragraph,
+    UserName,
+} from './styled';
+import { config } from '@/config';
+import { useBreakpointValue } from '@chakra-ui/react';
+import { ThemeProvider } from 'styled-components';
 
 interface chatItemProps {
-	active: boolean;
-	name: string;
-	phoneNumber?: string | null;
-	toChangeCurrentUser: (name: string, number: string | null) => void;
-	user?: User;
-	isBlank?: boolean;
+    active: boolean;
+    name: string;
+    phoneNumber?: string | null;
+    toChangeCurrentUser: (name: string, number: string | null) => void;
+    user?: User;
+    isBlank?: boolean;
 }
 
- const StarredChatItem: React.FC<chatItemProps> = ({ active, name, phoneNumber, user, isBlank }) => {
-	const history = useRouter();
+const StarredChatItem: React.FC<chatItemProps> = ({
+    active,
+    name,
+    phoneNumber,
+    user,
+    isBlank,
+}) => {
+    const history = useRouter();
+    const { theme } = useTheme();
+    const context = useContext(AppContext);
+    const [userImage, setBotImage] = useState(profilePic);
+    const isMobile = useBreakpointValue({ base: true, md: false });
+    const { setShowStarredChat } = useContext(AppContext);
 
-	const fontColorToggle = useColorModeValue(styles.darkFontColor, styles.lightFontColor);
+    const onChangingCurrentUserHandler = useCallback(() => {
+        setShowStarredChat(true);
+        if (isMobile) {
+            history.push(`/starred-chat/${user?.id}`);
+        }
+    }, [history, user, isMobile]);
 
-	const onChangingCurrentUserHandler = useCallback(() => {
-		history.push(`/starred-chat/${user?.id}`);
-	}, [history, user]);
+    useEffect(() => {
+        if (context?.currentUser?.botImage) {
+            fetch(context?.currentUser?.botImage)
+                .then(res => {
+                    if (res.status === 403) {
+                        setBotImage(profilePic);
+                    } else {
+                        setBotImage(context?.currentUser?.botImage);
+                    }
+                })
+                .catch(err => {
+                    setBotImage(profilePic);
+                });
+        } else {
+            setBotImage(profilePic);
+        }
+    }, [context?.currentUser?.botImage]);
 
-	return (
-		<React.Fragment>
-			<button
-				disabled={isBlank}
-				onClick={onChangingCurrentUserHandler}
-				className={` ${active ? styles.activeContainer : styles.container}`}
-			>
-				<div className={styles.avatar}>
-					{
-						<Image
-							src={!isBlank ? profilePic : crossPic}
-							alt="profile pic"
-						/>
-					}
-				</div>
-				<Box className={`${styles.chatItem_text}`}>
-					<Box
-						className={`${
-							phoneNumber === null ? styles.chatItem_botName : styles.chatItem_userName
-						} ${active ? styles.activeFont : fontColorToggle}`}
-					>
-						<p
-							style={{
-								textOverflow: 'ellipsis',
-								maxWidth: '70vw',
-								overflow: 'hidden',
-								whiteSpace: 'nowrap',
-								marginBottom: 'auto',
-								marginTop: 'auto'
-							}}
-						>
-							{name}
-						</p>
-					</Box>
-				</Box>
-			</button>
-		</React.Fragment>
-	);
+    return (
+        <ThemeProvider theme={theme}>
+            <Container
+                disabled={isBlank}
+                onClick={onChangingCurrentUserHandler}
+                active={active}
+            >
+                <AvatarContainer>
+                    <AvatarImage src={userImage} alt="profile pic" />
+                </AvatarContainer>
+                <ChatItemText>
+                    <UserName isBot={phoneNumber == null}>
+                        <Paragraph>{name}</Paragraph>
+                    </UserName>
+                </ChatItemText>
+            </Container>
+        </ThemeProvider>
+    );
 };
-
 
 export default StarredChatItem;

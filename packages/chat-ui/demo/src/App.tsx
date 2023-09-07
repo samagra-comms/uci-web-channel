@@ -15,6 +15,5 @@ export default function App() {
 
   const element = useRoutes([{ path: '/', element: <DemoIndex /> }, ...routesConfig]);
 
-  return  <div style={{overflow:'scroll',maxHeight:'90vh'}}> {element}</div>
-    
+  return <div style={{ overflow: 'scroll', maxHeight: '90vh' }}> {element}</div>;
 }

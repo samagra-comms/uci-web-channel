@@ -1,68 +1,112 @@
-import React, { useCallback, useContext } from 'react';
-import { Box, useColorModeValue } from '@chakra-ui/react';
-import styles from './index.module.css';
-import profilePic from '../../../assets/images/bot_icon_2.png';
-import crossPic from '../../../assets/images/cross.png';
+import React, {
+    useCallback,
+    useContext,
+    useEffect,
+    useMemo,
+    useState,
+} from 'react';
+import { useBreakpointValue } from '@chakra-ui/react';
 import { useRouter } from 'next/navigation';
-import Image from 'next/image';
+import { profilePic } from '@/assets';
 import { User } from '@/types';
 import { AppContext } from '@/context';
+import moment from 'moment';
+import {
+    AvatarContainer,
+    AvatarImage,
+    ChatItemText,
+    Container,
+    Paragraph,
+    UserName,
+} from './styled';
+import { useTheme } from '@/providers/ThemeProvider';
+import { config } from '@/config';
+import { ThemeProvider } from 'styled-components';
 
 interface chatItemProps {
-	active: boolean;
-	name: string;
-	phoneNumber: string | null;
-	user?: User;
-	isBlank?: boolean;
+    active: boolean;
+    name: string;
+    phoneNumber: string | null;
+    user?: User;
+    isBlank?: boolean;
+    image?: string;
 }
 
-const ChatItem: React.FC<chatItemProps> = ({ active, name, phoneNumber, user, isBlank }) => {
-	const history = useRouter();
-	const context = useContext(AppContext);
+const ChatItem: React.FC<chatItemProps> = ({
+    active,
+    name,
+    phoneNumber,
+    user,
+    isBlank,
+    image,
+}) => {
+    const history = useRouter();
+    const context = useContext(AppContext);
+    const [userImage, setBotImage] = useState(profilePic);
+    const { theme } = useTheme();
+    const { setShowStarredChat } = useContext(AppContext);
 
-	const fontColorToggle = useColorModeValue(styles.darkFontColor, styles.lightFontColor);
+    const isMobile = useBreakpointValue({ base: true, md: false });
 
-	const onChangingCurrentUserHandler = useCallback(() => {
-		localStorage.setItem('currentUser', JSON.stringify(user));
-		context?.toChangeCurrentUser(user);
-		history.push(`/chats/${user?.id}`);
-	}, [context, history, user]);
+    useEffect(() => {
+        if (context?.currentUser?.botImage) {
+            fetch(context?.currentUser?.botImage)
+                .then(res => {
+                    if (res.status === 403) {
+                        setBotImage(profilePic);
+                    } else {
+                        setBotImage(context?.currentUser?.botImage);
+                    }
+                })
+                .catch(err => {
+                    setBotImage(profilePic);
+                });
+        } else {
+            setBotImage(profilePic);
+        }
+    }, [context?.currentUser?.botImage]);
 
-	return (
-		<React.Fragment>
-			<button
-				onClick={onChangingCurrentUserHandler}
-				disabled={isBlank}
-				className={` ${active ? styles.activeContainer : styles.container}`}
-			>
-				<div className={styles.avatar}>
-					<Image
-						src={!isBlank ? profilePic : crossPic}
-						alt="profile pic"
-					/>
-				</div>
-				<Box className={`${styles.chatItem_text}`}>
-					<Box
-						className={`${
-							phoneNumber === null ? styles.chatItem_botName : styles.chatItem_userName
-						} ${active ? styles.activeFont : fontColorToggle}`}
-					>
-						<p
-							style={{
-								textOverflow: 'ellipsis',
-								maxWidth: '70vw',
-								overflow: 'hidden',
-								whiteSpace: 'nowrap',
-								marginBottom: '0'
-							}}
-						>
-							{name}
-						</p>
-					</Box>
-				</Box>
-			</button>
-		</React.Fragment>
-	);
+    const expiredItem = useMemo(() => {
+        return (
+            (user?.endDate !== undefined && user.endDate < moment().format()) ||
+            user?.status !== 'ENABLED'
+        );
+    }, [user]);
+
+    const onChangeUser = useCallback(() => {
+        localStorage.setItem('currentUser', JSON.stringify(user));
+        context?.toChangeCurrentUser(user);
+        setShowStarredChat(false);
+        console.log('hi');
+        if (isMobile) {
+            history.push(`/chats/${user?.id}`);
+        }
+    }, [context, history, user, isMobile]);
+
+    return (
+        <ThemeProvider theme={theme}>
+            <Container
+                onClick={onChangeUser}
+                disabled={isBlank}
+                active={active}
+            >
+                <AvatarContainer>
+                    <AvatarImage
+                        src={image}
+                        onError={e => {
+                            e.target.src = userImage; // Set the fallback icon URL if the image fails to load
+                        }}
+                        alt="profile pic"
+                    />
+                </AvatarContainer>
+                <ChatItemText>
+                    <UserName isBot={phoneNumber == null}>
+                        <Paragraph expired={expiredItem}>{name}</Paragraph>
+                    </UserName>
+                </ChatItemText>
+            </Container>
+        </ThemeProvider>
+    );
 };
 
 export default ChatItem;

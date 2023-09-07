@@ -1,5 +1,3 @@
-
-
 export type SocketResponse = {
     content: {
         msg_type: 'IMAGE' | 'AUDIO' | 'VIDEO' | 'DOCUMENT' | 'FILE' | 'TEXT';
@@ -7,7 +5,7 @@ export type SocketResponse = {
         choices: any;
         title: string;
     };
-    messageId
+    messageId;
 };
 
 export type Address = {

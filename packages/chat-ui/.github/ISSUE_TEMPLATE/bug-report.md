@@ -4,10 +4,10 @@ about: Create a report to help us improve
 title: ''
 labels: ''
 assignees: ''
-
 ---
 
 **Version information (版本信息)**
+
 - ChatUI or ChatUI Pro?
 - ChatUI Version:
 - React Version:
@@ -17,8 +17,9 @@ assignees: ''
 **Describe the bug (描述问题)**
 
 **Steps To Reproduce (重现步骤)**
-1. 
-2. 
+
+1.
+2.
 
 **Link to minimal reproduction (最小化重现链接)**
 

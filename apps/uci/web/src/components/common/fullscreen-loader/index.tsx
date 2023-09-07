@@ -1,18 +1,34 @@
-import React, { FC } from 'react';
-import styles from './index.module.css';
+import React, { FC, useEffect, useState } from 'react';
 import { Modal, ModalContent, ModalOverlay } from '@chakra-ui/react';
+import { Spinner, Wrapper } from './styled';
 
-const FullScreenLoader: FC<{ loading: boolean }> = ({ loading }) => (
+export const FullScreenLoader: FC<{ loading: boolean }> = ({ loading }) => {
+    const [isLoading, setIsLoading] = useState(true);
 
-	<Modal isCentered isOpen={loading} onClose={() => null} >
-		<ModalOverlay
-			bg='blackAlpha.300'
-			backdropFilter='blur(10px) hue-rotate(90deg)'
-		/>
-		<ModalContent style={{ background: 'none', boxShadow: 'none' }}>
-			<div id="loader" className={`${styles.spinner}`}></div>
-		</ModalContent>
-	</Modal>
-);
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            setIsLoading(false);
+        }, 500);
 
-export default FullScreenLoader;
+        return () => clearTimeout(timer);
+    }, []);
+
+    return (
+        <Modal isCentered isOpen={isLoading || loading} onClose={() => null}>
+            <ModalOverlay />
+            <ModalContent className="modalContent">
+                <Wrapper className="wrapper">
+                    <Spinner className="spinner">
+                        <i></i>
+                        <i></i>
+                        <i></i>
+                        <i></i>
+                        <i></i>
+                        <i></i>
+                        <i></i>
+                    </Spinner>
+                </Wrapper>
+            </ModalContent>
+        </Modal>
+    );
+};

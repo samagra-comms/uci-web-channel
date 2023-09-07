@@ -9,11 +9,7 @@ const cssnanoConfig = {
 };
 
 const pxtoremConfig = {
-  propList: [
-    '*',
-    '!border*',
-    '!box-shadow',
-  ],
+  propList: ['*', '!border*', '!box-shadow'],
   selectorBlackList: [':root'],
 };
 

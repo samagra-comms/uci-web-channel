@@ -1,6 +1,7 @@
 import React from 'react';
-import { Button } from '../Button';
 import { useLocale } from '../LocaleProvider';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { config } from '../../../../../apps/uci/web/src/config/config';
 
 interface SendButtonProps {
   disabled: boolean;
@@ -11,14 +12,9 @@ export const SendButton = ({ disabled, onClick }: SendButtonProps) => {
   const { trans } = useLocale('Composer');
   return (
     <div className="Composer-actions">
-      <Button
-        className="Composer-sendBtn"
-        disabled={disabled}
-        onMouseDown={onClick}
-        color="primary"
-      >
-        {trans('send')}
-      </Button>
+      <button className="Composer-sendBtn" disabled={disabled} onClick={onClick}>
+        <FontAwesomeIcon className="send-icon" icon={config?.textInput?.sendIcon?.icon} />
+      </button>
     </div>
   );
 };

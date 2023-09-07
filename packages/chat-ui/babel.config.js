@@ -46,9 +46,6 @@ module.exports = (api) => {
         plugins: [['@babel/plugin-transform-runtime', { corejs: 3 }]],
       },
     },
-    ignore: [
-      '**/*.test.ts',
-      '**/*.test.tsx',
-    ]
+    ignore: ['**/*.test.ts', '**/*.test.tsx'],
   };
 };

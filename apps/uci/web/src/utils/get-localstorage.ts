@@ -1,12 +1,11 @@
 export const getAuthToken = () => {
-  if (typeof window !== "undefined") {
-    return `Bearer ${localStorage.getItem("auth")}`;
-  }
+    if (typeof window !== 'undefined') {
+        return `Bearer ${localStorage.getItem('auth')}`;
+    }
 };
 
-export const getDeviceId=()=>{
-   
-    if (typeof window !== "undefined") {
-        return  `nlpwa:${localStorage.getItem('mobile')}`;
-      }
-}
+export const getDeviceId = () => {
+    if (typeof window !== 'undefined') {
+        return `nlpwa:${localStorage.getItem('mobile')}`;
+    }
+};

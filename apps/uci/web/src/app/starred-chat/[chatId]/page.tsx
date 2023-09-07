@@ -1,94 +1,142 @@
-"use client";
+'use client';
 import React, { useContext, FC, useMemo, useEffect } from 'react';
-import { Box, Flex, Button } from '@chakra-ui/react';
+import { Box, Button, useBreakpointValue, IconButton } from '@chakra-ui/react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
+import {
+    faLightbulb,
+    faMoon,
+    faVideo,
+} from '@fortawesome/free-solid-svg-icons';
 import { find } from 'lodash';
 import profilePic from '../../../assets/images/bot_icon_2.png';
-import styles from "./page.module.css";
-import Image from 'next/image';
 import { AppContext } from '@/context';
-import { useRouter } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { NextPage } from 'next';
 import { StarredChatList } from '@/components';
+import { useTheme } from '@/providers/ThemeProvider';
+import {
+    AvatarImage,
+    BackBox,
+    ChatWindow,
+    FlexContainer,
+    InnerRing,
+    Span,
+    StyledAvatarContainer,
+    StyledBox,
+    StyledCenteredFlex,
+    StyledFlex,
+    TopSection,
+} from './styled';
+import { config } from '@/config';
+import { ThemeProvider } from 'styled-components';
 
+const StarredChat: NextPage<{ params?: { chatId: string } }> = ({ params }) => {
+    const context = useContext(AppContext);
+    const history = useRouter();
+    const { theme, toggleTheme } = useTheme();
+    const pathname = usePathname();
+    const isHomepage = pathname === '/';
+    const isMobile = useBreakpointValue({ base: true, md: false });
+    const mainFlexWidth = isMobile ? '100vw' : '186vw';
+    const user = useMemo(
+        () => find(context?.allUsers, { id: params?.chatId }),
+        [context?.allUsers, params?.chatId],
+    );
 
-const StarredChat: NextPage<{ params: { chatId: string } }> = ({ params }) => {
-	const context = useContext(AppContext);
+    return (
+        <ThemeProvider theme={theme}>
+            <FlexContainer
+                mainFlexWidth={mainFlexWidth}
+                isHomepage={isHomepage}
+            >
+                <TopSection>
+                    <Box flex="1.5" display={{ base: 'block', md: 'none' }}>
+                        <Button
+                            marginTop="20px"
+                            onClick={(): void => {
+                                localStorage.removeItem('userMsgs');
+                                context?.setMessages([]);
+                                history.push('/');
+                            }}
+                            variant="ghost"
+                        >
+                            <FontAwesomeIcon
+                                icon={config?.chatWindow?.topbar?.icon}
+                            />
+                        </Button>
+                    </Box>
+                    <StyledFlex>
+                        <StyledCenteredFlex>
+                            {context?.currentUser && (
+                                <StyledAvatarContainer>
+                                    {
+                                        <>
+                                            <InnerRing>
+                                                <AvatarImage
+                                                    src={profilePic}
+                                                    alt="profile pic"
+                                                />
+                                            </InnerRing>
+                                            <StyledBox>
+                                                <Span>{user?.name}</Span>
+                                                {!isMobile && (
+                                                    <Span>
+                                                        Total Messages:{' '}
+                                                        {user?.messages?.length}
+                                                    </Span>
+                                                )}
+                                            </StyledBox>
+                                        </>
+                                    }
+                                </StyledAvatarContainer>
+                            )}
 
-	const history = useRouter();
-	const user = useMemo(() => find(context?.allUsers, { id: params?.chatId }), [context?.allUsers, params?.chatId]);
+                            {!isMobile && (
+                                <IconButton
+                                    icon={<FontAwesomeIcon icon={faVideo} />}
+                                    aria-label="Toggle Theme"
+                                    background="none"
+                                    size="md"
+                                    _hover={{
+                                        transform: 'scale(1.2)',
+                                        transition: 'transform 0.3s',
+                                    }}
+                                />
+                            )}
 
-	useEffect(() => {
-		window && window?.androidInteract?.onBotListingScreenFocused(false);
-		window &&
-			window?.androidInteract?.onEvent(`On Home Page onBotListingScreenFocused:false triggered`);
-	}, []);
-
-	return (
-		<Flex bgColor="var(--primarydarkblue)" flexDirection="column" height="100vh" width="100%">
-			{/* Top Section */}
-			<Box className={`${styles.top_section}`}>
-				{/* For the back button */}
-				<Box flex="1.5">
-					<Button
-						style={{
-							border: 'none',
-							padding: '0.75rem 1rem',
-							borderRadius: '50%',
-							fontSize: '14px'
-						}}
-						onClick={(): void => {
-							history.push('/starredChats');
-						}}
-						size="sm"
-						variant="ghost"
-					>
-						<FontAwesomeIcon icon={faChevronLeft} />
-					</Button>
-				</Box>
-				{/* Name and Icon */}
-				<Flex flex="9" justifyContent="space-between" alignItems="center">
-					<Flex justifyContent="center" alignItems="center">
-						<Box className={`${styles.avatarContainer} `}>
-							{
-								<>
-									<div className={styles.innerRing}>
-										<Image src={profilePic} alt="profile pic" />
-									</div>
-									<Box>
-										<p
-											style={{
-												textOverflow: 'ellipsis',
-												maxWidth: '70vw',
-												overflow: 'hidden',
-												whiteSpace: 'nowrap',
-												marginBottom: 'auto',
-												marginTop: 'auto'
-											}}
-										>
-											{user?.name}
-										</p>
-									</Box>
-								</>
-							}
-						</Box>
-					</Flex>
-				</Flex>
-			</Box>
-
-			{/* Chat Window */}
-			<Box className={`${styles.chatWindow}`}>
-				{/* NeoMorphism Box */}
-				<Box className={`${styles.BackBox}`} style={{ borderRadius: '0px' }}>
-					{/* Chat Area */}
-					<Box style={{ }}>
-						<StarredChatList user={user} />
-					</Box>
-				</Box>
-			</Box>
-		</Flex>
-	);
+                            <IconButton
+                                marginRight="40px"
+                                icon={
+                                    theme.name == 'light' ? (
+                                        <FontAwesomeIcon icon={faMoon} />
+                                    ) : (
+                                        <FontAwesomeIcon icon={faLightbulb} />
+                                    )
+                                }
+                                aria-label="Toggle Theme"
+                                size="lg"
+                                variant="none"
+                                color={theme.color}
+                                onClick={toggleTheme}
+                                _hover={{
+                                    transform: 'scale(1.2)',
+                                    transition: 'transform 0.3s',
+                                }}
+                            />
+                        </StyledCenteredFlex>
+                    </StyledFlex>
+                </TopSection>
+                <ChatWindow>
+                    {/* NeoMorphism Box */}
+                    <BackBox>
+                        <Box height={['85vh', '100vh']} overflowY="scroll">
+                            <StarredChatList user={user} />
+                        </Box>
+                    </BackBox>
+                </ChatWindow>
+            </FlexContainer>
+        </ThemeProvider>
+    );
 };
 
 export default StarredChat;
