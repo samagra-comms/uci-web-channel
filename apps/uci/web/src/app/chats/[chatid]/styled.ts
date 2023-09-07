@@ -10,6 +10,7 @@ interface FlexContainerProps {
 
 export const Span = styled.span`
     color: ${({ theme }) => theme?.color};
+    font-size: ${config?.chatWindow?.topbar?.fontSize};
 
     @media (max-width: 768px) {
         margin-left: 20px;

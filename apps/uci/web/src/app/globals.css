@@ -107,7 +107,10 @@ button{
   background: var(--chat-footer-color) !important;
   @media screen and (max-width: 768px) {
     width: 88vw;
+    margin-bottom: 7vw;
   }
+
+
 }
 
 .main-input{

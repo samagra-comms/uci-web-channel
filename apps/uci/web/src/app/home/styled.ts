@@ -53,7 +53,7 @@ export const StyledTab = styled(Tab)<FlexContainerProps>`
     margin: ${config?.tab?.margin};
     font-weight: bold;
     text-align: center;
-    font-size: ${({ theme }) => theme?.fontSize};
+    font-size: ${config?.tab?.fontSize};
     padding: ${props => (props.isMobile ? '0.5vw' : '0.7vw')};
     border-radius: ${config?.tab?.borderRadius};
 

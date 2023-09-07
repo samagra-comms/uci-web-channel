@@ -84,7 +84,7 @@ export const Paragraph = styled.p<{ expired: boolean }>`
     overflow: hidden;
     white-space: nowrap;
     margin-bottom: 0;
-    font-size: ${({ theme }) => theme.fontSize};
+    font-size: ${config?.chatItem?.fontSize};
     font-weight: 600;
     color: ${({ theme }) => theme.color};
 

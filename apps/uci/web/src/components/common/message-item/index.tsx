@@ -31,6 +31,7 @@ import {
     ChatName,
     AvatarImage,
     MainFlex,
+    ContainerFlex,
 } from './styled';
 import { useTheme } from '@/providers/ThemeProvider';
 
@@ -43,9 +44,9 @@ export const MessageItem: React.FC<any> = ({
     const context = React.useContext(AppContext);
 
     const [isInLocal, setIsInLocal] = React.useState(false);
-    const [userImage, setBotImage] = React.useState(profilePic);
     const { theme } = useTheme();
     const [feedback, setFeedback] = React.useState(null); // 'thumbsUp' or 'thumbsDown'
+    const [userImage, setUserImage] = React.useState(profilePic);
     const [hasGivenFeedback, setHasGivenFeedback] = React.useState(false);
     const [msgToStarred, setMsgToStarred] = React.useState<{
         botUuid?: string;
@@ -59,16 +60,16 @@ export const MessageItem: React.FC<any> = ({
             fetch(context?.currentUser?.botImage)
                 .then(res => {
                     if (res.status === 403) {
-                        setBotImage(profilePic);
+                        setUserImage(profilePic);
                     } else {
-                        setBotImage(context?.currentUser?.botImage);
+                        setUserImage(context?.currentUser?.botImage);
                     }
                 })
                 .catch(err => {
-                    setBotImage(profilePic);
+                    setUserImage(profilePic);
                 });
         } else {
-            setBotImage(profilePic);
+            setUserImage(profilePic);
         }
     }, [context?.currentUser?.botImage]);
 
@@ -301,7 +302,11 @@ export const MessageItem: React.FC<any> = ({
                                                                 <Flex
                                                                     gap={[
                                                                         '4vw',
-                                                                        '0.5vw',
+                                                                        '1vw',
+                                                                    ]}
+                                                                    marginTop={[
+                                                                        '1vw',
+                                                                        '0vw',
                                                                     ]}
                                                                 >
                                                                     <FontAwesomeIcon
@@ -338,7 +343,7 @@ export const MessageItem: React.FC<any> = ({
                                                 </Flex>
                                             )}
                                             <ChatHour
-                                                style={{ marginLeft: '45vw' }}
+                                                style={{ marginTop: '-2px' }}
                                             >
                                                 {moment
                                                     .utc(
@@ -349,27 +354,42 @@ export const MessageItem: React.FC<any> = ({
                                                     )
                                                     .local()
                                                     .format('hh:mm')}
-                                                <span className="fa fa-check-circle"></span>
+                                                <span
+                                                    className={
+                                                        config?.message?.botMsg
+                                                            ?.timeIcon
+                                                    }
+                                                ></span>
+                                                {/* <FontAwesomeIcon icon={config?.message?.botMsg?.timeIcon} style={{ color: 'green' }} /> */}
                                             </ChatHour>
                                         </MainFlex>
                                     </StyledChatItem>
                                 </>
                             ) : (
                                 <StyledChatItem className="chat-right">
-                                    <ChatHour>
-                                        {moment
-                                            .utc(
-                                                content?.data?.sentTimestamp ||
+                                    <ContainerFlex>
+                                        <ChatTextRight>
+                                            {content?.text}
+                                        </ChatTextRight>
+                                        <ChatHour>
+                                            {moment
+                                                .utc(
                                                     content?.data
-                                                        ?.repliedTimestamp,
-                                            )
-                                            .local()
-                                            .format('hh:mm')}{' '}
-                                        <span className="fa fa-check-circle"></span>
-                                    </ChatHour>
-                                    <ChatTextRight>
-                                        {content?.text}
-                                    </ChatTextRight>
+                                                        ?.sentTimestamp ||
+                                                        content?.data
+                                                            ?.repliedTimestamp,
+                                                )
+                                                .local()
+                                                .format('hh:mm')}{' '}
+                                            <span
+                                                className={
+                                                    config?.message?.botMsg
+                                                        ?.timeIcon
+                                                }
+                                            ></span>
+                                        </ChatHour>
+                                    </ContainerFlex>
+
                                     <ChatAvatarDiv>
                                         <ChatAvatar
                                             src={
@@ -440,7 +460,9 @@ export const MessageItem: React.FC<any> = ({
                                     <span>
                                         {content?.data?.position === 'left' && (
                                             <FontAwesomeIcon
-                                                icon={faStar}
+                                                icon={
+                                                    config?.message?.starredIcon
+                                                }
                                                 onClick={(): void =>
                                                     onLongPress(content)
                                                 }

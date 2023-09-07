@@ -7,7 +7,7 @@ import React, {
 } from 'react';
 import { useBreakpointValue } from '@chakra-ui/react';
 import { useRouter } from 'next/navigation';
-import { profilePic } from '@/assets';
+import { profilePic, botImage } from '@/assets';
 import { User } from '@/types';
 import { AppContext } from '@/context';
 import moment from 'moment';
@@ -20,7 +20,6 @@ import {
     UserName,
 } from './styled';
 import { useTheme } from '@/providers/ThemeProvider';
-import { config } from '@/config';
 import { ThemeProvider } from 'styled-components';
 
 interface chatItemProps {
@@ -42,27 +41,27 @@ const ChatItem: React.FC<chatItemProps> = ({
 }) => {
     const history = useRouter();
     const context = useContext(AppContext);
-    const [userImage, setBotImage] = useState(profilePic);
     const { theme } = useTheme();
     const { setShowStarredChat } = useContext(AppContext);
+    const [userImage, setUserImage] = useState(profilePic);
 
     const isMobile = useBreakpointValue({ base: true, md: false });
 
-    useEffect(() => {
+    React.useEffect(() => {
         if (context?.currentUser?.botImage) {
             fetch(context?.currentUser?.botImage)
                 .then(res => {
                     if (res.status === 403) {
-                        setBotImage(profilePic);
+                        setUserImage(botImage);
                     } else {
-                        setBotImage(context?.currentUser?.botImage);
+                        setUserImage(context?.currentUser?.botImage);
                     }
                 })
                 .catch(err => {
-                    setBotImage(profilePic);
+                    setUserImage(botImage);
                 });
         } else {
-            setBotImage(profilePic);
+            setUserImage(botImage);
         }
     }, [context?.currentUser?.botImage]);
 
@@ -77,7 +76,9 @@ const ChatItem: React.FC<chatItemProps> = ({
         localStorage.setItem('currentUser', JSON.stringify(user));
         context?.toChangeCurrentUser(user);
         setShowStarredChat(false);
-        console.log('hi');
+        if (!image) {
+            setUserImage(botImage);
+        }
         if (isMobile) {
             history.push(`/chats/${user?.id}`);
         }
@@ -91,13 +92,11 @@ const ChatItem: React.FC<chatItemProps> = ({
                 active={active}
             >
                 <AvatarContainer>
-                    <AvatarImage
-                        src={image}
-                        onError={e => {
-                            e.target.src = userImage; // Set the fallback icon URL if the image fails to load
-                        }}
-                        alt="profile pic"
-                    />
+                    {image !== null ? (
+                        <AvatarImage src={image} alt="profile pic" />
+                    ) : (
+                        <AvatarImage src={userImage} alt="profile NO pic" />
+                    )}
                 </AvatarContainer>
                 <ChatItemText>
                     <UserName isBot={phoneNumber == null}>

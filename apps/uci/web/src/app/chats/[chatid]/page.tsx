@@ -47,6 +47,7 @@ const Chats = ({ params }: chatProps) => {
     const currentUser = useSelector(
         (state: any) => state.userList.currentUser.name,
     );
+    const topBarIcons = config?.chatWindow?.topbar?.icons || {};
     console.log(currentUser);
 
     useEffect(() => {
@@ -152,6 +153,31 @@ const Chats = ({ params }: chatProps) => {
                                                         </>
                                                     }
                                                 </StyledAvatarContainer>
+                                            )}
+                                            {Object.keys(topBarIcons).map(
+                                                key => (
+                                                    <IconButton
+                                                        key={key}
+                                                        icon={
+                                                            <FontAwesomeIcon
+                                                                icon={
+                                                                    topBarIcons[
+                                                                        key
+                                                                    ]
+                                                                }
+                                                            />
+                                                        }
+                                                        aria-label={key}
+                                                        size="lg"
+                                                        variant="none"
+                                                        _hover={{
+                                                            transform:
+                                                                'scale(1.1)',
+                                                            transition:
+                                                                'transform 0.3s',
+                                                        }}
+                                                    />
+                                                ),
                                             )}
                                             <IconButton
                                                 marginRight="40px"

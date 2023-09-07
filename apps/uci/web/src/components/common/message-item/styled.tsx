@@ -91,8 +91,8 @@ export const ChatHour = styled.div`
     color: ${({ theme }) => theme?.color};
 
     @media screen and (max-width: 768px) {
-        margin-right: 10px;
-        margin-left: 0px;
+        margin-right: 20px;
+        margin-left: 45vw;
         margin-top: 0px;
     }
 
@@ -103,6 +103,10 @@ export const ChatHour = styled.div`
 
     &.chat-right {
         margin: 0 15px 0 0;
+        /* 
+        @media screen and (max-width: 768px){
+            margin-right: 10px;
+        } */
     }
 `;
 
@@ -134,7 +138,7 @@ export const ChatTextRight = styled.div`
     font-weight: 300;
     line-height: 150%;
     position: relative;
-    font-size: 0.9rem;
+    font-size: ${config?.message?.userInput?.fontSize};
     display: flex;
     gap: 10px;
     align-items: center;
@@ -170,7 +174,7 @@ export const StyledChatItem = styled.li`
         font-weight: 300;
         line-height: 150%;
         position: relative;
-        font-size: 0.9rem;
+        font-size: ${config?.message?.botMsg?.fontSize};
         display: flex;
         gap: 10px;
         align-items: center;
@@ -215,5 +219,14 @@ export const MainFlex = styled(Flex)`
 
     @media screen and (max-width: 768px) {
         flex-direction: column;
+    }
+`;
+
+export const ContainerFlex = styled(Flex)`
+    flex-direction: row-reverse;
+    @media screen and (max-width: 768px) {
+        flex-direction: column;
+        gap: 5px;
+        align-items: end;
     }
 `;

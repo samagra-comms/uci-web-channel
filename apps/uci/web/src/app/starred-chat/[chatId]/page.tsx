@@ -8,7 +8,7 @@ import {
     faVideo,
 } from '@fortawesome/free-solid-svg-icons';
 import { find } from 'lodash';
-import profilePic from '../../../assets/images/bot_icon_2.png';
+import { botImage, profilePic } from '@/assets';
 import { AppContext } from '@/context';
 import { usePathname, useRouter } from 'next/navigation';
 import { NextPage } from 'next';
@@ -38,10 +38,29 @@ const StarredChat: NextPage<{ params?: { chatId: string } }> = ({ params }) => {
     const isHomepage = pathname === '/';
     const isMobile = useBreakpointValue({ base: true, md: false });
     const mainFlexWidth = isMobile ? '100vw' : '186vw';
+    const [botImage, setBotImage] = React.useState(profilePic);
     const user = useMemo(
         () => find(context?.allUsers, { id: params?.chatId }),
         [context?.allUsers, params?.chatId],
     );
+
+    React.useEffect(() => {
+        if (context?.currentUser?.botImage) {
+            fetch(context?.currentUser?.botImage)
+                .then(res => {
+                    if (res.status === 403) {
+                        setBotImage(profilePic);
+                    } else {
+                        setBotImage(context?.currentUser?.botImage);
+                    }
+                })
+                .catch(err => {
+                    setBotImage(profilePic);
+                });
+        } else {
+            setBotImage(profilePic);
+        }
+    }, [context?.currentUser?.botImage]);
 
     return (
         <ThemeProvider theme={theme}>
@@ -73,7 +92,7 @@ const StarredChat: NextPage<{ params?: { chatId: string } }> = ({ params }) => {
                                         <>
                                             <InnerRing>
                                                 <AvatarImage
-                                                    src={profilePic}
+                                                    src={botImage}
                                                     alt="profile pic"
                                                 />
                                             </InnerRing>
@@ -90,7 +109,7 @@ const StarredChat: NextPage<{ params?: { chatId: string } }> = ({ params }) => {
                                     }
                                 </StyledAvatarContainer>
                             )}
-
+                            {/* 
                             {!isMobile && (
                                 <IconButton
                                     icon={<FontAwesomeIcon icon={faVideo} />}
@@ -102,21 +121,25 @@ const StarredChat: NextPage<{ params?: { chatId: string } }> = ({ params }) => {
                                         transition: 'transform 0.3s',
                                     }}
                                 />
-                            )}
+                            )} */}
 
                             <IconButton
                                 marginRight="40px"
                                 icon={
                                     theme.name == 'light' ? (
-                                        <FontAwesomeIcon icon={faMoon} />
+                                        <FontAwesomeIcon
+                                            icon={config?.theme?.light?.icon}
+                                        />
                                     ) : (
-                                        <FontAwesomeIcon icon={faLightbulb} />
+                                        <FontAwesomeIcon
+                                            icon={config?.theme?.dark?.icon}
+                                        />
                                     )
                                 }
                                 aria-label="Toggle Theme"
                                 size="lg"
                                 variant="none"
-                                color={theme.color}
+                                color={theme?.color}
                                 onClick={toggleTheme}
                                 _hover={{
                                     transform: 'scale(1.2)',

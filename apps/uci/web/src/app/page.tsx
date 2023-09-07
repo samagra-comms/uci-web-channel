@@ -26,39 +26,45 @@ const ParentComponent = () => {
     const { theme, toggleTheme } = useTheme();
     const isMobile = useBreakpointValue({ base: false, md: true });
     const { showStarredChat } = useContext(AppContext);
+    const sidebarIcons = config?.sideBar?.sidebarIcons || {};
 
     return (
         <Flex background={theme?.mainBackground} h="100vh">
             {config?.sideBar.visible == 'true' && isMobile && (
-                <VStack spacing={60} p={0} align="center">
+                <VStack
+                    spacing={52}
+                    p={0}
+                    width={config?.sideBar?.width}
+                    align="center"
+                >
                     <Box>
-                        <img src="./uci.png" alt="Logo" />
+                        <img src={config?.sideBar?.logo} alt="Logo" />
                     </Box>
                     <VStack spacing={4} align="center">
-                        <IconButton
-                            icon={<FontAwesomeIcon icon={faComment} />}
-                            aria-label="Chat"
-                            size="lg"
-                            _hover={{
-                                transform: 'scale(1.2)',
-                                transition: 'transform 0.3s',
-                            }}
-                        />
-                        <IconButton
-                            icon={<FontAwesomeIcon icon={faCog} />}
-                            aria-label="Settings"
-                            size="lg"
-                            _hover={{
-                                transform: 'scale(1.2)',
-                                transition: 'transform 0.3s',
-                            }}
-                        />
+                        {Object.keys(sidebarIcons).map(key => (
+                            <IconButton
+                                key={key}
+                                icon={
+                                    <FontAwesomeIcon icon={sidebarIcons[key]} />
+                                }
+                                aria-label={key}
+                                size="lg"
+                                _hover={{
+                                    transform: 'scale(1.2)',
+                                    transition: 'transform 0.3s',
+                                }}
+                            />
+                        ))}
                         <IconButton
                             icon={
                                 theme.name == 'light' ? (
-                                    <FontAwesomeIcon icon={faMoon} />
+                                    <FontAwesomeIcon
+                                        icon={config?.theme?.light?.icon}
+                                    />
                                 ) : (
-                                    <FontAwesomeIcon icon={faLightbulb} />
+                                    <FontAwesomeIcon
+                                        icon={config?.theme?.dark?.icon}
+                                    />
                                 )
                             }
                             aria-label="Toggle Theme"
@@ -73,11 +79,14 @@ const ParentComponent = () => {
 
                     <Box>
                         <Avatar
-                            size="lg"
-                            name="John Doe"
-                            src="path-to-avatar-image.png"
+                            name={config?.sideBar?.userImage?.name}
+                            size={config?.sideBar?.userImage?.size}
+                            src={config?.sideBar?.userImage?.src}
+                            // height={config?.sideBar?.userImage?.height}
+                            // width={config?.sideBar?.userImage?.width}
+                            margin={config?.sideBar?.userImage?.margin}
                             _hover={{
-                                transform: 'scale(1.2)',
+                                transform: 'scale(1.08)',
                                 transition: 'transform 0.3s',
                             }}
                         />

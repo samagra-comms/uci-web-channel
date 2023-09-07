@@ -10,6 +10,9 @@ export const ImageDiv = styled.div`
 
 export const StyledImage = styled(Image)`
     border-radius: 50%;
+    height: 60px;
+    width: 60px;
+    margin: 20px;
 `;
 
 export const StyledBubble = styled(Bubble)`

@@ -1,4 +1,5 @@
 // @ts-ignore
+import { config } from '@/config';
 import { Box, Flex } from '@chakra-ui/react';
 import styled from 'styled-components';
 
@@ -95,11 +96,17 @@ export const StyledAvatarContainer = styled(Box)`
 `;
 
 export const InnerRing = styled(Box)`
-    border: ${({ theme }) => theme?.iconColor};
-    width: 70px;
-    height: 70px;
+    border: ${config?.chatWindow?.topbar?.iconBorder};
+    width: ${config?.chatWindow?.topbar?.imageHeight};
+    height: ${config?.chatWindow?.topbar?.imageWidth};
     border-radius: 50%;
     margin-right: 10px;
+
+    @media screen and (max-width: 768px) {
+        width: ${config?.chatWindow?.topbar?.mobileImageWidth};
+        height: ${config?.chatWindow?.topbar?.mobileImageHeight};
+        margin-left: 0px;
+    }
 `;
 
 export const AvatarImage = styled.img`
