@@ -67,9 +67,9 @@ Run `yarn run dev`
 
 ## Designs
 
-![image](https://github.com/samagra-comms/uci-web-channel/assets/74411873/bbfc838f-bc2e-4ce2-b7da-e36443b25ed3)
+![image](https://github.com/samagra-comms/uci-web-channel/assets/74411873/95e240c2-69d0-4483-ae0f-bd0bd5e67945)
 
-![image](https://github.com/samagra-comms/uci-web-channel/assets/74411873/eccda3f5-f013-48b8-b502-02fcfd6e0343)
+![image](https://github.com/samagra-comms/uci-web-channel/assets/74411873/c5bc5644-5a64-4e43-ae39-49fe137b48cf)
 
 ## Docs Link
 
