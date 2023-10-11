@@ -32,12 +32,11 @@ const StarredChatList: FC<{ user: User }> = ({ user }) => {
         user: {
           avatar:
             msg?.position === "left"
-			   //@ts-ignore
-              ? URL.createObjectURL(user?.botImage) || botImage
+              ? user?.botImageUrl || botImage
               : "",
         },
       })),
-    [context?.starredMsgs, user?.botImage, user?.id]
+    [context?.starredMsgs, user?.botImageUrl, user?.id]
   );
 
   const getLists = useCallback(

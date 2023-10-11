@@ -278,7 +278,7 @@ const ChatWindow: React.FC<chatWindowProps> = ({ currentUser }) => {
                             handleClick("*");
                           }}
                         >
-                          सर्वे फिर से शुरू करें
+                          चैट फिर से शुरू करे
                         </MDBBtn>
                         <MDBBtn
                           block

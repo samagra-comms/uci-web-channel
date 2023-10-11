@@ -94,7 +94,7 @@ export const userSlice = createSlice({
             sortBy(
               action.payload?.map((bot: any, index: number) => {
                 if (
-                //true
+               // true
                   bot?.logicIDs?.[0]?.transformers?.[0]?.meta?.type !==
                     "broadcast" &&
                   bot?.status === "ENABLED" &&

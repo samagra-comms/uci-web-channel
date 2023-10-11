@@ -4,8 +4,9 @@ import { includes } from "lodash";
 import moment from "moment";
 import { User } from "../types";
 
-export const normalizeUsers = (user: User): User => ({
+export const normalizeUsers = (user: User): User & {botImageUrl : string} => ({
   ...user,
+  botImageUrl: user?.botImage,
   id: user?.id,
   botUuid: user?.id,
   useIcon:false,

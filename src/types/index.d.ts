@@ -6,6 +6,7 @@ export type User = {
 	botUuid?: string;
 	startingMessage?: string;
 	botImage?:string;
+	botImageUrl?:string;
 	isExpired:boolean;
 	endDate:string;
 	startDate:string;
