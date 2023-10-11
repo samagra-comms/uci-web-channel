@@ -3,8 +3,10 @@ import type { RootState } from "../index";
 import { User } from "../../types";
 import { fetchUsers } from "../actions/fetchUsers";
 import {
+  cloneDeep,
   concat,
   filter,
+  find,
   findIndex,
   includes,
   reverse,
@@ -17,6 +19,7 @@ import {
   logToAndroid,
   triggerEventInAndroid,
 } from "../../utils/android-events";
+import { getShouldFilterTheList } from "../../utils/util-functions";
 
 // Define a type for the slice state
 interface UsersState {
@@ -44,12 +47,34 @@ export const userSlice = createSlice({
       state.loading = action.payload;
     },
     setActiveUser: (state, action) => {
+      console.log("statesss:", { state: cloneDeep(state), action });
+      console.log(
+        "statesss",
+        find(cloneDeep(state).all, { id: action.payload.id })
+      );
       state.active = action.payload;
+      localStorage.setItem("currentUser", JSON.stringify(action.payload));
+    },
+    setIsChatStarted: (state, action) => {
+      state.active = { ...state.active, isConvStarted: action.payload.value };
+      const index = findIndex(state.all, { id: action.payload.bot.id });
+      state.all[index].isConvStarted = action.payload.value;
+      return state;
     },
     setBotImage: (state, action) => {
-      const index = findIndex(state.all, { id: action.payload.id });
-      console.log("ram ram:", { index, user: state?.all[index] });
+      console.log("*****", { action });
+      const index = findIndex(state.all, { id: action.payload.user.id });
       state.all[index].useIcon = true;
+      state.all[index].botImage = action.payload.image;
+
+      localStorage.setItem(
+        "currentUser",
+        JSON.stringify({
+          ...state.all[index],
+          useIcon: true,
+          botImage: action.payload.image,
+        })
+      );
     },
   },
   extraReducers: (builder) => {
@@ -61,9 +86,7 @@ export const userSlice = createSlice({
       .addCase(fetchUsers.fulfilled, (state, action) => {
         state.status = "succeeded";
         state.loading = false;
-        const filterList =
-          localStorage.getItem("filterList") ||
-          process.env.REACT_APP_FILTER_LIST === "True";
+        const filterList = getShouldFilterTheList();
         logToAndroid("debug: allBots" + JSON.stringify(action.payload));
         const botIds = JSON.parse(localStorage.getItem("botList"));
         const botDetailsList = without(
@@ -71,12 +94,11 @@ export const userSlice = createSlice({
             sortBy(
               action.payload?.map((bot: any, index: number) => {
                 if (
-                  filterList
-                    ? bot?.logicIDs?.[0]?.transformers?.[0]?.meta?.type !==
-                        "broadcast" &&
-                      bot?.status === "ENABLED" &&
-                      includes(botIds, bot?.id)
-                    : true
+                //true
+                  bot?.logicIDs?.[0]?.transformers?.[0]?.meta?.type !==
+                    "broadcast" &&
+                  bot?.status === "ENABLED" &&
+                  includes(botIds, bot?.id)
                 ) {
                   if (index === 0)
                     return normalizeUsers({
@@ -124,7 +146,8 @@ export const userSlice = createSlice({
   },
 });
 
-export const { setLoading, setActiveUser, setBotImage } = userSlice.actions;
+export const { setLoading, setActiveUser, setBotImage, setIsChatStarted } =
+  userSlice.actions;
 
 // Other code such as selectors can use the imported `RootState` type
 export const selectUser = (state: RootState) => state.users;

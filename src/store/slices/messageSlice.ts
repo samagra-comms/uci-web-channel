@@ -5,7 +5,6 @@ import { fetchHistory } from "../actions/fetchHistory";
 import { toast } from "react-hot-toast";
 import { normalizedChat } from "../../utils/normalize-chats";
 import { getMsgType } from "../../utils/get-msg-type";
-import { cloneDeep } from "lodash";
 import { logToAndroid } from "../../utils/android-events";
 
 // Define a type for the slice state
@@ -94,7 +93,7 @@ export const selectActiveMessages = (user) => (state: RootState) => {
 };
 
 export const selectNormalisedMessages =
-  (user, botIcon) => (state: RootState) => {
+  (user, botIcon,imageBlob) => (state: RootState) => {
     return (
       state.messages.all?.[user?.id]?.map((msg: any) => ({
         type: getMsgType(msg),
@@ -102,7 +101,7 @@ export const selectNormalisedMessages =
         position: msg?.position ?? "right",
         user: {
           style: { border: "2px solid lightgray" },
-          avatar: msg?.position === "left" ? botIcon : "",
+          avatar: msg?.position === "left" ? imageBlob ? URL.createObjectURL(imageBlob) : botIcon : "",
         },
       })) || []
     );

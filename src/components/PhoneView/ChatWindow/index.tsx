@@ -27,7 +27,13 @@ import "@fortawesome/fontawesome-free/css/all.min.css";
 import { AppContext } from "../../../utils/app-context";
 import { User } from "../../../types";
 import moment from "moment";
-import { logToAndroid, sendEventToAndroid } from "../../../utils/android-events";
+import {
+  logToAndroid,
+  sendEventToAndroid,
+} from "../../../utils/android-events";
+import axios from "axios";
+import { useSelector } from "react-redux";
+import { selectActiveUser } from "../../../store/slices/userSlice";
 
 interface chatWindowProps {
   currentUser: User;
@@ -39,6 +45,8 @@ const ChatWindow: React.FC<chatWindowProps> = ({ currentUser }) => {
   const [showNavExternal3, setShowNavExternal3] = useState(false);
   const [active, setActive] = useState(false);
   const [botIcon, setBotIcon] = useState(profilePic);
+  const [imageBlob, setImageBlob] = useState(null);
+
   const handleClick = (msg: string): void => {
     setShowNavExternal3(!showNavExternal3);
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -53,11 +61,10 @@ const ChatWindow: React.FC<chatWindowProps> = ({ currentUser }) => {
       timestamp: moment().valueOf(),
     };
     try {
-      
-        sendEventToAndroid(
-          "nl-chatbotscreen-chatbot-interactions",
-          JSON.stringify(telemetryData)
-        );
+      sendEventToAndroid(
+        "nl-chatbotscreen-chatbot-interactions",
+        JSON.stringify(telemetryData)
+      );
       logToAndroid(
         `nl-chatbotscreen-chatbot-interactions event: ${JSON.stringify(
           telemetryData
@@ -68,24 +75,83 @@ const ChatWindow: React.FC<chatWindowProps> = ({ currentUser }) => {
     }
   }, [currentUser]);
 
+  //   if (currentUser?.botImage) {
+  //     fetch(currentUser?.botImage)
+  //       .then((res) => {
+  //         if (res.status === 403) {
+  //           setBotIcon(profilePic);
+  //         } else {
+  //           setBotIcon(currentUser?.botImage);
+  //         }
+  //       })
+  //       .catch((err) => {
+  //         setBotIcon(profilePic);
+  //       });
+  //   } else {
+  //     setBotIcon(profilePic);
+  //   }
+  // }, [currentUser?.botImage]);
+
+  
   useEffect(() => {
+    // const handleBeforeUnload = (e) => {
+    //   // if (true) {
+    //   //   console.log("88888888888")
+    //   //   // Condition is fulfilled, allow navigation
+    //   //   return undefined;
+    //   // }
+
+    //   // Condition is not fulfilled, show a confirmation message
+    //   const confirmationMessage = 'You have unsaved changes. Do you really want to leave?';
+
+    //   // Some browsers require a return value for the confirmation message to work
+    //   e.returnValue = confirmationMessage;
+    //   return confirmationMessage;
+    // };
+
+    // // Add the event listener when the component mounts
+    // window.addEventListener('beforeunload', handleBeforeUnload);
+
+    // // Remove the event listener when the component unmounts
+    // return () => {
+    //   window.removeEventListener('beforeunload', handleBeforeUnload);
+    // };
+
+    
+  }, []);
+
+
+  
+  useEffect(() => {
+   
     if (currentUser?.botImage) {
-      fetch(currentUser?.botImage)
-        .then((res) => {
-          if (res.status === 403) {
+      if (!currentUser?.useIcon) {
+        axios
+          .get(currentUser?.botImage, {
+            responseType: "blob", // Set the response type to blob
+          })
+          .then((res) => {
+            if (res.status === 403) {
+              setBotIcon(profilePic);
+            } else {
+              setBotIcon(res.data);
+
+              setImageBlob(res.data);
+            }
+          })
+          .catch((err) => {
             setBotIcon(profilePic);
-          } else {
-            setBotIcon(currentUser?.botImage);
-          }
-        })
-        .catch((err) => {
-          setBotIcon(profilePic);
-        });
+          });
+      } else {
+        setBotIcon(currentUser?.botImage);
+        setImageBlob(currentUser?.botImage);
+      }
     } else {
       setBotIcon(profilePic);
     }
-  }, [currentUser?.botImage]);
+  }, [currentUser, currentUser?.botImage, currentUser?.useIcon]);
 
+  console.log("video:", { imageBlob });
   return (
     <Flex
       bgColor="var(--primarydarkblue)"
@@ -106,7 +172,7 @@ const ChatWindow: React.FC<chatWindowProps> = ({ currentUser }) => {
             }}
             onClick={(): void => {
               localStorage.removeItem("userMsgs");
-              context?.setMessages([]);
+              // context?.setMessages([]);
               history.push("/");
             }}
             size="sm"
@@ -125,12 +191,21 @@ const ChatWindow: React.FC<chatWindowProps> = ({ currentUser }) => {
               {
                 <>
                   <div className={styles.innerRing}>
-                    <img
-                      src={botIcon}
-                      height={"100%"}
-                      width={"100%"}
-                      alt="profile pic"
-                    />
+                    {imageBlob ? (
+                      <img
+                        src={URL.createObjectURL(imageBlob)}
+                        height={"100%"}
+                        width={"100%"}
+                        alt="profile pic"
+                      />
+                    ) : (
+                      <img
+                        src={botIcon}
+                        height={"100%"}
+                        width={"100%"}
+                        alt="profile pic"
+                      />
+                    )}
                   </div>
                   <Box
                     style={{

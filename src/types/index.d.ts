@@ -8,8 +8,11 @@ export type User = {
 	botImage?:string;
 	isExpired:boolean;
 	endDate:string;
+	startDate:string;
 	status:'ENABLED'|'DISABLED';
-	useIcon?:boolean
+	useIcon?:boolean;
+	isConvStarted?:boolean;
+	createdAt?:string
 };
 
 export type toChangeCurrentUser = (arg: User) => void;

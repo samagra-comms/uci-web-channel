@@ -20,7 +20,9 @@ const StarredChatsPage: FC = () => {
 	const { id } = useParams<{ id: string }>();
 	const history = useHistory();
 	const user = useMemo(() => find(context?.allUsers, { id }), [context?.allUsers, id]);
-	const botIcon=useMemo(()=>context?.currentUser?.botImage || profilePic,[context?.currentUser?.botImage])
+	
+	console.log("user",{user})
+	const botIcon=useMemo(()=> URL.createObjectURL(user?.botImage) || profilePic,[user?.botImage])
 	useEffect(() => {
 		triggerEventInAndroid('onBotListingScreenFocused',false);
 		logToAndroid(`On Home Page onBotListingScreenFocused:false triggered`);

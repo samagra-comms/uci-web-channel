@@ -22,12 +22,19 @@ import {
   isLoadingSelector,
   selectUser,
   setActiveUser,
+  setIsChatStarted,
   setLoading,
 } from "./store/slices/userSlice";
 import { fetchUsers } from "./store/actions/fetchUsers";
 import { AppDispatch } from "./store";
-import { appendMessage, selectActiveMessages, setActiveMessages } from "./store/slices/messageSlice";
+import {
+  appendMessage,
+  selectActiveMessages,
+  setActiveMessages,
+} from "./store/slices/messageSlice";
 import { logToAndroid, triggerEventInAndroid } from "./utils/android-events";
+import { setLocalStorage } from "./utils/set-local-storage";
+
 
 const App: FC = () => {
   const [botToScroll, setBotToScroll] = useState(null);
@@ -35,7 +42,7 @@ const App: FC = () => {
   const [starredMsgs, setStarredMsgs] = useState({});
   const dispatch: AppDispatch = useDispatch();
   const { all, active } = useSelector(selectUser);
-  const activeMessages =useSelector(selectActiveMessages(active));
+  const activeMessages = useSelector(selectActiveMessages(active));
 
   const botStartingMsgs = useMemo(
     () =>
@@ -47,9 +54,10 @@ const App: FC = () => {
   const [isConnected, setIsConnected] = useState(socket.connected);
 
   const connect = useCallback(() => {
-    logToAndroid("socket: connect triggered")
+    logToAndroid("socket: connect triggered");
     socket.connect();
   }, []);
+
 
   useEffect(() => {
     if (!isConnected) connect();
@@ -67,34 +75,37 @@ const App: FC = () => {
       session: any;
     }>(initialState);
 
-  const updateMsgState = useCallback(({ user, msg, media }) => {
-    const newMsg = {
-      username: user?.name,
-      text:
-        msg.content.title ===
-        "This conversation has expired now. Please contact your state admin to seek help with this."
-          ? "यह फॉर्म समाप्त हो गया है !"
-          : msg.content.title,
-      choices: msg.content.choices,
-      caption: msg.content.caption,
-      position: "left",
-      id: user?.id,
-      botUuid: user?.id,
-      messageId: msg?.messageId,
-      ...media,
-    };
-    dispatch(appendMessage(newMsg));
-  }, [dispatch]);
+  const updateMsgState = useCallback(
+    ({ user, msg, media }) => {
+      const newMsg = {
+        username: user?.name,
+        text:
+          msg.content.title ===
+          "This conversation has expired now. Please contact your state admin to seek help with this."
+            ? "यह फॉर्म समाप्त हो गया है !"
+            : msg.content.title,
+        choices: msg.content.choices,
+        caption: msg.content.caption,
+        position: "left",
+        id: user?.id,
+        botUuid: user?.id,
+        messageId: msg?.messageId,
+        ...media,
+      };
+      dispatch(appendMessage(newMsg));
+    },
+    [dispatch]
+  );
 
   const onMediaReceived = useCallback((botId, msgId) => {
-      triggerEventInAndroid('onMediaReceived',{botId,msgId});
-      logToAndroid(`onMediaReceived: ${JSON.stringify({ bot: botId, msgId })}`)
+    triggerEventInAndroid("onMediaReceived", { botId, msgId });
+    logToAndroid(`onMediaReceived: ${JSON.stringify({ bot: botId, msgId })}`);
   }, []);
 
   const onMessageReceived = useCallback(
     (msg: any): void => {
       setIsMsgReceiving(false);
-      logToAndroid(`socket: receiving bot response -${msg}`)
+      logToAndroid(`socket: receiving bot response -${msg}`);
       const user = JSON.parse(localStorage.getItem("currentUser"));
       if (msg.content.msg_type === "IMAGE") {
         updateMsgState({
@@ -143,18 +154,18 @@ const App: FC = () => {
 
   const onException = useCallback((exception: any) => {
     toast.error(exception?.message);
-    triggerEventInAndroid('onTriggerLogout');
-
+    triggerEventInAndroid("onTriggerLogout");
   }, []);
 
   useEffect(() => {
+    // setLocalStorage();
     function onConnect(): void {
-      logToAndroid(`socket: onConnectCallback`)
+      logToAndroid(`socket: onConnectCallback`);
       setIsConnected(true);
     }
 
     function onDisconnect(): void {
-      logToAndroid(`socket: onDisconnectCallback`)
+      logToAndroid(`socket: onDisconnectCallback`);
       setIsConnected(false);
     }
 
@@ -166,7 +177,7 @@ const App: FC = () => {
     socket.on("session", onSessionCreated);
 
     return () => {
-        logToAndroid(`socket: turning off everything on return`)
+      logToAndroid(`socket: turning off everything on return`);
       socket.disconnect();
       socket.off("connect", onConnect);
       socket.off("disconnect", onDisconnect);
@@ -181,7 +192,6 @@ const App: FC = () => {
     }
   }, []);
 
- 
   useEffect(() => {
     dispatch(fetchUsers());
   }, [dispatch]);
@@ -193,9 +203,9 @@ const App: FC = () => {
     [dispatch]
   );
 
-  
   const onChangeCurrentUser = useCallback(
     (newUser: User) => {
+      // localStorage.setItem('currentUser',JSON.stringify({ ...newUser, active: true }))
       dispatch(setActiveUser({ ...newUser, active: true }));
       localStorage.removeItem("userMsgs");
     },
@@ -204,77 +214,31 @@ const App: FC = () => {
 
   const sendMessage = useCallback(
     (text: string, media: any, isVisibile = true): void => {
+
+      //@ts-ignore
+      if(!active.isConvStarted){
+        triggerEventInAndroid('onConvStarted',active);
+        dispatch(setIsChatStarted({bot:active,value:true}));
+      }
       setIsMsgReceiving(true);
       send(text, state.session, null, active, socket, null);
-      if (isVisibile)
-        if (media) {
-          //<----------Media Management is not implemented yet---------->
-          // if (media.mimeType.slice(0, 5) === "image") {
-          //   setState((prev) => ({
-          //     ...prev,
-          //     messages: prev.messages.concat({
-          //       username: prev.username,
-          //       image: media.url,
-          //       position: "right",
-          //     }),
-          //   }));
-          // } else if (media.mimeType.slice(0, 5) === "audio" && isVisibile) {
-          //   setState((prev) => ({
-          //     ...prev,
-          //     messages: prev.messages.concat({
-          //       username: prev.username,
-          //       audio: media.url,
-          //       position: "right",
-          //     }),
-          //   }));
-          // } else if (media.mimeType.slice(0, 5) === "video") {
-          //   setState((prev) => ({
-          //     ...prev,
-          //     messages: prev.messages.concat({
-          //       username: prev.username,
-          //       video: media.url,
-          //       position: "right",
-          //     }),
-          //   }));
-          // } else if (media.mimeType.slice(0, 11) === "application") {
-          //   setState((prev) => ({
-          //     ...prev,
-          //     messages: prev.messages.concat({
-          //       username: prev.username,
-          //       doc: media.url,
-          //       position: "right",
-          //     }),
-          //   }));
-          // } else {
-          //   setState((prev) => ({
-          //     ...prev,
-          //     messages: prev.messages.concat({
-          //       username: prev.username,
-          //       text: text,
-          //       doc: media.url,
-          //       position: "right",
-          //     }),
-          //   }));
-          // }
-        } else {
-          
-          const newMsgState=[ 
-            ...map(activeMessages, (prevMsg) => ({ ...prevMsg, disabled: true })),
-            {
-              username: state.username,
-              text: text,
-              position: "right",
-              //@ts-ignore
-              botUuid: active?.id,
-              payload: { text },
-              time: moment().valueOf(),
-              disabled: true,
-            },
-          ];
-       
-          dispatch(setActiveMessages(newMsgState))
+      if (isVisibile) {
+        const newMsgState = [
+          ...map(activeMessages, (prevMsg) => ({ ...prevMsg, disabled: true })),
+          {
+            username: state.username,
+            text: text,
+            position: "right",
+            //@ts-ignore
+            botUuid: active?.id,
+            payload: { text },
+            time: moment().valueOf(),
+            disabled: true,
+          },
+        ];
 
-        }
+        dispatch(setActiveMessages(newMsgState));
+      }
     },
     [state.session, state.username, active, activeMessages, dispatch]
   );
@@ -296,7 +260,6 @@ const App: FC = () => {
       clearTimeout(timer);
       clearTimeout(secondTimer);
     };
-    //}, [isMsgReceiving, loading]);
   }, [isMsgReceiving]);
 
   const values = useMemo(

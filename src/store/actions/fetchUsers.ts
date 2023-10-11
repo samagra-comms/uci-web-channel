@@ -14,10 +14,7 @@ export const fetchUsers = createAsyncThunk('users/fetchUsers', async (data,thunk
             },
         };
         const url = getBotDetailsUrl();
-
-
         const response = await axios.get(url, config);
-        console.log("shri ram:", { response })
         return response?.data?.result;
     }
     catch (err) {

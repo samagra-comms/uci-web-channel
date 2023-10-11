@@ -30,7 +30,9 @@ const StarredChatItem: React.FC<chatItemProps> = ({ active, name, phoneNumber, u
 		history.push(`/starredChats/${user?.id}`);
 	}, [history, user]);
 
-	const botIcon=useMemo(()=>user?.botImage || profilePic,[user?.botImage]);
+	console.log({user})
+	//@ts-ignore
+	const botIcon=useMemo(()=> URL.createObjectURL(user?.botImage) || profilePic,[user?.botImage]);
 	return (
 		<React.Fragment>
 			<button

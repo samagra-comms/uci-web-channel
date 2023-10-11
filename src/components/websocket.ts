@@ -1,5 +1,4 @@
 import { socket } from '../socket';
-import { User } from '../types';
 
 export const send = (
 	msg: any,
@@ -40,7 +39,7 @@ export const send = (
 				context: null,
 				accessToken
 			},
-			to: `nlpwa:8767447416`
+			to: `nlpwa:${localStorage.getItem('mobile')}`
 		});
 	}
 };

@@ -43,16 +43,18 @@ const ChatUiWindow: FC = () => {
   const currentUser: User = useSelector(selectActiveUser);
   const loading = useSelector(isMsgLoadingSelector);
   const [botIcon, setBotIcon] = useState(currentUser?.botImage || botImage);
-
+  const [imageBlob, setImageBlob] = useState(null)
+  // URL.createObjectURL(blobImage)
   useEffect(() => {
     if (currentUser?.useIcon) {
       setBotIcon(currentUser?.botImage);
+      setImageBlob(currentUser?.botImage);
     } else {
       setBotIcon(botImage);
     }
   }, [currentUser, currentUser?.botImage, setBotIcon]);
 
-  const chatUIMsg = useSelector(selectNormalisedMessages(currentUser, botIcon));
+  const chatUIMsg = useSelector(selectNormalisedMessages(currentUser, botIcon,imageBlob));
   const msgToRender = useMemo(() => {
     return context?.isMsgReceiving && chatUIMsg
       ? [
