@@ -66,7 +66,6 @@ const RecentChats: React.FC<recentChatsProps> = ({ allUsers }) => {
       sessionStorage.setItem("page", "1");}
   }, [maxPage, page]);
 
-  console.log("shri_ram", { maxPage, allUsers: allUsers.length, page, data });
   // const fetchUser = useCallback(() => {
   //   if (allUsers.length > 0) {
   //     console.log("shri_ram", { allUsers: allUsers.length, page, maxPage });
@@ -91,7 +90,6 @@ const RecentChats: React.FC<recentChatsProps> = ({ allUsers }) => {
   // }, [allUsers, maxPage, page]);
 
   // toChangeCurrentUser
-  logToAndroid(`botToFocus:${botToFocus}`);
   useEffect(() => {
     try {
       if (botToFocus) {
@@ -109,7 +107,8 @@ const RecentChats: React.FC<recentChatsProps> = ({ allUsers }) => {
     } catch (err: any) {
       toast.error(err.message);
     }
-  }, [history, allUsers, botToFocus, context]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [history, allUsers, botToFocus, context?.toChangeCurrentUser]);
 
   const bottomRef = useRef(null);
 
@@ -177,7 +176,6 @@ const RecentChats: React.FC<recentChatsProps> = ({ allUsers }) => {
     },
     [context]
   );
-
 
   return (
     <Flex flexDirection="column" height="100vh">

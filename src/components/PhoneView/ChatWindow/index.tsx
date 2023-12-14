@@ -151,7 +151,6 @@ const ChatWindow: React.FC<chatWindowProps> = ({ currentUser }) => {
     }
   }, [currentUser, currentUser?.botImage, currentUser?.useIcon]);
 
-  console.log("video:", { imageBlob });
   return (
     <Flex
       bgColor="var(--primarydarkblue)"
