@@ -81,14 +81,13 @@ export const userSlice = createSlice({
         state.status = "succeeded";
         state.loading = false;
         const filterList = getShouldFilterTheList();
-        logToAndroid("debug: allBots" + JSON.stringify(action.payload));
         const botIds = JSON.parse(localStorage.getItem("botList"));
         const botDetailsList = without(
           reverse(
             sortBy(
               action.payload?.map((bot: any, index: number) => {
                 if (
-             true
+                true
                   // bot?.logicIDs?.[0]?.transformers?.[0]?.meta?.type !==
                   //   "broadcast" &&
                   // bot?.status === "ENABLED" &&
@@ -118,11 +117,10 @@ export const userSlice = createSlice({
 
         const activeBots = filter(botDetailsList, { isExpired: false });
         const expiredBots = filter(botDetailsList, { isExpired: true });
-        const botList = concat(activeBots, expiredBots);
+        const botList = activeBots;
         logToAndroid(`botDetailsList:${JSON.stringify(botDetailsList)}`);
 
         state.all = botList;
-        triggerEventInAndroid("onBotDetailsLoaded", JSON.stringify(botList));
 
         if (localStorage.getItem("currentUser")) {
           state.active = JSON.parse(localStorage.getItem("currentUser"));

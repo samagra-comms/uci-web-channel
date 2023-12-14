@@ -160,7 +160,7 @@ const App: FC = () => {
   }, []);
 
   useEffect(() => {
-     setLocalStorage();
+   //  setLocalStorage();
     function onConnect(): void {
       logToAndroid(`socket: onConnectCallback`);
       setIsConnected(true);

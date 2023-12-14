@@ -1,7 +1,7 @@
 import { configureStore } from "@reduxjs/toolkit";
 import userReducer from "./slices/userSlice";
 import messageReducer from "./slices/messageSlice";
-import logger from "redux-logger";
+// import logger from "redux-logger";
 // import { baseApi } from "./rtk-queries";
 // import { setupListeners } from "@reduxjs/toolkit/dist/query";
 
@@ -17,7 +17,7 @@ const preloadedState = {
 };
 export const store = configureStore({
     reducer,
-    middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(logger),
+    middleware: (getDefaultMiddleware) => getDefaultMiddleware(),
     devTools: process.env.NODE_ENV !== "production",
     preloadedState,
 });

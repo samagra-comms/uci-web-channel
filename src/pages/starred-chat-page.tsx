@@ -27,7 +27,6 @@ const StarredChatsPage: FC = () => {
     [context?.allUsers, id]
   );
 
-
   const [isImageFetching, setIsImageFetching] = useState(false);
   const [botIcon, setBotIcon] = useState(loader);
 

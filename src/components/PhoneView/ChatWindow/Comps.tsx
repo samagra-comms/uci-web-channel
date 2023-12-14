@@ -64,7 +64,7 @@ export const RenderComp: FC<any> = ({
         }
       }
     }
-    //@ts-ignore
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [starredFromLocal]);
 
   const isStarred = useMemo(

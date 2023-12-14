@@ -113,18 +113,7 @@ const ChatUiWindow: FC = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [conversationHistoryUrl]);
 
-  useEffect(() => {
-    try {
-      triggerEventInAndroid("onChatCompleted", {
-        id: String(currentUser?.id),
-        msgs: JSON.stringify(context?.state?.messages),
-      });
 
-      logToAndroid(`currentMsgs:${JSON.stringify(chatUIMsg)}`);
-    } catch (err) {
-      logToAndroid(`error in onChatCompleted func:${JSON.stringify(err)}`);
-    }
-  }, [chatUIMsg, context?.state?.messages, currentUser?.id]);
 
   const handleSend = useCallback(
     (type: string, val: any) => {

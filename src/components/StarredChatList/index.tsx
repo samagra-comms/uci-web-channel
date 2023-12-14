@@ -67,7 +67,12 @@ const StarredChatList: FC<{ user: User }> = ({ user }) => {
         return (
           <>
             <Bubble type="text">
-              <p style={{ fontSize: "16px" }}>{content.text}</p>
+              <span
+                className="onHover"
+                style={{ fontSize: "16px" }}
+                contentEditable="false"
+                dangerouslySetInnerHTML={{ __html: content.text }}
+              />
               <span style={{ color: "var(--grey)", fontSize: "10px" }}>
                 {moment
                   .utc(
