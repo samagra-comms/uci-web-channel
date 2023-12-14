@@ -66,30 +66,7 @@ const RecentChats: React.FC<recentChatsProps> = ({ allUsers }) => {
       sessionStorage.setItem("page", "1");}
   }, [maxPage, page]);
 
-  // const fetchUser = useCallback(() => {
-  //   if (allUsers.length > 0) {
-  //     console.log("shri_ram", { allUsers: allUsers.length, page, maxPage });
-  //     setIsLoading(true);
-  //     const newUsers = slice(allUsers, 0, page * perPage + 1);
-  //     setData(newUsers);
-  //     sessionStorage.setItem("page", `${Number(page) + 1}`);
-  //     if (page < maxPage) {
-      
-  //       sessionStorage.setItem("page", `${Number(page) + 1}`);
-  //       setPage(Number(page) + 1);
-  //       setIsLoading(false);
-  //     } 
-  //     else if (page >= maxPage) {
-  //       setIsLoading(false);
-  //       return;
-  //       // setPage(maxPage-1);
-  //       // localStorage.setItem('page',`${maxPage-1}`)
-  //     }
-     
-  //   }
-  // }, [allUsers, maxPage, page]);
 
-  // toChangeCurrentUser
   useEffect(() => {
     try {
       if (botToFocus) {
