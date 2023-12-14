@@ -32,8 +32,7 @@ import {
   sendEventToAndroid,
 } from "../../../utils/android-events";
 import axios from "axios";
-import { useSelector } from "react-redux";
-import { selectActiveUser } from "../../../store/slices/userSlice";
+
 
 interface chatWindowProps {
   currentUser: User;
@@ -75,50 +74,7 @@ const ChatWindow: React.FC<chatWindowProps> = ({ currentUser }) => {
     }
   }, [currentUser]);
 
-  //   if (currentUser?.botImage) {
-  //     fetch(currentUser?.botImage)
-  //       .then((res) => {
-  //         if (res.status === 403) {
-  //           setBotIcon(profilePic);
-  //         } else {
-  //           setBotIcon(currentUser?.botImage);
-  //         }
-  //       })
-  //       .catch((err) => {
-  //         setBotIcon(profilePic);
-  //       });
-  //   } else {
-  //     setBotIcon(profilePic);
-  //   }
-  // }, [currentUser?.botImage]);
-
   
-  useEffect(() => {
-    // const handleBeforeUnload = (e) => {
-    //   // if (true) {
-    //   //   console.log("88888888888")
-    //   //   // Condition is fulfilled, allow navigation
-    //   //   return undefined;
-    //   // }
-
-    //   // Condition is not fulfilled, show a confirmation message
-    //   const confirmationMessage = 'You have unsaved changes. Do you really want to leave?';
-
-    //   // Some browsers require a return value for the confirmation message to work
-    //   e.returnValue = confirmationMessage;
-    //   return confirmationMessage;
-    // };
-
-    // // Add the event listener when the component mounts
-    // window.addEventListener('beforeunload', handleBeforeUnload);
-
-    // // Remove the event listener when the component unmounts
-    // return () => {
-    //   window.removeEventListener('beforeunload', handleBeforeUnload);
-    // };
-
-    
-  }, []);
 
 
   
@@ -151,7 +107,6 @@ const ChatWindow: React.FC<chatWindowProps> = ({ currentUser }) => {
     }
   }, [currentUser, currentUser?.botImage, currentUser?.useIcon]);
 
-  console.log("video:", { imageBlob });
   return (
     <Flex
       bgColor="var(--primarydarkblue)"
@@ -224,9 +179,9 @@ const ChatWindow: React.FC<chatWindowProps> = ({ currentUser }) => {
                         textAlign: "left",
                         marginBottom: "auto",
                         marginTop: "auto",
-                        textDecoration: currentUser?.isExpired
-                          ? "line-through"
-                          : "none",
+                        // textDecoration: currentUser?.isExpired
+                        //   ? "line-through"
+                        //   : "none",
                       }}
                     >
                       {currentUser?.name}

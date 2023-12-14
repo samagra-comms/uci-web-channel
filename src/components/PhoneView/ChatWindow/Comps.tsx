@@ -64,7 +64,8 @@ export const RenderComp: FC<any> = ({
         }
       }
     }
-  }, [msg?.content?.data, starredFromLocal]);
+    //@ts-ignore
+  }, [starredFromLocal]);
 
   const isStarred = useMemo(
     () =>
@@ -252,7 +253,7 @@ export const RenderComp: FC<any> = ({
   };
 
   const { content, type } = msg;
-  console.log({ content });
+  
   switch (type) {
     case "loader":
       return <Typing />;

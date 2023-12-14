@@ -184,8 +184,10 @@ const ChatItem: React.FC<chatItemProps> = ({
                 overflow: "hidden",
                 whiteSpace: "nowrap",
                 marginBottom: "0",
-                color: user?.isExpired ? "lightgrey" : "black",
-                textDecoration: user?.isExpired ? "line-through" : "none",
+                color:"black",
+                textDecoration: "none",
+                // color: user?.isExpired ? "lightgrey" : "black",
+                // textDecoration: user?.isExpired ? "line-through" : "none",
               }}
             >
               {name}

@@ -66,7 +66,7 @@ const RecentChats: React.FC<recentChatsProps> = ({ allUsers }) => {
       sessionStorage.setItem("page", "1");}
   }, [maxPage, page]);
 
-  console.log("shri_ram", { maxPage, allUsers: allUsers.length, page, data });
+  
   // const fetchUser = useCallback(() => {
   //   if (allUsers.length > 0) {
   //     console.log("shri_ram", { allUsers: allUsers.length, page, maxPage });
@@ -109,7 +109,9 @@ const RecentChats: React.FC<recentChatsProps> = ({ allUsers }) => {
     } catch (err: any) {
       toast.error(err.message);
     }
-  }, [history, allUsers, botToFocus, context]);
+    //@ts-ignore
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [history, allUsers, botToFocus, context?.toChangeCurrentUser]);
 
   const bottomRef = useRef(null);
 

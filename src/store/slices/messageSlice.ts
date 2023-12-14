@@ -43,6 +43,7 @@ export const messageSlice = createSlice({
     appendMessage: (state, action) => {
       //@ts-ignore
       const prev = [...(state.all[action.payload.botUuid] || [])];
+    
       prev.push(action.payload);
       localStorage.setItem(
         "userMsgs",

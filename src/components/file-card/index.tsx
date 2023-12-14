@@ -25,22 +25,7 @@ const FileCard = ({ url, user, type,messageId }) => {
     return faFileImage;
   }, [type]);
 
-  // const onDownloadClick = useCallback(
-  //   (ev) => {
-  //     ev.stopPropagation();
-  //     triggerEventInAndroid("onPdfDownload", { id: user?.id, url ,messageId});
-  //   },
-  //   [url, user?.id,messageId]
-  // );
-
-  // const onFileClick = useCallback(() => {
-  //   triggerEventInAndroid("onPdfDownload", {
-  //     id: user?.id,
-  //     url,
-  //     isPreview: true,
-  //     messageId
-  //   });
-  // }, [url, user?.id,messageId]);
+  
 
   useEffect(() => {
     if (window) {
@@ -60,6 +45,7 @@ const FileCard = ({ url, user, type,messageId }) => {
 
   const onCardClick = useCallback(
     (ev) => {
+      console.log({messageId,assetId,url,type})
       setIsLoading(true);
       ev.stopPropagation();
       if (window) {
@@ -77,9 +63,9 @@ const FileCard = ({ url, user, type,messageId }) => {
   );
 
 
-  // if (type === "image") return <ImageCard url={url} user={user} messageId={messageId}/>;
+  if (type === "image") return <ImageCard url={url} onCardClick={onCardClick}/>;
 
-  // if (type === "video") return <VideoPlayer url={url} user={user} messageId={messageId}/>;
+  if (type === "video") return <VideoPlayer url={url} onCardClick={onCardClick}/>;
   return (
     <>
       <div

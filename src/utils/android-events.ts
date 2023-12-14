@@ -6,7 +6,7 @@ export const logToAndroid = (text: string) => {
 
 export const sendEventToAndroid = (key: string, value: any) => {
   window && window?.androidInteract?.onEvent(key, value);
-  console.log("__shri ram__: event triggered",{key,value})
+
 };
 
 export const triggerEventInAndroid = (key: string, data?: any) => {

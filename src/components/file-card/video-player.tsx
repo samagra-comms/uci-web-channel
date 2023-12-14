@@ -1,18 +1,14 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React, { useCallback, useEffect, useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import {
-  faClose,
-  faDownload,
   faFileVideo,
 } from "@fortawesome/free-solid-svg-icons";
-import { triggerEventInAndroid } from "../../utils/android-events";
 import "./file-card.css";
-import VideoViewer from "../video-viewer";
 import { useHistory } from "react-router-dom";
-
-const VideoPlayer = ({ url, user ,messageId}) => {
+import VideoThumbnail from "react-video-thumbnail";
+const VideoPlayer = ({ url, onCardClick }) => {
   const [isViewerOpen, setIsViewerOpen] = useState(false);
-  const [selectedImage, setSelectedImage] = useState("");
+  const [thumbnail, setthumbnail] = useState(null);
 
   const history = useHistory();
   useEffect(() => {
@@ -28,63 +24,108 @@ const VideoPlayer = ({ url, user ,messageId}) => {
     return () => unblock();
   }, [history, isViewerOpen]);
 
-  const openViewer = () => {
-    if(!isViewerOpen){
-      triggerEventInAndroid("onVideoDownload", { id: user?.id, url,isPreview:true,messageId });
-    }
-    setSelectedImage(url);
-    setIsViewerOpen((prev) => !prev);
-  
-  };
+  // const openViewer = () => {
+  //   if (!isViewerOpen) {
+  //     triggerEventInAndroid("onVideoDownload", {
+  //       id: user?.id,
+  //       url,
+  //       isPreview: true,
+  //       messageId,
+  //     });
+  //   }
+  //   setSelectedImage(url);
+  //   setIsViewerOpen((prev) => !prev);
+  // };
 
-  const closeViewer = () => {
-    setIsViewerOpen(false);
-    setSelectedImage("");
-  };
+  // const closeViewer = () => {
+  //   setIsViewerOpen(false);
+  //   setSelectedImage("");
+  // };
   const name = useMemo(
     () => url?.split("/")?.[url.split("/").length - 1] || "Name Not Available",
     [url]
   );
 
-  const onDownloadClick = useCallback(
-    (ev) => {
-      ev.stopPropagation();
-      triggerEventInAndroid("onVideoDownload", { id: user?.id, url,messageId });
-    },
-    [url, user?.id,messageId]
-  );
+  // const onDownloadClick = useCallback(
+  //   (ev) => {
+  //     ev.stopPropagation();
+  //     triggerEventInAndroid("onVideoDownload", {
+  //       id: user?.id,
+  //       url,
+  //       messageId,
+  //     });
+  //   },
+  //   [url, user?.id, messageId]
+  // );
 
   return (
     <>
-      <div
-        style={{ background: "lightgray", width: "100%" }}
-        className="px-1"
-        onClick={openViewer}
-      >
-        
+      <div style={{ display: "none" }}>
+        <VideoThumbnail
+          videoUrl={url}
+          thumbnailHandler={(thumbnailData) => setthumbnail(thumbnailData)}
+        />
+      </div>
+      <div style={{ width: "100%", position: "relative", borderRadius: "5px" }}>
+        <div
+          style={{
+            background: "lightgray",
+            width: "100%",
+            position: "relative",
+            borderRadius: "5px",
+          }}
+          className="px-1"
+          onClick={onCardClick}
+        >
           <>
             <div
-              style={{ height: "60px" }}
+              style={{
+                height: "170px",
+                filter: "blur(2px)",
+                backgroundImage: `url(${thumbnail})`,
+                backgroundSize: "cover", // Cover the entire viewport
+                color: "white", // Text color
+              }}
               className="d-flex justify-content-between px-2 align-items-center"
             >
-              <div style={{ display: "inline-block" }}>
-                <FontAwesomeIcon icon={faFileVideo} className="fa-3x" />
-              </div>
-              <div style={{ display: "inline-block" }}>
-                <FontAwesomeIcon
-                  icon={faDownload}
-                  className="fa-2x"
-                  onClick={onDownloadClick}
-                />
-              </div>
+              {/* <div style={{ display: "inline-block" }}>
+              <FontAwesomeIcon
+                icon={faDownload}
+                className="fa-2x"
+                onClick={onDownloadClick}
+              />
+            </div> */}
             </div>
-            {name}
           </>
-      
+          <div
+            style={{
+              width: "50px",
+              height: "50px",
+              position: "absolute",
+              top: "50%",
+              left: "50%",
+              transform: "translate(-50%,-50%)",
+            }}
+          >
+            <img
+              src={`https://cdn-icons-png.flaticon.com/512/81/81097.png`}
+              alt="play-btn"
+            />
+          </div>
+        </div>
+        <div
+          style={{
+            display: "inline-block",
+            fontWeight: "bolder",
+          }}
+        >
+          <FontAwesomeIcon icon={faFileVideo}  /> &nbsp;
+          {name}
+        </div>
       </div>
-      {isViewerOpen && (
+      {/* {isViewerOpen && (
         <VideoViewer imageUrl={selectedImage} onClose={closeViewer} />
-      )}
+      )} */}
     </>
   );
 };

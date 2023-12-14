@@ -11,8 +11,7 @@ import { useHistory } from "react-router-dom";
 import { toast } from "react-hot-toast";
 const loader = require("../../assets/images/loader.gif");
 
-
-const ImageCard = ({ url, user, messageId }) => {
+const ImageCard = ({ url, onCardClick }) => {
   const [isViewerOpen, setIsViewerOpen] = useState(false);
   const [selectedImage, setSelectedImage] = useState("");
   const [isImageAvailable, setIsImageAvailable] = useState(false);
@@ -41,82 +40,87 @@ const ImageCard = ({ url, user, messageId }) => {
     return () => unblock();
   }, [history, isViewerOpen]);
 
-  const openViewer = () => {
-    if (!isViewerOpen) {
-      triggerEventInAndroid("onImageDownload", {
-        id: user?.id,
-        url,
-        isPreview: true,
-        messageId,
-      });
-    }
-    //  setSelectedImage(url);
-    setIsViewerOpen(true);
-  };
+  // const openViewer = () => {
+  //   if (!isViewerOpen) {
+  //     triggerEventInAndroid("onImageDownload", {
+  //       id: user?.id,
+  //       url,
+  //       isPreview: true,
+  //       messageId,
+  //     });
+  //   }
+  //   //  setSelectedImage(url);
+  //   setIsViewerOpen(true);
+  // };
 
-  const closeViewer = () => {
-    setIsViewerOpen(false);
-    setSelectedImage("");
-  };
+  // const closeViewer = () => {
+  //   setIsViewerOpen(false);
+  //   setSelectedImage("");
+  // };
   const name = useMemo(
     () => url?.split("/")?.[url.split("/").length - 1] || "Name Not Available",
     [url]
   );
 
-  useEffect(() => {
-    if (window) {
-      logToAndroid(
-        `passing values to isAssestDownloaded msgId:${messageId} url:${url} ,name:${name}} image here`
-      );
-      const isAssetAvailable = window?.androidInteract?.isAssetDownloaded(
-        messageId,
-        name,
-        url,
-        "image"
-      );
-      logToAndroid(`isAssestDownloaded return value:${isAssetAvailable}`);
-      setIsImageAvailable(isAssetAvailable);
-    }
-  }, [messageId, name, url]);
+  // useEffect(() => {
+  //   if (window) {
+  //     logToAndroid(
+  //       `passing values to isAssestDownloaded msgId:${messageId} url:${url} ,name:${name}} image here`
+  //     );
+  //     const isAssetAvailable = window?.androidInteract?.isAssetDownloaded(
+  //       messageId,
+  //       name,
+  //       url,
+  //       "image"
+  //     );
+  //     logToAndroid(`isAssestDownloaded return value:${isAssetAvailable}`);
+  //     setIsImageAvailable(isAssetAvailable);
+  //   }
+  // }, [messageId, name, url]);
 
-  const onDownloadClick = useCallback(
-    (ev) => {
-      setIsLoading(true);
-      ev.stopPropagation();
-      triggerEventInAndroid("onImageDownload", {
-        id: user?.id,
-        url,
-        messageId,
-        assetId: name,
-      });
-      if (window) {
-        logToAndroid(
-          `passing values to onAssetClicked msgId:${messageId} url:${url} ,name:${name}} image here`
-        );
-        window?.androidInteract?.onAssetClicked(messageId, name, url, "image");
-        setIsImageAvailable(true);
-        setTimeout(() => {
-          setIsLoading(false);
-        }, 500);
-      }
-    },
-    [user?.id, url, messageId, name]
-  );
+  // const onDownloadClick = useCallback(
+  //   (ev) => {
+  //     setIsLoading(true);
+  //     ev.stopPropagation();
+  //     triggerEventInAndroid("onImageDownload", {
+  //       id: user?.id,
+  //       url,
+  //       messageId,
+  //       assetId: name,
+  //     });
+  //     if (window) {
+  //       logToAndroid(
+  //         `passing values to onAssetClicked msgId:${messageId} url:${url} ,name:${name}} image here`
+  //       );
+  //       window?.androidInteract?.onAssetClicked(messageId, name, url, "image");
+  //       setIsImageAvailable(true);
+  //       setTimeout(() => {
+  //         setIsLoading(false);
+  //       }, 500);
+  //     }
+  //   },
+  //   [user?.id, url, messageId, name]
+  // );
+  // console.log({ url });
 
   return (
     <>
       <div
-        style={{ background: "lightgray", width: "100%" }}
+        style={{  width: "100%" }}
         className="px-1"
-        onClick={openViewer}
+        onClick={onCardClick}
       >
         <div
-          style={{ height: "60px" }}
-          className="d-flex justify-content-between px-2 align-items-center"
+          style={{
+            height: "170px",
+            filter: "blur(2px)",
+            backgroundImage: `url(${url})`,
+            backgroundSize: "cover", // Cover the entire viewport
+            color: "white", // Text color
+            borderRadius:'5px'
+          }}
+          className="d-flex justify-content-between px-2 align-items-end"
         >
-          <div style={{ display: "inline-block" }}>
-            <FontAwesomeIcon icon={faFileImage} className="fa-3x" />
-          </div>
           <div style={{ display: "inline-block" }}>
             {isLoading && (
               <img
@@ -125,16 +129,36 @@ const ImageCard = ({ url, user, messageId }) => {
                 alt="loader"
               />
             )}
-            {!isImageAvailable && (
+            {/* {!isImageAvailable && (
               <FontAwesomeIcon
                 icon={faDownload}
                 className="fa-2x"
                 onClick={onDownloadClick}
               />
-            )}
+            )}  */}
           </div>
         </div>
-        {name}
+        <div
+          style={{
+            display: "inline-block",
+            fontWeight: "bolder",
+          }}
+        >
+          <FontAwesomeIcon icon={faFileImage}  /> &nbsp;
+          {name}
+        </div>
+        {/* <div
+          style={{
+            display: "inline-block",
+            color: "black",
+            zIndex: 900,
+            position: "absolute",
+            top: "95px",
+          }}
+        >
+          <FontAwesomeIcon icon={faFileImage} className="fa-3x" /> {name}
+        </div> */}
+        {/* {name} */}
       </div>
 
       {/* {isViewerOpen && (

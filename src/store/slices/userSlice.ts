@@ -47,11 +47,6 @@ export const userSlice = createSlice({
       state.loading = action.payload;
     },
     setActiveUser: (state, action) => {
-      console.log("statesss:", { state: cloneDeep(state), action });
-      console.log(
-        "statesss",
-        find(cloneDeep(state).all, { id: action.payload.id })
-      );
       state.active = action.payload;
       localStorage.setItem("currentUser", JSON.stringify(action.payload));
     },
@@ -62,7 +57,6 @@ export const userSlice = createSlice({
       return state;
     },
     setBotImage: (state, action) => {
-      console.log("*****", { action });
       const index = findIndex(state.all, { id: action.payload.user.id });
       state.all[index].useIcon = true;
       state.all[index].botImage = action.payload.image;
@@ -94,11 +88,11 @@ export const userSlice = createSlice({
             sortBy(
               action.payload?.map((bot: any, index: number) => {
                 if (
-               // true
-                  bot?.logicIDs?.[0]?.transformers?.[0]?.meta?.type !==
-                    "broadcast" &&
-                  bot?.status === "ENABLED" &&
-                  includes(botIds, bot?.id)
+             true
+                  // bot?.logicIDs?.[0]?.transformers?.[0]?.meta?.type !==
+                  //   "broadcast" &&
+                  // bot?.status === "ENABLED" &&
+                  // includes(botIds, bot?.id)
                 ) {
                   if (index === 0)
                     return normalizeUsers({

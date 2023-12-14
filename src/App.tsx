@@ -9,7 +9,7 @@ import StarredChatsPage from "./pages/starred-chat-page";
 import { AppContext } from "./utils/app-context";
 import { CookiesProvider } from "react-cookie";
 import { send } from "./components/websocket";
-import moment from "moment";
+
 import { toast, Toaster } from "react-hot-toast";
 
 import { socket } from "./socket";
@@ -77,6 +77,7 @@ const App: FC = () => {
 
   const updateMsgState = useCallback(
     ({ user, msg, media }) => {
+   
       const newMsg = {
         username: user?.name,
         text:
@@ -90,6 +91,7 @@ const App: FC = () => {
         id: user?.id,
         botUuid: user?.id,
         messageId: msg?.messageId,
+        sentTimestamp: new Date().toDateString(),
         ...media,
       };
       dispatch(appendMessage(newMsg));
@@ -158,7 +160,7 @@ const App: FC = () => {
   }, []);
 
   useEffect(() => {
-    // setLocalStorage();
+     setLocalStorage();
     function onConnect(): void {
       logToAndroid(`socket: onConnectCallback`);
       setIsConnected(true);
@@ -232,10 +234,12 @@ const App: FC = () => {
             //@ts-ignore
             botUuid: active?.id,
             payload: { text },
-            time: moment().valueOf(),
+           // time: moment().valueOf(),
+            repliedTimestamp: new Date().toDateString(),
             disabled: true,
           },
         ];
+       
 
         dispatch(setActiveMessages(newMsgState));
       }
