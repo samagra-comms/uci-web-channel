@@ -87,11 +87,11 @@ export const userSlice = createSlice({
             sortBy(
               action.payload?.map((bot: any, index: number) => {
                 if (
-                true
-                  // bot?.logicIDs?.[0]?.transformers?.[0]?.meta?.type !==
-                  //   "broadcast" &&
-                  // bot?.status === "ENABLED" &&
-                  // includes(botIds, bot?.id)
+              //  true
+                  bot?.logicIDs?.[0]?.transformers?.[0]?.meta?.type !==
+                    "broadcast" &&
+                  bot?.status === "ENABLED" &&
+                  includes(botIds, bot?.id)
                 ) {
                   if (index === 0)
                     return normalizeUsers({
