@@ -63,7 +63,7 @@ const FileCard = ({ url, user, type,messageId }) => {
   );
 
 
-  if (type === "image") return <ImageCard url={url} onCardClick={onCardClick}/>;
+  if (type === "image") return <ImageCard url={url} onCardClick={onCardClick} isAssetAvailable={isAssetAvailable} isLoading={isLoading}/>;
 
   if (type === "video") return <VideoPlayer url={url} onCardClick={onCardClick}/>;
   return (

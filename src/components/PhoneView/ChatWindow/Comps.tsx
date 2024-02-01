@@ -244,13 +244,7 @@ export const RenderComp: FC<any> = ({
     [handleSend]
   );
 
-  const download = (url: string): void => {
-    try {
-      triggerEventInAndroid("onImageDownload", { id: currentUser?.id, url });
-    } catch (err) {
-      logToAndroid(`error in onImageDownload: ${JSON.stringify(err)}`);
-    }
-  };
+
 
   const { content, type } = msg;
   
@@ -345,12 +339,7 @@ export const RenderComp: FC<any> = ({
                       color={isStarred ? "var(--primaryyellow)" : "var(--grey)"}
                     />
                   )}
-                  <FontAwesomeIcon
-                    icon={faDownload}
-                    onClick={(): void => download(url)}
-                    style={{ marginLeft: "10px" }}
-                    color={"var(--grey)"}
-                  />
+                
                 </span>
               </div>
             </div>

@@ -24,39 +24,12 @@ const VideoPlayer = ({ url, onCardClick }) => {
     return () => unblock();
   }, [history, isViewerOpen]);
 
-  // const openViewer = () => {
-  //   if (!isViewerOpen) {
-  //     triggerEventInAndroid("onVideoDownload", {
-  //       id: user?.id,
-  //       url,
-  //       isPreview: true,
-  //       messageId,
-  //     });
-  //   }
-  //   setSelectedImage(url);
-  //   setIsViewerOpen((prev) => !prev);
-  // };
-
-  // const closeViewer = () => {
-  //   setIsViewerOpen(false);
-  //   setSelectedImage("");
-  // };
   const name = useMemo(
     () => url?.split("/")?.[url.split("/").length - 1] || "Name Not Available",
     [url]
   );
 
-  // const onDownloadClick = useCallback(
-  //   (ev) => {
-  //     ev.stopPropagation();
-  //     triggerEventInAndroid("onVideoDownload", {
-  //       id: user?.id,
-  //       url,
-  //       messageId,
-  //     });
-  //   },
-  //   [url, user?.id, messageId]
-  // );
+
 
   return (
     <>
@@ -88,13 +61,7 @@ const VideoPlayer = ({ url, onCardClick }) => {
               }}
               className="d-flex justify-content-between px-2 align-items-center"
             >
-              {/* <div style={{ display: "inline-block" }}>
-              <FontAwesomeIcon
-                icon={faDownload}
-                className="fa-2x"
-                onClick={onDownloadClick}
-              />
-            </div> */}
+
             </div>
           </>
           <div
@@ -119,13 +86,11 @@ const VideoPlayer = ({ url, onCardClick }) => {
             fontWeight: "bolder",
           }}
         >
-          <FontAwesomeIcon icon={faFileVideo}  /> &nbsp;
+          <FontAwesomeIcon icon={faFileVideo} /> &nbsp;
           {name}
         </div>
       </div>
-      {/* {isViewerOpen && (
-        <VideoViewer imageUrl={selectedImage} onClose={closeViewer} />
-      )} */}
+
     </>
   );
 };
