@@ -2,12 +2,14 @@
   position: fixed;
   height: 100vh;
   background-color: var(--primarygreen);
+  
 }
 
 .darkContainer {
   position: fixed;
   height: 100vh;
-  background-color: var(--primarydarkblue);
+  background-color: var(--primarydarkblue); 
+ 
 }
 .top_section {
   width: 100%;
@@ -24,6 +26,7 @@
   color: white;
   padding: 0px 3.5vw;
   background-color: var(--primarygreen);
+ 
 }
 
 .heading {
@@ -31,6 +34,7 @@
   font-family: 'Mulish', sans-serif;
 font-weight: 700;
   margin-left: 2rem;
+  
 }
 
 .logo_box {
@@ -42,6 +46,7 @@ font-weight: 700;
   min-height: 2.5rem;
   flex: flex-end;
   margin-right: 1rem;
+  border-color: none;
 }
 
 .mainContainer {
@@ -53,6 +58,9 @@ font-weight: 700;
   display: flex;
   justify-content: center;
   align-items: flex-end;
+  background-color: var(--primarygreen);
+ 
+  
 }
 
 .backBox {
@@ -66,10 +74,11 @@ font-weight: 700;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
+  
 }
 
 .starred{
-  background-color: var(--lightgrey);
+  /* background-color: var(--lightgrey); */
   font-family: 'Mulish', sans-serif;
   font-weight: bold;
   font-size: 14px;
@@ -78,11 +87,15 @@ font-weight: 700;
   padding: 4px;
   border-radius: 5px;
 }
-.starred:hover {
+/* .starred:hover {
   background-color: var(--primarygreen);
   color: white;
+} */
+.floatingBtn {
+  position: fixed;
+  bottom: 10px;
+  right:10px;
 }
-
 .chatList {
   margin-top: 2vh;
   max-height: 78vh;
@@ -92,6 +105,7 @@ font-weight: 700;
   /* display: flex;
   flex-direction: column;
   align-items: center; */
+ 
 }
 
 .settingsBar {

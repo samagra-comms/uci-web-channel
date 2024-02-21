@@ -13,7 +13,7 @@ import { send } from "./components/websocket";
 import { toast, Toaster } from "react-hot-toast";
 
 import { socket } from "./socket";
-import { map } from "lodash";
+import { map, reduce, uniq } from "lodash";
 
 import { initialState } from "./utils/initial-states";
 import { UserInput } from "./components/UserInput";
@@ -35,7 +35,6 @@ import {
 import { logToAndroid, triggerEventInAndroid } from "./utils/android-events";
 import { setLocalStorage } from "./utils/set-local-storage";
 
-
 const App: FC = () => {
   const [botToScroll, setBotToScroll] = useState(null);
   const [isMsgReceiving, setIsMsgReceiving] = useState(false);
@@ -50,6 +49,21 @@ const App: FC = () => {
     [all]
   );
 
+  const bucketList = useMemo(
+    () =>
+      uniq(
+        reduce(
+          [...all],
+          (acc, v: any): any => {
+            acc = [...acc, ...v.tags];
+            return acc;
+          },
+          []
+        )
+      ),
+    [all]
+  );
+
   const loading = useSelector(isLoadingSelector);
   const [isConnected, setIsConnected] = useState(socket.connected);
 
@@ -57,7 +71,6 @@ const App: FC = () => {
     logToAndroid("socket: connect triggered");
     socket.connect();
   }, []);
-
 
   useEffect(() => {
     if (!isConnected) connect();
@@ -77,7 +90,6 @@ const App: FC = () => {
 
   const updateMsgState = useCallback(
     ({ user, msg, media }) => {
-   
       const newMsg = {
         username: user?.name,
         text:
@@ -160,7 +172,10 @@ const App: FC = () => {
   }, []);
 
   useEffect(() => {
-   //  setLocalStorage();
+    setLocalStorage();
+  }, []);
+
+  useEffect(() => {
     function onConnect(): void {
       logToAndroid(`socket: onConnectCallback`);
       setIsConnected(true);
@@ -216,11 +231,10 @@ const App: FC = () => {
 
   const sendMessage = useCallback(
     (text: string, media: any, isVisibile = true): void => {
-
       //@ts-ignore
-      if(!active.isConvStarted){
-        triggerEventInAndroid('onConvStarted',active);
-        dispatch(setIsChatStarted({bot:active,value:true}));
+      if (!active.isConvStarted) {
+        triggerEventInAndroid("onConvStarted", active);
+        dispatch(setIsChatStarted({ bot: active, value: true }));
       }
       setIsMsgReceiving(true);
       send(text, state.session, null, active, socket, null);
@@ -234,12 +248,11 @@ const App: FC = () => {
             //@ts-ignore
             botUuid: active?.id,
             payload: { text },
-           // time: moment().valueOf(),
+            // time: moment().valueOf(),
             repliedTimestamp: new Date().toDateString(),
             disabled: true,
           },
         ];
-       
 
         dispatch(setActiveMessages(newMsgState));
       }
@@ -283,9 +296,11 @@ const App: FC = () => {
       setIsMsgReceiving,
       botToScroll,
       setBotToScroll,
+      bucketList
     }),
     [
       active,
+      bucketList,
       all,
       onChangeCurrentUser,
       state,

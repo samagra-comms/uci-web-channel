@@ -82,17 +82,20 @@ export const userSlice = createSlice({
         state.loading = false;
         const filterList = getShouldFilterTheList();
         const botIds = JSON.parse(localStorage.getItem("botList"));
+        console.log({botIds})
         const botDetailsList = without(
           reverse(
             sortBy(
               action.payload?.map((bot: any, index: number) => {
+             
                 if (
-               // true
-                  bot?.logicIDs?.[0]?.transformers?.[0]?.meta?.type !==
-                    "broadcast" &&
-                  bot?.status === "ENABLED" &&
-                  includes(botIds, bot?.id)
+              true
+                //   bot?.logicIDs?.[0]?.transformers?.[0]?.meta?.type !==
+                //     "broadcast" &&
+                //  bot?.status === "ENABLED" &&
+                //   includes(botIds, bot?.id)
                 ) {
+                  console.log({bot:bot.id})
                   if (index === 0)
                     return normalizeUsers({
                       ...bot,
