@@ -1,0 +1,54 @@
+.tabsWrapper {
+    position: relative;
+    padding: 5px 20px; /* Add padding for scroll indicators */
+  }
+  
+  .tabs {
+    display: flex;
+    overflow-x: auto;
+    scrollbar-width: none; /* For Firefox */
+    -ms-overflow-style: none; /* For Internet Explorer and Edge */
+    white-space: nowrap;
+    padding-left: 30px; 
+    padding-right: 30px;
+    scroll-behavior: smooth;
+  }
+  
+  .tabs::-webkit-scrollbar {
+    display: none; /* For Chrome, Safari, and Opera */
+  }
+  
+  .tab {
+    padding: 10px 20px;
+    display: inline-block;
+    cursor: pointer;
+    background: none;
+    border: none;
+    color: white;
+    font-size: 16px;
+    user-select: none;
+  }
+  
+  .scrollIndicator {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10;
+    cursor: pointer;
+    color: white;
+    background-color: rgba(0, 0, 0, 0.5); /* Adjust color as needed */
+    border-radius: 50%;
+    padding: 5px;
+    user-select: none;
+  }
+  
+  .left {
+    left: 0;
+  }
+  
+  .right {
+    right: 0;
+  }
+  
+  
+

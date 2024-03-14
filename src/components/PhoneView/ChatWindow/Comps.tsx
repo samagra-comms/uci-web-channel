@@ -7,7 +7,7 @@ import {
   Video,
   Typing,
 } from "samagra-chatui";
-import { faStar, faDownload } from "@fortawesome/free-solid-svg-icons";
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { includes, map, find, filter, omit } from "lodash";
 import moment from "moment";
@@ -277,15 +277,7 @@ export const RenderComp: FC<any> = ({
                   .local()
                   .format("DD/MM/YYYY : hh:mm")}
               </span>
-              <span>
-                {content?.data?.position === "left" && (
-                  <FontAwesomeIcon
-                    icon={faStar}
-                    onClick={(): void => onLongPress(content)}
-                    color={isStarred ? "var(--primaryyellow)" : "var(--grey)"}
-                  />
-                )}
-              </span>
+             
             </div>
           </Bubble>
         </>
@@ -332,13 +324,7 @@ export const RenderComp: FC<any> = ({
                     .format("DD/MM/YYYY : hh:mm")}
                 </span>
                 <span>
-                  {content?.data?.position === "left" && (
-                    <FontAwesomeIcon
-                      icon={faStar}
-                      onClick={(): void => onLongPress(content)}
-                      color={isStarred ? "var(--primaryyellow)" : "var(--grey)"}
-                    />
-                  )}
+                  
                 
                 </span>
               </div>
@@ -388,13 +374,13 @@ export const RenderComp: FC<any> = ({
                     .format("DD/MM/YYYY : hh:mm")}
                 </span>
                 <span>
-                  {content?.data?.position === "left" && (
+                  {/* {content?.data?.position === "left" && (
                     <FontAwesomeIcon
                       icon={faStar}
                       onClick={(): void => onLongPress(content)}
                       color={isStarred ? "var(--primaryyellow)" : "var(--grey)"}
                     />
-                  )}
+                  )} */}
                   {/* <FontAwesomeIcon
                     icon={faDownload}
                     onClick={(): void => onPdfDownload(url)}
@@ -448,15 +434,7 @@ export const RenderComp: FC<any> = ({
                     .local()
                     .format("DD/MM/YYYY : hh:mm")}
                 </span>
-                <span>
-                  {content?.data?.position === "left" && (
-                    <FontAwesomeIcon
-                      icon={faStar}
-                      onClick={(): void => onLongPress(content)}
-                      color={isStarred ? "var(--primaryyellow)" : "var(--grey)"}
-                    />
-                  )}
-                </span>
+                
               </div>
             </div>
           </Bubble>
@@ -496,13 +474,7 @@ export const RenderComp: FC<any> = ({
                   .format("DD/MM/YYYY : hh:mm")}
               </span>
               <span>
-                {content?.data?.position === "left" && (
-                  <FontAwesomeIcon
-                    icon={faStar}
-                    onClick={(): void => onLongPress(content)}
-                    color={isStarred ? "var(--primaryyellow)" : "var(--grey)"}
-                  />
-                )}
+                
               </span>
             </div>
           </Bubble>

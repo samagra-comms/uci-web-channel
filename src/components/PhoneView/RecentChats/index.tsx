@@ -5,15 +5,21 @@ import React, {
   useMemo,
   useState,
 } from "react";
-import { Box, Flex, Button } from "@chakra-ui/react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
+import { Box, Flex } from "@chakra-ui/react";
+
 import { useHistory } from "react-router-dom";
-import { find, floor, map } from "lodash";
+import {
+  capitalize,
+  concat,
+  find,
+  floor,
+  sortBy,
+} from "lodash";
 import toast from "react-hot-toast";
 import { useLocalStorage } from "../../../hooks/useLocalStorage";
 import { AppContext } from "../../../utils/app-context";
 import ChatItem from "../../ChatItem";
+
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 import styles from "./index.module.css";
@@ -22,19 +28,15 @@ import { User } from "../../../types/index";
 import FullScreenLoader from "../../FullScreenLoader";
 import {
   logToAndroid,
+  sendEventToAndroid,
   triggerEventInAndroid,
 } from "../../../utils/android-events";
-import {
-  MDBIcon,
-  MDBInputGroup,
-  MDBListGroup,
-  MDBListGroupItem,
-  MDBPopover,
-  MDBPopoverBody,
-  MDBPopoverHeader,
-} from "mdb-react-ui-kit";
+import { MDBListGroup } from "mdb-react-ui-kit";
 
-import RenderVoiceRecorder from "../../recorder/RenderVoiceRecorder";
+import _styles from "./ChatApp.module.css";
+import { FaArrowLeft, FaSearch } from "react-icons/fa";
+import Search from "../../search";
+import moment from "moment";
 
 interface recentChatsProps {
   allUsers: Array<User>;
@@ -44,28 +46,15 @@ const RecentChats: React.FC<recentChatsProps> = ({ allUsers }) => {
   const history = useHistory();
   const [botToFocus] = useLocalStorage("botToFocus", "");
   const context = useContext(AppContext);
-const [inputMsg, setInputMsg] = useState('');
+  const [inputMsg, setInputMsg] = useState("");
   const [filteredUsers, setFilteredUsers] = useState(allUsers);
+  const [activeBucket, setActiveBucket] = useState("सभी");
   const [page, setPage] = useState(Number(sessionStorage.getItem("page") || 1));
   const perPage = 10;
 
   useEffect(() => {
     setFilteredUsers(allUsers);
   }, [allUsers]);
-
-  // const StarredViewHandler = (): void => {
-  //   history.push("/starredChats");
-
-  //   sendEventToAndroid(
-  //     "nl-chatbotscreen-chatbot_starmessagesearch",
-  //     JSON.stringify({ timestamp: moment().valueOf() })
-  //   );
-  //   logToAndroid(
-  //     `nl-chatbotscreen-chatbot_starmessagesearch event: ${JSON.stringify({
-  //       timestamp: moment().valueOf(),
-  //     })}`
-  //   );
-  // };
 
   const maxPage = useMemo(
     () => floor(allUsers.length / perPage),
@@ -139,22 +128,33 @@ const [inputMsg, setInputMsg] = useState('');
     [context]
   );
 
-  const onSearchChange = useCallback(
-    (ev) => {
-      setInputMsg(ev.target.value)
-      const newList = allUsers.filter((bot) =>
-        bot.name.toLowerCase().includes(ev.target.value.toLowerCase())
-      );
-      setFilteredUsers(newList);
-    },
-    [allUsers]
-  );
+  const onSearchChange = useCallback((ev) => {
+    setInputMsg(ev.target.value);
+  }, []);
+
+  useEffect(() => {
+    const newList = allUsers.filter((bot) =>
+      bot.name.toLowerCase().includes(inputMsg.toLowerCase())
+    );
+
+    setFilteredUsers(newList);
+  }, [allUsers, inputMsg]);
 
   const onBucketClick = useCallback(
     (bucketName: string) => () => {
-      if(bucketName==='showAll'){
+      if (bucketName !== "सभी") {
+        sendEventToAndroid(
+          "bucket-clicked",
+          JSON.stringify({
+            bucket: bucketName,
+            timestamp: moment().valueOf(),
+          })
+        );
+      }
+      setActiveBucket(bucketName);
+      if (bucketName === "सभी") {
         setFilteredUsers(allUsers);
-        return
+        return;
       }
       const newList = allUsers.filter((bot) =>
         //@ts-ignore
@@ -165,21 +165,25 @@ const [inputMsg, setInputMsg] = useState('');
     [allUsers]
   );
 
+  const buckets = useMemo(
+    () => concat("सभी", sortBy(context?.bucketList) ?? []),
+    [context?.bucketList]
+  );
+
+  const onSeachbarClicked = useCallback(() => {
+    sendEventToAndroid(
+      "searchbar-clicked",
+      JSON.stringify({
+        timestamp: moment().valueOf(),
+      })
+    );
+  }, []);
   return (
-    <Flex flexDirection="column" height="100vh">
+    <Flex flexDirection="column" height="100vh" >
       <FullScreenLoader loading={context?.loading} />
-      {/* Top Section */}
-      <Box className={`${styles.top_section}`}>
-        {/* For the back button */}
-        <Box flex="1.5">
-          <Button
-            style={{
-              border: "none",
-              padding: "0.75rem 1rem",
-              borderRadius: "50%",
-              fontSize: "14px",
-            }}
-            onClick={(): void => {
+
+      <div className={_styles.topBar} onClick={onSeachbarClicked}>
+        <FaArrowLeft onClick={(): void => {
               try {
                 triggerEventInAndroid("onDestroyScreen");
               } catch (err) {
@@ -187,119 +191,71 @@ const [inputMsg, setInputMsg] = useState('');
                   `error in destroying screen:${JSON.stringify(err)}`
                 );
               }
-            }}
-            size="sm"
-            variant="ghost"
-          >
-            <FontAwesomeIcon icon={faChevronLeft} />
-          </Button>
-        </Box>
-        <Flex flex="9" justifyContent="space-between" alignItems="center">
-          <Flex justifyContent="center" alignItems="center">
-            <Box>{<Box> Chats</Box>}</Box>
-          </Flex>
-        </Flex>
-      </Box>
+            }} className={_styles.backIcon} />
+        <Search onChange={onSearchChange} />
+      </div>
 
-      <Box className={styles.mainContainer}>
-        <Box className={`${styles.backBox}`}>
-          {/* <button className={`${styles.starred}`} onClick={StarredViewHandler}>
-            Starred Messages
-          </button> */}
-          {/* <input type="search" className={`${styles.starred}`}/> */}
-          <MDBInputGroup
-            className=" p-3"
-            noBorder
-            // textAfter={<MDBIcon fas icon="search" />}
-            textAfter={<RenderVoiceRecorder setInputMsg={setInputMsg} tapToSpeak={false}/>}
-          >
-            
-            <input
-              className="form-control"
-              type="search"
-              value={inputMsg}
-              placeholder="Search"
-              style={{borderRadius:'5px'}}
-              onChange={onSearchChange}
-            />
-          </MDBInputGroup>
-       
-          <Box className={styles.chatList}>
-            <MDBListGroup style={{ minWidth: "22rem" }} light>
-              {filteredUsers?.length > 0 ? (
-                <>
-                  {(filteredUsers ?? [])?.map((user, index) => (
+      <Box className="p-2" style={{ background: "#2d3594" }}>
+        <div
+          style={{ borderTopRightRadius: "30px", borderTopLeftRadius: "30px" }}
+        >
+          <Box className={`${styles.backBox}`}>
+            <div className={_styles.storiesContainer}>
+              <div className={_styles.stories}>
+                {buckets?.map((item, index) => (
+                  <div
+                    className={_styles.story}
+                    key={index}
+                    onClick={onBucketClick(item)}
+                  >
                     <div
-                      key={user?.id}
-                      ref={refs[user.id]}
-                      onClick={onBotClick(user)}
+                      className={`${_styles.friendAvatar} ${
+                        activeBucket === item ? _styles.activeStory : ""
+                      }`}
                     >
-                      <ChatItem
-                        key={index}
-                        active={user.active}
-                        name={user.name}
-                        phoneNumber={user.number}
-                        user={user}
-                      />
+                      <span className={_styles.friendName}>
+                        {capitalize(item)}
+                      </span>
                     </div>
-                  ))}
-                </>
-              ) : (
-                <ChatItem
-                  key={0}
-                  active={false}
-                  name={"No Chats Available"}
-                  phoneNumber={""}
-                  isBlank
-                />
-              )}
-            </MDBListGroup>
-            <div className={styles.floatingBtn}>
-              <MDBPopover
-                color="secondary"
-                btnChildren={<MDBIcon fas icon="filter" className="fa-2x"/>}
-                placement="top"
-                poperStyle={{
-                  maxHeight: "60vh",
-                  width: "60vw",
-                  inset: "auto auto 15px -25px",
-                  border: "1px solid gray",
-                }}
-              >
-                <MDBPopoverHeader style={{background:'#2D3594',color:'white'}}>Select Bucket</MDBPopoverHeader>
-                <MDBPopoverBody>
-                  <MDBListGroup light>
-                  <MDBListGroupItem
-                        onClick={onBucketClick('showAll')}
-                        tag="a"
-                        href="#"
-                        action
-                        aria-current="true"
-                        className="px-3"
-                      >
-                        All Bots
-                      </MDBListGroupItem>
-                    {map(context?.bucketList, (item) => (
-                      <MDBListGroupItem
-                        onClick={onBucketClick(item)}
-                        tag="a"
-                        href="#"
-                        action
-                        aria-current="true"
-                        className="px-3"
-                      >
-                        {item}
-                      </MDBListGroupItem>
-                    ))}
-                  </MDBListGroup>
-                </MDBPopoverBody>
-              </MDBPopover>
+                    {/* <span className={_styles.friendName}> {capitalize(item)}</span> */}
+                  </div>
+                ))}
+              </div>
             </div>
-
-            {/* {isLoading && <p>Loading...</p>}
-            <div ref={bottomRef} style={{ height: "1px" }}></div> */}
+            <Box className={styles.chatList}>
+              <MDBListGroup style={{ minWidth: "22rem" }} light>
+                {filteredUsers?.length > 0 ? (
+                  <>
+                    {(filteredUsers ?? [])?.map((user, index) => (
+                      <div
+                        key={user?.id}
+                        ref={refs[user.id]}
+                        onClick={onBotClick(user)}
+                      >
+                        <ChatItem
+                          key={index}
+                          index={index}
+                          active={user.active}
+                          name={user.name}
+                          phoneNumber={user.number}
+                          user={user}
+                        />
+                      </div>
+                    ))}
+                  </>
+                ) : (
+                  <ChatItem
+                    key={0}
+                    active={false}
+                    name={"कोई चैट उपलब्ध नहीं है"}
+                    phoneNumber={""}
+                    isBlank
+                  />
+                )}
+              </MDBListGroup>
+            </Box>
           </Box>
-        </Box>
+        </div>
       </Box>
     </Flex>
   );

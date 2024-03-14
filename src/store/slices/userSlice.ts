@@ -9,6 +9,7 @@ import {
   find,
   findIndex,
   includes,
+  merge,
   reverse,
   sortBy,
   without,
@@ -82,20 +83,20 @@ export const userSlice = createSlice({
         state.loading = false;
         const filterList = getShouldFilterTheList();
         const botIds = JSON.parse(localStorage.getItem("botList"));
-        console.log({botIds})
+    
         const botDetailsList = without(
           reverse(
             sortBy(
               action.payload?.map((bot: any, index: number) => {
              
                 if (
-              true
+               true
                 //   bot?.logicIDs?.[0]?.transformers?.[0]?.meta?.type !==
                 //     "broadcast" &&
-                //  bot?.status === "ENABLED" &&
+                //  ( bot?.status === "ENABLED" || bot?.status === 'PINNED') &&
                 //   includes(botIds, bot?.id)
                 ) {
-                  console.log({bot:bot.id})
+            console.log({bot})
                   if (index === 0)
                     return normalizeUsers({
                       ...bot,
@@ -117,10 +118,13 @@ export const userSlice = createSlice({
           ),
           null
         );
-
-        const activeBots = filter(botDetailsList, { isExpired: false });
+   
+        const pinnedBots = filter(botDetailsList,{isPinned:true ,isExpired: false}) 
+        const activeBots = filter(botDetailsList, { isExpired: false ,isPinned:false});
         const expiredBots = filter(botDetailsList, { isExpired: true });
-        const botList = activeBots;
+     
+        //const botList = merge(pinnedBots,activeBots) ;
+        const botList = [...pinnedBots,...activeBots] ;
         logToAndroid(`botDetailsList:${JSON.stringify(botDetailsList)}`);
 
         state.all = botList;

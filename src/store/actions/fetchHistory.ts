@@ -8,6 +8,7 @@ export const fetchHistory = createAsyncThunk<User, any>(
   async (data, thunk) => {
     try {
       const url = getConvHistoryUrl(data);
+      console.log({url})
       const response = await axios.get(url);
       return response?.data?.result?.records;
     } catch (err) {

@@ -1,0 +1,193 @@
+/* 
+.container {
+    position: relative;
+    width: 50px;
+    height: 50px;
+    box-sizing: border-box;
+    border-radius: 50px;
+    border: 4px solid #393e46;
+    padding: 5px;
+    background: #222831;
+    transition: all 0.5s;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  left: calc(90% - 40px);   
+    transition: width 0.5s ease-in-out;
+  
+  }
+  
+  .hover {
+    width: 100%; 
+    box-shadow: 5px 5px 15px 5px rgba(0, 0, 0, 0.74);
+    border: 4px solid #00adb5;
+  }
+
+  
+  .searchInput {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 42px;
+    line-height: 30px;
+    outline: 0;
+    border: 0;
+    font-size: 2rem;
+    border-radius: 20px;
+    padding: 0 20px;
+    margin: 0;
+    appearance: none;
+    display: none;
+  }
+  
+  .show {
+    display: block;
+  }
+  
+  .iconCommon {
+    height: 1.25rem;
+    width: 1.25rem;
+    fill: #00adb5;
+    z-index: 10;
+    animation: fadeIn 1s linear;
+  }
+  
+  .iconRightArrow {
+    position: absolute;
+    right: 10px; 
+    cursor: pointer;
+  }
+  
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  
+  .iconRightArrow:hover, .iconMagnifyingGlass:hover {
+    fill: #393e46;
+  }
+   */
+
+   /* .searchBar {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  position: fixed;
+  top: 0;
+  right: 0;
+  padding: 10px;
+  max-width: 50px;
+  overflow: hidden;
+  transition: max-width 0.5s ease;
+}
+
+.expanded {
+  max-width: 300px;
+}
+
+.searchInput {
+  border: none;
+  outline: none;
+  padding: 5px;
+  margin-right: 5px;
+  flex-grow: 1;
+}
+
+.searchIcon {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 24px;
+} */
+
+.container {
+  position: fixed;
+  right: 10px;
+  top: 10px;
+  width: 45px;
+  height: 45px;
+  box-sizing: border-box;
+  border-radius: 50px;
+  border: 2px solid #ffffff; 
+  padding: 0;
+  background: transparent;
+  transition: width 0.5s ease-in-out;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+}
+
+.hover {
+  width: calc(100% - 50px); /* Adjust the width as needed */
+  /* box-shadow: 5px 5px 15px 5px rgba(0, 0, 0, 0.74); */
+  background: transparent;
+  border: none;
+  height: 50px;
+  /* border: 4px solid #00adb5; */
+}
+
+.searchInput {
+  position: absolute;
+  top: 5px; /* Adjusted to align with border */
+  right: 0;
+  width: calc(100% - 8px); /* Adjusted for border and padding */
+  height: 42px;
+  line-height: 30px;
+  outline: 0;
+  border: 0;
+  font-size: 1rem; /* Adjusted for better fit */
+  border-radius: 20px;
+  padding: 0 45px 0 20px; /* Adjust padding for icon space */
+  margin: 0;
+  appearance: none;
+  display: none;
+  background: #ffffff;
+
+}
+
+.show {
+  display: block;
+}
+
+.iconCommon {
+  position: absolute;
+  right: 15px; /* Adjust as needed */
+  top: 15px; /* Adjust for vertical center alignment */
+  cursor: pointer;
+}
+
+.voiceIcon {
+  position: absolute;
+  right: 8px; /* Adjust as needed */
+  top: 10px; /* Adjust for vertical center alignment */
+  cursor: pointer;
+}
+.iconRightArrow {
+  fill: var(--primarygreen);
+  animation: fadeIn 1s linear;
+}
+ .iconMagnifyingGlass {
+  fill: #ffffff;
+  animation: fadeIn 1s linear;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.iconRightArrow:hover, .iconMagnifyingGlass:hover {
+  fill: #393e46;
+}

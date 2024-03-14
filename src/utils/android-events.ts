@@ -1,7 +1,7 @@
 import moment from "moment";
 
 export const logToAndroid = (text: string) => {
-  // window && window?.androidInteract?.log(text);
+  window && window?.androidInteract?.log(text);
   // console.log(text);
 };
 
@@ -59,6 +59,9 @@ export const triggerEventInAndroid = (key: string, data?: any) => {
       window && window?.androidInteract?.onDestroyScreen();
       break;
 
+    case "onMicClick":
+        window && window?.androidInteract?.onMicClick();
+        break;
     default:
       console.log("Case not handled");
   }

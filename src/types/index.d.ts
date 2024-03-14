@@ -8,9 +8,10 @@ export type User = {
 	botImage?:string;
 	botImageUrl?:string;
 	isExpired:boolean;
+	isPinned:boolean;
 	endDate:string;
 	startDate:string;
-	status:'ENABLED'|'DISABLED';
+	status:'ENABLED'|'DISABLED'|'PINNED';
 	useIcon?:boolean;
 	isConvStarted?:boolean;
 	createdAt?:string

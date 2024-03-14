@@ -1,0 +1,239 @@
+
+
+/* 2 */
+.chatApp {
+  font-family: 'Arial', sans-serif;
+  background-color: var(--primarygreen);
+  max-width: 400px;
+  margin: auto;
+  overflow-y: scroll;
+}
+
+.topBar {
+  display: flex;
+  align-items: center;
+  background-color: var(--primarygreen);
+  padding: 10px;
+  position: relative;
+  margin-bottom: 5px;
+  margin-top: 10px;
+
+}
+
+.backIcon {
+  color: white;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.searchBar {
+  display: flex;
+  align-items: center;
+  background-color: rgba(255, 255, 255, 0.3);
+  border-radius: 20px;
+  flex-grow: 1;
+  padding: 2px 10px;
+  margin-left: 10px;
+}
+
+.searchIcon {
+  color: white;
+  margin-right: 5px;
+}
+.searchBtn {
+  margin-right: 5px;
+}
+
+.searchInput {
+  border: none;
+  background-color: transparent;
+  color: white;
+  outline: none;
+  width: 100%;
+  padding: 8px;
+}
+
+/* .tabs {
+  display: flex;
+  justify-content: space-evenly;
+  background-color: #8c7ae6;
+  padding: 5px 0;
+}
+
+.tab {
+  background: none;
+  border: none;
+  color: white;
+  padding: 5px;
+  cursor: pointer;
+  font-size: 12px;
+  border-radius: 10px;
+} */
+/* ... other styles ... */
+
+.tabsContainer {
+  position: relative;
+}
+
+.scrollIcon {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  color: white;
+  cursor: pointer;
+  background-color: rgba(0, 0, 0, 0.5);
+  border-radius: 50%;
+  padding: 5px;
+  z-index: 10;
+}
+
+.scrollIcon.left {
+  left: 0;
+}
+
+.scrollIcon.right {
+  right: 0;
+}
+
+
+
+/* ... other styles ... */
+
+
+.storiesContainer {
+  overflow-x: auto;
+  white-space: nowrap;
+  /* display: flex; */
+  padding: 10px 0;
+  background-color: #FFFFFF;
+  margin-top: 5px;
+  border-radius: 40px 40px 0px 0px;
+}
+.storiesContainer::-webkit-scrollbar {
+  display: none; /* For Chrome, Safari, and Opera */
+}
+
+.stories {
+  display: inline-flex;
+  padding: 0 10px;
+}
+
+
+.story {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  margin-right: 15px;
+}
+.activeStory {
+  /* border: 1px solid var(--primaryyellow); */
+  background-color: var(--primaryyellow) !important;
+  color: black;
+}
+.friendAvatar {
+  /* width: 50px;
+  height: 50px;
+  border-radius: 50%; */
+  border-radius: 20px;
+  padding: 4px 10px;
+  background-color: #ccc;
+}
+
+.friendName {
+  font-size: 14px;
+  color: #333;
+  margin-top: 5px;
+}
+
+.messages {
+  background-color: #fff;
+  padding: 10px;
+}
+
+.message {
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid #eee;
+  padding: 10px;
+  position: relative;
+}
+
+.messageAvatar {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: #ccc;
+  margin-right: 10px;
+}
+
+.messageInfo {
+  flex-grow: 1;
+}
+
+.messageName {
+  font-weight: bold;
+  color: #333;
+}
+
+.messageSnippet {
+  color: #666;
+  font-size: 14px;
+}
+
+.messageMeta {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+}
+
+.messageTime {
+  color: #999;
+  font-size: 14px;
+}
+
+.unreadCount {
+  background-color: #e84118;
+  color: white;
+  border-radius: 50%;
+  padding: 2px 5px;
+  font-size: 12px;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+
+.tab {
+    padding: 10px 20px;
+   
+    background-color: var(--primaryyellow);
+    color: white;
+    cursor: pointer;
+    font-size: 12px;
+    /* width: 100%; */
+    text-align: center;
+
+}
+
+.btn {
+  background-color: rgba(255, 255, 255, 0.3) !important; 
+  border-radius: 10px !important;
+  /* color: var(--primaryyellow) !important; */
+  font-size: 12px !important;
+}
+
+.btn:hover {
+  background-color:  var(--primaryyellow) !important; 
+ 
+  /* color: var(--primaryyellow) !important; */
+
+}
+.carItem {
+ 
+  width: 100%;
+min-width:fit-content;
+  margin-right: 10px;
+}
+.active {
+  color: #FFFFFF;
+  border: 1px solid white !important;
+}

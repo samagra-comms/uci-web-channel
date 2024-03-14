@@ -51,7 +51,7 @@ font-weight: 700;
 
 .mainContainer {
   margin-top: 0vh;
-  height: 91vh;
+  /* height: 91vh; */
   width: 100%;
   bottom: 0;
   position: fixed;
@@ -67,7 +67,9 @@ font-weight: 700;
   background-color: white;
   /* top: 14vh; */
   width: 100vw;
-  height: 89vh;
+  /* height: 89vh; */
+  min-height: 90vh;
+  height: auto;
   /* position: fixed; */
   border-radius: 40px 40px 0px 0px;
   /* box-shadow: 2px 2px 20px 6px rgba(0, 0, 0, 0.25) inset; */
@@ -97,14 +99,17 @@ font-weight: 700;
   right:10px;
 }
 .chatList {
-  margin-top: 2vh;
-  max-height: 78vh;
+  /* margin-top: 2vh; */
+  /* max-height: 78vh; */
+  max-height: 80vh;
+  /* min-height: 80vh; */
   overflow: auto;
   padding: 0 4vw;
   /* padding: 0 6vw; */
   /* display: flex;
   flex-direction: column;
   align-items: center; */
+ 
  
 }
 
@@ -140,7 +145,7 @@ font-weight: 700;
   background-color: var(--secondarygreen);
   min-width: 50px;
   min-height: 50px;
-  border-radius: 50%;
+  /* border-radius: 50%; */
   color: white;
   display: flex;
   justify-content: center;

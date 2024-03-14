@@ -8,6 +8,7 @@ export const send = (
 	socketOld: any,
 	media: any
 ): void => {
+	console.log({session,toUser})
 	if (toUser?.number === null || toUser?.number === 'null') {
 		socket?.emit('botRequest', {
 			content: {

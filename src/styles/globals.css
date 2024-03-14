@@ -48,14 +48,14 @@
   --primarydarkblue: #282a37;
   --darkblue: #080664;
   --tertiarydarkblue: #5662a8;
-  --primarygreen: #2d3594;
+  --primarygreen: #2e3192;
   --hoverblue: #5864e8;
   --secondarygreen: white;
   --tertiarygreen: #002c01;
   --blue: #1d90f5;
   --red: #be0f39;
   --golden: rgba(253,199,0,0.7);
-  --primaryyellow: #fec701;
+  --primaryyellow: #FFC107;
 }
 
 body {
@@ -73,7 +73,7 @@ body {
   background-repeat: no-repeat;
   background-size: cover;
   min-height: 100vh; */
-  background-color: var(--primaryyellow) !important;
+   background-color: var(--primarygreen) !important; 
 }
 
 .flex {

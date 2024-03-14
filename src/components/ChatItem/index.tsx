@@ -5,7 +5,7 @@ import React, {
   useMemo,
   useState,
 } from "react";
-import { Box, useColorModeValue } from "@chakra-ui/react";
+import { useColorModeValue } from "@chakra-ui/react";
 import { useHistory } from "react-router-dom";
 
 import styles from "./index.module.css";
@@ -24,13 +24,17 @@ import { getMonthInHindi } from "../../utils/util-functions";
 import axios from "axios";
 import ListItem from "../list-item";
 import { MDBBadge, MDBListGroupItem } from "mdb-react-ui-kit";
-
+//@ts-ignore
+import Pinned from '../../assets/images/pinned.svg'
+import { sendEventToAndroid } from "../../utils/android-events";
+import moment from "moment";
 interface chatItemProps {
   active: boolean;
   name: string;
   phoneNumber: string | null;
   user?: User;
   isBlank?: boolean;
+  index?: number
 }
 
 const blobToDataURL = (blob) => {
@@ -45,6 +49,7 @@ const blobToDataURL = (blob) => {
 };
 
 const ChatItem: React.FC<chatItemProps> = ({
+  index,
   active,
   name,
   phoneNumber,
@@ -63,6 +68,14 @@ const ChatItem: React.FC<chatItemProps> = ({
   );
 
   const onChangingCurrentUserHandler = useCallback(() => {
+    if (user?.isPinned) {
+      sendEventToAndroid(
+        "pinned-bot-clicked",
+        JSON.stringify({
+          botId: user?.id,
+          timestamp: moment().valueOf(),
+        }));
+    }
     context?.toChangeCurrentUser(user);
     history.push(`/chats/${user?.id}`);
   }, [context, history, user]);
@@ -86,7 +99,7 @@ const ChatItem: React.FC<chatItemProps> = ({
               setBlobImage(res.data);
               const dataURL = await blobToDataURL(res.data);
               //@ts-ignore
-              localStorage.setItem('blobImage',dataURL)
+              localStorage.setItem('blobImage', dataURL)
             }
           })
           .catch((err) => {
@@ -171,20 +184,21 @@ const ChatItem: React.FC<chatItemProps> = ({
             style={{
               width: "45px",
               height: "45px",
-              border: showNewBadge ? "2px solid #2d3594" : "",
+              border: showNewBadge ? "2px solid #2d3594" : "1px solid lightgray",
+
             }}
             className="rounded-circle"
           />
           <div className="ms-3">
             <p
-              className="fw-bold mb-0"
+              className={` mb-0 ${showNewBadge  ? 'fw-bold' : ''}`}
               style={{
                 textOverflow: "ellipsis",
-                maxWidth: `${maxWidth}px`,
+                maxWidth: `${maxWidth - 30}px`,
                 overflow: "hidden",
                 whiteSpace: "nowrap",
                 marginBottom: "0",
-                color:"black",
+                color: "black",
                 textDecoration: "none",
                 // color: user?.isExpired ? "lightgrey" : "black",
                 // textDecoration: user?.isExpired ? "line-through" : "none",
@@ -192,16 +206,22 @@ const ChatItem: React.FC<chatItemProps> = ({
             >
               {name}
             </p>
-            <p className=" mb-0" style={{ color: "#2d3594" }}>
+            <p className={`mb-0 ${showNewBadge ? 'fw-bold' : ''}`} >
               {createdAt}
             </p>
           </div>
         </div>
-        {showNewBadge && (
-          <MDBBadge pill light color="primary" style={{ color: "#2d3594" }}>
-            नया
-          </MDBBadge>
-        )}
+
+
+        <div style={{ display: "flex", flexDirection: 'column' }} className="p-2 text-center">
+          {(showNewBadge) && (
+            <MDBBadge pill light color="primary" style={{ color: "#2d3594" }}>
+              नया
+            </MDBBadge>)}
+          {user?.isPinned && <img src={Pinned} width="15px" alt="pinned" style={{ marginTop: '5px' }} className="mx-auto" />}
+        </div>
+
+
       </MDBListGroupItem>
       {/* <>
         <button

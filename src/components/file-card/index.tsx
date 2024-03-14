@@ -45,7 +45,6 @@ const FileCard = ({ url, user, type,messageId }) => {
 
   const onCardClick = useCallback(
     (ev) => {
-      console.log({messageId,assetId,url,type})
       setIsLoading(true);
       ev.stopPropagation();
       if (window) {
