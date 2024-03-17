@@ -10,7 +10,7 @@ export const normalizeUsers = (user: User): User & {botImageUrl : string ,isPinn
   id: user?.id,
   botUuid: user?.id,
   useIcon:false,
-  isPinned: user?.status === 'PINNED',
+  isPinned: user?.status === 'PINNED' ? true : user?.isPinned ? true :false,
   isExpired:
     user?.endDate !== undefined &&
     user.endDate < moment().format() &&

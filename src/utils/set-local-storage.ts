@@ -1,7 +1,6 @@
 export const setLocalStorage = (): void => {
 
-  // localStorage.setItem("auth", "");
-  localStorage.setItem("mobile", "8767447416");
+  
   // localStorage.setItem("botList", JSON.stringify([
   //   "11e0c848-6b12-4b1e-a6e1-074435732989",
   //   "0488ebe7-a5c9-40c6-950f-747510dde8d4",
@@ -19,6 +18,6 @@ export const setLocalStorage = (): void => {
   // localStorage.setItem("chatHistoryUrl", "");
   // localStorage.setItem("botDetailsUrl", "");
 
-  
+
 
 };

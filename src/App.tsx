@@ -171,10 +171,13 @@ const App: FC = () => {
     triggerEventInAndroid("onTriggerLogout");
   }, []);
 
-  useEffect(() => {
-    setLocalStorage();
-  }, []);
+  // useEffect(() => {
+  //   setLocalStorage();
+  // }, []);
 
+
+ 
+  
   useEffect(() => {
     function onConnect(): void {
       logToAndroid(`socket: onConnectCallback`);

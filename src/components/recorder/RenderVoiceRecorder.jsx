@@ -291,26 +291,12 @@ const RenderVoiceRecorder = ({ setInputMsg }) => {
                     `debug error in getting mic permission:${JSON.stringify(err)}`
                   );
                 }
-               // startRecording();
               }}
-              // width="30px"
               style={{ cursor: "pointer" }}
             />
           </div>
         )}
       </div>
-      {/* <Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
-        <Grid container spacing={1}>
-          <Grid
-            item
-            xs={4}
-            sm={12}
-            md={2}
-            lg={2}
-            xl={2}
-            className={styles.flexEndStyle}></Grid>
-        </Grid>
-      </Grid> */}
     </div>
   );
 };
