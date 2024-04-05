@@ -81,7 +81,6 @@ export const userSlice = createSlice({
       .addCase(fetchUsers.fulfilled, (state, action) => {
         state.status = "succeeded";
         state.loading = false;
-        const filterList = getShouldFilterTheList();
         const botIds = JSON.parse(localStorage.getItem("botList"));
     
         const botDetailsList = without(
