@@ -5,7 +5,7 @@ import moment from 'moment';
 export const normalizedChat = (chats: any): any => {
 	const sortedChats = sortBy(
 		filter(
-			chats?.map((chat: any) => {console.log(chat); return {
+			chats?.map((chat: any) => ({
 				...chat,
 				disabled: true,
 				text: chat?.payload?.text === 'This conversation has expired now. Please contact your state admin to seek help with this.' ? "यह फॉर्म समाप्त हो गया है !": chat?.payload?.text,
@@ -19,7 +19,7 @@ export const normalizedChat = (chats: any): any => {
 					toUpper(JSON.parse(localStorage.getItem('currentUser'))?.startingMessage),
 				// toUpper(currentUser?.startingMessage),
 				time: moment(chat.sentTimestamp || chat.repliedTimestamp).valueOf()
-			}}),
+			})),
 			{ isIgnore: false }
 		),
 		['time', 'messageState']
