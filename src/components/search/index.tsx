@@ -53,7 +53,6 @@ function SearchBar({ onChange }) {
           onFocus={() => setIsFocused(true)}
           onBlur={() => setIsFocused(false)}
           placeholder="बॉट का नाम"
-          // type="search"
           value={value}
           onChange={(ev) => {
             setValue(ev.target.value);
