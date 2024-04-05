@@ -90,11 +90,11 @@ export const userSlice = createSlice({
               action.payload?.map((bot: any, index: number) => {
              
                 if (
-                true
-                //   bot?.logicIDs?.[0]?.transformers?.[0]?.meta?.type !==
-                //     "broadcast" &&
-                //  ( bot?.status === "ENABLED") &&
-                //   includes(botIds, bot?.id)
+               // true
+                  bot?.logicIDs?.[0]?.transformers?.[0]?.meta?.type !==
+                    "broadcast" &&
+                 ( bot?.status === "ENABLED") &&
+                  includes(botIds, bot?.id)
                 ) {
            
                   if (index === 0)
@@ -122,7 +122,7 @@ export const userSlice = createSlice({
         const pinnedBots = filter(botDetailsList,{isPinned:true ,isExpired: false}) 
         const activeBots = filter(botDetailsList, { isExpired: false ,isPinned:false});
         const expiredBots = filter(botDetailsList, { isExpired: true });
-     console.log("hola:",{pinnedBots,activeBots,botDetailsList})
+    
         //const botList = merge(pinnedBots,activeBots) ;
         const botList = [...pinnedBots,...activeBots] ;
         logToAndroid(`botDetailsList:${JSON.stringify(botDetailsList)}`);

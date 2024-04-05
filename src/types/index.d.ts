@@ -9,6 +9,7 @@ export type User = {
 	botImageUrl?:string;
 	isExpired:boolean;
 	isPinned:boolean;
+	meta?:Record<any,any>
 	endDate:string;
 	startDate:string;
 	status:'ENABLED'|'DISABLED'|'PINNED';

@@ -64,7 +64,7 @@ function SearchBar({ onChange }) {
 
         {showSearchInput ? (
           <div className={styles.voiceIcon} style={{ padding: "5px" }}>
-            <FaTimes
+            {/* <FaTimes
               style={{ top: "14px", right: "12px", fontSize: "20px" ,color:'#2E3192'}}
               onClick={() => {
                 setIsFocused(false);
@@ -72,7 +72,8 @@ function SearchBar({ onChange }) {
                 setValue("");
                 setShowSearchInput(false);
               }}
-            />
+            /> */}
+            <RenderVoiceRecorder setInputMsg={setValue}/>
           </div>
         ) : (
           <FaSearch

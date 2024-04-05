@@ -275,6 +275,7 @@ const RenderVoiceRecorder = ({ setInputMsg }) => {
               onClick={async(ev) => {
                 ev.preventDefault();
                 logToAndroid(`debug isPermissionGranted`);
+                startRecording()
                 try {
                   const isAvailable = await window?.androidInteract?.isPermissionGranted();
                   logToAndroid(`debug isPermissionGranted return value:${isAvailable}`);
