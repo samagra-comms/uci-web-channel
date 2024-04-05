@@ -9,12 +9,9 @@ import StarredChatsPage from "./pages/starred-chat-page";
 import { AppContext } from "./utils/app-context";
 import { CookiesProvider } from "react-cookie";
 import { send } from "./components/websocket";
-
 import { toast, Toaster } from "react-hot-toast";
-
 import { socket } from "./socket";
 import { map, reduce, uniq } from "lodash";
-
 import { initialState } from "./utils/initial-states";
 import { UserInput } from "./components/UserInput";
 import { useDispatch, useSelector } from "react-redux";
