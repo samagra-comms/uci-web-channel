@@ -2,7 +2,7 @@ import moment from "moment";
 
 export const logToAndroid = (text: string) => {
   window && window?.androidInteract?.log(text);
-  // console.log(text);
+
 };
 
 export const sendEventToAndroid = (key: string, value: any) => {

@@ -16,12 +16,10 @@ const RenderVoiceRecorder = ({ setInputMsg }) => {
   const startRecording = async () => {
     try {
       const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-      console.log("chuChu:",{stream ,navigator})
       const recorder = new MediaRecorder(stream);
 
       recorder.ondataavailable = (event) => {
         if (event.data.size > 0) {
-          console.log("hola event.data", event.data);
           makeComputeAPICall(event.data);
         }
       };
