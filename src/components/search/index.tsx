@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import styles from "./index.module.css";
 import { FaSearch } from "react-icons/fa";
-import RenderVoiceRecorder from "../recorder/RenderVoiceRecorder";
+import RenderVoiceRecorder from "../recorder";
 import { Box } from "@chakra-ui/react";
 
 
