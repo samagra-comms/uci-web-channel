@@ -1,10 +1,9 @@
 import { useEffect, useRef, useState } from "react";
 import styles from "./index.module.css";
-import { FaArrowLeft, FaSearch, FaTimes } from "react-icons/fa";
-
+import { FaSearch } from "react-icons/fa";
 import RenderVoiceRecorder from "../recorder/RenderVoiceRecorder";
 import { Box } from "@chakra-ui/react";
-import { fontSize } from "@mui/system";
+
 
 function SearchBar({ onChange }) {
   const targetRef = useRef(null);
@@ -55,7 +54,6 @@ function SearchBar({ onChange }) {
           onFocus={() => setIsFocused(true)}
           onBlur={() => setIsFocused(false)}
           placeholder="बॉट का नाम"
-          // type="search"
           value={value}
           onChange={(ev) => {
             setValue(ev.target.value);
@@ -64,15 +62,6 @@ function SearchBar({ onChange }) {
 
         {showSearchInput ? (
           <div className={styles.voiceIcon} style={{ padding: "5px" }}>
-            {/* <FaTimes
-              style={{ top: "14px", right: "12px", fontSize: "20px" ,color:'#2E3192'}}
-              onClick={() => {
-                setIsFocused(false);
-                setIsHovered(false);
-                setValue("");
-                setShowSearchInput(false);
-              }}
-            /> */}
             <RenderVoiceRecorder setInputMsg={setValue}/>
           </div>
         ) : (
