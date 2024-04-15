@@ -20,6 +20,7 @@ import { UserInput } from "./components/UserInput";
 import { useDispatch, useSelector } from "react-redux";
 import {
   isLoadingSelector,
+  selectActiveUser,
   selectUser,
   setActiveUser,
   setIsChatStarted,
@@ -34,6 +35,7 @@ import {
 } from "./store/slices/messageSlice";
 import { logToAndroid, triggerEventInAndroid } from "./utils/android-events";
 import { setLocalStorage } from "./utils/set-local-storage";
+import moment from "moment";
 
 const App: FC = () => {
   const [botToScroll, setBotToScroll] = useState(null);
@@ -88,24 +90,33 @@ const App: FC = () => {
       session: any;
     }>(initialState);
 
+  const activeUser = useSelector(selectActiveUser);
+
   const updateMsgState = useCallback(
-    ({ user, msg, media }) => {
+    ({ msg, media }) => {
+      const _user = JSON.parse(localStorage.getItem("currentUser"));
+
       const newMsg = {
-        username: user?.name,
+        //@ts-ignore
+        username: _user?.name,
         text:
           msg.content.title ===
-          "This conversation has expired now. Please contact your state admin to seek help with this."
+            "This conversation has expired now. Please contact your state admin to seek help with this."
             ? "यह फॉर्म समाप्त हो गया है !"
             : msg.content.title,
         choices: msg.content.choices,
         caption: msg.content.caption,
         position: "left",
-        id: user?.id,
-        botUuid: user?.id,
+        //@ts-ignore
+        id: _user?.id,
+        //@ts-ignore
+        botUuid: _user?.id,
         messageId: msg?.messageId,
-        sentTimestamp: new Date().toDateString(),
+        sentTimestamp: moment().valueOf(),
+        time: moment().valueOf(),
         ...media,
       };
+
       dispatch(appendMessage(newMsg));
     },
     [dispatch]
@@ -120,43 +131,43 @@ const App: FC = () => {
     (msg: any): void => {
       setIsMsgReceiving(false);
       logToAndroid(`socket: receiving bot response -${msg}`);
-      const user = JSON.parse(localStorage.getItem("currentUser"));
+      // const user = JSON.parse( localStorage.getItem("currentUser") ?? localStorage.getItem("currentUser"));
       if (msg.content.msg_type === "IMAGE") {
         updateMsgState({
-          user,
           msg,
           media: { imageUrl: msg?.content?.media_url },
         });
-        onMediaReceived(user?.id, msg.messageId);
+        //@ts-ignore
+        onMediaReceived(activeUser?.id, msg.messageId);
       } else if (msg.content.msg_type === "AUDIO") {
         updateMsgState({
-          user,
           msg,
           media: { audioUrl: msg?.content?.media_url },
         });
-        onMediaReceived(user?.id, msg.messageId);
+        //@ts-ignore
+        onMediaReceived(activeUser?.id, msg.messageId);
       } else if (msg.content.msg_type === "VIDEO") {
         updateMsgState({
-          user,
           msg,
           media: { videoUrl: msg?.content?.media_url },
         });
-        onMediaReceived(user?.id, msg.messageId);
+        //@ts-ignore
+        onMediaReceived(activeUser?.id, msg.messageId);
       } else if (
         msg.content.msg_type === "DOCUMENT" ||
         msg.content.msg_type === "FILE"
       ) {
         updateMsgState({
-          user,
           msg,
           media: { fileUrl: msg?.content?.media_url },
         });
-        onMediaReceived(user?.id, msg.messageId);
+        //@ts-ignore
+        onMediaReceived(activeUser?.id, msg.messageId);
       } else if (msg.content.msg_type === "TEXT") {
-        updateMsgState({ user, msg, media: {} });
+        updateMsgState({msg, media: {} });
       }
     },
-    [onMediaReceived, updateMsgState]
+    [onMediaReceived, updateMsgState, activeUser]
   );
 
   const onSessionCreated = useCallback((session: { session: any }): void => {
@@ -176,8 +187,8 @@ const App: FC = () => {
   // }, []);
 
 
- 
-  
+
+
   useEffect(() => {
     function onConnect(): void {
       logToAndroid(`socket: onConnectCallback`);
@@ -225,9 +236,9 @@ const App: FC = () => {
 
   const onChangeCurrentUser = useCallback(
     (newUser: User) => {
-      // localStorage.setItem('currentUser',JSON.stringify({ ...newUser, active: true }))
       dispatch(setActiveUser({ ...newUser, active: true }));
       localStorage.removeItem("userMsgs");
+      localStorage.setItem('currentUser', JSON.stringify(newUser))
     },
     [dispatch]
   );
@@ -251,8 +262,8 @@ const App: FC = () => {
             //@ts-ignore
             botUuid: active?.id,
             payload: { text },
-            // time: moment().valueOf(),
-            repliedTimestamp: new Date().toDateString(),
+            time: moment().valueOf(),
+            repliedTimestamp: moment().valueOf(),
             disabled: true,
           },
         ];

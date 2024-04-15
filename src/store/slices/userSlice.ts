@@ -62,14 +62,14 @@ export const userSlice = createSlice({
       state.all[index].useIcon = true;
       state.all[index].botImage = action.payload.image;
 
-      localStorage.setItem(
-        "currentUser",
-        JSON.stringify({
-          ...state.all[index],
-          useIcon: true,
-          botImage: action.payload.image,
-        })
-      );
+      // localStorage.setItem(
+      //   "currentUser",
+      //   JSON.stringify({
+      //     ...state.all[index],
+      //     useIcon: true,
+      //     botImage: action.payload.image,
+      //   })
+      // );
     },
   },
   extraReducers: (builder) => {

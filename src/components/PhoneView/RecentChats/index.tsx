@@ -8,13 +8,7 @@ import React, {
 import { Box, Flex } from "@chakra-ui/react";
 
 import { useHistory } from "react-router-dom";
-import {
-  capitalize,
-  concat,
-  find,
-  floor,
-  sortBy,
-} from "lodash";
+import { capitalize, concat, find, floor, sortBy } from "lodash";
 import toast from "react-hot-toast";
 import { useLocalStorage } from "../../../hooks/useLocalStorage";
 import { AppContext } from "../../../utils/app-context";
@@ -69,13 +63,14 @@ const RecentChats: React.FC<recentChatsProps> = ({ allUsers }) => {
 
   useEffect(() => {
     try {
-      if (botToFocus) {
-        const bot = find(allUsers, { id: botToFocus });
+      if (botToFocus && allUsers.length > 0) {
+        const bot = find(allUsers, { id: localStorage.getItem("botToFocus") });
         if (bot) {
-          localStorage.removeItem("botToFocus");
-          logToAndroid(`removing botToFocus:${botToFocus}`);
+          //  localStorage.setItem("currentUser", JSON.stringify(bot));
 
+          logToAndroid(`removing botToFocus:${botToFocus}`);
           context?.toChangeCurrentUser(bot);
+          localStorage.removeItem("botToFocus");
           setTimeout(() => {
             history.push(`/chats/${bot?.id}`);
           }, 100);
@@ -179,19 +174,20 @@ const RecentChats: React.FC<recentChatsProps> = ({ allUsers }) => {
     );
   }, []);
   return (
-    <Flex flexDirection="column" height="100vh" >
+    <Flex flexDirection="column" height="100vh">
       <FullScreenLoader loading={context?.loading} />
 
       <div className={_styles.topBar} onClick={onSeachbarClicked}>
-        <FaArrowLeft onClick={(): void => {
-              try {
-                triggerEventInAndroid("onDestroyScreen");
-              } catch (err) {
-                logToAndroid(
-                  `error in destroying screen:${JSON.stringify(err)}`
-                );
-              }
-            }} className={_styles.backIcon} />
+        <FaArrowLeft
+          onClick={(): void => {
+            try {
+              triggerEventInAndroid("onDestroyScreen");
+            } catch (err) {
+              logToAndroid(`error in destroying screen:${JSON.stringify(err)}`);
+            }
+          }}
+          className={_styles.backIcon}
+        />
         <Search onChange={onSearchChange} />
       </div>
 

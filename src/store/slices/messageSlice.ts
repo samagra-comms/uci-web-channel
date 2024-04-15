@@ -6,6 +6,8 @@ import { toast } from "react-hot-toast";
 import { normalizedChat } from "../../utils/normalize-chats";
 import { getMsgType } from "../../utils/get-msg-type";
 import { logToAndroid } from "../../utils/android-events";
+import { cloneDeep, sortBy } from "lodash";
+import moment from "moment";
 
 // Define a type for the slice state
 interface UsersState {
@@ -43,8 +45,11 @@ export const messageSlice = createSlice({
     appendMessage: (state, action) => {
       //@ts-ignore
       const prev = [...(state.all[action.payload.botUuid] || [])];
-    
       prev.push(action.payload);
+      //@ts-ignore
+    const prevActive =[...state.active];
+     prevActive.push(action.payload);
+      state.active = prevActive;
       localStorage.setItem(
         "userMsgs",
         JSON.stringify(prev)
@@ -106,7 +111,7 @@ export const selectNormalisedMessages =
         },
       })) || []
     );
-  };
+  };  
 export const isMsgLoadingSelector = (state: RootState) =>
   state.messages.loading;
 

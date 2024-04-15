@@ -10,7 +10,7 @@ import React, {
   useState,
 } from "react";
 
-import { filter, find } from "lodash";
+import { filter, find, map, sortBy } from "lodash";
 import { toast } from "react-hot-toast";
 import { AppContext } from "../../../utils/app-context";
 import { RenderComp } from "./Comps";
@@ -34,6 +34,7 @@ import {
   logToAndroid,
   triggerEventInAndroid,
 } from "../../../utils/android-events";
+import { getMsgType } from "../../../utils/get-msg-type";
 
 const ChatUiWindow: FC = () => {
   const dispatch: AppDispatch = useDispatch();
@@ -53,7 +54,7 @@ const ChatUiWindow: FC = () => {
       setBotIcon(botImage);
     }
   }, [currentUser, currentUser?.botImage, setBotIcon]);
-
+  
   const chatUIMsg = useSelector(selectNormalisedMessages(currentUser, botIcon,imageBlob));
   const msgToRender = useMemo(() => {
     return context?.isMsgReceiving && chatUIMsg
@@ -121,11 +122,11 @@ const ChatUiWindow: FC = () => {
         if (
           find(context?.botStartingMsgs, { msg: val.trim() }) &&
           find(context?.botStartingMsgs, { msg: val.trim() })?.id !==
-            currentUser?.botUuid
+          currentUser?.botUuid
         ) {
           toast.error("action not allowed");
         } else {
-          context?.sendMessage(val, null, true, currentUser);
+          context?.sendMessage(val, null, true, JSON.parse(localStorage.getItem('currentUser')));
         }
       }
     },
@@ -145,6 +146,7 @@ const ChatUiWindow: FC = () => {
       <FullScreenLoader loading={loading} />
       <Chat
         disableSend={disableSend}
+        //@ts-ignore
         messages={msgToRender}
         renderMessageContent={(props): ReactElement => (
           <RenderComp

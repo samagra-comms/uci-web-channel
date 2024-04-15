@@ -8,7 +8,7 @@ export const send = (
 	socketOld: any,
 	media: any
 ): void => {
-	console.log({session,toUser})
+
 	if (toUser?.number === null || toUser?.number === 'null') {
 		socket?.emit('botRequest', {
 			content: {
@@ -30,13 +30,9 @@ export const send = (
 			content: {
 				text: msg,
 				userId: session.userID,
-				// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-				// @ts-ignore
-				// appId: JSON.parse(localStorage.getItem('currentUser'))?.id,
 				appId: toUser.id,
 				channel: 'NL App',
-				from: session.socketID,
-				//from: 'nlpwa:8767447416',
+				from: session.socketID,				
 				context: null,
 				accessToken
 			},
