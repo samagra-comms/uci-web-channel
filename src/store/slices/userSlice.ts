@@ -1,7 +1,7 @@
-import { createSlice } from "@reduxjs/toolkit";
-import type { RootState } from "../index";
-import { User } from "../../types";
-import { fetchUsers } from "../actions/fetchUsers";
+import { createSlice } from '@reduxjs/toolkit'
+import type { RootState } from '../index'
+import { User } from '../../types'
+import { fetchUsers } from '../actions/fetchUsers'
 import {
   cloneDeep,
   concat,
@@ -13,143 +13,145 @@ import {
   reverse,
   sortBy,
   without,
-} from "lodash";
-import { normalizeUsers } from "../../utils/normalize-user";
-import moment from "moment";
-import {
-  logToAndroid,
-  triggerEventInAndroid,
-} from "../../utils/android-events";
-import { getShouldFilterTheList } from "../../utils/util-functions";
+} from 'lodash'
+import { normalizeUsers } from '../../utils/normalize-user'
+import moment from 'moment'
+import { logToAndroid, triggerEventInAndroid } from '../../utils/android-events'
+import { getShouldFilterTheList } from '../../utils/util-functions'
 
 // Define a type for the slice state
 interface UsersState {
-  all: Array<User> | [];
-  active: User | {};
-  status: "idle" | "loading" | "succeeded" | "failed" | string;
-  error: null | string;
-  loading: boolean;
+  all: Array<User> | []
+  active: User | {}
+  status: 'idle' | 'loading' | 'succeeded' | 'failed' | string
+  error: null | string
+  loading: boolean
 }
 
 // Define the initial state using that type
 const initialState: UsersState = {
   all: [],
   active: {},
-  status: "idle",
+  status: 'idle',
   loading: true,
   error: null,
-};
+}
 
 export const userSlice = createSlice({
-  name: "users",
+  name: 'users',
   initialState,
   reducers: {
     setLoading: (state, action) => {
-      state.loading = action.payload;
+      state.loading = action.payload
     },
     setActiveUser: (state, action) => {
-      state.active = action.payload;
-      localStorage.setItem("currentUser", JSON.stringify(action.payload));
+      state.active = action.payload
+      localStorage.setItem('currentUser', JSON.stringify(action.payload))
     },
     setIsChatStarted: (state, action) => {
-      state.active = { ...state.active, isConvStarted: action.payload.value };
-      const index = findIndex(state.all, { id: action.payload.bot.id });
-      state.all[index].isConvStarted = action.payload.value;
-      return state;
+      state.active = { ...state.active, isConvStarted: action.payload.value }
+      const index = findIndex(state.all, { id: action.payload.bot.id })
+      state.all[index].isConvStarted = action.payload.value
+      return state
     },
     setBotImage: (state, action) => {
-      const index = findIndex(state.all, { id: action.payload.user.id });
-      state.all[index].useIcon = true;
-      state.all[index].botImage = action.payload.image;
+      const index = findIndex(state.all, { id: action.payload.user.id })
+      state.all[index].useIcon = true
+      state.all[index].botImage = action.payload.image
 
       localStorage.setItem(
-        "currentUser",
+        'currentUser',
         JSON.stringify({
           ...state.all[index],
           useIcon: true,
           botImage: action.payload.image,
         })
-      );
+      )
     },
   },
   extraReducers: (builder) => {
     builder
       .addCase(fetchUsers.pending, (state) => {
-        state.status = "loading";
-        state.loading = true;
+        state.status = 'loading'
+        state.loading = true
       })
       .addCase(fetchUsers.fulfilled, (state, action) => {
-        state.status = "succeeded";
-        state.loading = false;
-        const botIds = JSON.parse(localStorage.getItem("botList"));
-    
+        state.status = 'succeeded'
+        state.loading = false
+        const botIds = JSON.parse(localStorage.getItem('botList'))
+
         const botDetailsList = without(
           reverse(
             sortBy(
               action.payload?.map((bot: any, index: number) => {
-             
                 if (
-               // true
+                  // true
                   bot?.logicIDs?.[0]?.transformers?.[0]?.meta?.type !==
-                    "broadcast" &&
-                 ( bot?.status === "ENABLED") &&
-                  includes(botIds, bot?.id)
+                    'broadcast' &&
+                  bot?.status === 'ENABLED' &&
+                  includes(botIds, bot?.id) &&
+                  new Date(bot?.startDate) <= new Date()
                 ) {
-           
                   if (index === 0)
                     return normalizeUsers({
                       ...bot,
                       botUuid: bot?.id,
                       active: true,
                       createTime: moment(bot?.createdAt).valueOf(),
-                    });
+                    })
                   return normalizeUsers({
                     ...bot,
                     active: false,
                     botUuid: bot?.id,
                     createTime: moment(bot?.createdAt).valueOf(),
-                  });
+                  })
                 }
-                return null;
+                return null
               }),
-              ["createTime"]
+              ['createTime']
             )
           ),
           null
-        );
-   
-        const pinnedBots = filter(botDetailsList,{isPinned:true ,isExpired: false}) 
-        const activeBots = filter(botDetailsList, { isExpired: false ,isPinned:false});
-        const expiredBots = filter(botDetailsList, { isExpired: true });
-    
+        )
+
+        const pinnedBots = filter(botDetailsList, {
+          isPinned: true,
+          isExpired: false,
+        })
+        const activeBots = filter(botDetailsList, {
+          isExpired: false,
+          isPinned: false,
+        })
+        const expiredBots = filter(botDetailsList, { isExpired: true })
+
         //const botList = merge(pinnedBots,activeBots) ;
-        const botList = [...pinnedBots,...activeBots] ;
-        logToAndroid(`botDetailsList:${JSON.stringify(botDetailsList)}`);
+        const botList = [...pinnedBots, ...activeBots]
+        logToAndroid(`botDetailsList:${JSON.stringify(botDetailsList)}`)
 
-        state.all = botList;
+        state.all = botList
 
-        if (localStorage.getItem("currentUser")) {
-          state.active = JSON.parse(localStorage.getItem("currentUser"));
+        if (localStorage.getItem('currentUser')) {
+          state.active = JSON.parse(localStorage.getItem('currentUser'))
         } else {
-          state.active = botList?.[0];
+          state.active = botList?.[0]
         }
 
-        return state;
+        return state
       })
       .addCase(fetchUsers.rejected, (state, action) => {
-        state.status = "failed";
-        state.loading = false;
-        state.error = action.error.message;
-      });
+        state.status = 'failed'
+        state.loading = false
+        state.error = action.error.message
+      })
   },
-});
+})
 
 export const { setLoading, setActiveUser, setBotImage, setIsChatStarted } =
-  userSlice.actions;
+  userSlice.actions
 
 // Other code such as selectors can use the imported `RootState` type
-export const selectUser = (state: RootState) => state.users;
-export const selectActiveUser = (state: RootState) => state.users.active;
-export const isLoadingSelector = (state: RootState) => state.users.loading;
+export const selectUser = (state: RootState) => state.users
+export const selectActiveUser = (state: RootState) => state.users.active
+export const isLoadingSelector = (state: RootState) => state.users.loading
 
-export default userSlice.reducer;
+export default userSlice.reducer
